@@ -1,5 +1,6 @@
 <?php
 
+use App\Customer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +13,9 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    $customers = Customer::all();
+    return view('index')->with(['customers' => $customers]);
 });
+
+Route::resource('customer','CustomerController');
+
