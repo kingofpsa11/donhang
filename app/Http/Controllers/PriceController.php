@@ -55,6 +55,21 @@ class PriceController extends Controller
      * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
+    public function shows(Request $request)
+    {
+        $term = $request->q;
+        $prices = Price::with(['product' => function ($query)  use($term){
+            $query->where('name', 'like', $term);
+        }])->take(10)->get();
+        return $prices;
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Price  $price
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Price $price)
     {
         //

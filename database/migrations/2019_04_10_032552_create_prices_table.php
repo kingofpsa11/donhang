@@ -17,10 +17,10 @@ class CreatePricesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->unsignedBigInteger('purchase_price');
-            $table->unsignedBigInteger('selling_price');
+            $table->unsignedBigInteger('purchase_price')->nullable();
+            $table->unsignedBigInteger('selling_price')->nullable();
             $table->integer('status');
-            $table->date('effective_date');
+            $table->date('effective_date')->nullable();
             $table->timestamps();
         });
     }

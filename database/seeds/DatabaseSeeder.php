@@ -37,5 +37,44 @@ class DatabaseSeeder extends Seeder
                 'short_name' => 'XNVH'
             ]
         ]);
+
+        DB::table('categories')->insert([
+            [
+                'name' => 'Cột thép <12m',
+            ],
+            [
+                'name' => 'Cột cao (đến 17m, 2 đoạn)',
+            ],
+            [
+                'name' => 'Cột THGT có tay vươn',
+            ],
+            [
+                'name' => 'Cần đèn, lọng',
+            ],
+            [
+                'name' => 'Cột monopole, thân nâng hạ',
+            ],
+            [
+                'name' => 'Tay lắp đèn cầu trên cột',
+            ],
+            [
+                'name' => 'Cột trên đế gang',
+            ],
+            [
+                'name' => 'Cột sử dụng các đoạn ống mua sẵn',
+            ],
+            [
+                'name' => 'Đèn đường phố',
+            ],
+            [
+                'name' => 'Đèn sân vườn',
+            ],
+            [
+                'name' => 'Đèn pha',
+            ],
+            [
+                'name' => 'Đèn Led',
+            ]
+        ]);
     }
 }

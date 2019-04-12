@@ -12,10 +12,23 @@ use App\Customer;
 |
 */
 
-Route::get('/', function () {
-    $customers = Customer::all();
-    return view('index')->with(['customers' => $customers]);
+Route::get('/index', function () {
+//    $customers = Customer::all();
+//    return view('index')->with(['customers' => $customers]);
+    return 'index';
+});
+
+
+Route::get('/home', function () {
+    return view('home');
 });
 
 Route::resource('customer','CustomerController');
+Route::resource('contract','ContractController');
 
+Route::get('price/search', 'PriceController@shows')->name('prices.shows');
+Route::resource('price', 'PriceController');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');

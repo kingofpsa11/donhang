@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contract;
+use App\ContractDetail;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -35,7 +36,21 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contract = new Contract();
+        $contract->customer_id = $request->contract['customer_id'];
+        $contract->number = $request->contract['number'];
+
+        if ($contract->save()) {
+            $contract_details = [];
+            foreach ($request->contract_detail as $value) {
+                $contract_detail = new ContractDetail();
+//                $contract_detail->price_id = $value->price_id;
+                $contract_detail->quantity = $value['quantity'];
+                array_push($contract_details, $contract_detail);
+            }
+//            return $products;
+            $contract->contact_details()->saveMany($contract_details);
+        }
     }
 
     /**
