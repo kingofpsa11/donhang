@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Price;
+use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PriceController extends Controller
 {
@@ -46,7 +48,7 @@ class PriceController extends Controller
      */
     public function show(Price $price)
     {
-        //
+
     }
 
     /**
@@ -57,11 +59,22 @@ class PriceController extends Controller
      */
     public function shows(Request $request)
     {
-        $term = $request->q;
-        $prices = Price::with(['product' => function ($query)  use($term){
-            $query->where('name', 'like', $term);
-        }])->take(10)->get();
-        return $prices;
+        $term = $request->term;
+
+        $result = [];
+
+//        $prices = Price::with(['product' => function ($query)  use($term){
+//            $query->where('name', 'like', '%' . $term . '%');
+//        }])->take(10)->get();
+
+        $result = DB::table('prices')
+            ->join('products', 'prices.product_id', '=', 'products.id')
+            ->select('prices.id', 'products.name', 'prices.selling_price')
+            ->where('products.name', 'LIKE', '%' . $term . '%')
+            ->take(10)
+            ->get();
+
+        return response()->json($result);
     }
 
     /**
