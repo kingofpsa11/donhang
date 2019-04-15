@@ -50,7 +50,7 @@ return $.effects.effect.scale = function( o, done ) {
 	options.queue = false;
 	options.complete = done;
 
-	// Set default origin and restore for show/hide
+	// Set default origin and restore for show.blade.php/hide
 	if ( mode !== "effect" ) {
 		options.origin = origin || [ "middle", "center" ];
 		options.restore = true;

@@ -2027,7 +2027,7 @@ exports.list = function(failures){
       msg = 'Uncaught ' + msg;
     }
 
-    // explicitly show diff
+    // explicitly show.blade.php diff
     if (err.showDiff && sameType(actual, expected)) {
       escape = false;
       err.actual = actual = stringify(canonicalize(actual));
@@ -3204,7 +3204,7 @@ function Landing(runner) {
       ? width * ++n / total | 0
       : crashed;
 
-    // show the crash
+    // show.blade.php the crash
     if ('failed' == test.state) {
       plane = color('plane crash', '✈');
       crashed = col;

@@ -66,10 +66,10 @@ These are the customisation options specific to Line charts. These options are m
 	//Number - Width of the grid lines
 	scaleGridLineWidth : 1,
 
-	//Boolean - Whether to show horizontal lines (except X axis)
+	show.blade.php
 	scaleShowHorizontalLines: true,
 
-	//Boolean - Whether to show vertical lines (except Y axis)
+	show.blade.php
 	scaleShowVerticalLines: true,
 
 	//Boolean - Whether the line is curved between points
@@ -78,7 +78,7 @@ These are the customisation options specific to Line charts. These options are m
 	//Number - Tension of the bezier curve between points
 	bezierCurveTension : 0.4,
 
-	//Boolean - Whether to show a dot for each point
+	show.blade.php
 	pointDot : true,
 
 	//Number - Radius of each point dot in pixels
@@ -90,7 +90,7 @@ These are the customisation options specific to Line charts. These options are m
 	//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
 	pointHitDetectionRadius : 20,
 
-	//Boolean - Whether to show a stroke for datasets
+	show.blade.php
 	datasetStroke : true,
 
 	//Number - Pixel width of dataset stroke

@@ -10,9 +10,9 @@ class Price extends Model
 
     public $timestamps = true;
 
-    public function contracts()
+    public function contract_details()
     {
-        return $this->hasMany('App\Contract');
+        return $this->hasMany('App\ContractDetail');
     }
 
     public function product()

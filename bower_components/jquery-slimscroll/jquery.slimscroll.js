@@ -258,7 +258,7 @@
           isOverBar = false;
         });
 
-        // show on parent mouseover
+        // show.blade.php on parent mouseover
         me.hover(function(){
           isOverPanel = true;
           showBar();
@@ -435,7 +435,7 @@
           }
           lastScroll = percentScroll;
 
-          // show only when required
+          // show.blade.php only when required
           if(barHeight >= me.outerHeight()) {
             //allow window scroll
             releaseScroll = true;

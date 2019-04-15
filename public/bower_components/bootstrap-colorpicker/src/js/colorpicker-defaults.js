@@ -3,7 +3,7 @@
  */
 var defaults = {
   horizontal: false, // horizontal mode layout ?
-  inline: false, //forces to show the colorpicker as an inline element
+  inline: false, //forces to show.blade.php the colorpicker as an inline element
   color: false, //forces a color
   format: false, //forces a format
   input: 'input', // children input selector

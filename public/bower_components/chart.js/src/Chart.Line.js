@@ -16,10 +16,10 @@
 		//Number - Width of the grid lines
 		scaleGridLineWidth : 1,
 
-		//Boolean - Whether to show horizontal lines (except X axis)
+		//Boolean - Whether to show.blade.php horizontal lines (except X axis)
 		scaleShowHorizontalLines: true,
 
-		//Boolean - Whether to show vertical lines (except Y axis)
+		//Boolean - Whether to show.blade.php vertical lines (except Y axis)
 		scaleShowVerticalLines: true,
 
 		//Boolean - Whether the line is curved between points
@@ -28,7 +28,7 @@
 		//Number - Tension of the bezier curve between points
 		bezierCurveTension : 0.4,
 
-		//Boolean - Whether to show a dot for each point
+		//Boolean - Whether to show.blade.php a dot for each point
 		pointDot : true,
 
 		//Number - Radius of each point dot in pixels
@@ -40,7 +40,7 @@
 		//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
 		pointHitDetectionRadius : 20,
 
-		//Boolean - Whether to show a stroke for datasets
+		//Boolean - Whether to show.blade.php a stroke for datasets
 		datasetStroke : true,
 
 		//Number - Pixel width of dataset stroke

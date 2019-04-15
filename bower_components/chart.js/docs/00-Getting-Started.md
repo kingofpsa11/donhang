@@ -79,7 +79,7 @@ Chart.defaults.global = {
 	// String - Animation easing effect
 	animationEasing: "easeOutQuart",
 
-	// Boolean - If we should show the scale at all
+	show.blade.php
 	showScale: true,
 
 	// Boolean - If we want to override with a hard coded scale
@@ -99,7 +99,7 @@ Chart.defaults.global = {
 	// Number - Pixel width of the scale line
 	scaleLineWidth: 1,
 
-	// Boolean - Whether to show labels on the scale
+	show.blade.php
 	scaleShowLabels: true,
 
 	// Interpolated JS string - can access value

@@ -3,7 +3,7 @@
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
 Licensed under the MIT license.
 
-Error bars are used to show standard deviation and other statistical
+Error bars are used to show.blade.php standard deviation and other statistical
 properties in a plot.
 
 * Created by Rui Pereira  -  rui (dot) pereira (at) gmail (dot) com
@@ -11,7 +11,7 @@ properties in a plot.
 This plugin allows you to plot error-bars over points. Set "errorbars" inside
 the points series to the axis name over which there will be error values in
 your data array (*even* if you do not intend to plot them later, by setting
-"show: null" on xerr/yerr).
+"show.blade.php: null" on xerr/yerr).
 
 The plugin supports these options:
 
@@ -19,7 +19,7 @@ The plugin supports these options:
 		points: {
 			errorbars: "x" or "y" or "xy",
 			xerr: {
-				show: null/false or true,
+				show.blade.php: null/false or true,
 				asymmetric: null/false or true,
 				upperCap: null or "-" or function,
 				lowerCap: null or "-" or function,

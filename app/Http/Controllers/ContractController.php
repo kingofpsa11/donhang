@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contract;
 use App\ContractDetail;
+use App\Customer;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -15,7 +16,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        //
+        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->take(1000)->get();
+        return view('contract.index')->with('contract_details', $contract_details);
     }
 
     /**
@@ -25,7 +27,8 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        return view('contract.create')->with(['customers' => $customers]);
     }
 
     /**
@@ -38,7 +41,7 @@ class ContractController extends Controller
     {
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
-        $contract->number = $request->contract['number'];
+        $contract->number = $this->getLastContract($contract->customer_id);
 
         if ($contract->save()) {
             $contract_details = [];
@@ -48,8 +51,9 @@ class ContractController extends Controller
                 $contract_detail->quantity = $value['quantity'];
                 array_push($contract_details, $contract_detail);
             }
-//            return $products;
-            $contract->contact_details()->saveMany($contract_details);
+                if($contract->contact_details()->saveMany($contract_details)) {
+                    return redirect()->route('contract.show', ['contract' => $contract]);
+                }
         }
     }
 
@@ -61,7 +65,8 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        //
+        $contract->load('contract_details');
+        return view('contract.show')->with('contract', $contract);
     }
 
     /**
@@ -72,7 +77,9 @@ class ContractController extends Controller
      */
     public function edit(Contract $contract)
     {
-        //
+        $customers = Customer::all();
+        $contract->load('contract_details');
+        return view('contract.edit')->with(['contract' => $contract, 'customers' => $customers]);
     }
 
     /**
@@ -84,7 +91,7 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        //
+
     }
 
     /**
@@ -96,5 +103,14 @@ class ContractController extends Controller
     public function destroy(Contract $contract)
     {
         //
+    }
+
+    public function  getLastContract($customer_id)
+    {
+        $lastContract = Contract::where('customer_id', $customer_id)->whereYear('date', '=', date('Y'))->orderBy('number', 'desc')->first();
+
+        $newContract = $lastContract->number + 1;
+
+        return $newContract;
     }
 }

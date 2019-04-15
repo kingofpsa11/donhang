@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "admin-lte": "^2.4.10",
-        "font-awesome": "^4.7.0"
+        "font-awesome": "^4.7.0",
+        "moment": "^2.24.0"
     }
 }

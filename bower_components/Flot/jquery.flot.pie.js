@@ -17,11 +17,11 @@ The plugin supports these options:
 
 	series: {
 		pie: {
-			show: true/false
+			show.blade.php: true/false
 			radius: 0-1 for percentage of fullsize, or a specified pixel length, or 'auto'
 			innerRadius: 0-1 for percentage of fullsize or a specified pixel length, for creating a donut effect
 			startAngle: 0-2 factor of PI used for starting angle (in radians) i.e 3/2 starts at the top, 0 and 2 have the same result
-			tilt: 0-1 for percentage to tilt the pie, where 1 is no tilt, and 0 is completely flat (nothing will show)
+			tilt: 0-1 for percentage to tilt the pie, where 1 is no tilt, and 0 is completely flat (nothing will show.blade.php)
 			offset: {
 				top: integer value to move the pie up or down
 				left: integer value to move the pie left or right, or 'auto'
@@ -31,7 +31,7 @@ The plugin supports these options:
 				width: integer pixel width of the stroke
 			},
 			label: {
-				show: true/false, or 'auto'
+				show.blade.php: true/false, or 'auto'
 				formatter:  a user-defined function that modifies the text/style of the label text
 				radius: 0-1 for percentage of fullsize, or a specified pixel length
 				background: {
@@ -87,7 +87,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				options.grid.show = false;
 
-				// set labels.show
+				// set labels.show.blade.php
 
 				if (options.series.pie.label.show == "auto") {
 					if (options.legend.show) {

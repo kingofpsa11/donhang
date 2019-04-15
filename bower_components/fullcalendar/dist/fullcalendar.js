@@ -3863,7 +3863,7 @@ var View = /** @class */ (function (_super) {
     // Computes what the title at the top of the calendar should be for this view
     View.prototype.computeTitle = function (dateProfile) {
         var unzonedRange;
-        // for views that span a large unit of time, show the proper interval, ignoring stray days before and after
+        // for views that span a large unit of time, show.blade.php the proper interval, ignoring stray days before and after
         if (/^(year|month)$/.test(dateProfile.currentRangeUnit)) {
             unzonedRange = dateProfile.currentUnzonedRange;
         }
@@ -9637,7 +9637,7 @@ Options:
   - left
   - right (the x coord of where the right edge should be. not a "CSS" right)
   - autoHide (boolean)
-  - show (callback)
+  - show.blade.php (callback)
   - hide (callback)
 */
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -11872,7 +11872,7 @@ var EventResizing = /** @class */ (function (_super) {
                     _this.segResizeStop(seg, ev);
                 }
                 if (resizeMutation) { // valid date to resize to?
-                    // no need to re-show original, will rerender all anyways. esp important if eventRenderWait
+                    // no need to re-show.blade.php original, will rerender all anyways. esp important if eventRenderWait
                     view.reportEventResize(eventInstance, resizeMutation, el, ev);
                 }
                 _this.dragListener = null;
@@ -12066,7 +12066,7 @@ var EventDragging = /** @class */ (function (_super) {
                     revertDuration: _this.opt('dragRevertDuration'),
                     zIndex: 2 // one above the .fc-view
                 });
-                mouseFollower.hide(); // don't show until we know this is a real drag
+                mouseFollower.hide(); // don't show.blade.php until we know this is a real drag
                 mouseFollower.start(ev);
             },
             dragStart: function (ev) {
@@ -12127,7 +12127,7 @@ var EventDragging = /** @class */ (function (_super) {
             },
             hitOut: function () {
                 view.unrenderDrag(seg); // unrender whatever was done in renderDrag
-                mouseFollower.show(); // show in case we are moving out of all hits
+                mouseFollower.show(); // show.blade.php in case we are moving out of all hits
                 eventDefMutation = null;
             },
             hitDone: function () {
@@ -12143,7 +12143,7 @@ var EventDragging = /** @class */ (function (_super) {
                     }
                     view.showEventsWithId(seg.footprint.eventDef.id);
                     if (eventDefMutation) {
-                        // no need to re-show original, will rerender all anyways. esp important if eventRenderWait
+                        // no need to re-show.blade.php original, will rerender all anyways. esp important if eventRenderWait
                         view.reportEventDrop(eventInstance, eventDefMutation, el, ev);
                     }
                 });
@@ -12563,7 +12563,7 @@ var AgendaView = /** @class */ (function (_super) {
         // set of fake row elements that must compensate when scroller has scrollbars
         var noScrollRowEls = this.el.find('.fc-row:not(.fc-scroller *)');
         // reset all dimensions back to the original state
-        this.timeGrid.bottomRuleEl.hide(); // .show() will be called later if this <hr> is necessary
+        this.timeGrid.bottomRuleEl.hide(); // .show.blade.php() will be called later if this <hr> is necessary
         this.scroller.clear(); // sets height to 'auto' and clears overflow
         util_1.uncompensateScroll(noScrollRowEls);
         // limit number of events in the all-day area
@@ -12591,7 +12591,7 @@ var AgendaView = /** @class */ (function (_super) {
             }
             // guarantees the same scrollbar widths
             this.scroller.lockOverflow(scrollbarWidths);
-            // if there's any space below the slats, show the horizontal rule.
+            // if there's any space below the slats, show.blade.php the horizontal rule.
             // this won't cause any new overflow, because lockOverflow already called.
             if (this.timeGrid.getTotalSlatHeight() < scrollerHeight) {
                 this.timeGrid.bottomRuleEl.show();

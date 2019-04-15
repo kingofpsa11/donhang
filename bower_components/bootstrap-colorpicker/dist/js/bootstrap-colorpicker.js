@@ -696,7 +696,7 @@
    */
   var defaults = {
     horizontal: false, // horizontal mode layout ?
-    inline: false, //forces to show the colorpicker as an inline element
+    inline: false, //forces to show.blade.php the colorpicker as an inline element
     color: false, //forces a color
     format: false, //forces a format
     input: 'input', // children input selector
@@ -937,7 +937,7 @@
     },
     show: function(e) {
       if (this.isDisabled()) {
-        // Don't show the widget if it's disabled (the input)
+        // Don't show.blade.php the widget if it's disabled (the input)
         return;
       }
       this.picker.addClass('colorpicker-visible').removeClass('colorpicker-hidden');

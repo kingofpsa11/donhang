@@ -8579,7 +8579,7 @@ jQuery.fn.extend({
 
 				if ( rfxtypes.test( val ) ) {
 
-					// Tracks whether to show or hide based on private
+					// Tracks whether to show.blade.php or hide based on private
 					// data attached to the element
 					method = jQuery._data( this, "toggle" + p ) || ( val === "toggle" ? hidden ? "show" : "hide" : 0 );
 					if ( method ) {
@@ -8835,7 +8835,7 @@ jQuery.fx.prototype = {
 		}
 	},
 
-	// Simple 'show' function
+	// Simple 'show.blade.php' function
 	show: function() {
 		var dataShow = jQuery._data( this.elem, "fxshow" + this.prop );
 
@@ -8846,7 +8846,7 @@ jQuery.fx.prototype = {
 		// Begin the animation
 		// Make sure that we start at a small width/height to avoid any flash of content
 		if ( dataShow !== undefined ) {
-			// This show is picking up where a previous hide or show left off
+			// This show.blade.php is picking up where a previous hide or show.blade.php left off
 			this.custom( this.cur(), dataShow );
 		} else {
 			this.custom( this.prop === "width" || this.prop === "height" ? 1 : 0, this.cur() );

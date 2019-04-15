@@ -64,7 +64,7 @@
 			// String - Animation easing effect
 			animationEasing: "easeOutQuart",
 
-			// Boolean - If we should show the scale at all
+			// Boolean - If we should show.blade.php the scale at all
 			showScale: true,
 
 			// Boolean - If we want to override with a hard coded scale
@@ -84,13 +84,13 @@
 			// Number - Pixel width of the scale line
 			scaleLineWidth: 1,
 
-			// Boolean - Whether to show labels on the scale
+			// Boolean - Whether to show.blade.php labels on the scale
 			scaleShowLabels: true,
 
 			// Interpolated JS string - can access value
 			scaleLabel: "<%=value%>",
 
-			// Boolean - Whether the scale should stick to integers, and not show any floats even if drawing space is there
+			// Boolean - Whether the scale should stick to integers, and not show.blade.php any floats even if drawing space is there
 			scaleIntegersOnly: true,
 
 			// Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
@@ -938,7 +938,7 @@
 				this.options.customTooltips(false);
 			}
 			if (ChartElements.length > 0){
-				// If we have multiple datasets, show a MultiTooltip for all of the data points at that index
+				// If we have multiple datasets, show.blade.php a MultiTooltip for all of the data points at that index
 				if (this.datasets && this.datasets.length > 1) {
 					var dataArray,
 						dataIndex;

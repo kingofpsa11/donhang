@@ -1152,7 +1152,7 @@ $.fn.extend({
 			effectMethod = $.effects.effect[ args.effect ];
 
 		if ( $.fx.off || !effectMethod ) {
-			// delegate to the original method (e.g., .show()) if possible
+			// delegate to the original method (e.g., .show.blade.php()) if possible
 			if ( mode ) {
 				return this[ mode ]( args.duration, args.complete );
 			} else {

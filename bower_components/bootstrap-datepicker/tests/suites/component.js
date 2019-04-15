@@ -219,7 +219,7 @@ test('date and viewDate must be between startDate and endDate when setEndDate ca
     equal(this.dp.dates.length, 0);
 });
 
-test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden', patch_show_hide(function () {
+test('picker should render fine when `$.fn.show.blade.php` and `$.fn.hide` are overridden', patch_show_hide(function () {
     var viewModes = $.fn.datepicker.DPGlobal.viewModes,
         minViewMode = this.dp.o.minViewMode,
         maxViewMode = this.dp.o.maxViewMode,

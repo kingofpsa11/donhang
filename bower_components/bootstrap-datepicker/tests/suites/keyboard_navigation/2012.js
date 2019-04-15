@@ -428,7 +428,7 @@ test('Selection + hide (enter)', function(){
     ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
 });
 
-test('Toggle hide/show (escape); navigation while hidden is suppressed', function(){
+test('Toggle hide/show.blade.php (escape); navigation while hidden is suppressed', function(){
     var target;
 
     equal(this.dp.viewMode, 0);

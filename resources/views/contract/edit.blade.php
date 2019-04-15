@@ -6,7 +6,7 @@
     <section class="content-header">
         <h1>
             Đơn hàng
-            <small>Tạo đơn hàng</small>
+            <small>Sửa đơn hàng</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục đơn hàng</a></li>
@@ -16,15 +16,16 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-        <form action="{{ route('contract.store') }}" method="POST">
+        <form action="{{ route('contract.update', $contract->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="box box-default">
                 <div class="box-header with-border">
                     <h3 class="box-title">Đơn hàng</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        {{--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>--}}
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -37,19 +38,23 @@
                                 <select class="form-control select2 customer" style="width: 100%;" name="contract[customer_id]">
                                     <option>--Lựa chọn đơn vị đặt hàng--</option>
                                     @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
+                                        <option value="{{ $customer->id }}" <?php echo ($customer->id === $contract->customer_id) ? 'selected' : ''?>>
+                                            {{ $customer->short_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <!-- /.col -->
-                        {{--<div class="col-md-3">--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label>Số đơn hàng</label>--}}
-                                {{--<input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Số đơn hàng</label>
+                                <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number }}">
+                            </div>
+                        </div>
                         <!-- /.col -->
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Ngày đặt hàng</label>
@@ -57,17 +62,20 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="">
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="<?php echo date_format(date_create($contract->date), "d/m/Y") ?>">
                                 </div>
                                 <!-- /.input group -->
                             </div>
                         </div>
+                        <!-- /.col -->
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" disabled>
+                                <input type="text" class="form-control" disabled value="<?php echo number_format($contract->total_value, 0, ',', '.') ?>">
                             </div>
                         </div>
+                        <!-- /.col -->
                     </div>
                     <!-- /.row -->
                 </div>
@@ -94,43 +102,50 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-key="0">
-                            <td class="col-md-1" data-col-seq="0">1</td>
-                            <td class="col-md-5" data-col-seq="1">
-                                <div class="form-group">
-                                    <select class="form-control select2 price" style="width: 100%;" name="contract_detail[0][product_id]">
-                                        {{--<option value="0" selected="selected">--Lựa chọn sản phẩm--</option>--}}
-                                    </select>
-                                </div>
-                            </td>
-                            <td class="col-md-1" data-col-seq="2">
-                                <div class="form-group">
-                                    <input type="number" class="form-control" name="contract_detail[0][quantity]">
-                                </div>
-                            </td>
-                            <td class="col-md-1" data-col-seq="3">
-                                <div class="form-group">
-                                    <input type="hidden" name="product[0][price_id]">
-                                    <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled>
-                                </div>
-                            </td>
-                            <td class="col-md-2" data-col-seq="4">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]">
+                        @php( $i = 0)
+                        @foreach ($contract->contract_details as $contract_detail)
+                            <tr data-key="{{ $i }}">
+                                <td class="col-md-1" data-col-seq="0">{{ $i + 1 }}</td>
+                                <td class="col-md-5" data-col-seq="1">
+                                    <div class="form-group">
+                                        <select class="form-control select2 price" style="width: 100%;" name="contract_detail[{{ $i }}][product_id]">
+                                            <option value="{{ $contract_detail->price_id }}">{{ $contract_detail->price->product->name }}</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="col-md-2" data-col-seq="5">
-                                <input type="text" class="form-control" name="contract_detail[0][note]">
-                            </td>
-                            <td data-col-seq="6">
-                                <button class="btn btn-primary addProduct"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="col-md-1" data-col-seq="2">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="contract_detail[0][quantity]" value="{{ $contract_detail->quantity }}">
+                                    </div>
+                                </td>
+                                <td class="col-md-1" data-col-seq="3">
+                                    <div class="form-group">
+                                        <input type="hidden" name="product[0][price_id]">
+                                        <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled value="<?php echo number_format($contract_detail->selling_price, 0, ',', '.') ?>">
+                                    </div>
+                                </td>
+                                <td class="col-md-2" data-col-seq="4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" value="<?php echo date_format(date_create($contract->date), "d/m/Y") ?>">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-md-2" data-col-seq="5">
+                                    <input type="text" class="form-control" name="contract_detail[0][note]" value="{{ $contract_detail->note }}">
+                                </td>
+                                <td data-col-seq="6">
+                                    @if (! next($contract->contract_details))
+                                        <button class="btn btn-primary addProduct"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    @else
+                                        <button class="btn btn-primary addProduct"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <div class="box-footer">

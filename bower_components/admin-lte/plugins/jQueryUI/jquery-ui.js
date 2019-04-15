@@ -3862,9 +3862,9 @@ function Datepicker() {
 		yearRange: "c-10:c+10", // Range of years to display in drop-down,
 			// either relative to today's year (-nn:+nn), relative to currently displayed year
 			// (c-nn:c+nn), absolute (nnnn:nnnn), or a combination of the above (nnnn:-n)
-		showOtherMonths: false, // True to show dates in other months, false to leave blank
+		showOtherMonths: false, // True to show.blade.php dates in other months, false to leave blank
 		selectOtherMonths: false, // True to allow selection of dates in other months, false for unselectable
-		showWeek: false, // True to show week of the year, false to not show it
+		showWeek: false, // True to show.blade.php week of the year, false to not show.blade.php it
 		calculateWeek: this.iso8601Week, // How to calculate the week of the year,
 			// takes a Date and returns the number of the week for it
 		shortYearCutoff: "+10", // Short year values < this are in the current century,
@@ -3881,14 +3881,14 @@ function Datepicker() {
 		onSelect: null, // Define a callback function when a date is selected
 		onChangeMonthYear: null, // Define a callback function when the month or year is changed
 		onClose: null, // Define a callback function when the datepicker is closed
-		numberOfMonths: 1, // Number of months to show at a time
-		showCurrentAtPos: 0, // The position in multipe months at which to show the current month (starting at 0)
+		numberOfMonths: 1, // Number of months to show.blade.php at a time
+		showCurrentAtPos: 0, // The position in multipe months at which to show.blade.php the current month (starting at 0)
 		stepMonths: 1, // Number of months to step back/forward
 		stepBigMonths: 12, // Number of months to step back/forward for the big links
 		altField: "", // Selector for an alternate field to store selected dates into
 		altFormat: "", // The date format to use for the alternate field
 		constrainInput: true, // The input is constrained by the current date format
-		showButtonPanel: false, // True to show button panel, false to not show it
+		showButtonPanel: false, // True to show.blade.php button panel, false to not show.blade.php it
 		autoSize: false, // True to size the input for the date format, false to leave as is
 		disabled: false // The initial disabled state
 	};
@@ -4061,7 +4061,7 @@ $.extend(Datepicker.prototype, {
 		if( inst.settings.disabled ) {
 			this._disableDatepicker( target );
 		}
-		// Set display:block in place of inst.dpDiv.show() which won't work on disconnected elements
+		// Set display:block in place of inst.dpDiv.show.blade.php() which won't work on disconnected elements
 		// http://bugs.jqueryui.com/ticket/7552 - A Datepicker created on a detached div has zero height
 		inst.dpDiv.css( "display", "block" );
 	},
@@ -4467,7 +4467,7 @@ $.extend(Datepicker.prototype, {
 	},
 
 	/* Pop-up the date picker for a given input field.
-	 * If false returned from beforeShow event handler do not show.
+	 * If false returned from beforeShow event handler do not show.blade.php.
 	 * @param  input  element - the input field attached to the date picker or
 	 *					event - if triggered by focus
 	 */
@@ -5662,7 +5662,7 @@ $.extend(Datepicker.prototype, {
 		}
 	},
 
-	/* Determine the number of months to show. */
+	/* Determine the number of months to show.blade.php. */
 	_getNumberOfMonths: function(inst) {
 		var numMonths = this._get(inst, "numberOfMonths");
 		return (numMonths == null ? [1, 1] : (typeof numMonths === "number" ? [1, numMonths] : numMonths));
@@ -8701,7 +8701,7 @@ var dialog = $.widget( "ui.dialog", {
 	},
 
 	_position: function() {
-		// Need to show the dialog to get the actual offset in the position plugin
+		// Need to show.blade.php the dialog to get the actual offset in the position plugin
 		var isVisible = this.uiDialog.is( ":visible" );
 		if ( !isVisible ) {
 			this.uiDialog.show();
@@ -10488,7 +10488,7 @@ $.fn.extend({
 			effectMethod = $.effects.effect[ args.effect ];
 
 		if ( $.fx.off || !effectMethod ) {
-			// delegate to the original method (e.g., .show()) if possible
+			// delegate to the original method (e.g., .show.blade.php()) if possible
 			if ( mode ) {
 				return this[ mode ]( args.duration, args.complete );
 			} else {
@@ -10968,7 +10968,7 @@ var effectExplode = $.effects.effect.explode = function( o, done ) {
 		mode = $.effects.setMode( el, o.mode || "hide" ),
 		show = mode === "show",
 
-		// show and then visibility:hidden the element before calculating offset
+		// show.blade.php and then visibility:hidden the element before calculating offset
 		offset = el.show().css( "visibility", "hidden" ).offset(),
 
 		// width and height of a piece
@@ -11447,7 +11447,7 @@ var effectScale = $.effects.effect.scale = function( o, done ) {
 	options.queue = false;
 	options.complete = done;
 
-	// Set default origin and restore for show/hide
+	// Set default origin and restore for show.blade.php/hide
 	if ( mode !== "effect" ) {
 		options.origin = origin || [ "middle", "center" ];
 		options.restore = true;
@@ -15882,7 +15882,7 @@ var tabs = $.widget( "ui.tabs", {
 		this._toggle( event, eventData );
 	},
 
-	// handles show/hide for selecting tabs
+	// handles show.blade.php/hide for selecting tabs
 	_toggle: function( event, eventData ) {
 		var that = this,
 			toShow = eventData.newPanel,
@@ -16304,7 +16304,7 @@ var tooltip = $.widget( "ui.tooltip", {
 				// but always pointing at the same event target
 				.closest( this.options.items );
 
-		// No element to show a tooltip for or the tooltip is already open
+		// No element to show.blade.php a tooltip for or the tooltip is already open
 		if ( !target.length || target.data( "ui-tooltip-id" ) ) {
 			return;
 		}
@@ -16500,7 +16500,7 @@ var tooltip = $.widget( "ui.tooltip", {
 		if ( !tooltipData ) {
 
 			// We set ui-tooltip-open immediately upon open (in open()), but only set the
-			// additional data once there's actually content to show (in _open()). So even if the
+			// additional data once there's actually content to show.blade.php (in _open()). So even if the
 			// tooltip doesn't have full data, we always remove ui-tooltip-open in case we're in
 			// the period between open() and _open().
 			target.removeData( "ui-tooltip-open" );

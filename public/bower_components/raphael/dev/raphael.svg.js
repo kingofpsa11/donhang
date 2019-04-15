@@ -881,7 +881,7 @@ define(["./raphael.core"], function(R) {
      * Element.hide
      [ method ]
      **
-     * Makes element invisible. See @Element.show.
+     * Makes element invisible. See @Element.show.blade.php.
      = (object) @Element
     \*/
     elproto.hide = function () {
@@ -889,7 +889,7 @@ define(["./raphael.core"], function(R) {
         return this;
     };
     /*\
-     * Element.show
+     * Element.show.blade.php
      [ method ]
      **
      * Makes element visible. See @Element.hide.

@@ -219,7 +219,7 @@ var wysihtml5 = {
                     obj[i] = p;
                 }
             }
-            // Special case for toString, which does not show up in for...in loops in IE <= 8
+            // Special case for toString, which does not show.blade.php up in for...in loops in IE <= 8
             if (props.hasOwnProperty("toString")) {
                 obj.toString = props.toString;
             }
@@ -13433,7 +13433,7 @@ wysihtml5.views.View = Base.extend(
 ;/**
  * Toolbar Dialog
  *
- * @param {Element} link The toolbar link which causes the dialog to show up
+ * @param {Element} link The toolbar link which causes the dialog to show.blade.php up
  * @param {Element} container The dialog container
  *
  * @example
@@ -13821,7 +13821,7 @@ wysihtml5.views.View = Base.extend(
         dialog.on("show", function() {
           caretBookmark = that.composer.selection.getBookmark();
 
-          that.editor.fire("show:dialog", { command: command, dialogContainer: dialogElement, commandLink: link });
+          that.editor.fire("show.blade.php:dialog", { command: command, dialogContainer: dialogElement, commandLink: link });
         });
 
         dialog.on("save", function(attributes) {

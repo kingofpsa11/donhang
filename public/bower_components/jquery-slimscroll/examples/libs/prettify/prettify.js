@@ -1023,7 +1023,7 @@ var REGEXP_PRECEDER_PATTERN = '(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&|&&|&
       walk(listItems[i]);
     }
   
-    // Make sure numeric indices show correctly.
+    // Make sure numeric indices show.blade.php correctly.
     if (opt_startLineNum === (opt_startLineNum|0)) {
       listItems[0].setAttribute('value', opt_startLineNum);
     }

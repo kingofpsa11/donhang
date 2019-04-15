@@ -13,8 +13,8 @@ describe "Morris.Hover", ->
       @element.should.be.hidden
       @element.should.be.empty
 
-    describe "#show", ->
-      it "should show the popup", ->
+    describe "#show.blade.php", ->
+      it "should show.blade.php the popup", ->
         @hover.show()
         @element.should.be.visible
 
@@ -54,7 +54,7 @@ describe "Morris.Hover", ->
         @element.should.have.css('top', '40px')
 
   describe "#update", ->
-    it "should update content, show and reposition the popup", ->
+    it "should update content, show.blade.php and reposition the popup", ->
       hover = new Morris.Hover(parent: $('#test'))
       html = "<div style='width:84px;height:84px'>Hello, Everyone!</div>"
       hover.update(html, 150, 200)

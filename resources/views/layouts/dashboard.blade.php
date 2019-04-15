@@ -10,11 +10,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>@yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-    {{--<link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">--}}
-    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+    {{--<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rr-1.2.4/datatables.min.css"/>
+    <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,6 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+        .bigdrop{
+            width: 1000px!important;
+        }
+    </style>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -47,16 +53,16 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini fixed" >
 <div class="wrapper">
 
     <!-- Main Header -->
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{{ route('contract.index') }}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini"><b>ĐH</b></span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>Đơn hàng</b></span>
         </a>
@@ -274,7 +280,7 @@ desired effect
                 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href=""><i class="fa fa-circle-o"></i> Đơn hàng</a></li>
+                        <li><a href="{{ route('contract.create') }}"><i class="fa fa-circle-o"></i> Đơn hàng</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Lệnh xuất hàng</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>
@@ -378,17 +384,21 @@ desired effect
     immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-<script src="js/app.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <!-- jQuery 3 -->
 {{--<script src="bower_components/jquery/dist/jquery.min.js"></script>--}}
 <!-- Bootstrap 3.3.7 -->
 {{--<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--}}
-<script src="bower_components/select2/dist/js/select2.full.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-{{--<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>--}}
+<script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+{{--<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>--}}
+{{--<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>--}}
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+
 @yield('javascript')
 
 </body>

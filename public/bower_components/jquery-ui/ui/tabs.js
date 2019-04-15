@@ -611,7 +611,7 @@ return $.widget( "ui.tabs", {
 		this._toggle( event, eventData );
 	},
 
-	// handles show/hide for selecting tabs
+	// handles show.blade.php/hide for selecting tabs
 	_toggle: function( event, eventData ) {
 		var that = this,
 			toShow = eventData.newPanel,

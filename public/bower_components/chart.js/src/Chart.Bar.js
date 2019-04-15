@@ -19,10 +19,10 @@
 		//Number - Width of the grid lines
 		scaleGridLineWidth : 1,
 
-		//Boolean - Whether to show horizontal lines (except X axis)
+		//Boolean - Whether to show.blade.php horizontal lines (except X axis)
 		scaleShowHorizontalLines: true,
 
-		//Boolean - Whether to show vertical lines (except Y axis)
+		//Boolean - Whether to show.blade.php vertical lines (except Y axis)
 		scaleShowVerticalLines: true,
 
 		//Boolean - If there is a stroke on each bar

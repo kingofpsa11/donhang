@@ -7,7 +7,7 @@ describe 'Morris.Grid#autoGridLines', ->
     @subject(0, 4, 5).should.deep.equal [0, 1, 2, 3, 4]
     @subject(0, 400, 5).should.deep.equal [0, 100, 200, 300, 400]
 
-  it 'should pick intervals that show significant numbers', ->
+  it 'should pick intervals that show.blade.php significant numbers', ->
     @subject(102, 499, 5).should.deep.equal [100, 200, 300, 400, 500]
 
   it 'should draw zero when it falls within [ymin..ymax]', ->

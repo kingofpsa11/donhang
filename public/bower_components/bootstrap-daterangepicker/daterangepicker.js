@@ -389,7 +389,7 @@
         }
 
         if ((typeof options.ranges === 'undefined' && !this.singleDatePicker) || this.alwaysShowCalendars) {
-            this.container.addClass('show-calendar');
+            this.container.addClass('show.blade.php-calendar');
         }
 
         this.container.addClass('opens' + this.opens);
@@ -1175,13 +1175,13 @@
         },
 
         showCalendars: function() {
-            this.container.addClass('show-calendar');
+            this.container.addClass('show.blade.php-calendar');
             this.move();
             this.element.trigger('showCalendar.daterangepicker', this);
         },
 
         hideCalendars: function() {
-            this.container.removeClass('show-calendar');
+            this.container.removeClass('show.blade.php-calendar');
             this.element.trigger('hideCalendar.daterangepicker', this);
         },
 

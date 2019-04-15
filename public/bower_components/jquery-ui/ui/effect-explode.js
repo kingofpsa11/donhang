@@ -31,7 +31,7 @@ return $.effects.effect.explode = function( o, done ) {
 		mode = $.effects.setMode( el, o.mode || "hide" ),
 		show = mode === "show",
 
-		// show and then visibility:hidden the element before calculating offset
+		// show.blade.php and then visibility:hidden the element before calculating offset
 		offset = el.show().css( "visibility", "hidden" ).offset(),
 
 		// width and height of a piece

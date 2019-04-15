@@ -178,7 +178,7 @@ Colorpicker.prototype = {
   },
   show: function(e) {
     if (this.isDisabled()) {
-      // Don't show the widget if it's disabled (the input)
+      // Don't show.blade.php the widget if it's disabled (the input)
       return;
     }
     this.picker.addClass('colorpicker-visible').removeClass('colorpicker-hidden');

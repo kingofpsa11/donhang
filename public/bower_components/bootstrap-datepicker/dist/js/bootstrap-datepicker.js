@@ -1389,7 +1389,7 @@
 
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
-				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
+				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show.blade.php picker
 					this.show();
 					e.stopPropagation();
         }
@@ -2024,7 +2024,7 @@
 			if ($this.data('datepicker'))
 				return;
 			e.preventDefault();
-			// component click requires us to explicitly show it
+			// component click requires us to explicitly show.blade.php it
 			datepickerPlugin.call($this, 'show');
 		}
 	);

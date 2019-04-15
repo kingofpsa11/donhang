@@ -628,7 +628,7 @@ return $.widget( "ui.dialog", {
 	},
 
 	_position: function() {
-		// Need to show the dialog to get the actual offset in the position plugin
+		// Need to show.blade.php the dialog to get the actual offset in the position plugin
 		var isVisible = this.uiDialog.is( ":visible" );
 		if ( !isVisible ) {
 			this.uiDialog.show();

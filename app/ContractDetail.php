@@ -10,12 +10,19 @@ class ContractDetail extends Model
 
     public $timestamps = true;
 
+    protected $attributes = [
+        'status' => 10
+    ];
+
     public function contract()
     {
         return $this->belongsTo('App\Contract');
     }
 
-    protected $attributes = [
-        'status' => 10
-    ];
+    public function price()
+    {
+        return $this->belongsTo('App\Price');
+    }
+
+
 }

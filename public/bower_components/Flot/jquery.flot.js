@@ -536,8 +536,8 @@ Licensed under the MIT license.
                     tickColor: null, // possibly different color of ticks, e.g. "rgba(0,0,0,0.15)"
                     transform: null, // null or f: number -> number to transform axis
                     inverseTransform: null, // if transform is set, this should be the inverse function
-                    min: null, // min. value to show, null means set automatically
-                    max: null, // max. value to show, null means set automatically
+                    min: null, // min. value to show.blade.php, null means set automatically
+                    max: null, // max. value to show.blade.php, null means set automatically
                     autoscaleMargin: null, // margin in % to add if auto-setting min/max
                     ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn: axis info -> ticks) or app. number of ticks for auto-ticks
                     tickFormatter: null, // fn: number -> string
@@ -566,7 +566,7 @@ Licensed under the MIT license.
                         symbol: "circle" // or callback
                     },
                     lines: {
-                        // we don't put in show: false so we can see
+                        // we don't put in show.blade.php: false so we can see
                         // whether lines were actively disabled
                         lineWidth: 2, // in pixels
                         fill: false,
@@ -2188,7 +2188,7 @@ Licensed under the MIT license.
                     font = axis.options.font || "flot-tick-label tickLabel",
                     tick, x, y, halign, valign;
 
-                // Remove text before checking for axis.show and ticks.length;
+                // Remove text before checking for axis.show.blade.php and ticks.length;
                 // otherwise plugins, like flot-tickrotor, that draw their own
                 // tick labels will end up with both theirs and the defaults.
 

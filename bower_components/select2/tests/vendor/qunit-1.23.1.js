@@ -1267,7 +1267,7 @@ function saveGlobal() {
 		for ( var key in global ) {
 			if ( hasOwn.call( global, key ) ) {
 
-				// In Opera sometimes DOM element ids show up here, ignore them
+				// In Opera sometimes DOM element ids show.blade.php up here, ignore them
 				if ( /^qunit-test-output/.test( key ) ) {
 					continue;
 				}
@@ -2295,7 +2295,7 @@ QUnit.config.urlConfig.push(
 	{
 		id: "hidepassed",
 		label: "Hide passed tests",
-		tooltip: "Only show tests and assertions that fail. Stored as query-strings."
+		tooltip: "Only show.blade.php tests and assertions that fail. Stored as query-strings."
 	},
 	{
 		id: "noglobals",
@@ -2935,7 +2935,7 @@ QUnit.done( function( details ) {
 		}
 	}
 
-	// Scroll back to top to show results
+	// Scroll back to top to show.blade.php results
 	if ( config.scrolltop && window.scrollTo ) {
 		window.scrollTo( 0, 0 );
 	}
@@ -2999,7 +2999,7 @@ QUnit.log( function( details ) {
 	message += "<span class='runtime'>@ " + details.runtime + " ms</span>";
 
 	// The pushFailure doesn't provide details.expected
-	// when it calls, it's implicit to also not show expected and diff stuff
+	// when it calls, it's implicit to also not show.blade.php expected and diff stuff
 	// Also, we need to check details.expected existence, as it can exist and be undefined
 	if ( !details.result && hasOwn.call( details, "expected" ) ) {
 		if ( details.negative ) {
@@ -3018,7 +3018,7 @@ QUnit.log( function( details ) {
 			message += "<tr class='test-actual'><th>Result: </th><td><pre>" +
 				escapeText( actual ) + "</pre></td></tr>";
 
-			// Don't show diff if actual or expected are booleans
+			// Don't show.blade.php diff if actual or expected are booleans
 			if ( !( /^(true|false)$/.test( actual ) ) &&
 					!( /^(true|false)$/.test( expected ) ) ) {
 				diff = QUnit.diff( expected, actual );
@@ -3027,7 +3027,7 @@ QUnit.log( function( details ) {
 					stripHtml( actual ).length;
 			}
 
-			// Don't show diff if expected and actual are totally different
+			// Don't show.blade.php diff if expected and actual are totally different
 			if ( showDiff ) {
 				message += "<tr class='test-diff'><th>Diff: </th><td><pre>" +
 					diff + "</pre></td></tr>";

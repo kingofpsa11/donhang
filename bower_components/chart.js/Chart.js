@@ -64,7 +64,7 @@
 			// String - Animation easing effect
 			animationEasing: "easeOutQuart",
 
-			// Boolean - If we should show the scale at all
+			// Boolean - If we should show.blade.php the scale at all
 			showScale: true,
 
 			// Boolean - If we want to override with a hard coded scale
@@ -84,13 +84,13 @@
 			// Number - Pixel width of the scale line
 			scaleLineWidth: 1,
 
-			// Boolean - Whether to show labels on the scale
+			// Boolean - Whether to show.blade.php labels on the scale
 			scaleShowLabels: true,
 
 			// Interpolated JS string - can access value
 			scaleLabel: "<%=value%>",
 
-			// Boolean - Whether the scale should stick to integers, and not show any floats even if drawing space is there
+			// Boolean - Whether the scale should stick to integers, and not show.blade.php any floats even if drawing space is there
 			scaleIntegersOnly: true,
 
 			// Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
@@ -938,7 +938,7 @@
 				this.options.customTooltips(false);
 			}
 			if (ChartElements.length > 0){
-				// If we have multiple datasets, show a MultiTooltip for all of the data points at that index
+				// If we have multiple datasets, show.blade.php a MultiTooltip for all of the data points at that index
 				if (this.datasets && this.datasets.length > 1) {
 					var dataArray,
 						dataIndex;
@@ -2041,10 +2041,10 @@
 		//Number - Width of the grid lines
 		scaleGridLineWidth : 1,
 
-		//Boolean - Whether to show horizontal lines (except X axis)
+		//Boolean - Whether to show.blade.php horizontal lines (except X axis)
 		scaleShowHorizontalLines: true,
 
-		//Boolean - Whether to show vertical lines (except Y axis)
+		//Boolean - Whether to show.blade.php vertical lines (except Y axis)
 		scaleShowVerticalLines: true,
 
 		//Boolean - If there is a stroke on each bar
@@ -2332,7 +2332,7 @@
 		helpers = Chart.helpers;
 
 	var defaultConfig = {
-		//Boolean - Whether we should show a stroke on each segment
+		//Boolean - Whether we should show.blade.php a stroke on each segment
 		segmentShowStroke : true,
 
 		//String - The colour of each segment stroke
@@ -2525,10 +2525,10 @@
 		//Number - Width of the grid lines
 		scaleGridLineWidth : 1,
 
-		//Boolean - Whether to show horizontal lines (except X axis)
+		//Boolean - Whether to show.blade.php horizontal lines (except X axis)
 		scaleShowHorizontalLines: true,
 
-		//Boolean - Whether to show vertical lines (except Y axis)
+		//Boolean - Whether to show.blade.php vertical lines (except Y axis)
 		scaleShowVerticalLines: true,
 
 		//Boolean - Whether the line is curved between points
@@ -2537,7 +2537,7 @@
 		//Number - Tension of the bezier curve between points
 		bezierCurveTension : 0.4,
 
-		//Boolean - Whether to show a dot for each point
+		//Boolean - Whether to show.blade.php a dot for each point
 		pointDot : true,
 
 		//Number - Radius of each point dot in pixels
@@ -2549,7 +2549,7 @@
 		//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
 		pointHitDetectionRadius : 20,
 
-		//Boolean - Whether to show a stroke for datasets
+		//Boolean - Whether to show.blade.php a stroke for datasets
 		datasetStroke : true,
 
 		//Number - Pixel width of dataset stroke
@@ -3144,13 +3144,13 @@
 	Chart.Type.extend({
 		name: "Radar",
 		defaults:{
-			//Boolean - Whether to show lines for each scale point
+			//Boolean - Whether to show.blade.php lines for each scale point
 			scaleShowLine : true,
 
-			//Boolean - Whether we show the angle lines out of the radar
+			//Boolean - Whether we show.blade.php the angle lines out of the radar
 			angleShowLineOut : true,
 
-			//Boolean - Whether to show labels on the scale
+			//Boolean - Whether to show.blade.php labels on the scale
 			scaleShowLabels : false,
 
 			// Boolean - Whether the scale should begin at zero
@@ -3174,7 +3174,7 @@
 			//String - Point label font colour
 			pointLabelFontColor : "#666",
 
-			//Boolean - Whether to show a dot for each point
+			//Boolean - Whether to show.blade.php a dot for each point
 			pointDot : true,
 
 			//Number - Radius of each point dot in pixels
@@ -3186,7 +3186,7 @@
 			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
 			pointHitDetectionRadius : 20,
 
-			//Boolean - Whether to show a stroke for datasets
+			//Boolean - Whether to show.blade.php a stroke for datasets
 			datasetStroke : true,
 
 			//Number - Pixel width of dataset stroke

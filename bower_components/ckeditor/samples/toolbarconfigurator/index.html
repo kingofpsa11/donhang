@@ -422,7 +422,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 			var helpButton = CKEDITOR.document.getById( 'help' ),
 				helpContent = CKEDITOR.document.getById( 'help-content' );
 
-			// Don't show help button on IE8 because it's unsupported by Pico Modal.
+			// Don't show.blade.php help button on IE8 because it's unsupported by Pico Modal.
 			if ( CKEDITOR.env.ie && CKEDITOR.env.version == 8 ) {
 				helpButton.hide();
 			} else {

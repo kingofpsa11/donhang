@@ -10,13 +10,13 @@
 	Chart.Type.extend({
 		name: "Radar",
 		defaults:{
-			//Boolean - Whether to show lines for each scale point
+			//Boolean - Whether to show.blade.php lines for each scale point
 			scaleShowLine : true,
 
-			//Boolean - Whether we show the angle lines out of the radar
+			//Boolean - Whether we show.blade.php the angle lines out of the radar
 			angleShowLineOut : true,
 
-			//Boolean - Whether to show labels on the scale
+			//Boolean - Whether to show.blade.php labels on the scale
 			scaleShowLabels : false,
 
 			// Boolean - Whether the scale should begin at zero
@@ -40,7 +40,7 @@
 			//String - Point label font colour
 			pointLabelFontColor : "#666",
 
-			//Boolean - Whether to show a dot for each point
+			//Boolean - Whether to show.blade.php a dot for each point
 			pointDot : true,
 
 			//Number - Radius of each point dot in pixels
@@ -52,7 +52,7 @@
 			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
 			pointHitDetectionRadius : 20,
 
-			//Boolean - Whether to show a stroke for datasets
+			//Boolean - Whether to show.blade.php a stroke for datasets
 			datasetStroke : true,
 
 			//Number - Pixel width of dataset stroke

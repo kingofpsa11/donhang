@@ -50,7 +50,7 @@
   selectedHover: {
   }
 }</pre>
- * @param {Object|Array} params.markers Set of markers to add to the map during initialization. In case of array is provided, codes of markers will be set as string representations of array indexes. Each marker is represented by <code>latLng</code> (array of two numeric values), <code>name</code> (string which will be show on marker's label) and any marker styles.
+ * @param {Object|Array} params.markers Set of markers to add to the map during initialization. In case of array is provided, codes of markers will be set as string representations of array indexes. Each marker is represented by <code>latLng</code> (array of two numeric values), <code>name</code> (string which will be show.blade.php on marker's label) and any marker styles.
  * @param {Object} params.series Object with two keys: <code>markers</code> and <code>regions</code>. Each of which is an array of series configs to be applied to the respective map elements. See <a href="jvm.DataSeries.html">DataSeries</a> description for a list of parameters available.
  * @param {Object|String} params.focusOn This parameter sets the initial position and scale of the map viewport. It could be expressed as a string representing region which should be in focus or an object representing coordinates and scale to set. For example to focus on the center of the map at the double scale you can provide the following value:
 <pre>{
@@ -196,7 +196,7 @@ jvm.WorldMap.prototype = {
   },
 
   /**
-   * Reset all the series and show the map with the initial zoom.
+   * Reset all the series and show.blade.php the map with the initial zoom.
    */
   reset: function() {
     var key,
@@ -511,7 +511,7 @@ jvm.WorldMap.prototype = {
 
   /**
    * Set the map's viewport to the specific point and set zoom of the map to the specific level. Point and zoom level could be defined in two ways: using the code of some region to focus on or a central point and zoom level as numbers.
-   * @param {Number|String|Array} scale|regionCode|regionCodes If the first parameter of this method is a string or array of strings and there are regions with the these codes, the viewport will be set to show all these regions. Otherwise if the first parameter is a number, the viewport will be set to show the map with provided scale.
+   * @param {Number|String|Array} scale|regionCode|regionCodes If the first parameter of this method is a string or array of strings and there are regions with the these codes, the viewport will be set to show.blade.php all these regions. Otherwise if the first parameter is a number, the viewport will be set to show.blade.php the map with provided scale.
    * @param {Number} centerX Number from 0 to 1 specifying the horizontal coordinate of the central point of the viewport.
    * @param {Number} centerY Number from 0 to 1 specifying the vertical coordinate of the central point of the viewport.
    */

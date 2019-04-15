@@ -63,7 +63,7 @@ These are the customisation options specific to Pie & Doughnut charts. These opt
 
 ```javascript
 {
-	//Boolean - Whether we should show a stroke on each segment
+	show.blade.php
 	segmentShowStroke : true,
 
 	//String - The colour of each segment stroke

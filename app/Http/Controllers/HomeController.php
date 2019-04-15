@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContractDetail;
 use App\Price;
 use Illuminate\Http\Request;
 use App\Customer;
@@ -25,8 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
-        $prices = Price::all();
-        return view('contract.create')->with(['customers' => $customers, 'prices' => $prices]);
+        return redirect('/contract');
     }
 }

@@ -12,18 +12,14 @@ use App\Customer;
 |
 */
 
-Route::get('/index', function () {
-//    $customers = Customer::all();
-//    return view('index')->with(['customers' => $customers]);
-    return 'index';
-});
-
 
 Route::get('/home', function () {
     return view('home');
 });
 
 Route::resource('customer','CustomerController');
+
+Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
 Route::resource('contract','ContractController');
 
 Route::get('price/search', 'PriceController@shows')->name('prices.shows');

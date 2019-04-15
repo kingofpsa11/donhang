@@ -58,13 +58,13 @@ These are the customisation options specific to Radar charts. These options are 
 
 ```javascript
 {
-	//Boolean - Whether to show lines for each scale point
+	show.blade.php
 	scaleShowLine : true,
 
-	//Boolean - Whether we show the angle lines out of the radar
+	show.blade.php
 	angleShowLineOut : true,
 
-	//Boolean - Whether to show labels on the scale
+	show.blade.php
 	scaleShowLabels : false,
 
 	// Boolean - Whether the scale should begin at zero
@@ -88,7 +88,7 @@ These are the customisation options specific to Radar charts. These options are 
 	//String - Point label font colour
 	pointLabelFontColor : "#666",
 
-	//Boolean - Whether to show a dot for each point
+	show.blade.php
 	pointDot : true,
 
 	//Number - Radius of each point dot in pixels
@@ -100,7 +100,7 @@ These are the customisation options specific to Radar charts. These options are 
 	//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
 	pointHitDetectionRadius : 20,
 
-	//Boolean - Whether to show a stroke for datasets
+	show.blade.php
 	datasetStroke : true,
 
 	//Number - Pixel width of dataset stroke
