@@ -72,7 +72,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" disabled value="<?php echo number_format($contract->total_value, 0, ',', '.') ?>">
+                                <input type="text" class="form-control" disabled name="contract[total_value]" value="<?php echo number_format($contract->total_value, 0, ',', '.') ?>">
                             </div>
                         </div>
                         <!-- /.col -->
@@ -102,11 +102,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php( $i = 0)
+                        @php( $i = 0; )
                         @foreach ($contract->contract_details as $contract_detail)
-                            <tr data-key="{{ $i }}">
+                            <tr data-key="{{ $contract_detail->id }}">
                                 <td class="col-md-1" data-col-seq="0">{{ $i + 1 }}</td>
-                                <td class="col-md-5" data-col-seq="1">
+                                <td class="col-md-4" data-col-seq="1">
                                     <div class="form-group">
                                         <select class="form-control select2 price" style="width: 100%;" name="contract_detail[{{ $i }}][product_id]">
                                             <option value="{{ $contract_detail->price_id }}">{{ $contract_detail->price->product->name }}</option>
@@ -118,7 +118,7 @@
                                         <input type="number" class="form-control" name="contract_detail[0][quantity]" value="{{ $contract_detail->quantity }}">
                                     </div>
                                 </td>
-                                <td class="col-md-1" data-col-seq="3">
+                                <td class="col-md-2" data-col-seq="3">
                                     <div class="form-group">
                                         <input type="hidden" name="product[0][price_id]">
                                         <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled value="<?php echo number_format($contract_detail->selling_price, 0, ',', '.') ?>">
@@ -145,6 +145,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            @php( $i++ )
                         @endforeach
                         </tbody>
                     </table>
@@ -172,7 +173,7 @@
         priceSelect.select2({
             placeholder: 'Nhập tên sản phẩm',
             minimumInputLength: 2,
-            dropdownCssClass: 'bigdrop',
+            // dropdownCssClass: 'bigdrop',
             ajax: {
                 url: '{{ route('prices.shows') }}',
                 delay: 200,

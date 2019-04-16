@@ -3,169 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Contract.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ContractDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ContractDetail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Price.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Price.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/examples/navigate/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/examples/navigate/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/examples/series-errorbars/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/examples/series-errorbars/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.errorbars.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.errorbars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.fillbetween.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.fillbetween.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.image.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.image.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.pie.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/jquery.flot.pie.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/Flot/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/Flot/jquery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/button-groups.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/button-groups.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/modals.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/modals.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/navs.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/navs.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/print.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/build/bootstrap-less/print.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/build/less/print.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/build/less/print.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/dist/js/pages/dashboard2.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/dist/js/pages/dashboard2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/pages/charts/chartjs.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/pages/charts/chartjs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/pages/tables/data.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/pages/tables/data.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.phone.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.phone.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/plugins/jQueryUI/jquery-ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/plugins/jQueryUI/jquery-ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/admin-lte/plugins/timepicker/bootstrap-timepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/admin-lte/plugins/timepicker/bootstrap-timepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-colorpicker/src/js/colorpicker-component.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-colorpicker/src/js/colorpicker-component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-colorpicker/src/js/colorpicker-defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-colorpicker/src/js/colorpicker-defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/tests/assets/qunit.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/tests/assets/qunit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/tests/suites/component.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/tests/suites/component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/tests/suites/keyboard_navigation/2012.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-datepicker/tests/suites/keyboard_navigation/2012.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-daterangepicker/daterangepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-daterangepicker/daterangepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap/less/button-groups.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap/less/button-groups.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap/less/modals.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap/less/modals.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap/less/navs.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap/less/navs.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap/less/print.less" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap/less/print.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/Chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/Chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/docs/00-Getting-Started.md" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/docs/00-Getting-Started.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/docs/01-Line-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/docs/01-Line-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/docs/02-Bar-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/docs/02-Bar-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/docs/03-Radar-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/docs/03-Radar-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/docs/05-Pie-Doughnut-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/docs/05-Pie-Doughnut-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Bar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Core.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Core.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Doughnut.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Doughnut.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Line.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Radar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/chart.js/src/Chart.Radar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/ckeditor/samples/old/inlineall.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/ckeditor/samples/old/inlineall.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/ckeditor/samples/old/magicline/magicline.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/ckeditor/samples/old/magicline/magicline.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/ckeditor/samples/old/toolbar/toolbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/ckeditor/samples/old/toolbar/toolbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/ckeditor/samples/toolbarconfigurator/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/ckeditor/samples/toolbarconfigurator/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/datatables.net/js/jquery.dataTables.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/datatables.net/js/jquery.dataTables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/datatables.net/js/jquery.dataTables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/datatables.net/js/jquery.dataTables.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/fullcalendar/dist/fullcalendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/fullcalendar/dist/fullcalendar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/fullcalendar/dist/fullcalendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/fullcalendar/dist/fullcalendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/fullcalendar/dist/gcal.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/fullcalendar/dist/gcal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-slimscroll/examples/libs/prettify/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-slimscroll/examples/libs/prettify/prettify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-slimscroll/jquery.slimscroll.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-slimscroll/jquery.slimscroll.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/jquery-ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/jquery-ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/dialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/effect-explode.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/effect-explode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/effect-scale.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/effect-scale.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/effect.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/effect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery-ui/ui/tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery-ui/ui/tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery/dist/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery/dist/jquery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery/src/css.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery/src/css.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jquery/src/effects.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jquery/src/effects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jvectormap/lib/world-map.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jvectormap/lib/world-map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/jvectormap/tests/assets/jquery-1.8.2.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/jvectormap/tests/assets/jquery-1.8.2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/mocha/mocha.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/mocha/mocha.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/morris.js/spec/lib/grid/auto_grid_lines_spec.coffee" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/morris.js/spec/lib/grid/auto_grid_lines_spec.coffee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/morris.js/spec/lib/hover_spec.coffee" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/morris.js/spec/lib/hover_spec.coffee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/raphael/dev/raphael.svg.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/raphael/dev/raphael.svg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/raphael/raphael.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/raphael/raphael.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/raphael/raphael.no-deps.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/raphael/raphael.no-deps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/select2/tests/vendor/jquery-1.7.2.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/select2/tests/vendor/jquery-1.7.2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/select2/tests/vendor/qunit-1.23.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/select2/tests/vendor/qunit-1.23.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/select2/vendor/jquery-2.1.0.js" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/select2/vendor/jquery-2.1.0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/examples/navigate/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/examples/navigate/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/examples/series-errorbars/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/examples/series-errorbars/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.errorbars.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.errorbars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.fillbetween.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.fillbetween.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.image.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.image.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.pie.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/jquery.flot.pie.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/Flot/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/Flot/jquery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-colorpicker/src/js/colorpicker-component.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-colorpicker/src/js/colorpicker-component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-colorpicker/src/js/colorpicker-defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-colorpicker/src/js/colorpicker-defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-daterangepicker/daterangepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-daterangepicker/daterangepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap/less/button-groups.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap/less/button-groups.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap/less/modals.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap/less/modals.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap/less/navs.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap/less/navs.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/bootstrap/less/print.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/bootstrap/less/print.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/Chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/Chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/docs/00-Getting-Started.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/docs/00-Getting-Started.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/docs/01-Line-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/docs/01-Line-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/docs/02-Bar-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/docs/02-Bar-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/docs/03-Radar-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/docs/03-Radar-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/docs/05-Pie-Doughnut-Chart.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/docs/05-Pie-Doughnut-Chart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Bar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Core.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Core.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Doughnut.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Doughnut.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Line.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Line.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Radar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/chart.js/src/Chart.Radar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/old/inlineall.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/old/inlineall.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/old/magicline/magicline.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/old/magicline/magicline.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/old/toolbar/toolbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/old/toolbar/toolbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/toolbarconfigurator/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/ckeditor/samples/toolbarconfigurator/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/datatables.net/js/jquery.dataTables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/datatables.net/js/jquery.dataTables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/datatables.net/js/jquery.dataTables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/datatables.net/js/jquery.dataTables.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/fullcalendar/dist/fullcalendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/fullcalendar/dist/fullcalendar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/fullcalendar/dist/fullcalendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/fullcalendar/dist/fullcalendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/fullcalendar/dist/gcal.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/fullcalendar/dist/gcal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-slimscroll/examples/libs/prettify/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-slimscroll/examples/libs/prettify/prettify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-slimscroll/jquery.slimscroll.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-slimscroll/jquery.slimscroll.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/jquery-ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/jquery-ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/dialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/effect-explode.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/effect-explode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/effect-scale.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/effect-scale.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/effect.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/effect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery-ui/ui/tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery/dist/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery/dist/jquery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery/dist/jquery.slim.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery/dist/jquery.slim.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery/src/css.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery/src/css.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jquery/src/effects.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jquery/src/effects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jvectormap/lib/world-map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jvectormap/lib/world-map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/jvectormap/tests/assets/jquery-1.8.2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/jvectormap/tests/assets/jquery-1.8.2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/mocha/mocha.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/mocha/mocha.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/morris.js/spec/lib/grid/auto_grid_lines_spec.coffee" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/morris.js/spec/lib/grid/auto_grid_lines_spec.coffee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/morris.js/spec/lib/hover_spec.coffee" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/morris.js/spec/lib/hover_spec.coffee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/raphael/dev/raphael.svg.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/raphael/dev/raphael.svg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/raphael/raphael.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/raphael/raphael.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bower_components/raphael/raphael.no-deps.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bower_components/raphael/raphael.no-deps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.phone.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.phone.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/jQueryUI/jquery-ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/jQueryUI/jquery-ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/timepicker/bootstrap-timepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/timepicker/bootstrap-timepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/contract/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/contract/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/edit.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -181,17 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="67" column="80" selection-start-line="67" selection-start-column="80" selection-end-line="67" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="12" selection-end-column="48" />
+            <state relative-caret-position="359">
+              <caret line="115" column="33" lean-forward="true" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -199,43 +30,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Contract.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="26" column="36" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="36" />
+            <state relative-caret-position="380">
+              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/contract/index.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="156">
+              <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-780">
+              <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="107" column="87" lean-forward="true" selection-start-line="107" selection-start-column="87" selection-end-line="107" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Price.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -244,8 +76,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>form&gt;</find>
-      <find>fa</find>
       <find>post</find>
       <find>das</find>
       <find>@</find>
@@ -268,12 +98,14 @@
       <find>data table wi</find>
       <find>full fea</find>
       <find>example1</find>
-      <find>select2</find>
       <find>responsive ho</find>
       <find>show</find>
       <find>show.</find>
       <find>prices</find>
       <find>bread</find>
+      <find>select2</find>
+      <find>[selling_price]</find>
+      <find>price_id</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -329,10 +161,10 @@
         <option value="$PROJECT_DIR$/app/Contract.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/show.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/contract/edit.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
-        <option value="$PROJECT_DIR$/resources/views/contract/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/contract/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/contract/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
       </list>
     </option>
   </component>
@@ -570,7 +402,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127908000" />
+    <option name="totallyTimeSpent" value="135590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -881,24 +713,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Price.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Contract.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="26" column="36" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -926,37 +744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="51" column="148" lean-forward="true" selection-start-line="51" selection-start-column="84" selection-end-line="51" selection-end-column="148" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="67" column="80" selection-start-line="67" selection-start-column="80" selection-end-line="67" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="12" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/contract/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
@@ -966,6 +753,48 @@
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="115" column="33" lean-forward="true" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="107" column="87" lean-forward="true" selection-start-line="107" selection-start-column="87" selection-end-line="107" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Price.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-780">
+          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
         </state>
       </provider>
     </entry>

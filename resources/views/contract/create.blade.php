@@ -65,7 +65,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" disabled>
+                                <input type="text" class="form-control" disabled name="contract[total_value]">
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                             </td>
                             <td class="col-md-1" data-col-seq="3">
                                 <div class="form-group">
-                                    <input type="hidden" name="product[0][price_id]">
+                                    <input type="hidden" name="contract_detail[0][price_id]">
                                     <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled>
                                 </div>
                             </td>
@@ -153,35 +153,42 @@
         let customerSelect = $('.select2.customer');
         customerSelect.select2();
 
-        let priceSelect = $('.select2.price');
-        priceSelect.select2({
-            placeholder: 'Nhập tên sản phẩm',
-            minimumInputLength: 2,
-            dropdownCssClass: 'bigdrop',
-            ajax: {
-                url: '{{ route('prices.shows') }}',
-                delay: 200,
-                dataType: 'json',
-                dropdownAutoWidth : true,
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.name,
-                                id: item.id,
-                                selling_price: item.selling_price
-                            }
-                        })
-                    };
+        function addSelect2 (el) {
+            el.select2({
+                placeholder: 'Nhập tên sản phẩm',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '{{ route('prices.shows') }}',
+                    delay: 200,
+                    dataType: 'json',
+                    dropdownAutoWidth : true,
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id,
+                                    selling_price: item.selling_price
+                                }
+                            })
+                        };
+                    },
+                    cache: true
                 },
-                cache: true
-            },
-        });
+            });
+        }
 
-        priceSelect.on('select2:select', function (e) {
-            let data = e.params.data;
-            $('input[name="contract_detail[0][selling_price]"]').val(data.selling_price);
-        });
+        function getPrice (el) {
+            el.on('select2:select', function (e) {
+                console.log('123');
+                let data = e.params.data;
+                $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
+            });
+        }
+
+        let priceSelect = $('.select2.price');
+        addSelect2(priceSelect);
+        getPrice(priceSelect);
 
         $('[data-mask]').inputmask();
 
@@ -192,6 +199,7 @@
             let numberOfProduct = tableBody.children().length;
             let lastRow = $('tr:last');
             let newRow = lastRow.clone();
+            let select2 = newRow.find('.select2.price');
 
             if (icon.hasClass('fa-plus')) {
                 newRow.attr('data-key', numberOfProduct);
@@ -202,11 +210,14 @@
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
                 lastRow.children('[data-col-seq="6"]').find('.addProduct i').removeClass('fa-plus').addClass('fa-minus');
+                newRow.find('.select2-container').remove();
                 tableBody.append(newRow);
+
+                addSelect2(select2);
+                getPrice(select2);
             } else if (icon.hasClass('fa-minus')) {
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
-
             }
 
         });

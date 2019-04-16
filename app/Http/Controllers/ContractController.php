@@ -39,6 +39,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->contract_detail;
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
         $contract->number = $this->getLastContract($contract->customer_id);
@@ -47,13 +48,14 @@ class ContractController extends Controller
             $contract_details = [];
             foreach ($request->contract_detail as $value) {
                 $contract_detail = new ContractDetail();
-//                $contract_detail->price_id = $value->price_id;
+                $contract_detail->price_id = $value['price_id'];
                 $contract_detail->quantity = $value['quantity'];
                 array_push($contract_details, $contract_detail);
             }
-                if($contract->contact_details()->saveMany($contract_details)) {
-                    return redirect()->route('contract.show', ['contract' => $contract]);
-                }
+
+            if($contract->contract_details()->saveMany($contract_details)) {
+                return redirect()->route('contract.show', [$contract]);
+            }
         }
     }
 
@@ -66,7 +68,7 @@ class ContractController extends Controller
     public function show(Contract $contract)
     {
         $contract->load('contract_details');
-        return view('contract.show')->with('contract', $contract);
+        return view('contract.show')->with('contract',$contract);
     }
 
     /**
@@ -91,7 +93,23 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
+        $contract->number = $request->contract['number'];
+        $contract->total_value = $request->contract['total_value'];
+        $contract->date = $request->contract['date'];
 
+        if ($contract->save()) {
+            $contract_details = [];
+            foreach ($request->contract_detail as $value) {
+                $contract_detail = new ContractDetail();
+//                $contract_detail->price_id = $value->price_id;
+                $contract_detail->quantity = $value['quantity'];
+                array_push($contract_details, $contract_detail);
+            }
+
+            if($contract->contact_details()->saveMany($contract_details)) {
+                return redirect()->route('contract.show', ['contract' => $contract]);
+            }
+        }
     }
 
     /**
