@@ -61,12 +61,6 @@ class PriceController extends Controller
     {
         $term = $request->term;
 
-        $result = [];
-
-//        $prices = Price::with(['product' => function ($query)  use($term){
-//            $query->where('name', 'like', '%' . $term . '%');
-//        }])->take(10)->get();
-
         $result = DB::table('prices')
             ->join('products', 'prices.product_id', '=', 'products.id')
             ->select('prices.id', 'products.name', 'prices.selling_price')

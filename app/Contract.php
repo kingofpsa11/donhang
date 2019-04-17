@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Contract extends Model
 {
@@ -28,4 +29,24 @@ class Contract extends Model
     {
         return $this->hasMany('App\ContractDetail');
     }
+
+    public function setDateAttribute($value)
+    {
+        $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+    }
+
+    public function getDateAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+    }
+
+//    public function setTotalValueAttribute($value)
+//    {
+//        $this->attributes['total_value'] = (int)str_replace('.', '', $value);
+//    }
+//
+//    public function getTotalValueAttribute($value)
+//    {
+//        return number_format($value, 0, ',', '.');
+//    }
 }

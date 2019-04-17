@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ContractDetail extends Model
 {
@@ -24,5 +25,23 @@ class ContractDetail extends Model
         return $this->belongsTo('App\Price');
     }
 
+    public function setDeadlineAttribute($value)
+    {
+        $this->attributes['deadline'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+    }
 
+    public function getDeadlineAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+    }
+
+//    public function setSellingPriceAttribute($value)
+//    {
+//        $this->attributes['selling_price'] = (int)str_replace('.', '', $value);
+//    }
+//
+//    public function getSellingPriceAttribute($value)
+//    {
+//        return number_format($value, 0, ',', '.');
+//    }
 }

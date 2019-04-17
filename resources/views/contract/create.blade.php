@@ -168,7 +168,7 @@
                                 return {
                                     text: item.name,
                                     id: item.id,
-                                    selling_price: item.selling_price
+                                    selling_price: item.selling_price,
                                 }
                             })
                         };
@@ -180,9 +180,9 @@
 
         function getPrice (el) {
             el.on('select2:select', function (e) {
-                console.log('123');
                 let data = e.params.data;
                 $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
+                $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
             });
         }
 
@@ -224,6 +224,6 @@
 
         $('button.cancel').on('click', function (e) {
             e.preventDefault();
-        })
+        });
     </script>
 @stop

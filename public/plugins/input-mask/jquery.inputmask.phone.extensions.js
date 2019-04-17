@@ -10,7 +10,7 @@ When using this extension make sure you specify the correct url to get the masks
 
  $(selector).inputmask("phone", {
                 url: "Scripts/jquery.inputmask/phone-codes/phone-codes.json", 
-                onKeyValidation: function () { //show.blade.php some metadata in the console
+                onKeyValidation: function () { //show some metadata in the console
                     console.log($(this).inputmask("getmetadata")["name_en"]);
                 } 
   });

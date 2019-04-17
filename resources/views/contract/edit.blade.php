@@ -62,7 +62,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="<?php echo date_format(date_create($contract->date), "d/m/Y") ?>">
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value=" {{ $contract->date }}">
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" disabled name="contract[total_value]" value="<?php echo number_format($contract->total_value, 0, ',', '.') ?>">
+                                <input type="text" class="form-control" disabled name="contract[total_value]" value="{{ $contract->total_value }}">
                             </div>
                         </div>
                         <!-- /.col -->
@@ -102,7 +102,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php( $i = 0; )
+                        @php( $i = 0 )
                         @foreach ($contract->contract_details as $contract_detail)
                             <tr data-key="{{ $contract_detail->id }}">
                                 <td class="col-md-1" data-col-seq="0">{{ $i + 1 }}</td>
@@ -121,7 +121,7 @@
                                 <td class="col-md-2" data-col-seq="3">
                                     <div class="form-group">
                                         <input type="hidden" name="product[0][price_id]">
-                                        <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled value="<?php echo number_format($contract_detail->selling_price, 0, ',', '.') ?>">
+                                        <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled value="{{ $contract_detail->selling_price }}" data-inputmask="'alias': 'integer', 'autoGroup': true, 'groupSeparator': '.'" data-mask>
                                     </div>
                                 </td>
                                 <td class="col-md-2" data-col-seq="4">
@@ -130,7 +130,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" value="<?php echo date_format(date_create($contract->date), "d/m/Y") ?>">
+                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" value="{{ $contract_detail->deadline }}">
                                         </div>
                                     </div>
                                 </td>
@@ -164,6 +164,7 @@
 @endsection
 
 @section('javascript')
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
 
         let customerSelect = $('.select2.customer');
@@ -173,7 +174,6 @@
         priceSelect.select2({
             placeholder: 'Nhập tên sản phẩm',
             minimumInputLength: 2,
-            // dropdownCssClass: 'bigdrop',
             ajax: {
                 url: '{{ route('prices.shows') }}',
                 delay: 200,
@@ -201,8 +201,10 @@
 
         $('[data-mask]').inputmask();
 
+        //Add row to table
         $('#example1').on('click', '.addProduct', function (e) {
             e.preventDefault();
+
             let icon = $(this).children('i');
             let tableBody = $('tbody');
             let numberOfProduct = tableBody.children().length;
@@ -227,6 +229,7 @@
 
         });
 
+        //Click cancel button
         $('button.cancel').on('click', function (e) {
             e.preventDefault();
         })

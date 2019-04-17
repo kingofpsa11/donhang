@@ -100,15 +100,21 @@
                         render      : $.fn.dataTable.render.number( ',', '.'),
                         className   : 'dt-body-right'
                     },
-                    { "data" : "date" },
-                    { "data" : "deadline" },
+                    {
+                        "data" : "date",
+                        className   : 'dt-body-right'
+                    },
+                    {
+                        "data"      : "deadline",
+                        className   : 'dt-body-right'
+                    },
                     { "data" : "order" },
                     {
-                        "data"        : "status",
-                        "render"      : function (data) {
+                        "data"      : "status",
+                        "render"    : function (data) {
                             if (data == 10) {
                                 return '<span class="label label-warning">Đang sản xuất</span>';
-                            } else if(data == 0) {
+                            } else if (data == 0) {
                                 return '<span class="label label-success">Xong</span>';
                             }
                         }
@@ -123,12 +129,12 @@
                         targets: "_all",
                         className   : 'dt-head-center'
                     },
-                    {
-                        targets: [5,6],
-                        render: function(data) {
-                            return moment(data).format("DD-MM-YYYY");
-                        }
-                    }
+                    // {
+                    //     targets: [5,6],
+                    //     render: function(data) {
+                    //         return moment(data).format("DD-MM-YYYY");
+                    //     }
+                    // }
                 ]
             });
 

@@ -1178,7 +1178,7 @@
                         'isRTL': false
                     });
 
-                    //show.blade.php tooltip
+                    //show tooltip
                     if (opts.showTooltip) {
                         $el.prop("title", getActiveMaskSet()["mask"]);
                     }
@@ -1439,11 +1439,11 @@
                 onKeyDown: $.noop, //override to implement autocomplete on certain keys for example
                 onBeforePaste: undefined, //executes before masking the pasted value to allow preprocessing of the pasted value.  args => pastedValue => return processedValue
                 onUnMask: undefined, //executes after unmasking to allow postprocessing of the unmaskedvalue.  args => maskedValue, unmaskedValue
-                showMaskOnFocus: true, //show.blade.php the mask-placeholder when the input has focus
-                showMaskOnHover: true, //show.blade.php the mask-placeholder when hovering the empty input
+                showMaskOnFocus: true, //show the mask-placeholder when the input has focus
+                showMaskOnHover: true, //show the mask-placeholder when hovering the empty input
                 onKeyValidation: $.noop, //executes on every key-press with the result of isValid. Params: result, opts
                 skipOptionalPartCharacter: " ", //a character which can be used to skip an optional part of a mask
-                showTooltip: false, //show.blade.php the activemask as tooltip
+                showTooltip: false, //show the activemask as tooltip
                 numericInput: false, //numericInput input direction style (input shifts to the left while holding the caret position)
                 //numeric basic properties
                 isNumeric: false, //enable numeric features
