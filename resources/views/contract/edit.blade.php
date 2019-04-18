@@ -104,7 +104,7 @@
                         <tbody>
                         @php( $i = 0 )
                         @foreach ($contract->contract_details as $contract_detail)
-                            <tr data-key="{{ $contract_detail->id }}">
+                            <tr data-key="{{ $i }}">
                                 <td class="col-md-1" data-col-seq="0">{{ $i + 1 }}</td>
                                 <td class="col-md-4" data-col-seq="1">
                                     <div class="form-group">
@@ -137,7 +137,7 @@
                                     <input type="text" class="form-control" name="contract_detail[{{ $i }}][note]" value="{{ $contract_detail->note }}">
                                 </td>
                                 <td data-col-seq="6">
-                                    @if (! next($contract->contract_details))
+                                    @if (!next($contract->contract_details))
                                         <button class="btn btn-primary addProduct"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     @else
                                         <button class="btn btn-primary addProduct"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -200,6 +200,30 @@
 
         $('[data-mask]').inputmask();
 
+        function inputMask(obj) {
+            obj.inputmask({
+                alias: 'integer',
+                autoGroup: true,
+                groupSeparator: '.'
+            });
+        }
+
+        let total_value = $('[name="contract[total_value]"]');
+        let selling_price = $('[name$="[selling_price]"]');
+
+        inputMask(total_value);
+        inputMask(selling_price);
+
+        function convertNumber(obj) {
+            obj.inputmask('remove');
+            obj.val(obj.val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1"));
+        }
+
+        $('form').on('submit', function () {
+            convertNumber(selling_price);
+            convertNumber(total_value);
+        });
+
         //Add row to table
         $('#example1').on('click', '.addProduct', function (e) {
             e.preventDefault();
@@ -223,9 +247,7 @@
             } else if (icon.hasClass('fa-minus')) {
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
-
             }
-
         });
 
         //Click cancel button

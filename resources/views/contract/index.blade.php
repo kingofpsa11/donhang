@@ -84,6 +84,7 @@
                 'ordering': true,
                 'info': true,
                 'autoWidth' : true,
+                'searching': true,
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "language": {
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
@@ -97,7 +98,7 @@
                     { "data" : "quantity" },
                     {
                         "data"      : "selling_price",
-                        render      : $.fn.dataTable.render.number( ',', '.'),
+                        render      : $.fn.dataTable.render.number( '.', ','),
                         className   : 'dt-body-right'
                     },
                     {
@@ -127,7 +128,7 @@
                 columnDefs: [
                     {
                         targets: "_all",
-                        className   : 'dt-head-center'
+                        className   : 'dt-head-center',
                     },
                     // {
                     //     targets: [5,6],

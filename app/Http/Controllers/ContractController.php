@@ -16,7 +16,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->take(100)->get();
+        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->take(50)->get();
         return view('contract.index')->with('contract_details', $contract_details);
     }
 
@@ -94,17 +94,13 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        $rows = [['id'=>1,'value'=>10],['id'=>2,'value'=>60]];
-        $first = reset($rows);
-        $columns = implode( ',',
-            array_map( function( $value ) { return "$value"; } , array_keys($first) )
-        );
-        return $columns;
         $contract->number = $request->contract['number'];
         $contract->total_value = $request->contract['total_value'];
         $contract->date = $request->contract['date'];
 
         if ($contract->save()) {
+            $contract->contract_details()->delete();
+
             $contract_details = [];
             foreach ($request->contract_detail as $value) {
                 $contract_detail = new ContractDetail();
@@ -113,10 +109,11 @@ class ContractController extends Controller
                 $contract_detail->deadline = $value['deadline'];
                 $contract_detail->note = $value['note'];
                 $contract_detail->quantity = $value['quantity'];
+                $contract_detail->status = 10;
                 array_push($contract_details, $contract_detail);
             }
-            return $contract_details;
-            if($contract->contract_details()->updateOrCreate($contract_details)) {
+
+            if($contract->contract_details()->saveMany($contract_details)) {
                 return redirect()->route('contract.show', ['contract' => $contract]);
             }
         }

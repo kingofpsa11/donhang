@@ -23,14 +23,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Đơn vị đặt hàng</label>
-                            <input type="text" class="form-control" disabled value="{{ $contract->customer_id }}">
+                            <input type="text" class="form-control" readonly value="{{ $contract->customer_id }}">
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Số đơn hàng</label>
-                            <input type="text" class="form-control" disabled value="{{ $contract->number }}">
+                            <input type="text" class="form-control" readonly value="{{ $contract->number }}">
                         </div>
                     </div>
                 <!-- /.col -->
@@ -41,7 +41,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="{{ $contract->date }}" disabled>
+                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="{{ $contract->date }}" readonly>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -49,7 +49,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Giá trị đơn hàng</label>
-                            <input type="text" class="form-control" disabled value="{{ $contract->total_value }}">
+                            <input type="text" class="form-control" value="{{ $contract->total_value }}" readonly data-inputmask="'alias': 'integer', 'autoGroup': true, 'groupSeparator': '.', 'removeMaskOnSubmit': true" data-mask>
                         </div>
                     </div>
                 </div>
@@ -81,14 +81,24 @@
                 </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-1 pull-right">
+                        <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.box -->
     </section>
 @endsection
 
 @section('javascript')
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
-        // $('[data-mask]').inputmask();
+        $('[data-mask]').inputmask();
 
         let customerSelect = $('.select2.customer');
         customerSelect.select2();
