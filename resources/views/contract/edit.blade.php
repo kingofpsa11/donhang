@@ -72,7 +72,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" disabled name="contract[total_value]" value="{{ $contract->total_value }}">
+                                <input type="text" class="form-control" name="contract[total_value]" value="{{ $contract->total_value }}" readonly>
                             </div>
                         </div>
                         <!-- /.col -->
@@ -108,20 +108,19 @@
                                 <td class="col-md-1" data-col-seq="0">{{ $i + 1 }}</td>
                                 <td class="col-md-4" data-col-seq="1">
                                     <div class="form-group">
-                                        <select class="form-control select2 price" style="width: 100%;" name="contract_detail[{{ $i }}][product_id]">
+                                        <select class="form-control select2 price" style="width: 100%;" name="contract_detail[{{ $i }}][price_id]">
                                             <option value="{{ $contract_detail->price_id }}">{{ $contract_detail->price->product->name }}</option>
                                         </select>
                                     </div>
                                 </td>
                                 <td class="col-md-1" data-col-seq="2">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="contract_detail[0][quantity]" value="{{ $contract_detail->quantity }}">
+                                        <input type="number" class="form-control" name="contract_detail[{{ $i }}][quantity]" value="{{ $contract_detail->quantity }}">
                                     </div>
                                 </td>
                                 <td class="col-md-2" data-col-seq="3">
                                     <div class="form-group">
-                                        <input type="hidden" name="product[0][price_id]">
-                                        <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled value="{{ $contract_detail->selling_price }}" data-inputmask="'alias': 'integer', 'autoGroup': true, 'groupSeparator': '.'" data-mask>
+                                        <input type="text" class="form-control" name="contract_detail[{{ $i }}][selling_price]" readonly value="{{ $contract_detail->selling_price }}" data-inputmask="'alias': 'integer', 'autoGroup': true, 'groupSeparator': '.'" data-mask>
                                     </div>
                                 </td>
                                 <td class="col-md-2" data-col-seq="4">
@@ -130,12 +129,12 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" value="{{ $contract_detail->deadline }}">
+                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[{{ $i }}][deadline]" value="{{ $contract_detail->deadline }}">
                                         </div>
                                     </div>
                                 </td>
                                 <td class="col-md-2" data-col-seq="5">
-                                    <input type="text" class="form-control" name="contract_detail[0][note]" value="{{ $contract_detail->note }}">
+                                    <input type="text" class="form-control" name="contract_detail[{{ $i }}][note]" value="{{ $contract_detail->note }}">
                                 </td>
                                 <td data-col-seq="6">
                                     @if (! next($contract->contract_details))

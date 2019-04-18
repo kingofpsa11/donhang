@@ -69,7 +69,7 @@ class ContractController extends Controller
     public function show(Contract $contract)
     {
         $contract->load('contract_details');
-        return view('contract.show')->with('contract',$contract);
+        return view('contract.show')->with('contract', $contract);
     }
 
     /**
@@ -94,6 +94,12 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
+        $rows = [['id'=>1,'value'=>10],['id'=>2,'value'=>60]];
+        $first = reset($rows);
+        $columns = implode( ',',
+            array_map( function( $value ) { return "$value"; } , array_keys($first) )
+        );
+        return $columns;
         $contract->number = $request->contract['number'];
         $contract->total_value = $request->contract['total_value'];
         $contract->date = $request->contract['date'];
@@ -102,12 +108,15 @@ class ContractController extends Controller
             $contract_details = [];
             foreach ($request->contract_detail as $value) {
                 $contract_detail = new ContractDetail();
-//                $contract_detail->price_id = $value->price_id;
+                $contract_detail->price_id = $value['price_id'];
+                $contract_detail->selling_price = $value['selling_price'];
+                $contract_detail->deadline = $value['deadline'];
+                $contract_detail->note = $value['note'];
                 $contract_detail->quantity = $value['quantity'];
                 array_push($contract_details, $contract_detail);
             }
-
-            if($contract->contact_details()->saveMany($contract_details)) {
+            return $contract_details;
+            if($contract->contract_details()->updateOrCreate($contract_details)) {
                 return redirect()->route('contract.show', ['contract' => $contract]);
             }
         }

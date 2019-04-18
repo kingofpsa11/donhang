@@ -41,7 +41,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="<?php echo date_format(date_create($contract->date), "d/m/Y"); ?>" disabled>
+                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="{{ $contract->date }}" disabled>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -49,7 +49,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Giá trị đơn hàng</label>
-                            <input type="text" class="form-control" disabled value="<?php echo number_format($contract->total_value, 0, ',', '.') ?>">
+                            <input type="text" class="form-control" disabled value="{{ $contract->total_value }}">
                         </div>
                     </div>
                 </div>
@@ -107,9 +107,6 @@
                 },
                 {
                     targets: [ 3 ],
-                    render: function (data) {
-                        return moment(data).format('DD/MM/YYYY')
-                    },
                     className   : 'dt-body-right'
                 }
             ]

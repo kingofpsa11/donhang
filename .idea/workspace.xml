@@ -3,22 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Contract.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ContractDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ContractDetail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PriceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PriceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.date.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.date.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.numeric.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.numeric.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.phone.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.phone.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.regex.extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.regex.extensions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/phone-codes/phone-be.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/phone-codes/phone-be.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plugins/input-mask/phone-codes/phone-codes.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/plugins/input-mask/phone-codes/phone-codes.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/contract/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/contract/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/contract/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/contract/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,11 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="216" column="34" lean-forward="true" selection-start-line="216" selection-start-column="34" selection-end-line="216" selection-end-column="34" />
-              <folding>
-                <element signature="e#4854#4874#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="256">
+              <caret line="184" column="16" selection-start-line="184" selection-start-column="16" selection-end-line="184" selection-end-column="85" />
             </state>
           </provider>
         </entry>
@@ -55,17 +40,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="404" column="7" lean-forward="true" selection-start-line="404" selection-start-column="7" selection-end-line="404" selection-end-column="7" />
+            <state relative-caret-position="299">
+              <caret line="39" column="45" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-224">
-              <caret line="18" column="98" selection-start-line="18" selection-start-column="98" selection-end-line="18" selection-end-column="98" />
+            <state relative-caret-position="296">
+              <caret line="99" column="59" selection-start-line="99" selection-start-column="59" selection-end-line="99" selection-end-column="59" />
               <folding>
                 <element signature="e#40#57#0#PHP" expanded="true" />
               </folding>
@@ -73,11 +58,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Contract.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="27" column="36" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="36" />
+              <folding>
+                <element signature="e#23#62#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="251">
+              <caret line="191" column="27" lean-forward="true" selection-start-line="191" selection-start-column="27" selection-end-line="191" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1036">
+              <caret line="109" selection-start-line="109" selection-end-line="109" />
             </state>
           </provider>
         </entry>
@@ -85,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bower_components/admin-lte/pages/forms/advanced.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="632" column="107" lean-forward="true" selection-start-line="632" selection-start-column="58" selection-end-line="632" selection-end-column="107" />
+            <state relative-caret-position="12640">
+              <caret line="632" column="107" selection-start-line="632" selection-start-column="58" selection-end-line="632" selection-end-column="107" />
             </state>
           </provider>
         </entry>
@@ -95,9 +101,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>register</find>
-      <find>form</find>
-      <find>get</find>
       <find>đơn vị</find>
       <find>th</find>
       <find>price</find>
@@ -125,6 +128,9 @@
       <find>date_r</find>
       <find>alias</find>
       <find>data-mask</find>
+      <find>to</find>
+      <find>total</find>
+      <find>product_id</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -173,17 +179,17 @@
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/js/bootstrap.js" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/contract/show.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PriceController.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/create.blade.php" />
         <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Contract.php" />
         <option value="$PROJECT_DIR$/app/ContractDetail.php" />
         <option value="$PROJECT_DIR$/public/plugins/input-mask/jquery.inputmask.js" />
+        <option value="$PROJECT_DIR$/resources/views/contract/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
       </list>
     </option>
   </component>
@@ -289,7 +295,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -350,6 +355,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -405,11 +411,12 @@
       <workItem from="1554987475249" duration="16310000" />
       <workItem from="1555034753289" duration="12657000" />
       <workItem from="1555315621660" duration="23211000" />
+      <workItem from="1555494017080" duration="4842000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146676000" />
+    <option name="totallyTimeSpent" value="151518000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -417,7 +424,7 @@
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.12473348" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.12579957" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49946696" weight="0.1928651" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -464,13 +471,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="21" selection-start-column="21" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -575,13 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_ide_helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="14496" column="10" selection-start-line="14496" selection-start-column="10" selection-end-line="14496" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -698,13 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-780">
-          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Price.php">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -716,23 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="67" column="22" lean-forward="true" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="216" column="34" lean-forward="true" selection-start-line="216" selection-start-column="34" selection-end-line="216" selection-end-column="34" />
-          <folding>
-            <element signature="e#4854#4874#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -755,26 +724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-224">
-          <caret line="18" column="98" selection-start-line="18" selection-start-column="98" selection-end-line="18" selection-end-column="98" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Contract.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="e#23#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/ContractDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="676">
@@ -782,20 +731,6 @@
           <folding>
             <element signature="e#23#62#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bower_components/admin-lte/pages/forms/advanced.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="632" column="107" lean-forward="true" selection-start-line="632" selection-start-column="58" selection-end-line="632" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="404" column="7" lean-forward="true" selection-start-line="404" selection-start-column="7" selection-end-line="404" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -819,10 +754,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/admin-lte/pages/forms/advanced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12640">
+          <caret line="632" column="107" selection-start-line="632" selection-start-column="58" selection-end-line="632" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Contract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="36" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="36" />
+          <folding>
+            <element signature="e#23#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1036">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="39" column="45" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="184" column="16" selection-start-line="184" selection-start-column="16" selection-end-line="184" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="251">
+          <caret line="191" column="27" lean-forward="true" selection-start-line="191" selection-start-column="27" selection-end-line="191" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="433" column="45" lean-forward="true" selection-start-line="433" selection-start-column="45" selection-end-line="433" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_ide_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="14786" column="55" selection-start-line="14786" selection-start-column="55" selection-end-line="14786" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="99" column="59" selection-start-line="99" selection-start-column="59" selection-end-line="99" selection-end-column="59" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
