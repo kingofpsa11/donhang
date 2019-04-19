@@ -16,7 +16,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->take(50)->get();
+        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id','desc')->take(50)->get();
         return view('contract.index')->with('contract_details', $contract_details);
     }
 
@@ -39,11 +39,11 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->contract_detail;
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
         $contract->number = $this->getLastContract($contract->customer_id);
         $contract->date = $request->contract['date'];
+        $contract->total_value = $request->contract['total_value'];
 
         if ($contract->save()) {
             $contract_details = [];
@@ -52,6 +52,7 @@ class ContractController extends Controller
                 $contract_detail->price_id = $value['price_id'];
                 $contract_detail->quantity = $value['quantity'];
                 $contract_detail->deadline = $value['deadline'];
+                $contract_detail->selling_price = $value['selling_price'];
                 array_push($contract_details, $contract_detail);
             }
 

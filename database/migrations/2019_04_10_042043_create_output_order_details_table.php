@@ -15,6 +15,11 @@ class CreateOutputOrderDetailsTable extends Migration
     {
         Schema::create('output_order_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('contract_detail_id');
+            $table->foreign('contract_detail_id')->references('id')->on('contract_details')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->unsignedBigInteger('output_order_id');
+            $table->foreign('output_order_id')->references('id')->on('output_orders')->onDelete('cascade');
             $table->timestamps();
         });
     }

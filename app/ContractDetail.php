@@ -25,6 +25,10 @@ class ContractDetail extends Model
         return $this->belongsTo('App\Price');
     }
 
+    public function outputOrderDetails()
+    {
+        return $this->hasMany('App\OutputOrderDetail');
+    }
     public function setDeadlineAttribute($value)
     {
         $this->attributes['deadline'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');

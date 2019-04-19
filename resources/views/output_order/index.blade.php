@@ -10,13 +10,12 @@
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>ĐVĐH</th>
+                    <th>ĐVXH</th>
+                    <th>Số LXH</th>
                     <th>Số đơn hàng</th>
                     <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Đơn giá</th>
-                    <th>Ngày lập</th>
-                    <th>Tiến độ</th>
+                    <th>Số lượng xuất</th>
+                    <th>Ngày xuất</th>
                     <th>LSX</th>
                     <th>Trạng thái</th>
                     <th>Action</th>
@@ -24,23 +23,22 @@
 
                 </thead>
                 <tbody>
-                @foreach ($contract_details as $contract_detail)
+                @foreach ($output_order_details as $output_order_detail)
                     <tr>
-                        <td>{{ $contract_detail->contract->customer->short_name }}</td>
-                        <td>{{ $contract_detail->contract->number }}</td>
-                        <td>{{ $contract_detail->price->product->name }}</td>
-                        <td>{{ $contract_detail->quantity }}</td>
-                        <td>{{ $contract_detail->selling_price }}</td>
-                        <td>{{ $contract_detail->contract->date }}</td>
-                        <td>{{ $contract_detail->deadline }}</td>
-                        <td>{{ $contract_detail->manufacturer_order_number }}</td>
-                        <td>{{ $contract_detail->status }}</td>
+                        <td>{{ $output_order_detail->outputOrder->customer->short_name }}</td>
+                        <td>{{ $output_order_detail->outputOrder->number }}</td>
+                        <td>{{ $output_order_detail->contractDetails->number }}</td>
+                        <td>{{ $output_order_detail->contractDetails->price->product->name }}</td>
+                        <td>{{ $output_order_detail->quantity }}</td>
+                        <td>{{ $output_order_detail->outputOrder->date }}</td>
+                        <td>{{ $output_order_detail->manufacturer_order_number }}</td>
+                        <td>{{ $output_order_detail->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('output-order.show', ['output_order' => $output_order_detail->output_order_id])}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('output-order.edit', ['output_order' => $output_order_detail->output_order_id])}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
@@ -51,16 +49,15 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ĐVĐH</th>
+                        <th>ĐVXH</th>
+                        <th>Số LXH</th>
                         <th>Số đơn hàng</th>
                         <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Ngày lập</th>
-                        <th>Tiến độ</th>
+                        <th>Số lượng xuất</th>
+                        <th>Ngày xuất</th>
                         <th>LSX</th>
                         <th>Trạng thái</th>
-                        <td>Action</td>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
             </table>

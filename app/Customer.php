@@ -14,4 +14,9 @@ class Customer extends Model
     {
         return $this->hasMany('App\Contract');
     }
+
+    public function outputOrders()
+    {
+        return $this->hasMany('App\OutputOrder');
+    }
 }

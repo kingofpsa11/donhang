@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\OutputOrderDetails;
+use App\OutputOrderDetail;
 use Illuminate\Http\Request;
 
-class OutputOrderDetailsController extends Controller
+class OutputOrderDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class OutputOrderDetailsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\OutputOrderDetails  $outputOrderDetails
+     * @param  \App\OutputOrderDetail  $outputOrderDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(OutputOrderDetails $outputOrderDetails)
+    public function show(OutputOrderDetail $outputOrderDetails)
     {
         //
     }
@@ -52,10 +52,10 @@ class OutputOrderDetailsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\OutputOrderDetails  $outputOrderDetails
+     * @param  \App\OutputOrderDetail  $outputOrderDetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(OutputOrderDetails $outputOrderDetails)
+    public function edit(OutputOrderDetail $outputOrderDetails)
     {
         //
     }
@@ -64,10 +64,10 @@ class OutputOrderDetailsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OutputOrderDetails  $outputOrderDetails
+     * @param  \App\OutputOrderDetail  $outputOrderDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OutputOrderDetails $outputOrderDetails)
+    public function update(Request $request, OutputOrderDetail $outputOrderDetails)
     {
         //
     }
@@ -75,10 +75,10 @@ class OutputOrderDetailsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\OutputOrderDetails  $outputOrderDetails
+     * @param  \App\OutputOrderDetail  $outputOrderDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OutputOrderDetails $outputOrderDetails)
+    public function destroy(OutputOrderDetail $outputOrderDetails)
     {
         //
     }

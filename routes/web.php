@@ -25,6 +25,8 @@ Route::resource('contract','ContractController');
 Route::get('price/search', 'PriceController@shows')->name('prices.shows');
 Route::resource('price', 'PriceController');
 
+Route::resource('output-order', 'OutputOrderController');
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
