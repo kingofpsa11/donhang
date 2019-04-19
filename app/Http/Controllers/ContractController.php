@@ -39,6 +39,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->contract_detail;
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
         $contract->number = $this->getLastContract($contract->customer_id);

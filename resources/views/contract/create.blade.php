@@ -42,14 +42,6 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- /.col -->
-                        {{--<div class="col-md-3">--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label>Số đơn hàng</label>--}}
-                                {{--<input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        <!-- /.col -->
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Ngày đặt hàng</label>
@@ -57,7 +49,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="">
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="<?php echo date('d/m/Y')?>">
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -65,7 +57,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" disabled name="contract[total_value]">
+                                <input type="text" class="form-control" readonly name="contract[total_value]">
                             </div>
                         </div>
                     </div>
@@ -99,7 +91,6 @@
                             <td class="col-md-5" data-col-seq="1">
                                 <div class="form-group">
                                     <select class="form-control select2 price" style="width: 100%;" name="contract_detail[0][product_id]">
-                                        {{--<option value="0" selected="selected">--Lựa chọn sản phẩm--</option>--}}
                                     </select>
                                 </div>
                             </td>
@@ -111,7 +102,7 @@
                             <td class="col-md-1" data-col-seq="3">
                                 <div class="form-group">
                                     <input type="hidden" name="contract_detail[0][price_id]">
-                                    <input type="text" class="form-control" name="contract_detail[0][selling_price]" disabled>
+                                    <input type="text" class="form-control" name="contract_detail[0][selling_price]" readonly>
                                 </div>
                             </td>
                             <td class="col-md-2" data-col-seq="4">
@@ -148,10 +139,53 @@
 @endsection
 
 @section('javascript')
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
 
         let customerSelect = $('.select2.customer');
         customerSelect.select2();
+
+        $('tr[data-key]').on('change', '[name$="[quantity]"]', calculateTotal);
+
+        function calculateTotal() {
+            let rows = $('tr[data-key]');
+            let total_value = 0;
+            rows.each(function (i, el) {
+                let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
+                console.log(selling_price);
+                let quantity = $(el).find('[name$="[quantity]"]').val();
+                console.log(quantity);
+                total_value += selling_price * quantity;
+            });
+
+            $('[name$="[total_value]"]').val(total_value);
+        }
+
+        $('[data-mask]').inputmask();
+
+        function maskCurrency(obj) {
+            obj.inputmask({
+                alias: 'integer',
+                autoGroup: true,
+                groupSeparator: '.'
+            });
+        }
+
+        let total_value = $('[name="contract[total_value]"]');
+        let selling_price = $('[name$="[selling_price]"]');
+
+        maskCurrency(total_value);
+        maskCurrency(selling_price);
+
+        function convertNumber(obj) {
+            obj.inputmask('remove');
+            obj.val(obj.val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1"));
+        }
+
+        $('form').on('submit', function () {
+            convertNumber(selling_price);
+            convertNumber(total_value);
+        });
 
         function addSelect2 (el) {
             el.select2({
@@ -187,11 +221,11 @@
         }
 
         let priceSelect = $('.select2.price');
+
         addSelect2(priceSelect);
         getPrice(priceSelect);
 
-        $('[data-mask]').inputmask();
-
+        //Add row to table
         $('#example1').on('click', '.addProduct', function (e) {
             e.preventDefault();
             let icon = $(this).children('i');
@@ -215,15 +249,16 @@
 
                 addSelect2(select2);
                 getPrice(select2);
+                maskCurrency(newRow.find('[name$="[selling_price]"]'));
             } else if (icon.hasClass('fa-minus')) {
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
             }
-
         });
 
+        //Click cancel button
         $('button.cancel').on('click', function (e) {
             e.preventDefault();
-        });
+        })
     </script>
 @stop

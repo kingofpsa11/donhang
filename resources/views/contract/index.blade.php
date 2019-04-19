@@ -130,12 +130,6 @@
                         targets: "_all",
                         className   : 'dt-head-center',
                     },
-                    // {
-                    //     targets: [5,6],
-                    //     render: function(data) {
-                    //         return moment(data).format("DD-MM-YYYY");
-                    //     }
-                    // }
                 ]
             });
 

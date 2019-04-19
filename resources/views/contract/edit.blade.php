@@ -120,7 +120,7 @@
                                 </td>
                                 <td class="col-md-2" data-col-seq="3">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="contract_detail[{{ $i }}][selling_price]" readonly value="{{ $contract_detail->selling_price }}" data-inputmask="'alias': 'integer', 'autoGroup': true, 'groupSeparator': '.'" data-mask>
+                                        <input type="text" class="form-control" name="contract_detail[{{ $i }}][selling_price]" value="{{ $contract_detail->selling_price }}" readonly>
                                     </div>
                                 </td>
                                 <td class="col-md-2" data-col-seq="4">
@@ -151,7 +151,7 @@
                     <div class="box-footer">
                         <div class="col-md-2 pull-right">
                             <input type="submit" value="Lưu" class="btn btn-success save col-md-6">
-                            <a href="{{ url('/') }}" class="btn btn-danger col-md-6 cancel">Hủy</a>
+                            <a href="{{ route('contract.show', [$contract]) }}" class="btn btn-danger col-md-6 cancel">Hủy</a>
                         </div>
                     </div>
                 </div>
@@ -169,38 +169,25 @@
         let customerSelect = $('.select2.customer');
         customerSelect.select2();
 
-        let priceSelect = $('.select2.price');
-        priceSelect.select2({
-            placeholder: 'Nhập tên sản phẩm',
-            minimumInputLength: 2,
-            ajax: {
-                url: '{{ route('prices.shows') }}',
-                delay: 200,
-                dataType: 'json',
-                dropdownAutoWidth : true,
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.name,
-                                id: item.id,
-                                selling_price: item.selling_price
-                            }
-                        })
-                    };
-                },
-                cache: true
-            },
-        });
+        $('tr[data-key]').on('change', '[name$="[quantity]"]', calculateTotal);
 
-        priceSelect.on('select2:select', function (e) {
-            let data = e.params.data;
-            $('input[name="contract_detail[0][selling_price]"]').val(data.selling_price);
-        });
+        function calculateTotal() {
+            let rows = $('tr[data-key]');
+            let total_value = 0;
+            rows.each(function (i, el) {
+                let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
+                console.log(selling_price);
+                let quantity = $(el).find('[name$="[quantity]"]').val();
+                console.log(quantity);
+                total_value += selling_price * quantity;
+            });
+
+            $('[name$="[total_value]"]').val(total_value);
+        }
 
         $('[data-mask]').inputmask();
 
-        function inputMask(obj) {
+        function maskCurrency(obj) {
             obj.inputmask({
                 alias: 'integer',
                 autoGroup: true,
@@ -211,8 +198,8 @@
         let total_value = $('[name="contract[total_value]"]');
         let selling_price = $('[name$="[selling_price]"]');
 
-        inputMask(total_value);
-        inputMask(selling_price);
+        maskCurrency(total_value);
+        maskCurrency(selling_price);
 
         function convertNumber(obj) {
             obj.inputmask('remove');
@@ -224,15 +211,53 @@
             convertNumber(total_value);
         });
 
+        function addSelect2 (el) {
+            el.select2({
+                placeholder: 'Nhập tên sản phẩm',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '{{ route('prices.shows') }}',
+                    delay: 200,
+                    dataType: 'json',
+                    dropdownAutoWidth : true,
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id,
+                                    selling_price: item.selling_price,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+            });
+        }
+
+        function getPrice (el) {
+            el.on('select2:select', function (e) {
+                let data = e.params.data;
+                $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
+                $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
+            });
+        }
+
+        let priceSelect = $('.select2.price');
+
+        addSelect2(priceSelect);
+        getPrice(priceSelect);
+
         //Add row to table
         $('#example1').on('click', '.addProduct', function (e) {
             e.preventDefault();
-
             let icon = $(this).children('i');
             let tableBody = $('tbody');
             let numberOfProduct = tableBody.children().length;
             let lastRow = $('tr:last');
             let newRow = lastRow.clone();
+            let select2 = newRow.find('.select2.price');
 
             if (icon.hasClass('fa-plus')) {
                 newRow.attr('data-key', numberOfProduct);
@@ -243,7 +268,12 @@
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
                 lastRow.children('[data-col-seq="6"]').find('.addProduct i').removeClass('fa-plus').addClass('fa-minus');
+                newRow.find('.select2-container').remove();
                 tableBody.append(newRow);
+
+                addSelect2(select2);
+                getPrice(select2);
+                maskCurrency(newRow.find('[name$="[selling_price]"]'));
             } else if (icon.hasClass('fa-minus')) {
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
