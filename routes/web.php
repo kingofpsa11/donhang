@@ -20,6 +20,7 @@ Route::get('/home', function () {
 Route::resource('customer','CustomerController');
 
 Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
+Route::get('contract/search', 'ContractController@shows')->name('contract.shows');
 Route::resource('contract','ContractController');
 
 Route::get('price/search', 'PriceController@shows')->name('prices.shows');

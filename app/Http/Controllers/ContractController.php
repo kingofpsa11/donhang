@@ -6,9 +6,15 @@ use App\Contract;
 use App\ContractDetail;
 use App\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContractController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -141,5 +147,20 @@ class ContractController extends Controller
         return $newContract;
     }
 
+    public function shows(Request $request)
+    {
+        $term = $request->term;
 
+        $result = DB::table('contracts')
+            ->join('contract_details', 'contracts.id', '=', 'contract_details.contract_id')
+            ->join('prices', 'prices.id', '=', 'contract_details.price_id')
+            ->join('products', 'products.id', '=', 'prices.product_id')
+            ->leftJoin('output_order_details', 'contract_details.id', '=', 'output_order_details.contract_detail_id')
+            ->select('products.name', 'products.code', 'contract_details.id', 'contracts.number', DB::raw('(`contract_details`.`quantity` - IFNULL(`output_order_details`.`quantity`, 0)) as quantity'))
+            ->where('contracts.number', 'LIKE', '%' . $term . '%')
+            ->take(10)
+            ->get();
+
+        return response()->json($result);
+    }
 }

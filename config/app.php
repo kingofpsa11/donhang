@@ -2,8 +2,6 @@
 
 return [
 
-    'date_format_js' => 'dd/mm/yy',
-    'date_format' => 'd/m/Y',
     /*
     |--------------------------------------------------------------------------
     | Application Name

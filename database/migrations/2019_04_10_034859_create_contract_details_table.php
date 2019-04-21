@@ -17,15 +17,14 @@ class CreateContractDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('contract_id');
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');
-            $table->unsignedBigInteger('price_id')->nullable();
+            $table->unsignedBigInteger('price_id');
             $table->foreign('price_id')->references('id')->on('prices')->onDelete('cascade');
             $table->integer('quantity');
             $table->unsignedBigInteger('selling_price')->nullable();
 //            $table->unsignedBigInteger('manufacturer_order_id');
 //            $table->foreign('manufacturer_order_id')->references('id')->on('manufacturers')->onDelete('cascade');
             $table->string('manufacturer_order_number')->nullable();
-            $table->integer('quantity_issue')->nullable();
-            $table->date('deadline')->nullable();
+            $table->date('deadline');
             $table->text('note')->nullable();
             $table->integer('status');
             $table->timestamps();

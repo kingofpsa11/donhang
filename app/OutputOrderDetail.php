@@ -15,7 +15,7 @@ class OutputOrderDetail extends Model
         return $this->belongsTo('App\OutputOrder');
     }
 
-    public function contractDetails()
+    public function contractDetail()
     {
         return $this->belongsTo('App\ContractDetail');
     }

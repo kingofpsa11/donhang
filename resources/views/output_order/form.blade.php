@@ -3,247 +3,228 @@
 @section('title', 'Lệnh xuất hàng')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Lệnh xuất hàng
-            <small>Tạo lệnh xuất hàng</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục LXH</a></li>
-            <li class="active">Tạo LXH</li>
-        </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content container-fluid">
-        <form action=@yield('route') method="POST">
-            @csrf
-            @yield('method')
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Lệnh xuất hàng</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Đơn vị xuất hàng</label>
-                                <select class="form-control input-sm select2 customer" name="contract[customer_id]">
-                                    <option>--Lựa chọn đơn vị xuất hàng--</option>
-                                    @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @yield('contract-number')
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Ngày xuất hàng</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control input-sm" value="@yield('output-order-date')" name="output-order[date]">
-                                </div>
-                                <!-- /.input group -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Nội dung</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body table-responsive">
-                    <table id="example1" class="table table-bordered table-striped table-condensed">
-                        <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Số đơn hàng</th>
-                            <th>Ghi chú</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @yield('table-body')
-                        </tbody>
-                    </table>
-                    <div class="box-footer">
-                        <div class="col-md-2 pull-right">
-                            <input type="submit" value="Lưu" class="btn btn-success save col-md-6">
-                            <a href="{{ url('output-order') }}" class="btn btn-danger col-md-6 cancel">Hủy</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </form>
-    </section>
+	<section class="content-header">
+		<h1>
+			Lệnh xuất hàng
+			<small>Tạo lệnh xuất hàng</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục LXH</a></li>
+			<li class="active">Tạo LXH</li>
+		</ol>
+	</section>
+	
+	<!-- Main content -->
+	<section class="content container-fluid">
+		<form action=@yield('route') method="POST" id="form">
+			@csrf
+			@yield('method')
+			<div class="box box-default">
+				<div class="box-header with-border">
+					<h3 class="box-title">Lệnh xuất hàng</h3>
+					
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<!-- /.box-header -->
+				
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Đơn vị xuất hàng</label>
+								<select class="form-control input-sm select2 customer" name="outputOrder[customer_id]" required>
+									<option value="">--Lựa chọn đơn vị xuất hàng--</option>
+									@foreach ($customers as $customer)
+										<option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Số lệnh xuất hàng</label>
+								<input type="text" class="form-control input-sm" name="outputOrder[number]" required>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Ngày xuất hàng</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" class="form-control input-sm" value="@yield('output-order-date')" name="outputOrder[date]" required>
+								</div>
+								<!-- /.input group -->
+							</div>
+						</div>
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer">
+				</div>
+			</div>
+			
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">Nội dung</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body table-responsive">
+					<table id="example1" class="table table-bordered table-striped table-condensed">
+						<thead>
+						<tr>
+							<th>STT</th>
+							<th>Số đơn hàng</th>
+							<th>Số LSX</th>
+							<th>Mã sản phẩm</th>
+							<th>Tên sản phẩm</th>
+							<th>Số lượng</th>
+							<th>Ghi chú</th>
+						</tr>
+						</thead>
+						<tbody>
+						@yield('table-body')
+						</tbody>
+					</table>
+					<div class="box-footer">
+						<div class="col-md-2 pull-right">
+							<input type="submit" value="Lưu" class="btn btn-success save col-md-6">
+							<a href="{{ url('output-order') }}" class="btn btn-danger col-md-6 cancel">Hủy</a>
+						</div>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</form>
+	</section>
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
-
-        let customerSelect = $('.select2.customer');
-        customerSelect.select2();
-
-        $('tbody').on('change', '[name$="[quantity]"]', calculateTotal);
-
-        function calculateTotal() {
-            let rows = $('tr[data-key]');
-            let total_value = 0;
-            rows.each(function (i, el) {
-                let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
-                console.log(selling_price);
-                let quantity = $(el).find('[name$="[quantity]"]').val();
-                console.log(quantity);
-                total_value += selling_price * quantity;
-            });
-
-            $('[name$="[total_value]"]').val(total_value);
-        }
-
-        function maskCurrency(obj) {
-            obj.inputmask({
-                alias: 'integer',
-                autoGroup: true,
-                groupSeparator: '.'
-            });
-        }
-
-        function maskDate(obj) {
-            obj.inputmask({
-                'alias': 'dd/mm/yyyy'
-            });
-        }
-
-        let total_value = $('[name="contract[total_value]"]');
-        let selling_price = $('[name$="[selling_price]"]');
-        let date = $('[name="contract[date]"]');
-        let deadline = $('[name$="[deadline]"]');
-
-        maskCurrency(total_value);
-        maskCurrency(selling_price);
-        maskDate(date);
-        maskDate(deadline);
-
-        function convertNumber(obj) {
-            obj.inputmask('remove');
-            obj.val(obj.val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1"));
-        }
-
-        $('form').on('submit', function () {
-            convertNumber(selling_price);
-            convertNumber(total_value);
-        });
-
-        function addSelect2 (el) {
-            el.select2({
-                placeholder: 'Nhập tên sản phẩm',
-                minimumInputLength: 2,
-                dropdownAutoWidth: true,
-                ajax: {
-                    url: '{{ route('prices.shows') }}',
-                    delay: 200,
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id,
-                                    selling_price: item.selling_price,
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                },
-            });
-        }
-
-        function getPrice (el) {
-            el.on('select2:select', function (e) {
-                let data = e.params.data;
-                $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
-                $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
-                calculateTotal();
-            });
-        }
-
-        let priceSelect = $('.select2.price');
-
-        addSelect2(priceSelect);
-        getPrice(priceSelect);
-
-        function updateNumberOfRow() {
-            let rows = $('tr[data-key]');
-            rows.each(function (i, row) {
-                row.attr('data-key', i);
-                row.children('[data-col-seq="0"]').text(i + 1);
-                row.children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (i) + '][product_id]');
-                row.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
-                row.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
-                row.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
-                row.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
-            });
-        }
-
-        //Add or remove row to table
-        $('#example1').on('click', '.addProduct', function (e) {
-            e.preventDefault();
-            let icon = $(this).children('i');
-            let tableBody = $('tbody');
-            let numberOfProduct = tableBody.children().length;
-            let lastRow = $('tr:last');
-            let newRow = lastRow.clone();
-            let select2 = newRow.find('.select2.price');
-
-            if (icon.hasClass('fa-plus')) {
-                newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][product_id]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
-                lastRow.children('[data-col-seq="6"]').find('.addProduct i').removeClass('fa-plus').addClass('fa-minus');
-                newRow.find('.select2-container').remove();
-                newRow.find('option').remove();
-                newRow.find('input').val('');
-                tableBody.append(newRow);
-
-                addSelect2(select2);
-                getPrice(select2);
-                maskCurrency(newRow.find('[name$="[selling_price]"]'));
-            } else if (icon.hasClass('fa-minus')) {
-                let currentRow = $(this).parents('tr');
-                currentRow.remove();
-                updateNumberOfRow();
+        $(function () {
+            let customerSelect = $('.select2.customer');
+            customerSelect.select2();
+            
+            function maskDate(obj) {
+                obj.inputmask({
+                    alias: 'date',
+                    displayFormat: 'dd/mm/yyyy',
+                });
             }
+            
+            let date = $('[name="outputOrder[date]"]');
+            
+            maskDate(date);
+            
+            function addSelect2(el) {
+                el.select2({
+                    placeholder: 'Nhập số đơn hàng',
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: '{{ route('contract.shows') }}',
+                        delay: 200,
+                        dataType: 'json',
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+                                        number: item.number,
+                                        code: item.code,
+                                        quantity: item.quantity
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                });
+            }
+            
+            function getProduct(el) {
+                el.on('select2:select', function (e) {
+                    let data = e.params.data;
+                    $(this).parents('tr').find('input[name$="[code]"]').val(data.code);
+                    $(this).parents('tr').find('input[name$="[contract_id]"]').val(data.number);
+                    $(this).parents('tr').find('input[name$="[quantity]"]').val(data.quantity);
+                });
+            }
+            
+            let contractSelect = $('.select2.contract');
+            addSelect2(contractSelect);
+            getProduct(contractSelect);
+            
+            function updateNumberOfRow() {
+                let rows = $('tr[data-key]');
+                rows.each(function (i, row) {
+                    $(row).attr('data-key', i);
+                    $(row).children('[data-col-seq="0"]').text(i + 1);
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + i + '][contract_id]');
+                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + i + '][manufacturer_order_number]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + i + '][code]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + i + '][price_id]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + i + '][quantity]');
+                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + i + '][note]');
+                });
+            }
+            
+            //Add or remove row to table
+            $('#example1').on('click', '.addProduct', function (e) {
+                e.preventDefault();
+                let icon = $(this).children('i');
+                let tableBody = $('tbody');
+                let numberOfProduct = tableBody.children().length;
+                let lastRow = $('tr:last');
+                
+                
+                if (icon.hasClass('fa-plus')) {
+                    let newRow = lastRow.clone();
+                    let select2 = newRow.find('.select2.contract');
+                    newRow.attr('data-key', numberOfProduct);
+                    newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
+                    newRow.children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_id]');
+                    newRow.children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][manufacturer_order_number]');
+                    newRow.children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][code]');
+                    newRow.children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][price_id]');
+                    newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
+                    newRow.children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
+                    lastRow.children('[data-col-seq="7"]').find('i').removeClass('fa-plus').addClass('fa-minus');
+                    newRow.find('.select2-container').remove();
+                    newRow.find('option').remove();
+                    newRow.find('input').val('');
+                    tableBody.append(newRow);
+                    
+                    addSelect2(select2);
+                    getProduct(select2);
+                } else if (icon.hasClass('fa-minus')) {
+                    let currentRow = $(this).parents('tr');
+                    currentRow.remove();
+                    updateNumberOfRow();
+                }
+            });
+            
+            //Click cancel button
+            $('button.cancel').on('click', function (e) {
+                e.preventDefault();
+            });
+            
+            function convertDateToTimestamp(obj) {
+                let date = obj.val();
+                obj.inputmask('remove');
+                let datePart = date.split('/');
+                let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
+                obj.val(newDate.getTime()/1000);
+            }
+            
+            $('#form').on('submit', function () {
+                convertDateToTimestamp($('[name="outputOrder[date]"]'));
+            })
         });
-
-        //Click cancel button
-        $('button.cancel').on('click', function (e) {
-            e.preventDefault();
-        })
     </script>
 @stop

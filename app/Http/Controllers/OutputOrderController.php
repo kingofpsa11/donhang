@@ -6,6 +6,7 @@ use App\Customer;
 use App\OutputOrder;
 use App\OutputOrderDetail;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OutputOrderController extends Controller
 {
@@ -16,7 +17,8 @@ class OutputOrderController extends Controller
      */
     public function index()
     {
-        $outputOrderDetails = OutputOrderDetail::with(['outputOrder.customer', 'contractDetails.price.product'])->take(50)->get();
+
+        $outputOrderDetails = OutputOrderDetail::with(['outputOrder.customer', 'contractDetail.price.product'])->take(50)->get();
         return view('output_order.index')->with('outputOrderDetails', $outputOrderDetails);
     }
 
@@ -68,7 +70,7 @@ class OutputOrderController extends Controller
     public function show(OutputOrder $outputOrder)
     {
         $outputOrder->load('outputOrderDetails');
-        return view('output-order.show')->with('outputOrder', $outputOrder);
+        return view('output_order.show')->with('outputOrder', $outputOrder);
     }
 
     /**

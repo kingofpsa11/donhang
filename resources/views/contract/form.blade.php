@@ -233,6 +233,7 @@
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
                 lastRow.children('[data-col-seq="6"]').find('.addProduct i').removeClass('fa-plus').addClass('fa-minus');
+                console.log(newRow.find('.select2-container'));
                 newRow.find('.select2-container').remove();
                 newRow.find('option').remove();
                 newRow.find('input').val('');
