@@ -248,6 +248,18 @@
         //Click cancel button
         $('button.cancel').on('click', function (e) {
             e.preventDefault();
+        });
+
+        function convertDateToTimestamp(obj) {
+            let date = obj.val();
+            obj.inputmask('remove');
+            let datePart = date.split('/');
+            let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
+            obj.val(newDate.getTime()/1000);
+        }
+
+        $('#form').on('submit', function () {
+            convertDateToTimestamp($('[name="outputOrder[date]"]'));
         })
     </script>
 @stop

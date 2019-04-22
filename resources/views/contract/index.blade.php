@@ -99,7 +99,7 @@
                         className   : 'dt-body-right'
                     },
                     {
-                        "data" : "date",
+                        "data"      : "date",
                         className   : 'dt-body-right'
                     },
                     {

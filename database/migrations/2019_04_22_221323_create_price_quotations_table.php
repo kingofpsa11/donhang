@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EditOutputOrderTable extends Migration
+class CreatePriceQuotationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class EditOutputOrderTable extends Migration
      */
     public function up()
     {
-        Schema::table('output_orders', function (Blueprint $table) {
+        Schema::create('price_quotations', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
             $table->integer('number');
+            $table->string('number_of_customer');
             $table->date('date');
+            $table->string('file');
+            $table->timestamps();
         });
     }
 
@@ -28,8 +31,6 @@ class EditOutputOrderTable extends Migration
      */
     public function down()
     {
-        Schema::table('output_orders', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('price_quotations');
     }
 }

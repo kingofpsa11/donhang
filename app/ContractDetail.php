@@ -31,13 +31,13 @@ class ContractDetail extends Model
     }
     public function setDeadlineAttribute($value)
     {
-        $this->attributes['deadline'] = Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d');
+        $this->attributes['deadline'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
     }
 
     public function getDeadlineAttribute($value)
     {
         if (isset($value)) {
-            return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+            return Carbon::createFromFormat('Y-m-d', $value, 'Asia/Bangkok')->format(config('app.date_format'));
         }
 
         return $value;

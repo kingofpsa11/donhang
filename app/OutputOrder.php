@@ -28,6 +28,6 @@ class OutputOrder extends Model
 
     public function getDateAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value, 'Asia/Bangkok')->format('d/m/Y');
+        return Carbon::createFromFormat('Y-m-d', $value, 'Asia/Bangkok')->format(config('app.date_format'));
     }
 }
