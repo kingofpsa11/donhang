@@ -10,6 +10,11 @@ use Carbon\Carbon;
 
 class OutputOrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +22,7 @@ class OutputOrderController extends Controller
      */
     public function index()
     {
-
-        $outputOrderDetails = OutputOrderDetail::with(['outputOrder.customer', 'contractDetail.price.product'])->take(50)->get();
+        $outputOrderDetails = OutputOrderDetail::with(['outputOrder.customer', 'contractDetail.price.product'])->take(1000)->get();
         return view('output_order.index')->with('outputOrderDetails', $outputOrderDetails);
     }
 

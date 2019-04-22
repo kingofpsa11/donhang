@@ -10,6 +10,13 @@
     @endphp
 @stop
 
+@section('customer')
+    <option value="">--Lựa chọn đơn vị đặt hàng--</option>
+    @foreach ($customers as $customer)
+        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
+    @endforeach
+@stop
+
 @section('table-body')
     <tr data-key="0">
         <td class="" data-col-seq="0">1</td>
@@ -46,7 +53,7 @@
             </div>
         </td>
         <td data-col-seq="6">
-            <button class="btn btn-primary addProduct"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>
 

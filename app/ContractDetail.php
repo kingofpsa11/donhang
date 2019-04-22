@@ -36,7 +36,11 @@ class ContractDetail extends Model
 
     public function getDeadlineAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        if (isset($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
+        }
+
+        return $value;
     }
 
 //    public function setSellingPriceAttribute($value)

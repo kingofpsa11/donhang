@@ -35,10 +35,7 @@
 							<div class="form-group">
 								<label>Đơn vị xuất hàng</label>
 								<select class="form-control input-sm select2 customer" name="outputOrder[customer_id]" required>
-									<option value="">--Lựa chọn đơn vị xuất hàng--</option>
-									@foreach ($customers as $customer)
-										<option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-									@endforeach
+                                    @yield('customer')
 								</select>
 							</div>
 						</div>
@@ -91,9 +88,11 @@
 						</tbody>
 					</table>
 					<div class="box-footer">
-						<div class="col-md-2 pull-right">
-							<input type="submit" value="Lưu" class="btn btn-success save col-md-6">
-							<a href="{{ url('output-order') }}" class="btn btn-danger col-md-6 cancel">Hủy</a>
+						<div class="col-md-4 pull-right">
+                            <button class="btn btn-primary col-md-3 addRow">Thêm dòng</button>
+							<input type="submit" value="Lưu" class="btn btn-success save col-md-3">
+							<a href="{{ url('output-order') }}" class="btn btn-danger col-md-3 cancel">Hủy</a>
+                            <button class="btn btn-default col-md-3 print">In</button>
 						</div>
 					</div>
 				</div>
@@ -107,6 +106,7 @@
 @section('javascript')
     <script>
         $(function () {
+
             let customerSelect = $('.select2.customer');
             customerSelect.select2();
             
@@ -124,10 +124,18 @@
             function addSelect2(el) {
                 el.select2({
                     placeholder: 'Nhập số đơn hàng',
-                    minimumInputLength: 2,
+                    minimumInputLength: 1,
                     ajax: {
                         url: '{{ route('contract.shows') }}',
                         delay: 200,
+                        data: function (params) {
+                            let query = {
+                                search: params.term,
+                                customer_id: customerSelect.val()
+                            };
+
+                            return query;
+                        },
                         dataType: 'json',
                         processResults: function (data) {
                             return {
@@ -146,7 +154,7 @@
                     },
                 });
             }
-            
+
             function getProduct(el) {
                 el.on('select2:select', function (e) {
                     let data = e.params.data;
@@ -157,9 +165,12 @@
             }
             
             let contractSelect = $('.select2.contract');
-            addSelect2(contractSelect);
-            getProduct(contractSelect);
-            
+
+            customerSelect.on('select2:select', function () {
+                addSelect2(contractSelect);
+                getProduct(contractSelect);
+            });
+
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
                 rows.each(function (i, row) {
@@ -175,38 +186,36 @@
             }
             
             //Add or remove row to table
-            $('#example1').on('click', '.addProduct', function (e) {
+            $('.addRow').on('click', function (e) {
                 e.preventDefault();
-                let icon = $(this).children('i');
                 let tableBody = $('tbody');
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = $('tr:last');
-                
-                
-                if (icon.hasClass('fa-plus')) {
-                    let newRow = lastRow.clone();
-                    let select2 = newRow.find('.select2.contract');
-                    newRow.attr('data-key', numberOfProduct);
-                    newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                    newRow.children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_id]');
-                    newRow.children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][manufacturer_order_number]');
-                    newRow.children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][code]');
-                    newRow.children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][price_id]');
-                    newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
-                    newRow.children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
-                    lastRow.children('[data-col-seq="7"]').find('i').removeClass('fa-plus').addClass('fa-minus');
-                    newRow.find('.select2-container').remove();
-                    newRow.find('option').remove();
-                    newRow.find('input').val('');
-                    tableBody.append(newRow);
-                    
-                    addSelect2(select2);
-                    getProduct(select2);
-                } else if (icon.hasClass('fa-minus')) {
-                    let currentRow = $(this).parents('tr');
-                    currentRow.remove();
-                    updateNumberOfRow();
-                }
+                let newRow = lastRow.clone();
+                let select2 = newRow.find('.select2.contract');
+
+                newRow.attr('data-key', numberOfProduct);
+                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
+                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_id]');
+                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][manufacturer_order_number]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][code]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][price_id]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
+                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
+                newRow.find('.select2-container').remove();
+                newRow.find('option').remove();
+                newRow.find('input').val('');
+                tableBody.append(newRow);
+
+                addSelect2(select2);
+                getProduct(select2);
+            });
+
+            $('#example1').on('click', '.removeRow', function (e) {
+                e.preventDefault();
+                let currentRow = $(this).parents('tr');
+                currentRow.remove();
+                updateNumberOfRow();
             });
             
             //Click cancel button

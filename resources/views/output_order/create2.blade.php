@@ -47,7 +47,7 @@
             </div>
         </td>
         <td data-col-seq="7">
-            <button class="btn btn-primary addProduct"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>
 

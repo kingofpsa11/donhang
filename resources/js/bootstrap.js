@@ -12,7 +12,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.moment = moment = require('moment');
 
-    require('bootstrap');
+    // require('bootstrap');
 } catch (e) {}
 
 /**

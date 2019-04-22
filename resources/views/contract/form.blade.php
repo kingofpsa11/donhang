@@ -35,11 +35,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Đơn vị đặt hàng</label>
-                                <select class="form-control input-sm select2 customer" name="contract[customer_id]">
-                                    <option>--Lựa chọn đơn vị đặt hàng--</option>
-                                    @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-                                    @endforeach
+                                <select class="form-control input-sm select2 customer" name="contract[customer_id]" required>
+                                    @yield('customer')
                                 </select>
                             </div>
                         </div>
@@ -51,7 +48,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control input-sm" value="@yield('contract-date')" name="contract[date]">
+                                    <input type="text" class="form-control input-sm" value="@yield('contract-date')" name="contract[date]" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -92,9 +89,10 @@
                         </tbody>
                     </table>
                     <div class="box-footer">
-                        <div class="col-md-2 pull-right">
-                            <input type="submit" value="Lưu" class="btn btn-success save col-md-6">
-                            <a href="{{ url('/') }}" class="btn btn-danger col-md-6 cancel">Hủy</a>
+                        <div class="col-md-3 pull-right">
+                            <button class="btn btn-primary addRow col-md-4">Thêm dòng</button>
+                            <input type="submit" value="Lưu" class="btn btn-success save col-md-4">
+                            <a href="{{ route('contract.index') }}" class="btn btn-danger col-md-4 cancel">Hủy</a>
                         </div>
                     </div>
                 </div>
@@ -119,9 +117,7 @@
             let total_value = 0;
             rows.each(function (i, el) {
                 let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
-                console.log(selling_price);
                 let quantity = $(el).find('[name$="[quantity]"]').val();
-                console.log(quantity);
                 total_value += selling_price * quantity;
             });
 
@@ -198,55 +194,55 @@
 
         let priceSelect = $('.select2.price');
 
-        addSelect2(priceSelect);
-        getPrice(priceSelect);
+        customerSelect.on('select2:select', function () {
+            addSelect2(priceSelect);
+            getPrice(priceSelect);
+        })
 
         function updateNumberOfRow() {
             let rows = $('tr[data-key]');
             rows.each(function (i, row) {
-                row.attr('data-key', i);
-                row.children('[data-col-seq="0"]').text(i + 1);
-                row.children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (i) + '][product_id]');
-                row.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
-                row.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
-                row.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
-                row.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+                $(row).attr('data-key', i);
+                $(row).children('[data-col-seq="0"]').text(i + 1);
+                $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (i) + '][product_id]');
+                $(row).children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
+                $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
+                $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
+                $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
             });
         }
 
         //Add or remove row to table
-        $('#example1').on('click', '.addProduct', function (e) {
+        $('.addRow').on('click', function (e) {
             e.preventDefault();
-            let icon = $(this).children('i');
             let tableBody = $('tbody');
             let numberOfProduct = tableBody.children().length;
             let lastRow = $('tr:last');
             let newRow = lastRow.clone();
             let select2 = newRow.find('.select2.price');
 
-            if (icon.hasClass('fa-plus')) {
-                newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][product_id]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
-                lastRow.children('[data-col-seq="6"]').find('.addProduct i').removeClass('fa-plus').addClass('fa-minus');
-                console.log(newRow.find('.select2-container'));
-                newRow.find('.select2-container').remove();
-                newRow.find('option').remove();
-                newRow.find('input').val('');
-                tableBody.append(newRow);
+            newRow.attr('data-key', numberOfProduct);
+            newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
+            newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][product_id]');
+            newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
+            newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
+            newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
+            newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
+            newRow.find('.select2-container').remove();
+            newRow.find('option').remove();
+            newRow.find('input').val('');
+            tableBody.append(newRow);
 
-                addSelect2(select2);
-                getPrice(select2);
-                maskCurrency(newRow.find('[name$="[selling_price]"]'));
-            } else if (icon.hasClass('fa-minus')) {
-                let currentRow = $(this).parents('tr');
-                currentRow.remove();
-                updateNumberOfRow();
-            }
+            addSelect2(select2);
+            getPrice(select2);
+            maskCurrency(newRow.find('[name$="[selling_price]"]'));
+            maskDate(newRow.find('[name$="[deadline]"]'));
+        });
+
+        $('#example1').on('click', '.removeRow', function (e) {
+            let currentRow = $(this).parents('tr');
+            currentRow.remove();
+            updateNumberOfRow();
         });
 
         //Click cancel button

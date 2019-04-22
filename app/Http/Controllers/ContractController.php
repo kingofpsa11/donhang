@@ -22,7 +22,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id','desc')->take(50)->get();
+        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id','desc')->take(1000)->get();
         return view('contract.index')->with('contract_details', $contract_details);
     }
 
@@ -149,7 +149,7 @@ class ContractController extends Controller
 
     public function shows(Request $request)
     {
-        $term = $request->term;
+        $term = $request->search;
 
         $result = DB::table('contracts')
             ->join('contract_details', 'contracts.id', '=', 'contract_details.contract_id')
@@ -158,6 +158,7 @@ class ContractController extends Controller
             ->leftJoin('output_order_details', 'contract_details.id', '=', 'output_order_details.contract_detail_id')
             ->select('products.name', 'products.code', 'contract_details.id', 'contracts.number', DB::raw('(`contract_details`.`quantity` - IFNULL(`output_order_details`.`quantity`, 0)) as quantity'))
             ->where('contracts.number', 'LIKE', '%' . $term . '%')
+            ->where('customer_id', '=', $request->customer_id)
             ->take(10)
             ->get();
 

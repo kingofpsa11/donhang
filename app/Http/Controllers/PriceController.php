@@ -16,7 +16,7 @@ class PriceController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

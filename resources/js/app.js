@@ -8,7 +8,7 @@
 require('./bootstrap');
 require('admin-lte');
 
-import 'jquery-validation/dist/jquery.validate.min.js';
+// import 'jquery-validation/dist/jquery.validate.min.js';
 
 window.Vue = require('vue');
 

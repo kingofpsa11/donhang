@@ -26,6 +26,17 @@
     @method('PUT')
 @stop
 
+@section('customer')
+    @foreach ($customers as $customer)
+        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
+        {{--@if ($customer === $contract->$customer)--}}
+            {{--<option value="{{ $customer->id }}" selected>{{ $customer->short_name }}</option>--}}
+        {{--@else--}}
+            {{--<option value="{{ $customer->id }}">{{ $customer->short_name }}</option>--}}
+        {{--@endif--}}
+    @endforeach
+@stop
+
 @section('table-body')
     @php
         $count = count($contract->contract_details);
@@ -67,11 +78,7 @@
                 </div>
             </td>
             <td data-col-seq="6">
-                @if ( $i === $count - 1)
-                    <button class="btn btn-primary addProduct"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                @else
-                    <button class="btn btn-primary addProduct"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                @endif
+                <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>
         @php( $i++ )

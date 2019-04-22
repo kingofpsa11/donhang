@@ -14,7 +14,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
     {{--<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">--}}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rr-1.2.4/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
+
     <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -29,12 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style>
-        label.myErrorClass {
-            color: red;
-            font-size: 11px;
-            font-style: italic;
-        }
-        input.myE
+
     </style>
 </head>
 <!--
@@ -251,7 +247,7 @@ desired effect
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+                <li><a href="#"><i class="fa fa-link"></i> <span>k</span></a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-link"></i>
@@ -267,13 +263,14 @@ desired effect
                     <a href="#">
                         <i class="fa fa-edit"></i> <span>Đặt hàng</span>
                         <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('contract.create') }}"><i class="fa fa-circle-o"></i> Đơn hàng</a></li>
-                        <li><a href="{{ route('output-order.create') }}"><i class="fa fa-circle-o"></i> Lệnh xuất hàng</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Bảng kê</a></li>
+                        <li><a href="{{ route('price.create') }}"><i class="fa fa-circle-o"></i>Báo giá</a></li>
+                        <li><a href="{{ route('contract.create') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
+                        <li><a href="{{ route('output-order.create') }}"><i class="fa fa-circle-o"></i>Lệnh xuất hàng</a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>
                 </li>
             </ul>
@@ -379,7 +376,7 @@ desired effect
 <!-- jQuery 3 -->
 {{--<script src="bower_components/jquery/dist/jquery.min.js"></script>--}}
 <!-- Bootstrap 3.3.7 -->
-{{--<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--}}
+<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
@@ -388,7 +385,8 @@ desired effect
 {{--<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>--}}
 
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
 
 @yield('javascript')
 

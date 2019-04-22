@@ -60,7 +60,7 @@
                         <th>Tiến độ</th>
                         <th>LSX</th>
                         <th>Trạng thái</th>
-                        <td>Action</td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
@@ -74,10 +74,8 @@
     <script>
         $(document).ready(function () {
             $('#example2 tfoot th').each( function () {
-                var title = $(this).text();
-                $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
-            } );
-
+                $(this).html('<input type="text" style="width:100%;" placeholder="Tìm" />');
+            });
 
             let table = $('#example2').DataTable({
                 'paging': true,
@@ -89,7 +87,6 @@
                 "language": {
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
-
                 },
                 "columns" : [
                     { "data" : "customer" },
@@ -113,9 +110,9 @@
                     {
                         "data"      : "status",
                         "render"    : function (data) {
-                            if (data == 10) {
+                            if (data === '10') {
                                 return '<span class="label label-warning">Đang sản xuất</span>';
-                            } else if (data == 0) {
+                            } else if (data === '0') {
                                 return '<span class="label label-success">Xong</span>';
                             }
                         }
@@ -153,7 +150,6 @@
                 var that = this;
 
                 $( 'input', this.footer() ).on( 'keyup change', function () {
-                    console.log(that.search());
                     if ( that.search() !== this.value ) {
                         that
                             .search( this.value )
