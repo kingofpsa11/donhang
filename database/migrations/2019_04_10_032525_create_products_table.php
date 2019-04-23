@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDetele('cascade');
             $table->integer('status');
             $table->text('note');
+            $table->string('file');
             $table->timestamps();
         });
     }

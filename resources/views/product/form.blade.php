@@ -29,6 +29,10 @@
                             @yield('form-content')
                         </div>
                         <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success btn-lg">Lưu</button>
+                            <a href="{{ route('product.index') }}" class="btn btn-danger btn-lg">Hủy</a>
+                        </div>
                     </div>
                     <!-- /.box -->
                 </form>

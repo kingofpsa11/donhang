@@ -67,7 +67,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('product.edit')->with(['product' => $product, 'categories' => $categories]);
     }
 
     /**
@@ -79,7 +80,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->category_id = $request->category_id;
+        $product->code = $request->code;
+        $product->name = $request->name;
+//        $product->note = $request->note;
+        if ($product->save())
+        {
+            return redirect()->route('product.show', [$product]);
+        }
     }
 
     /**

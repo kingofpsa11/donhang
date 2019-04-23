@@ -6,93 +6,49 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Đơn hàng
-            <small>Tạo đơn hàng</small>
+            Tạo sản phẩm
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
+            <li><a href="{{ route('product.index') }}"><i class="fa fa-dashboard"></i> Danh mục sản phẩm</a></li>
+            <li class="active">Tạo sản phẩm</li>
         </ol>
     </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Nội dung đơn hàng</h3>
-                <div class="row">
-                    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Thêm sản phẩm</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
                         <div class="form-group">
-                            <label>Đơn vị đặt hàng</label>
-                            <input type="text" class="form-control" readonly value="{{ $contract->customer_id }}">
+                            <label for="" class="col-md-3 control-label">Nhóm</label>
+                            <input type="text" class="form-control" value="{{ $product->category->name }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 control-label">Mã sản phẩm</label>
+                            <input type="text" class="form-control" name="product[0][code]" value="{{ $product->code }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 control-label">Tên sản phẩm</label>
+                            <input type="text" class="form-control" name="product[0][name]" value="{{ $product->name }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 control-label">Ghi chú</label>
+                            <textarea id="" class="form-control" name="product[0][note]" value="{{ $product->note }}" readonly></textarea>
+                        </div>
+                        <div class="box-footer">
+                            <a href="{{ route('product.edit', [$product]) }}" class="btn btn-danger btn-lg">Sửa</a>
                         </div>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Số đơn hàng</label>
-                            <input type="text" class="form-control" readonly value="{{ $contract->number }}">
-                        </div>
-                    </div>
-                <!-- /.col -->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Ngày đặt hàng</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="{{ $contract->date }}" readonly>
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Giá trị đơn hàng</label>
-                            <input type="text" class="form-control" value="{{ $contract->total_value }}" readonly data-inputmask="'alias': 'integer', 'autoGroup': true, 'groupSeparator': '.', 'removeMaskOnSubmit': true" data-mask>
-                        </div>
-                    </div>
+                    <!-- /.box-body -->
                 </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-bordered table-striped hover" id="contract-show">
-                    <thead>
-                        <tr>
-                            <th class="col-md-5">Tên sản phẩm</th>
-                            <th class="col-md-1">Số lượng</th>
-                            <th class="col-md-1">Đơn giá</th>
-                            <th class="col-md-2">Tiến độ</th>
-                            <th class="col-md-2">Ghi chú</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($contract->contract_details as $contract_detail)
-                            <tr>
-                                <td>{{ $contract_detail->price->product->name }}</td>
-                                <td>{{ $contract_detail->quantity }}</td>
-                                <td>{{ $contract_detail->selling_price }}</td>
-                                <td>{{ $contract_detail->deadline }}</td>
-                                <td>{{ $contract_detail->note }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <div class="row">
-                    <div class="col-md-1 pull-right">
-                        <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                        </a>
-                    </div>
-                </div>
+                <!-- /.box -->
             </div>
         </div>
-        <!-- /.box -->
     </section>
 @endsection
 
