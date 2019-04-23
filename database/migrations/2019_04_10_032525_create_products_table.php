@@ -19,6 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('code');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDetele('cascade');
+            $table->integer('status');
+            $table->text('note');
             $table->timestamps();
         });
     }

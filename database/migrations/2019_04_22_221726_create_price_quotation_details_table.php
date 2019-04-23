@@ -17,7 +17,6 @@ class CreatePriceQuotationDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('price_quotation_id');
             $table->foreign('price_quotation_id')->references('id')->on('price_quotations')->onDelete('cascade');
-            $table->
             $table->timestamps();
         });
     }

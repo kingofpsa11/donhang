@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::orderBy('id')->take(1000)->get();
+        return view('product.index')->with('products', $products);
     }
 
     /**
@@ -24,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('product.create')->with('categories', $categories);
     }
 
     /**
@@ -35,7 +38,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->category_id = $request->category_id;
+        $product->code = $request->code;
+        $product->name = $request->name;
+//        $product->note = $request->note;
+        if($product->save()) {
+            return redirect()->route('product.show', [$product]);
+        }
     }
 
     /**
@@ -46,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('product.show')->with('product', $product);
     }
 
     /**
@@ -81,5 +91,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function shows()
+    {
+        $products = Product::take(10)->get();
+        return response()->json($products);
     }
 }

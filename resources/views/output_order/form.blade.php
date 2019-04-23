@@ -179,7 +179,7 @@
                     $(row).children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + i + '][contract_id]');
                     $(row).children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + i + '][manufacturer_order_number]');
                     $(row).children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + i + '][code]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + i + '][price_id]');
+                    $(row).children('[data-col-seq="4"]').find('select').attr('name', 'outputOrderDetails[' + i + '][contract_detail_id]');
                     $(row).children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + i + '][quantity]');
                     $(row).children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + i + '][note]');
                 });
@@ -199,7 +199,7 @@
                 newRow.children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_id]');
                 newRow.children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][manufacturer_order_number]');
                 newRow.children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][code]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][price_id]');
+                newRow.children('[data-col-seq="4"]').find('select').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_detail_id]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
                 newRow.children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
                 newRow.find('.select2-container').remove();
@@ -222,13 +222,15 @@
             $('button.cancel').on('click', function (e) {
                 e.preventDefault();
             });
-            
+
             function convertDateToTimestamp(obj) {
-                let date = obj.val();
-                obj.inputmask('remove');
-                let datePart = date.split('/');
-                let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                obj.val(newDate.getTime()/1000);
+                obj.each(function (i, el) {
+                    let date = $(el).val();
+                    $(el).inputmask('remove');
+                    let datePart = date.split('/');
+                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
+                    $(el).val(newDate.getTime()/1000);
+                })
             }
             
             $('#form').on('submit', function () {

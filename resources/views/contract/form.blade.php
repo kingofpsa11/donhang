@@ -16,7 +16,7 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-        <form action="@yield('route')" method="POST">
+        <form action="@yield('route')" method="POST" id="form">
             @csrf
             @yield('method')
             <div class="box box-default">
@@ -148,15 +148,7 @@
         maskDate(date);
         maskDate(deadline);
 
-        function convertNumber(obj) {
-            obj.inputmask('remove');
-            obj.val(obj.val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1"));
-        }
 
-        $('form').on('submit', function () {
-            convertNumber(selling_price);
-            convertNumber(total_value);
-        });
 
         function addSelect2 (el) {
             el.select2({
@@ -251,15 +243,27 @@
         });
 
         function convertDateToTimestamp(obj) {
-            let date = obj.val();
-            obj.inputmask('remove');
-            let datePart = date.split('/');
-            let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-            obj.val(newDate.getTime()/1000);
+            obj.each(function (i, el) {
+                let date = $(el).val();
+                $(el).inputmask('remove');
+                let datePart = date.split('/');
+                let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
+                $(el).val(newDate.getTime()/1000);
+            })
+        }
+
+        function convertNumber(obj) {
+            obj.each(function (i, el) {
+                $(el).inputmask('remove');
+                $(el).val($(el).val().replace(/(\d+).(?=\d{3})/g, "$1"));
+            })
         }
 
         $('#form').on('submit', function () {
-            convertDateToTimestamp($('[name="outputOrder[date]"]'));
+            convertNumber($('[name$="[selling_price]"]'));
+            convertNumber($('[name$="[total_value]"]'));
+            convertDateToTimestamp($('[name$="[date]"]'));
+            convertDateToTimestamp($('[name$="[deadline]"]'));
         })
     </script>
 @stop

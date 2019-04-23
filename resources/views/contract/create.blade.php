@@ -22,7 +22,7 @@
         <td class="" data-col-seq="0">1</td>
         <td class="col-md-4" data-col-seq="1">
             <div class="form-group">
-                <select class="form-control input-sm select2 price" style="width: 100%;" name="contract_detail[0][price_id]">
+                <select class="form-control input-sm select2 price" style="width: 100%;" name="contract_detail[0][price_id]" required>
                 </select>
             </div>
         </td>

@@ -28,6 +28,9 @@ Route::resource('price', 'PriceController');
 
 Route::resource('output-order', 'OutputOrderController');
 
+Route::get('product/all', 'ProductController@shows')->name('product.shows');
+Route::resource('product', 'ProductController');
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');

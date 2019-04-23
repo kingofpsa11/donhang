@@ -267,6 +267,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="{{ route('product.create') }}"><i class="fa fa-circle-o"></i>Tạo sản phẩm</a></li>
                         <li><a href="{{ route('price.create') }}"><i class="fa fa-circle-o"></i>Báo giá</a></li>
                         <li><a href="{{ route('contract.create') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
                         <li><a href="{{ route('output-order.create') }}"><i class="fa fa-circle-o"></i>Lệnh xuất hàng</a></li>
