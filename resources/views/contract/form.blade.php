@@ -196,7 +196,7 @@
             rows.each(function (i, row) {
                 $(row).attr('data-key', i);
                 $(row).children('[data-col-seq="0"]').text(i + 1);
-                $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (i) + '][product_id]');
+                $(row).children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
                 $(row).children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
                 $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
                 $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
@@ -215,7 +215,7 @@
 
             newRow.attr('data-key', numberOfProduct);
             newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-            newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][product_id]');
+            newRow.children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
             newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
             newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
             newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');

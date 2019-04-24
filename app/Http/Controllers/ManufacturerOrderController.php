@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
+use App\ContractDetail;
 use App\ManufacturerOrder;
+use App\Supplier;
 use Illuminate\Http\Request;
 
 class ManufacturerOrderController extends Controller
@@ -22,9 +25,10 @@ class ManufacturerOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Contract $contract)
     {
-        //
+        $suppliers = Supplier::all();
+        return view('manufacturer_order.create')->with(['contract' => $contract, 'suppliers' => $suppliers]);
     }
 
     /**
@@ -33,9 +37,28 @@ class ManufacturerOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Contract $contract)
     {
-        //
+        $newNumber = 0;
+        $supplier_id = null;
+        $manufacturer_id = null;
+        foreach ($request->contract_detail as $value) {
+            if (($newNumber == 0 && $supplier_id == null) || $supplier_id != $value['supplier_id']) {
+                $manufacturerOrder = new ManufacturerOrder();
+                $manufacturerOrder->supplier_id = $value['supplier_id'];
+                $newNumber = $this->getNewNumber($manufacturerOrder['supplier_id']);
+                $supplier_id = $value['supplier_id'];
+                $manufacturerOrder->number = $newNumber;
+                $manufacturerOrder->save();
+                $manufacturer_id = $manufacturerOrder->id;
+            }
+            echo $newNumber;
+            $contractDetail = ContractDetail::find($value['id']);
+            $contractDetail->manufacturer_order_id = $manufacturer_id;
+            $contractDetail->save();
+        }
+
+        return redirect()->route('manufacturer-order.show', $contract);
     }
 
     /**
@@ -44,9 +67,9 @@ class ManufacturerOrderController extends Controller
      * @param  \App\ManufacturerOrder  $manufacturerOrder
      * @return \Illuminate\Http\Response
      */
-    public function show(ManufacturerOrder $manufacturerOrder)
+    public function show(Contract $contract)
     {
-        //
+        return response()->view('manufacturer_order.show',['contract' => $contract]);
     }
 
     /**
@@ -81,5 +104,11 @@ class ManufacturerOrderController extends Controller
     public function destroy(ManufacturerOrder $manufacturerOrder)
     {
         //
+    }
+
+    public function getNewNumber($supplier_id)
+    {
+        $newNumber =  ManufacturerOrder::where('supplier_id', $supplier_id)->whereYear('created_at', '>=', date('Y'))->orderBy('number', 'desc')->first();
+        return ((int)$newNumber->number + 1);
     }
 }

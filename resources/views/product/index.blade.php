@@ -49,6 +49,7 @@
                     </tr>
                 </tfoot>
             </table>
+            <button class="btn btn-primary" id="export">Export</button>
         </div>
         <!-- /.box-body -->
     </div>

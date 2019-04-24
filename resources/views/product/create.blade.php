@@ -26,8 +26,4 @@
         <label for="" class="col-md-3 control-label">Ghi chú</label>
         <textarea id="" class="form-control" name="product[note]"></textarea>
     </div>
-    <div class="box-footer">
-        <button type="submit" class="btn btn-success btn-lg">Lưu</button>
-        <a href="{{ route('product.index') }}" class="btn btn-danger btn-lg">Hủy</a>
-    </div>
 @endsection
