@@ -17,8 +17,11 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id','desc')->take(1000)->get();
-        return view('contract.index')->with('contract_details', $contract_details);
+//        $user = \Auth::user();
+        if ($this->authorize('view', Contract::class)) {
+            $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id', 'desc')->take(1000)->get();
+            return view('contract.index')->with('contract_details', $contract_details);
+        }
     }
 
     /**

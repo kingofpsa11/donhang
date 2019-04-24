@@ -17,9 +17,9 @@ class ContractPolicy
      * @param  \App\Contract  $contract
      * @return mixed
      */
-    public function view(User $user, Contract $contract)
+    public function view(User $user)
     {
-        return $user->id === 2;
+        return $user->id === 1;
     }
 
     /**
