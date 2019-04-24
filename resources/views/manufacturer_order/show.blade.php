@@ -98,7 +98,7 @@
                                 {{ $contract_detail->note }}
                             </td>
                             <td class="col-md-1" data-col-seq="6">
-                                {{ $contract_detail->manufacturerOrder->supplier_id }}
+                                {{ $contract_detail->manufacturerOrder->supplier->short_name }}
                             </td>
                             <td class="col-md-1" data-col-seq="7">
                                 {{ $contract_detail->manufacturerOrder->number }}
@@ -121,39 +121,10 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
-
-        function maskDate(obj) {
-            obj.inputmask({
-                'alias': 'dd/mm/yyyy'
-            });
-        }
-
-        let date = $('[name="contract[date]"]');
-        let deadline = $('[name$="[deadline]"]');
-
-        maskDate(date);
-        maskDate(deadline);
-
         //Click cancel button
         $('button.cancel').on('click', function (e) {
             e.preventDefault();
         });
-
-        function convertDateToTimestamp(obj) {
-            obj.each(function (i, el) {
-                let date = $(el).val();
-                $(el).inputmask('remove');
-                let datePart = date.split('/');
-                let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                $(el).val(newDate.getTime()/1000);
-            })
-        }
-
-        $('#form').on('submit', function () {
-            convertDateToTimestamp($('[name$="[date]"]'));
-            convertDateToTimestamp($('[name$="[deadline]"]'));
-        })
     </script>
 @stop

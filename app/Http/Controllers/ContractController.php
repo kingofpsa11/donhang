@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class ContractController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +17,6 @@ class ContractController extends Controller
      */
     public function index()
     {
-
         $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id','desc')->take(1000)->get();
         return view('contract.index')->with('contract_details', $contract_details);
     }

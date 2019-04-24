@@ -109,6 +109,9 @@ class ManufacturerOrderController extends Controller
     public function getNewNumber($supplier_id)
     {
         $newNumber =  ManufacturerOrder::where('supplier_id', $supplier_id)->whereYear('created_at', '>=', date('Y'))->orderBy('number', 'desc')->first();
+        if (!isset($newNumber)) {
+            return 1;
+        }
         return ((int)$newNumber->number + 1);
     }
 }

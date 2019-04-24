@@ -14,4 +14,9 @@ class ManufacturerOrder extends Model
     {
         return $this->hasMany('App\ContractDetail');
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo('App\Supplier');
+    }
 }
