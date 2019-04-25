@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('product/all', 'ProductController@shows')->name('product.shows');
     Route::resource('product', 'ProductController');
 
-
+    Route::resource('roles', 'RoleController');
 });
 
 Auth::routes();
