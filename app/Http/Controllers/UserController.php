@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Role;
+use App\Permission;
+use App\Authorizable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    use Authorizable;
     public function index()
     {
         $result = User::latest()->paginate();
-        return view('user.index', compact('result'));
+        return view('users.index', compact('result'));
     }
 
     public function create()
     {
         $roles = Role::pluck('name', 'id');
-        return view('user.new', compact('roles'));
+        return view('users.new', compact('roles'));
     }
 
     public function store(Request $request)
