@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('title', 'Users')
+@section('title', 'Quản lý người dùng')
 
 @section('content')
     <div class="row">
@@ -54,5 +54,4 @@
             {{ $result->links() }}
         </div>
     </div>
-
 @endsection

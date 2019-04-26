@@ -23,17 +23,17 @@
 <div class="form-group @if ($errors->has('roles')) has-error @endif">
     <label for="">Roles</label>
     <select name="roles[]" id="" class="form-control" multiple>
-        @foreach ($roles as $role)
+        @foreach ($roles as $key => $singleRole)
             @if (isset($user))
-                @foreach ($user->roles as $userRole)
-                    @if ($userRole->id === $role->id)
-                        <option value="{{ $userRole->id }}">{{ $userRole->name }}</option>
+                @foreach ($user->roles as $keyRole => $userRole)
+                    @if ($keyRole === $key)
+                        <option value="{{ $keyRole }}">{{ $userRole }}</option>
                     @else
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        <option value="{{ $key }}">{{ $singleRole }}</option>
                     @endif
                 @endforeach
             @else
-                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                <option value="{{ $key }}">{{ $singleRole }}</option>
             @endif
         @endforeach
     </select>

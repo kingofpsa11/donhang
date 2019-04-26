@@ -32,6 +32,7 @@ trait Authorizable
         if( $ability = $this->getAbility($method) ) {
             $this->authorize($ability);
         }
+
         return parent::callAction($method, $parameters);
     }
     /**

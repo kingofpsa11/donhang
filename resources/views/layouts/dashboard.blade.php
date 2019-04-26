@@ -281,7 +281,19 @@ desired effect
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @yield('content')
+        <section class="content-header">
+            <h1>
+                Đơn hàng
+                <small>Tạo đơn hàng</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục đơn hàng</a></li>
+                <li class="active">Tạo đơn hàng</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            @yield('content')
+        </section>
     </div>
     <!-- /.content-wrapper -->
 

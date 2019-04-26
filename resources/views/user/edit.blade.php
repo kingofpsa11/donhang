@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User ' . $user->first_name)
+@section('title', 'Edit User ' . $user->name)
 
 @section('content')
 
@@ -18,14 +18,19 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        {!! Form::model($user, ['method' => 'PUT', 'route' => ['users.update',  $user->id ] ]) !!}
+                        <form action="{{ route('users.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             @include('user._form')
+
                             <!-- Submit Form Button -->
-                            {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
-                        {!! Form::close() !!}
+                            <input type="submit" value="Lưu" class="btn btn-primary">
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 @endsection

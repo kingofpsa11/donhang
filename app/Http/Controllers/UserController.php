@@ -12,18 +12,37 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     use Authorizable;
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $result = User::latest()->paginate();
-        return view('users.index', compact('result'));
+
+        return view('user.index', compact('result'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         $roles = Role::pluck('name', 'id');
-        return view('users.new', compact('roles'));
+
+        return view('user.new', compact('roles'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -38,8 +57,11 @@ class UserController extends Controller
 
         // Create the user
         if ( $user = User::create($request->except('roles', 'permissions')) ) {
+
             $this->syncPermissions($request, $user);
+
             flash('User has been created.');
+
         } else {
             flash()->error('Unable to create user.');
         }
@@ -47,15 +69,38 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $user = User::find($id);
         $roles = Role::pluck('name', 'id');
         $permissions = Permission::all('name', 'id');
-
         return view('user.edit', compact('user', 'roles', 'permissions'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -79,10 +124,19 @@ class UserController extends Controller
         $this->syncPermissions($request, $user);
 
         $user->save();
+
         flash()->success('User has been updated.');
+
         return redirect()->route('users.index');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     * @internal param Request $request
+     */
     public function destroy($id)
     {
         if ( Auth::user()->id == $id ) {
@@ -99,6 +153,13 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Sync roles and permissions
+     *
+     * @param Request $request
+     * @param $user
+     * @return string
+     */
     private function syncPermissions(Request $request, $user)
     {
         // Get the submitted roles
@@ -118,6 +179,7 @@ class UserController extends Controller
         }
 
         $user->syncRoles($roles);
+
         return $user;
     }
 }

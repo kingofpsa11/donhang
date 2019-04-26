@@ -13,9 +13,10 @@ use App\Customer;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function () {
-        return view('home');
+    Route::get('/', function () {
+        return view('welcome');
     });
+    Route::get('/home', 'HomeController@index')->name('home');
 
     Route::resource('customer','CustomerController');
 
@@ -50,4 +51,3 @@ Route::middleware(['auth'])->group(function () {
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');

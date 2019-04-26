@@ -26,6 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('/contract');
+        return redirect('/home');
     }
 }
