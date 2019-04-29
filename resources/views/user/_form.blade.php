@@ -1,14 +1,14 @@
 <!-- Name Form Input -->
 <div class="form-group @if ($errors->has('name')) has-error @endif">
     <label for="">Name</label>
-    <input type="text" class="form-control" placeholder="Name" name="name">
+    <input type="text" class="form-control" placeholder="Name" name="name" value="{{ $user->name ?? null }}">
     @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
 </div>
 
 <!-- email Form Input -->
 <div class="form-group @if ($errors->has('email')) has-error @endif">
     <label for="">Email</label>
-    <input type="email" class="form-control" placeholder="Email" name="email">
+    <input type="email" class="form-control" placeholder="Email" name="email" value="{{ $user->email ?? null }}">
     @if ($errors->has('email')) <p class="help-block">{{ $errors->first('email') }}</p> @endif
 </div>
 
@@ -25,13 +25,11 @@
     <select name="roles[]" id="" class="form-control" multiple>
         @foreach ($roles as $key => $singleRole)
             @if (isset($user))
-                @foreach ($user->roles as $keyRole => $userRole)
-                    @if ($keyRole === $key)
-                        <option value="{{ $keyRole }}">{{ $userRole }}</option>
-                    @else
-                        <option value="{{ $key }}">{{ $singleRole }}</option>
-                    @endif
-                @endforeach
+                @if (in_array($key, $user->roles->pluck('id')->toArray()))
+                    <option value="{{ $key }}" selected>{{ $singleRole }}</option>
+                @else
+                    <option value="{{ $key }}">{{ $singleRole }}</option>
+                @endif
             @else
                 <option value="{{ $key }}">{{ $singleRole }}</option>
             @endif

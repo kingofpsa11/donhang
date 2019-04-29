@@ -35,7 +35,7 @@ class RoleController extends Controller
         $this->validate($request, ['name' => 'required|unique:roles']);
 
         if( Role::create($request->only('name')) ) {
-            flash('Role Added');
+            flash('Thêm vai trò thành công');
         }
 
         return redirect()->back();
@@ -61,7 +61,7 @@ class RoleController extends Controller
 
             $role->syncPermissions($permissions);
 
-            flash( $role->name . ' permissions has been updated.');
+            flash( $role->name . ' phân quyền đã được cập nhật.');
         } else {
             flash()->error( 'Role with id '. $id .' note found.');
         }

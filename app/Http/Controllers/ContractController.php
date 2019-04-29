@@ -98,6 +98,7 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
+        $contract->customer_id = $request->contract['customer_id'];
         $contract->number = $request->contract['number'];
         $contract->total_value = $request->contract['total_value'];
         $contract->date = $request->contract['date'];

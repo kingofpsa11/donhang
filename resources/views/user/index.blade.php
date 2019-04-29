@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-7 page-action text-right">
             @can('add_users')
-                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm"> <i class="glyphicon glyphicon-plus-sign"></i> Create</a>
+                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm"> <i class="glyphicon glyphicon-plus-sign"></i> Tạo người dùng mới</a>
             @endcan
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('output_order.form')
+@extends('output_order._form')
 
 @section('route')
     {{ route('output-order.update', $outputOrder->id) }}

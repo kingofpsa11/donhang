@@ -4,16 +4,6 @@
 
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Đơn hàng
-            <small>Tạo đơn hàng</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục đơn hàng</a></li>
-            <li class="active">Tạo đơn hàng</li>
-        </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">

@@ -176,14 +176,13 @@ desired effect
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">User</span>
+                            <span class="hidden-xs">{{ auth()->user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-
                                 <p>
-                                    User
+                                    {{ auth()->user()->name }}
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -245,8 +244,13 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>k</span></a></li>
+                @can('view_users')
+                <li><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> <span>Người dùng</span></a></li>
+                @endcan
+                @can('view_users')
+                <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
+                @endcan
+                @hasanyrole('Nhân viên|Admin')
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-link"></i>
@@ -258,6 +262,7 @@ desired effect
                         <li><a href="#">Link in level 2</a></li>
                     </ul>
                 </li>
+                @endrole
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-edit"></i> <span>Đặt hàng</span>
@@ -283,15 +288,18 @@ desired effect
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                Đơn hàng
-                <small>Tạo đơn hàng</small>
+                @yield('title')
+                <small>@yield('action')</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục đơn hàng</a></li>
-                <li class="active">Tạo đơn hàng</li>
+                <li><a href="{{ route(explode('.',Route::currentRouteName())[0] . '.index') }}"><i class="fa fa-dashboard"></i> Danh mục @yield('title')</a></li>
+                <li class="active">@yield('action')</li>
             </ol>
         </section>
         <section class="content container-fluid">
+            <div id="flash-msg">
+                @include('flash::message')
+            </div>
             @yield('content')
         </section>
     </div>
@@ -301,10 +309,9 @@ desired effect
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Anything you want
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="http://hapulico.com/">Hapulico</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->
@@ -398,6 +405,17 @@ desired effect
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
 @yield('javascript')
+@stack('scripts')
 
+<script>
+    $(function () {
+        $('button').on('click', function (e) {
+            e.preventDefault();
+        });
+        
+        // flash auto hide
+        $('#flash-msg .alert').not('.alert-danger, .alert-important').delay(3000).slideUp(500);
+    })
+</script>
 </body>
 </html>

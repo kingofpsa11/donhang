@@ -65,7 +65,6 @@ class UserController extends Controller
         } else {
             flash()->error('Unable to create user.');
         }
-
         return redirect()->route('users.index');
     }
 

@@ -2,17 +2,9 @@
 
 @section('title', 'Đơn hàng')
 
+@section('action', 'Tạo đơn hàng')
+
 @section('content')
-    <section class="content-header">
-        <h1>
-            Đơn hàng
-            <small>Tạo đơn hàng</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('contract.index') }}"><i class="fa fa-dashboard"></i> Danh mục đơn hàng</a></li>
-            <li class="active">Tạo đơn hàng</li>
-        </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
@@ -90,7 +82,7 @@
                     </table>
                     <div class="box-footer">
                         <div class="col-md-3 pull-right">
-                            <button class="btn btn-primary addRow col-md-4">Thêm dòng</button>
+                            <button class="btn btn-primary addRow col-md-4 disabled">Thêm dòng</button>
                             <input type="submit" value="Lưu" class="btn btn-success save col-md-4">
                             <a href="{{ route('contract.index') }}" class="btn btn-danger col-md-4 cancel">Hủy</a>
                         </div>
@@ -187,9 +179,10 @@
         let priceSelect = $('.select2.price');
 
         customerSelect.on('select2:select', function () {
+            $('.addRow').removeClass('disabled');
             addSelect2(priceSelect);
             getPrice(priceSelect);
-        })
+        });
 
         function updateNumberOfRow() {
             let rows = $('tr[data-key]');
@@ -205,7 +198,7 @@
         }
 
         //Add or remove row to table
-        $('.addRow').on('click', function (e) {
+        $('.addRow:not(.disabled)').on('click', function (e) {
             e.preventDefault();
             let tableBody = $('tbody');
             let numberOfProduct = tableBody.children().length;

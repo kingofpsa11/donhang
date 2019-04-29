@@ -1,4 +1,4 @@
-@extends('contract.form')
+@extends('contract._form')
 
 @section('route')
     {{ route('contract.update', $contract->id) }}
@@ -28,12 +28,11 @@
 
 @section('customer')
     @foreach ($customers as $customer)
-        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-        {{--@if ($customer === $contract->$customer)--}}
-            {{--<option value="{{ $customer->id }}" selected>{{ $customer->short_name }}</option>--}}
-        {{--@else--}}
-            {{--<option value="{{ $customer->id }}">{{ $customer->short_name }}</option>--}}
-        {{--@endif--}}
+        @if ($customer->id === $contract->customer_id)
+            <option value="{{ $customer->id }}" selected>{{ $customer->short_name }}</option>
+        @else
+            <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
+        @endif
     @endforeach
 @stop
 

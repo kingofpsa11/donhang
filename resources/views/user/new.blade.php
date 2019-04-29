@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('title', 'Tạo mới người dùng')
 
@@ -15,7 +15,8 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <form action="{{ route('users.store') }}">
+            <form action="{{ route('users.store') }}" method="POST">
+                @csrf
                 @include('user._form')
                 <input type="submit" class="btn btn-primary">
             </form>
