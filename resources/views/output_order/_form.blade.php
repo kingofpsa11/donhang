@@ -79,16 +79,16 @@
 						@yield('table-body')
 						</tbody>
 					</table>
-					<div class="box-footer">
-						<div class="col-md-4 pull-right">
-                            <button class="btn btn-primary col-md-3 addRow disabled">Thêm dòng</button>
-							<input type="submit" value="Lưu" class="btn btn-success save col-md-3">
-							<a href="{{ url('output-order') }}" class="btn btn-danger col-md-3 cancel">Hủy</a>
-                            <button class="btn btn-default col-md-3 print">In</button>
-						</div>
-					</div>
 				</div>
 				<!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="col-md-4 pull-right">
+                        <button class="btn btn-primary col-md-3 addRow disabled">Thêm dòng</button>
+                        <input type="submit" value="Lưu" class="btn btn-success save col-md-3">
+                        <a href="{{ url('output-order') }}" class="btn btn-danger col-md-3 cancel">Hủy</a>
+                        <button class="btn btn-default col-md-3 print">In</button>
+                    </div>
+                </div>
 			</div>
 			<!-- /.box -->
 		</form>
@@ -179,7 +179,7 @@
             }
             
             //Add or remove row to table
-            $('.addRow:not(.disabled)').on('click', function (e) {
+            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
                 e.preventDefault();
                 let tableBody = $('tbody');
                 let numberOfProduct = tableBody.children().length;

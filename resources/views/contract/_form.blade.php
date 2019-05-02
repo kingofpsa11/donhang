@@ -80,15 +80,15 @@
                             @yield('table-body')
                         </tbody>
                     </table>
-                    <div class="box-footer">
-                        <div class="col-md-3 pull-right">
-                            <button class="btn btn-primary addRow col-md-4 disabled">Thêm dòng</button>
-                            <input type="submit" value="Lưu" class="btn btn-success save col-md-4">
-                            <a href="{{ route('contract.index') }}" class="btn btn-danger col-md-4 cancel">Hủy</a>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="col-md-3 pull-right">
+                        <button class="btn btn-primary addRow col-md-4 disabled">Thêm dòng</button>
+                        <input type="submit" value="Lưu" class="btn btn-success save col-md-4">
+                        <a href="{{ route('contract.index') }}" class="btn btn-danger col-md-4 cancel">Hủy</a>
+                    </div>
+                </div>
             </div>
             <!-- /.box -->
         </form>
@@ -98,165 +98,167 @@
 @section('javascript')
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
+        $(document).ready(function () {
+            let customerSelect = $('.select2.customer');
+            customerSelect.select2();
 
-        let customerSelect = $('.select2.customer');
-        customerSelect.select2();
+            $('tbody').on('change', '[name$="[quantity]"]', calculateTotal);
 
-        $('tbody').on('change', '[name$="[quantity]"]', calculateTotal);
+            function calculateTotal() {
+                let rows = $('tr[data-key]');
+                let total_value = 0;
+                rows.each(function (i, el) {
+                    let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
+                    let quantity = $(el).find('[name$="[quantity]"]').val();
+                    total_value += selling_price * quantity;
+                });
 
-        function calculateTotal() {
-            let rows = $('tr[data-key]');
-            let total_value = 0;
-            rows.each(function (i, el) {
-                let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
-                let quantity = $(el).find('[name$="[quantity]"]').val();
-                total_value += selling_price * quantity;
-            });
+                $('[name$="[total_value]"]').val(total_value);
+            }
 
-            $('[name$="[total_value]"]').val(total_value);
-        }
+            function maskCurrency(obj) {
+                obj.inputmask({
+                    alias: 'integer',
+                    autoGroup: true,
+                    groupSeparator: '.'
+                });
+            }
 
-        function maskCurrency(obj) {
-            obj.inputmask({
-                alias: 'integer',
-                autoGroup: true,
-                groupSeparator: '.'
-            });
-        }
+            function maskDate(obj) {
+                obj.inputmask({
+                    'alias': 'dd/mm/yyyy'
+                });
+            }
 
-        function maskDate(obj) {
-            obj.inputmask({
-                'alias': 'dd/mm/yyyy'
-            });
-        }
+            let total_value = $('[name="contract[total_value]"]');
+            let selling_price = $('[name$="[selling_price]"]');
+            let date = $('[name="contract[date]"]');
+            let deadline = $('[name$="[deadline]"]');
 
-        let total_value = $('[name="contract[total_value]"]');
-        let selling_price = $('[name$="[selling_price]"]');
-        let date = $('[name="contract[date]"]');
-        let deadline = $('[name$="[deadline]"]');
-
-        maskCurrency(total_value);
-        maskCurrency(selling_price);
-        maskDate(date);
-        maskDate(deadline);
+            maskCurrency(total_value);
+            maskCurrency(selling_price);
+            maskDate(date);
+            maskDate(deadline);
 
 
 
-        function addSelect2 (el) {
-            el.select2({
-                placeholder: 'Nhập tên sản phẩm',
-                minimumInputLength: 2,
-                ajax: {
-                    url: '{{ route('prices.shows') }}',
-                    delay: 200,
-                    dataType: 'json',
-                    dropdownAutoWidth : true,
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id,
-                                    selling_price: item.selling_price,
-                                }
-                            })
-                        };
+            function addSelect2 (el) {
+                el.select2({
+                    placeholder: 'Nhập tên sản phẩm',
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: '{{ route('prices.shows') }}',
+                        delay: 200,
+                        dataType: 'json',
+                        dropdownAutoWidth : true,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+                                        selling_price: item.selling_price,
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
                     },
-                    cache: true
-                },
+                });
+            }
+
+            function getPrice (el) {
+                el.on('select2:select', function (e) {
+                    let data = e.params.data;
+                    $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
+                    $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
+                    calculateTotal();
+                });
+            }
+
+            let priceSelect = $('.select2.price');
+
+            customerSelect.on('select2:select', function () {
+                $('.addRow').removeClass('disabled');
+                addSelect2(priceSelect);
+                getPrice(priceSelect);
             });
-        }
 
-        function getPrice (el) {
-            el.on('select2:select', function (e) {
-                let data = e.params.data;
-                $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
-                $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
-                calculateTotal();
+            function updateNumberOfRow() {
+                let rows = $('tr[data-key]');
+                rows.each(function (i, row) {
+                    $(row).attr('data-key', i);
+                    $(row).children('[data-col-seq="0"]').text(i + 1);
+                    $(row).children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
+                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+                });
+            }
+
+            //Add or remove row to table
+            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
+                e.preventDefault();
+                console.log(123);
+                let tableBody = $('tbody');
+                let numberOfProduct = tableBody.children().length;
+                let lastRow = $('tr:last');
+                let newRow = lastRow.clone();
+                let select2 = newRow.find('.select2.price');
+
+                newRow.attr('data-key', numberOfProduct);
+                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
+                newRow.children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
+                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
+                newRow.find('.select2-container').remove();
+                newRow.find('option').remove();
+                newRow.find('input').val('');
+                tableBody.append(newRow);
+
+                addSelect2(select2);
+                getPrice(select2);
+                maskCurrency(newRow.find('[name$="[selling_price]"]'));
+                maskDate(newRow.find('[name$="[deadline]"]'));
             });
-        }
 
-        let priceSelect = $('.select2.price');
-
-        customerSelect.on('select2:select', function () {
-            $('.addRow').removeClass('disabled');
-            addSelect2(priceSelect);
-            getPrice(priceSelect);
-        });
-
-        function updateNumberOfRow() {
-            let rows = $('tr[data-key]');
-            rows.each(function (i, row) {
-                $(row).attr('data-key', i);
-                $(row).children('[data-col-seq="0"]').text(i + 1);
-                $(row).children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
-                $(row).children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
-                $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
-                $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
-                $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+            $('#example1').on('click', '.removeRow', function (e) {
+                let currentRow = $(this).parents('tr');
+                currentRow.remove();
+                updateNumberOfRow();
             });
-        }
 
-        //Add or remove row to table
-        $('.addRow:not(.disabled)').on('click', function (e) {
-            e.preventDefault();
-            let tableBody = $('tbody');
-            let numberOfProduct = tableBody.children().length;
-            let lastRow = $('tr:last');
-            let newRow = lastRow.clone();
-            let select2 = newRow.find('.select2.price');
+            //Click cancel button
+            $('button.cancel').on('click', function (e) {
+                e.preventDefault();
+            });
 
-            newRow.attr('data-key', numberOfProduct);
-            newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-            newRow.children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
-            newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
-            newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
-            newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
-            newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
-            newRow.find('.select2-container').remove();
-            newRow.find('option').remove();
-            newRow.find('input').val('');
-            tableBody.append(newRow);
+            function convertDateToTimestamp(obj) {
+                obj.each(function (i, el) {
+                    let date = $(el).val();
+                    $(el).inputmask('remove');
+                    let datePart = date.split('/');
+                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
+                    $(el).val(newDate.getTime()/1000);
+                })
+            }
 
-            addSelect2(select2);
-            getPrice(select2);
-            maskCurrency(newRow.find('[name$="[selling_price]"]'));
-            maskDate(newRow.find('[name$="[deadline]"]'));
-        });
+            function convertNumber(obj) {
+                obj.each(function (i, el) {
+                    $(el).inputmask('remove');
+                    $(el).val($(el).val().replace(/(\d+).(?=\d{3})/g, "$1"));
+                })
+            }
 
-        $('#example1').on('click', '.removeRow', function (e) {
-            let currentRow = $(this).parents('tr');
-            currentRow.remove();
-            updateNumberOfRow();
-        });
-
-        //Click cancel button
-        $('button.cancel').on('click', function (e) {
-            e.preventDefault();
-        });
-
-        function convertDateToTimestamp(obj) {
-            obj.each(function (i, el) {
-                let date = $(el).val();
-                $(el).inputmask('remove');
-                let datePart = date.split('/');
-                let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                $(el).val(newDate.getTime()/1000);
-            })
-        }
-
-        function convertNumber(obj) {
-            obj.each(function (i, el) {
-                $(el).inputmask('remove');
-                $(el).val($(el).val().replace(/(\d+).(?=\d{3})/g, "$1"));
-            })
-        }
-
-        $('#form').on('submit', function () {
-            convertNumber($('[name$="[selling_price]"]'));
-            convertNumber($('[name$="[total_value]"]'));
-            convertDateToTimestamp($('[name$="[date]"]'));
-            convertDateToTimestamp($('[name$="[deadline]"]'));
+            $('#form').on('submit', function () {
+                convertNumber($('[name$="[selling_price]"]'));
+                convertNumber($('[name$="[total_value]"]'));
+                convertDateToTimestamp($('[name$="[date]"]'));
+                convertDateToTimestamp($('[name$="[deadline]"]'));
+            });
         })
     </script>
 @stop

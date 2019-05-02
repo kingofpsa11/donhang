@@ -65,6 +65,10 @@
                 </tfoot>
             </table>
         </div>
+
+        <div class="box-footer">
+            <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
+        </div>
         <!-- /.box-body -->
     </div>
     <!-- /.box -->
