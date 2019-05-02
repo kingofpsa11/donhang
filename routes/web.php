@@ -53,3 +53,5 @@ Route::middleware(['auth'])->group(function () {
 
 Auth::routes();
 
+Route::get('/send', 'NotificationController@index')->name('send');
+Route::post('/postMessage', 'NotificationController@sendNotification')->name('postMessage');
