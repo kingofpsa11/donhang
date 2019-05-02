@@ -1,8 +1,10 @@
-@extends('product.form')
+@extends('product._form')
 
 @section('route')
     {{ route('product.store') }}
 @endsection
+
+@section('action', 'Tạo sản phẩm')
 
 @section('form-content')
     <div class="form-group">

@@ -246,8 +246,6 @@ desired effect
                 <!-- Optionally, you can add icons to the links -->
                 @can('view_users')
                 <li><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> <span>Người dùng</span></a></li>
-                @endcan
-                @can('view_users')
                 <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
                 @endcan
                 @hasanyrole('Nhân viên|Admin')

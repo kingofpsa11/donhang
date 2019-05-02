@@ -1,6 +1,5 @@
 <?php
 
-use App\Customer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,7 +45,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('roles', 'RoleController');
 
     Route::resource('users', 'UserController');
+    Route::get('export', 'UserController@export');
 
+    Route::get('change-password', 'Auth\ChangePasswordController@showChangePasswordForm');
+    Route::put('change-password', 'Auth\ChangePasswordController@changePassword')->name('auth.change-password');
 });
 
 Auth::routes();
