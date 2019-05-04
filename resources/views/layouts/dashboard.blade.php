@@ -31,6 +31,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <style>
 
     </style>
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+        window.Laravel.userId = <?php echo auth()->user()->id; ?>
+    </script>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -101,11 +107,25 @@ desired effect
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <!-- User Image -->
+                                            </div>
+                                            <!-- Message title and timestamp -->
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <!-- The message -->
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
                                     <!-- end message -->
                                 </ul>
                                 <!-- /.menu -->
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="#">Đánh dấu tất cả đã đọc</a></li>
                         </ul>
                     </li>
                     <!-- /.messages-menu -->

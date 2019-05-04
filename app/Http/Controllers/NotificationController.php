@@ -12,10 +12,6 @@ class NotificationController extends Controller
     }
     public function sendNotification(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required'
-        ]);
 
         $data['title'] = $request->input('title');
         $data['content'] = $request->input('content');

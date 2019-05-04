@@ -6,6 +6,7 @@ use App\Contract;
 use App\ContractDetail;
 use App\ManufacturerOrder;
 use App\Supplier;
+use App\User;
 use Illuminate\Http\Request;
 
 class ManufacturerOrderController extends Controller
@@ -42,6 +43,7 @@ class ManufacturerOrderController extends Controller
         $newNumber = 0;
         $supplier_id = null;
         $manufacturer_id = null;
+
         foreach ($request->contract_detail as $value) {
             if (($newNumber == 0 && $supplier_id == null) || $supplier_id != $value['supplier_id']) {
                 $manufacturerOrder = new ManufacturerOrder();
@@ -52,10 +54,14 @@ class ManufacturerOrderController extends Controller
                 $manufacturerOrder->save();
                 $manufacturer_id = $manufacturerOrder->id;
             }
-            echo $newNumber;
             $contractDetail = ContractDetail::find($value['id']);
             $contractDetail->manufacturer_order_id = $manufacturer_id;
             $contractDetail->save();
+        }
+
+        $users = User::role('Nhà máy')->get();
+        foreach ($users as $user) {
+            $user->notify(new \App\Notifications\ManufacturerOrder($manufacturer_id));
         }
 
         return redirect()->route('manufacturer-order.show', $contract);

@@ -115,5 +115,8 @@
         $('button.cancel').on('click', function (e) {
             e.preventDefault();
         })
+
+
+
     </script>
 @stop
