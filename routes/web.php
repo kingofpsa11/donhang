@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('change-password', 'Auth\ChangePasswordController@showChangePasswordForm');
     Route::put('change-password', 'Auth\ChangePasswordController@changePassword')->name('auth.change-password');
+
+    Route::get('/notifications', 'UserController@notifications');
 });
 
 Auth::routes();

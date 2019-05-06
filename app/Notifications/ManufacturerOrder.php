@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -62,12 +63,12 @@ class ManufacturerOrder extends Notification implements ShouldQueue
 
     public function toBroadcast($notifiable)
     {
-        return [
+        return new BroadcastMessage([
             'id' => $this->id,
             'read_at' => null,
             'data' => [
                 'manufacturer_id' => $this->manufacturer_id
             ],
-        ];
+        ]);
     }
 }

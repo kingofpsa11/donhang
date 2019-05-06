@@ -187,4 +187,9 @@ class UserController extends Controller
     {
         return \Excel::download(new UsersExport, 'users.xlsx');
     }
+
+    public function notifications()
+    {
+        return \auth()->user()->unreadNotifications()->get()->toArray();
+    }
 }
