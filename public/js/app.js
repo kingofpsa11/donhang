@@ -60244,7 +60244,7 @@ function showNotifications(notifications, target) {
     dropdownMenu.find('.menu').html(htmlElements.join(''));
   } else {
     dropdownMenu.find('span.label').addClass('hidden');
-    $('.dropdown-menu').html('<li class="header">Không có thông báo mới</li>');
+    dropdownMenu.html('<li class="header">Không có thông báo mới</li>');
     dropdownMenu.find('.menu').html('');
   }
 }
