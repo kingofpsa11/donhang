@@ -83,7 +83,11 @@
 				<!-- /.box-body -->
                 <div class="box-footer">
                     <div class="col-md-4 pull-right">
-                        <button class="btn btn-primary col-md-3 addRow disabled">Thêm dòng</button>
+                        <button class="btn btn-primary col-md-3 addRow
+                            @if (Request::is('*/create'))
+                                disabled
+                            @endif
+                        ">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save col-md-3">
                         <a href="{{ url('output-order') }}" class="btn btn-danger col-md-3 cancel">Hủy</a>
                         <button class="btn btn-default col-md-3 print">In</button>
@@ -229,6 +233,8 @@
             $('#form').on('submit', function () {
                 convertDateToTimestamp($('[name="outputOrder[date]"]'));
             })
+
+
         });
     </script>
 @stop

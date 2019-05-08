@@ -8,7 +8,7 @@
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form action="@yield('route')" method="POST" id="form">
+                <form action="@yield('route')" method="POST" id="form" enctype="multipart/form-data">
                     @csrf
                     @yield('method')
                     <div class="box box-primary">
@@ -19,7 +19,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="" class="col-md-3 control-label">Nhóm</label>
-                                <select class="form-control category" style="width: 100%;" name="product[category_id]" required>
+                                <select class="form-control category" style="width: 100%;" name="category_id" required>
                                     <option value="">--Chọn nhóm sản phẩm--</option>
                                     @foreach($categories as $category)
                                         @if (isset($product) && $product->category_id === $category->id)
@@ -32,25 +32,26 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-md-3 control-label">Mã sản phẩm</label>
-                                <input type="text" class="form-control" name="product[code]" value="{{ $product->code ?? null }}">
+                                <input type="text" class="form-control" name="code" value="{{ $product->code ?? null }}">
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-md-3 control-label">Tên sản phẩm</label>
-                                <input type="text" class="form-control" name="product[name]" value="{{ $product->name ?? null }}">
+                                <input type="text" class="form-control" name="name" value="{{ $product->name ?? null }}">
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-md-3 control-label">Ghi chú</label>
-                                <textarea id="" class="form-control" name="product[note]"value="{{ $product->note ?? null }}"></textarea>
+                                <textarea id="" class="form-control" name="note"value="{{ $product->note ?? null }}"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">File</label>
-                                <input type="file" name="file" id="" class="form-control" placeholder="Chọn file">
+                                <input type="file" name="file[]" id="" class="form-control" multiple>
                             </div>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success btn col-md-2">Lưu</button>
-                            <a href="{{ route('product.index') }}" class="btn btn-danger btn col-md-2">Hủy</a>
+                            <input type="submit" class="btn btn-success btn">
+                            <input type="reset" value="Hủy" class="btn btn-warning">
+                            {{--<a href="{{ route('product.create') }}" class="btn btn-danger btn">Hủy</a>--}}
                         </div>
                     </div>
                     <!-- /.box -->

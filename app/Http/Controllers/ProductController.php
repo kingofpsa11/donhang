@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id')->take(1000)->get();
+        $products = Product::orderBy('id', 'desc')->take(1000)->get();
         return view('product.index')->with('products', $products);
     }
 
@@ -42,7 +42,14 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->code = $request->code;
         $product->name = $request->name;
-//        $product->note = $request->note;
+        $product->note = $request->note;
+        $path = [];
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $file) {
+                $path[] = $file->store('uploads');
+            }
+            $product->file = serialize($path);
+        }
         if($product->save()) {
             return redirect()->route('product.show', [$product]);
         }

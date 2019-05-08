@@ -30,18 +30,30 @@
                         </div>
                         <div class="form-group">
                             <label for="" class="col-md-3 control-label">Mã sản phẩm</label>
-                            <input type="text" class="form-control" name="product[0][code]" value="{{ $product->code }}" readonly>
+                            <input type="text" class="form-control" value="{{ $product->code }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-md-3 control-label">Tên sản phẩm</label>
-                            <input type="text" class="form-control" name="product[0][name]" value="{{ $product->name }}" readonly>
+                            <input type="text" class="form-control" value="{{ $product->name }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-md-3 control-label">Ghi chú</label>
-                            <textarea id="" class="form-control" name="product[0][note]" value="{{ $product->note }}" readonly></textarea>
+                            <textarea id="" class="form-control" value="{{ $product->note }}" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            @if (isset($product->file))
+                                @foreach (unserialize($product->file) as $file)
+                                    <div class="btn btn-default">
+                                        <a href="{{ asset('storage/' . $file) }}">
+                                            File
+                                            {{--<img src="{{ asset('storage/' . $file) }}" alt="" class="">--}}
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('product.edit', [$product]) }}" class="btn btn-danger btn-lg">Sửa</a>
+                            <a href="{{ route('product.edit', [$product]) }}" class="btn btn-danger">Sửa</a>
                         </div>
                     </div>
                     <!-- /.box-body -->

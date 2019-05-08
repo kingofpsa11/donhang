@@ -42,7 +42,7 @@
             <input type="text" class="form-control input-sm" name="contract_detail[0][note]">
         </td>
         <td data-col-seq="6">
-            <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>
 

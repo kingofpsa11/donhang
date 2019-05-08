@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
     <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link media="print" href="{{ asset('css/print.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,15 +32,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <style>
 
     </style>
+
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
     @if(!auth()->guest())
-        <script>
-            window.Laravel.userId = <?php echo auth()->user()->id; ?>
-        </script>
+    <script>
+        window.Laravel.userId = <?php echo auth()->user()->id; ?>
+    </script>
     @endif
 </head>
 <!--
@@ -62,7 +64,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini fixed" >
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
     <!-- Main Header -->
@@ -129,7 +131,7 @@ desired effect
                                 </ul>
                                 <!-- /.menu -->
                             </li>
-                            <li class="footer"><a href="#">Đánh dấu tất cả đã đọc</a></li>
+                            <li class="footer"><a href="javascript:void()">Đánh dấu tất cả đã xem</a></li>
                         </ul>
                     </li>
                     <!-- /.messages-menu -->
@@ -143,13 +145,13 @@ desired effect
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have {{ \App\User::find(5)->unreadNotifications->count() }} notifications</li>
+                            <li class="header"></li>
                             <li>
                                 <!-- Inner Menu: contains the notifications -->
                                 <ul class="menu">
                                 </ul>
                             </li>
-                            {{--<li class="footer"><a href="#">View all</a></li>--}}
+                            <li class="footer"><a href="javascript:void()">Đánh dấu tất cả đã xem</a></li>
                         </ul>
                     </li>
                     <!-- Tasks Menu -->
@@ -267,22 +269,10 @@ desired effect
                 <li><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> <span>Người dùng</span></a></li>
                 <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
                 @endcan
-                @hasanyrole('Nhân viên|Admin')
+
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-link"></i>
-                        <span>Multilevel</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
-                    </ul>
-                </li>
-                @endrole
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-edit"></i> <span>Đặt hàng</span>
+                        <i class="fa fa-dashboard"></i> <span>Đặt hàng</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -316,6 +306,16 @@ desired effect
         <section class="content container-fluid">
             <div id="flash-msg">
                 @include('flash::message')
+            </div>
+            <div class="row hidden">
+                <div class="icon col-xs-4">
+                    <img src="{{ asset('storage/icon.png') }}" alt="">
+                </div>
+                <div class="col-xs-8">
+                    <p><strong>CÔNG TY TNHH MỘT THÀNH VIÊN CHIẾU SÁNG & THIẾT BỊ ĐÔ THỊ</strong></p>
+                    <p>Trụ sở chính: Số 1 - phố Vũ Đức Thận - phường Việt Hưng - quận Long Biên - thành phố Hà Nội</p>
+                    <p>Điện thoại: +84-24-38253300;  Fax: +84-24-38262772;  Web: www.hapulico.com; Email: info@hapulico.com</p>
+                </div>
             </div>
             @yield('content')
         </section>
@@ -417,8 +417,6 @@ desired effect
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
-{{--<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>--}}
-{{--<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>--}}
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
 @yield('javascript')

@@ -18,14 +18,14 @@
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label>Số đơn hàng</label>
                             <input type="text" class="form-control" readonly value="{{ $contract->number }}">
                         </div>
                     </div>
                 <!-- /.col -->
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label>Ngày đặt hàng</label>
                             <div class="input-group">

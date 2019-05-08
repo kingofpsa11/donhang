@@ -14,6 +14,7 @@
                     <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
                     <th>Trạng thái</th>
+                    <th>Hình ảnh</th>
                     <th>Action</th>
                 </tr>
 
@@ -25,6 +26,16 @@
                         <td>{{ $product->code }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->status }}</td>
+                        <td>
+                            @if(isset($product->file))
+                            <div class="btn">
+                                <a href="{{ asset('storage/' . $product->file) }}">
+                                    Link
+                                    {{--<img src="{{ asset('storage/' . $product->file) }}" alt="">--}}
+                                </a>
+                            </div>
+                            @endif
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('product.show', [$product])}}" class="btn btn-success btn-xs">
@@ -80,7 +91,7 @@
                         width: '15%'
                     },
                     {
-                        targets: 4,
+                        targets: [3,4],
                         width: '10%'
                     },
                     {

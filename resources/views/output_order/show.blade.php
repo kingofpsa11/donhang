@@ -13,14 +13,14 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Đơn vị xuất hàng</label>
-                            <input type="text" class="form-control" readonly value="{{ $outputOrder->customer_id }}">
+                            <label class="control-label">Đơn vị xuất hàng</label>
+                            <input type="text" class="form-control" readonly value="{{ $outputOrder->customer->name }}">
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Số đơn hàng</label>
+                            <label>Số lệnh xuất hàng</label>
                             <input type="text" class="form-control" readonly value="{{ $outputOrder->number }}">
                         </div>
                     </div>
@@ -73,11 +73,20 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="row">
+                <div class="row hidden">
+                    <div class="col-xs-6" style="text-align: center">
+                        <p>PHÒNG KẾ HOẠCH KINH DOANH</p>
+                    </div>
+                    <div class="col-xs-6" style="text-align: center">
+                        <p>NGƯỜI LẬP</p>
+                    </div>
+                </div>
+                <div class="row control-button">
                     <div class="col-md-1 pull-right">
                         <a href="{{ route('output-order.edit', [$outputOrder->id]) }}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
+                        <button class="btn btn-default">In</button>
                     </div>
                 </div>
             </div>
@@ -89,34 +98,37 @@
 @section('javascript')
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
-        $('[data-mask]').inputmask();
+        $(document).ready(function () {
+            $('[data-mask]').inputmask();
 
-        let customerSelect = $('.select2.customer');
-        customerSelect.select2();
+            let customerSelect = $('.select2.customer');
+            customerSelect.select2();
 
-        $('#contract-show').DataTable({
-            'paging'        : false,
-            'lengthChange'  : false,
-            'info'          : false,
-            searching       : false,
-            ordering        : false,
-            columnDefs: [
-                {
-                    targets: [ 2 ],
-                    render: $.fn.dataTable.render.number('.', ','),
-                    className   : 'dt-body-right'
-                },
-                {
-                    targets: [ 3 ],
-                    className   : 'dt-body-right'
-                }
-            ]
+            $('#contract-show').DataTable({
+                'paging'        : false,
+                'lengthChange'  : false,
+                'info'          : false,
+                searching       : false,
+                ordering        : false,
+                columnDefs: [
+                    {
+                        targets: [ 2 ],
+                        render: $.fn.dataTable.render.number('.', ','),
+                        className   : 'dt-body-right'
+                    },
+                    {
+                        targets: [ 3 ],
+                        className   : 'dt-body-right'
+                    }
+                ]
+            });
+            $('button.cancel').on('click', function (e) {
+                e.preventDefault();
+            });
+
+            $(window).on('beforeprint', function () {
+
+            })
         });
-        $('button.cancel').on('click', function (e) {
-            e.preventDefault();
-        })
-
-
-
     </script>
 @stop

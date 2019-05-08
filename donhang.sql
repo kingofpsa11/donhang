@@ -3,15 +3,15 @@
 
  Source Server         : donhang
  Source Server Type    : MySQL
- Source Server Version : 100138
+ Source Server Version : 100137
  Source Host           : localhost:3306
  Source Schema         : donhang
 
  Target Server Type    : MySQL
- Target Server Version : 100138
+ Target Server Version : 100137
  File Encoding         : 65001
 
- Date: 02/05/2019 07:02:34
+ Date: 07/05/2019 15:13:26
 */
 
 SET NAMES utf8mb4;
@@ -78,9 +78,9 @@ CREATE TABLE `contract_details`  (
   INDEX `contract_details_price_id_foreign`(`price_id`) USING BTREE,
   INDEX `contract_details_manufacturer_order_id_foreign`(`manufacturer_order_id`) USING BTREE,
   CONSTRAINT `contract_details_contract_id_foreign` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `contract_details_price_id_foreign` FOREIGN KEY (`price_id`) REFERENCES `prices` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `contract_details_manufacturer_order_id_foreign` FOREIGN KEY (`manufacturer_order_id`) REFERENCES `manufacturer_orders` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7552 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+  CONSTRAINT `contract_details_manufacturer_order_id_foreign` FOREIGN KEY (`manufacturer_order_id`) REFERENCES `manufacturer_orders` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `contract_details_price_id_foreign` FOREIGN KEY (`price_id`) REFERENCES `prices` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 7561 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of contract_details
@@ -3132,8 +3132,17 @@ INSERT INTO `contract_details` VALUES (7542, 1069, 8939, 11, 2589000, NULL, NULL
 INSERT INTO `contract_details` VALUES (7543, 1069, 8522, 11, 835000, NULL, NULL, '2019-04-08', NULL, 10, NULL, NULL);
 INSERT INTO `contract_details` VALUES (7544, 1069, 8940, 11, 924000, NULL, NULL, '2019-04-08', NULL, 10, NULL, NULL);
 INSERT INTO `contract_details` VALUES (7545, 2140, 4993, 10, NULL, NULL, NULL, NULL, NULL, 10, '2019-04-16 13:15:53', '2019-04-16 13:15:53');
-INSERT INTO `contract_details` VALUES (7546, 2142, 6400, 11, NULL, NULL, NULL, '2011-11-11', NULL, 10, '2019-04-16 14:12:39', '2019-04-16 14:12:39');
+INSERT INTO `contract_details` VALUES (7546, 2142, 6400, 11, NULL, 30, NULL, '2011-11-11', NULL, 10, '2019-04-16 14:12:39', '2019-05-06 09:35:31');
 INSERT INTO `contract_details` VALUES (7551, 386, 608, 28, 1521000, NULL, NULL, '2019-10-15', NULL, 10, '2019-04-28 20:24:11', '2019-04-28 20:24:11');
+INSERT INTO `contract_details` VALUES (7552, 2143, 16009, 20, NULL, 2, NULL, '2019-05-10', NULL, 10, '2019-05-02 07:17:54', '2019-05-02 07:18:23');
+INSERT INTO `contract_details` VALUES (7553, 2143, 6496, 50, NULL, 2, NULL, '2019-05-10', NULL, 10, '2019-05-02 07:17:54', '2019-05-02 07:18:23');
+INSERT INTO `contract_details` VALUES (7554, 2143, 4355, 10, 6276000, 2, NULL, '2019-05-20', NULL, 10, '2019-05-02 07:17:54', '2019-05-02 07:18:23');
+INSERT INTO `contract_details` VALUES (7555, 2144, 15648, 30, 1486000, 3, NULL, '2019-05-09', NULL, 10, '2019-05-02 07:32:27', '2019-05-02 07:33:00');
+INSERT INTO `contract_details` VALUES (7556, 2144, 13983, 3, 4702000, 4, NULL, '2019-05-09', NULL, 10, '2019-05-02 07:32:27', '2019-05-02 07:33:01');
+INSERT INTO `contract_details` VALUES (7557, 2144, 2174, 3, 6146000, 5, NULL, '2019-05-09', NULL, 10, '2019-05-02 07:32:27', '2019-05-02 07:33:01');
+INSERT INTO `contract_details` VALUES (7558, 2145, 11401, 20, NULL, 7, NULL, '2019-05-20', NULL, 10, '2019-05-04 02:58:59', '2019-05-04 02:59:25');
+INSERT INTO `contract_details` VALUES (7559, 2145, 15192, 10, 3498000, 7, NULL, '2019-05-20', NULL, 10, '2019-05-04 02:58:59', '2019-05-04 02:59:25');
+INSERT INTO `contract_details` VALUES (7560, 2145, 13741, 10, 2035000, 7, NULL, '2019-05-20', NULL, 10, '2019-05-04 02:58:59', '2019-05-04 02:59:25');
 
 -- ----------------------------
 -- Table structure for contracts
@@ -3152,7 +3161,7 @@ CREATE TABLE `contracts`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `contracts_customer_id_foreign`(`customer_id`) USING BTREE,
   CONSTRAINT `contracts_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2143 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2146 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of contracts
@@ -5299,6 +5308,9 @@ INSERT INTO `contracts` VALUES (2139, '092', 6, 88539000, 0, 1, '2019-01-01', NU
 INSERT INTO `contracts` VALUES (2140, '86', 1, NULL, NULL, 10, NULL, '2019-04-16 13:15:53', '2019-04-16 13:15:53');
 INSERT INTO `contracts` VALUES (2141, '25', 2, NULL, NULL, 10, NULL, '2019-04-16 13:17:45', '2019-04-16 13:17:45');
 INSERT INTO `contracts` VALUES (2142, '86', 1, NULL, NULL, 10, '2011-11-11', '2019-04-16 14:12:39', '2019-04-16 14:12:39');
+INSERT INTO `contracts` VALUES (2143, '16', 4, 62760000, NULL, 10, '2019-05-02', '2019-05-02 07:17:54', '2019-05-02 07:17:54');
+INSERT INTO `contracts` VALUES (2144, '93', 6, 77124000, NULL, 10, '2019-05-02', '2019-05-02 07:32:27', '2019-05-02 07:32:27');
+INSERT INTO `contracts` VALUES (2145, '17', 4, 55330000, NULL, 10, '2019-05-04', '2019-05-04 02:58:59', '2019-05-04 02:58:59');
 
 -- ----------------------------
 -- Table structure for customers
@@ -5336,12 +5348,41 @@ CREATE TABLE `manufacturer_orders`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of manufacturer_orders
 -- ----------------------------
 INSERT INTO `manufacturer_orders` VALUES (1, '1', 1, NULL, '2019-04-24 12:35:20', '2019-04-24 12:35:20');
+INSERT INTO `manufacturer_orders` VALUES (2, '2', 1, NULL, '2019-05-02 07:18:23', '2019-05-02 07:18:23');
+INSERT INTO `manufacturer_orders` VALUES (3, '3', 1, NULL, '2019-05-02 07:33:00', '2019-05-02 07:33:00');
+INSERT INTO `manufacturer_orders` VALUES (4, '1', 2, NULL, '2019-05-02 07:33:01', '2019-05-02 07:33:01');
+INSERT INTO `manufacturer_orders` VALUES (5, '4', 1, NULL, '2019-05-02 07:33:01', '2019-05-02 07:33:01');
+INSERT INTO `manufacturer_orders` VALUES (6, '5', 1, NULL, '2019-05-04 02:32:08', '2019-05-04 02:32:08');
+INSERT INTO `manufacturer_orders` VALUES (7, '6', 1, NULL, '2019-05-04 02:59:25', '2019-05-04 02:59:25');
+INSERT INTO `manufacturer_orders` VALUES (8, '7', 1, NULL, '2019-05-04 03:18:24', '2019-05-04 03:18:24');
+INSERT INTO `manufacturer_orders` VALUES (9, '8', 1, NULL, '2019-05-04 03:18:46', '2019-05-04 03:18:46');
+INSERT INTO `manufacturer_orders` VALUES (10, '9', 1, NULL, '2019-05-04 03:55:42', '2019-05-04 03:55:42');
+INSERT INTO `manufacturer_orders` VALUES (11, '10', 1, NULL, '2019-05-04 03:56:22', '2019-05-04 03:56:22');
+INSERT INTO `manufacturer_orders` VALUES (12, '10', 1, NULL, '2019-05-04 03:57:08', '2019-05-04 03:57:08');
+INSERT INTO `manufacturer_orders` VALUES (13, '10', 1, NULL, '2019-05-04 03:57:24', '2019-05-04 03:57:24');
+INSERT INTO `manufacturer_orders` VALUES (14, '10', 1, NULL, '2019-05-04 03:57:55', '2019-05-04 03:57:55');
+INSERT INTO `manufacturer_orders` VALUES (15, '10', 1, NULL, '2019-05-04 03:58:33', '2019-05-04 03:58:33');
+INSERT INTO `manufacturer_orders` VALUES (16, '10', 1, NULL, '2019-05-04 07:47:27', '2019-05-04 07:47:27');
+INSERT INTO `manufacturer_orders` VALUES (17, '10', 1, NULL, '2019-05-04 07:47:59', '2019-05-04 07:47:59');
+INSERT INTO `manufacturer_orders` VALUES (18, '10', 1, NULL, '2019-05-04 07:50:14', '2019-05-04 07:50:14');
+INSERT INTO `manufacturer_orders` VALUES (19, '10', 1, NULL, '2019-05-06 03:03:57', '2019-05-06 03:03:57');
+INSERT INTO `manufacturer_orders` VALUES (20, '10', 1, NULL, '2019-05-06 03:06:22', '2019-05-06 03:06:22');
+INSERT INTO `manufacturer_orders` VALUES (21, '10', 1, NULL, '2019-05-06 07:19:33', '2019-05-06 07:19:33');
+INSERT INTO `manufacturer_orders` VALUES (22, '10', 1, NULL, '2019-05-06 08:27:40', '2019-05-06 08:27:40');
+INSERT INTO `manufacturer_orders` VALUES (23, '10', 1, NULL, '2019-05-06 09:11:16', '2019-05-06 09:11:16');
+INSERT INTO `manufacturer_orders` VALUES (24, '10', 1, NULL, '2019-05-06 09:23:23', '2019-05-06 09:23:23');
+INSERT INTO `manufacturer_orders` VALUES (25, '10', 1, NULL, '2019-05-06 09:24:11', '2019-05-06 09:24:11');
+INSERT INTO `manufacturer_orders` VALUES (26, '10', 1, NULL, '2019-05-06 09:26:59', '2019-05-06 09:26:59');
+INSERT INTO `manufacturer_orders` VALUES (27, '10', 1, NULL, '2019-05-06 09:28:02', '2019-05-06 09:28:02');
+INSERT INTO `manufacturer_orders` VALUES (28, '10', 1, NULL, '2019-05-06 09:34:38', '2019-05-06 09:34:38');
+INSERT INTO `manufacturer_orders` VALUES (29, '10', 1, NULL, '2019-05-06 09:35:19', '2019-05-06 09:35:19');
+INSERT INTO `manufacturer_orders` VALUES (30, '10', 1, NULL, '2019-05-06 09:35:31', '2019-05-06 09:35:31');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -5352,7 +5393,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of migrations
@@ -5373,6 +5414,7 @@ INSERT INTO `migrations` VALUES (15, '2019_04_22_221323_create_price_quotations_
 INSERT INTO `migrations` VALUES (16, '2019_04_22_221726_create_price_quotation_details_table', 3);
 INSERT INTO `migrations` VALUES (17, '2019_04_24_025709_create_boms_table', 3);
 INSERT INTO `migrations` VALUES (18, '2019_04_25_004532_create_permission_tables', 3);
+INSERT INTO `migrations` VALUES (19, '2019_05_03_075333_create_notifications_table', 4);
 
 -- ----------------------------
 -- Table structure for model_has_permissions
@@ -5386,12 +5428,6 @@ CREATE TABLE `model_has_permissions`  (
   INDEX `model_has_permissions_model_id_model_type_index`(`model_id`, `model_type`) USING BTREE,
   CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of model_has_permissions
--- ----------------------------
-INSERT INTO `model_has_permissions` VALUES (1, 'App\\User', 4);
-INSERT INTO `model_has_permissions` VALUES (5, 'App\\User', 4);
 
 -- ----------------------------
 -- Table structure for model_has_roles
@@ -5413,6 +5449,57 @@ INSERT INTO `model_has_roles` VALUES (1, 'App\\User', 1);
 INSERT INTO `model_has_roles` VALUES (1, 'App\\User', 2);
 INSERT INTO `model_has_roles` VALUES (1, 'App\\User', 3);
 INSERT INTO `model_has_roles` VALUES (3, 'App\\User', 4);
+INSERT INTO `model_has_roles` VALUES (4, 'App\\User', 5);
+INSERT INTO `model_has_roles` VALUES (4, 'App\\User', 6);
+
+-- ----------------------------
+-- Table structure for notifications
+-- ----------------------------
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE `notifications`  (
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp(0) NULL DEFAULT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `notifications_notifiable_type_notifiable_id_index`(`notifiable_type`, `notifiable_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of notifications
+-- ----------------------------
+INSERT INTO `notifications` VALUES ('07149050-dfa8-4761-aaba-de124dbc08a4', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":28}', '2019-05-06 09:35:51', '2019-05-06 09:34:38', '2019-05-06 09:35:51');
+INSERT INTO `notifications` VALUES ('09fca981-91b3-491f-9001-2024b2840639', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":27}', NULL, '2019-05-06 09:28:02', '2019-05-06 09:28:02');
+INSERT INTO `notifications` VALUES ('0a4eff20-344b-45b1-8138-11682c519d94', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":22}', NULL, '2019-05-06 08:27:41', '2019-05-06 08:27:41');
+INSERT INTO `notifications` VALUES ('1808bea5-d84f-46c5-84ad-fe7e2b026409', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":16}', NULL, '2019-05-04 07:47:28', '2019-05-04 07:47:28');
+INSERT INTO `notifications` VALUES ('1ec7ce18-87e0-48fe-8d43-c1f4a6443413', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":17}', NULL, '2019-05-04 07:47:59', '2019-05-04 07:47:59');
+INSERT INTO `notifications` VALUES ('2929d14c-5c59-4a40-8f86-6e7a1b760c1e', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":28}', NULL, '2019-05-06 09:34:39', '2019-05-06 09:34:39');
+INSERT INTO `notifications` VALUES ('4534bda9-9bfa-431d-97b1-1dba0d64960e', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":23}', NULL, '2019-05-06 09:11:19', '2019-05-06 09:11:19');
+INSERT INTO `notifications` VALUES ('4b2a9101-aed7-4668-9de5-910912bf37f7', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":19}', NULL, '2019-05-06 03:03:58', '2019-05-06 03:03:58');
+INSERT INTO `notifications` VALUES ('53027d04-9e56-4e3d-9a98-a4ed5aec88d1', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":21}', NULL, '2019-05-06 07:19:34', '2019-05-06 07:19:34');
+INSERT INTO `notifications` VALUES ('54cf0e74-f740-4196-993d-74dadb1fdca9', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":27}', NULL, '2019-05-06 09:28:02', '2019-05-06 09:28:02');
+INSERT INTO `notifications` VALUES ('55e056b6-be8a-4c51-9c52-8bcaf2ee0fd8', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":23}', NULL, '2019-05-06 09:11:20', '2019-05-06 09:11:20');
+INSERT INTO `notifications` VALUES ('57b5466f-4099-444d-a646-ba4a8ce442ee', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":24}', NULL, '2019-05-06 09:23:23', '2019-05-06 09:23:23');
+INSERT INTO `notifications` VALUES ('59260978-c80c-4cbd-aa6c-eaa6dde4256b', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":29}', NULL, '2019-05-06 09:35:20', '2019-05-06 09:35:20');
+INSERT INTO `notifications` VALUES ('6ab79df4-2faa-4315-990c-b8b76b9e3cff', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":25}', NULL, '2019-05-06 09:24:11', '2019-05-06 09:24:11');
+INSERT INTO `notifications` VALUES ('722f465d-7e4f-442f-ac94-ce5b6e92dfc0', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":18}', NULL, '2019-05-04 07:50:14', '2019-05-04 07:50:14');
+INSERT INTO `notifications` VALUES ('77b536f4-1264-4ea8-b7fd-cbed139e88ca', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":30}', NULL, '2019-05-06 09:35:31', '2019-05-06 09:35:31');
+INSERT INTO `notifications` VALUES ('7bf16027-309d-4140-ae2b-dd0e5d2ea31b', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 4, '{\"manufacturer_id\":9}', NULL, '2019-05-04 03:18:47', '2019-05-04 03:18:47');
+INSERT INTO `notifications` VALUES ('7fe81f34-0689-463f-8199-88a394a6904a', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":21}', '2019-05-06 08:47:14', '2019-05-06 07:19:34', '2019-05-06 08:47:14');
+INSERT INTO `notifications` VALUES ('8a31072e-40f7-4303-bb6d-9ec848e3f516', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":20}', NULL, '2019-05-06 03:06:22', '2019-05-06 03:06:22');
+INSERT INTO `notifications` VALUES ('9866218d-b3b7-4c88-a225-4b68c0a7fffd', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":22}', '2019-05-06 08:38:07', '2019-05-06 08:27:40', '2019-05-06 08:38:07');
+INSERT INTO `notifications` VALUES ('a2d86382-6a0f-46dd-8596-1cfd44f26bce', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":24}', NULL, '2019-05-06 09:23:23', '2019-05-06 09:23:23');
+INSERT INTO `notifications` VALUES ('a7e76d84-018d-40a2-b48c-ca9b29ca1b50', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":26}', NULL, '2019-05-06 09:27:00', '2019-05-06 09:27:00');
+INSERT INTO `notifications` VALUES ('be312686-c409-44d1-b8d1-1405c9058f7a', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":25}', NULL, '2019-05-06 09:24:11', '2019-05-06 09:24:11');
+INSERT INTO `notifications` VALUES ('ca48b7f1-54e2-4036-9963-d3ff215b22a5', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":26}', NULL, '2019-05-06 09:27:00', '2019-05-06 09:27:00');
+INSERT INTO `notifications` VALUES ('cafa306d-ff47-4b15-b978-274fffbc6e6e', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":20}', NULL, '2019-05-06 03:06:23', '2019-05-06 03:06:23');
+INSERT INTO `notifications` VALUES ('d01dd869-0361-4e57-8f1a-333ca706dedb', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":15}', NULL, '2019-05-04 03:58:33', '2019-05-04 03:58:33');
+INSERT INTO `notifications` VALUES ('e7412c8c-edc4-49df-96e6-bc388fba01fc', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 6, '{\"manufacturer_id\":30}', NULL, '2019-05-06 09:35:32', '2019-05-06 09:35:32');
+INSERT INTO `notifications` VALUES ('ff8cad23-b1f1-4088-a835-115cde30e72a', 'App\\Notifications\\ManufacturerOrder', 'App\\User', 5, '{\"manufacturer_id\":29}', NULL, '2019-05-06 09:35:20', '2019-05-06 09:35:20');
 
 -- ----------------------------
 -- Table structure for output_order_details
@@ -5430,12 +5517,19 @@ CREATE TABLE `output_order_details`  (
   INDEX `output_order_details_output_order_id_foreign`(`output_order_id`) USING BTREE,
   CONSTRAINT `output_order_details_contract_detail_id_foreign` FOREIGN KEY (`contract_detail_id`) REFERENCES `contract_details` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `output_order_details_output_order_id_foreign` FOREIGN KEY (`output_order_id`) REFERENCES `output_orders` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of output_order_details
 -- ----------------------------
 INSERT INTO `output_order_details` VALUES (1, 5074, 65, 2, '2019-04-21 10:01:06', '2019-04-21 10:01:06');
+INSERT INTO `output_order_details` VALUES (2, 7556, 3, 3, '2019-05-02 07:35:25', '2019-05-02 07:35:25');
+INSERT INTO `output_order_details` VALUES (3, 7555, 10, 3, '2019-05-02 07:35:25', '2019-05-02 07:35:25');
+INSERT INTO `output_order_details` VALUES (4, 7557, 3, 3, '2019-05-02 07:35:25', '2019-05-02 07:35:25');
+INSERT INTO `output_order_details` VALUES (5, 5477, 2, 3, '2019-05-02 07:35:26', '2019-05-02 07:35:26');
+INSERT INTO `output_order_details` VALUES (6, 7558, 20, 4, '2019-05-04 03:01:18', '2019-05-04 03:01:18');
+INSERT INTO `output_order_details` VALUES (7, 7559, 10, 4, '2019-05-04 03:01:18', '2019-05-04 03:01:18');
+INSERT INTO `output_order_details` VALUES (8, 7560, 5, 4, '2019-05-04 03:01:18', '2019-05-04 03:01:18');
 
 -- ----------------------------
 -- Table structure for output_orders
@@ -5451,13 +5545,15 @@ CREATE TABLE `output_orders`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `output_orders_customer_id_foreign`(`customer_id`) USING BTREE,
   CONSTRAINT `output_orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of output_orders
 -- ----------------------------
 INSERT INTO `output_orders` VALUES (1, 1, 1, '2019-04-21', '2019-04-21 09:57:30', '2019-04-21 09:57:30');
 INSERT INTO `output_orders` VALUES (2, 1, 100, '2019-04-21', '2019-04-21 10:01:06', '2019-04-21 10:01:06');
+INSERT INTO `output_orders` VALUES (3, 6, 100, '2019-05-02', '2019-05-02 07:35:25', '2019-05-02 07:35:25');
+INSERT INTO `output_orders` VALUES (4, 4, 2, '2019-05-04', '2019-05-04 03:01:18', '2019-05-04 03:01:18');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -31581,12 +31677,14 @@ INSERT INTO `role_has_permissions` VALUES (8, 1);
 INSERT INTO `role_has_permissions` VALUES (9, 1);
 INSERT INTO `role_has_permissions` VALUES (9, 2);
 INSERT INTO `role_has_permissions` VALUES (9, 3);
+INSERT INTO `role_has_permissions` VALUES (9, 4);
 INSERT INTO `role_has_permissions` VALUES (10, 1);
 INSERT INTO `role_has_permissions` VALUES (10, 2);
 INSERT INTO `role_has_permissions` VALUES (10, 3);
 INSERT INTO `role_has_permissions` VALUES (11, 1);
 INSERT INTO `role_has_permissions` VALUES (11, 2);
 INSERT INTO `role_has_permissions` VALUES (11, 3);
+INSERT INTO `role_has_permissions` VALUES (11, 4);
 INSERT INTO `role_has_permissions` VALUES (12, 1);
 INSERT INTO `role_has_permissions` VALUES (12, 2);
 INSERT INTO `role_has_permissions` VALUES (12, 3);
@@ -31602,7 +31700,7 @@ CREATE TABLE `roles`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of roles
@@ -31610,6 +31708,7 @@ CREATE TABLE `roles`  (
 INSERT INTO `roles` VALUES (1, 'Admin', 'web', '2019-04-25 22:16:51', '2019-04-25 22:16:51');
 INSERT INTO `roles` VALUES (2, 'User', 'web', '2019-04-28 12:22:36', '2019-04-28 12:22:36');
 INSERT INTO `roles` VALUES (3, 'Nhân viên', 'web', '2019-04-29 03:36:28', '2019-04-29 03:36:28');
+INSERT INTO `roles` VALUES (4, 'Nhà máy', 'web', '2019-05-04 03:50:09', '2019-05-04 03:50:09');
 
 -- ----------------------------
 -- Table structure for suppliers
@@ -31646,14 +31745,16 @@ CREATE TABLE `users`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'Phạm Mạnh Hà', 'phammanhha305@gmail.com', NULL, '$2y$10$1CJjI5Xw.cRFdmQfVZrwme4.nT8n.GamuTxjWDqmOhW/zjlWpO08.', '8JjOy4ZwHRGPS5vMRTyt3kgiaxoSmUWcMfCvtqDrqnEdzkBTvBgycB1QOubV', '2019-04-11 23:18:20', '2019-05-01 00:10:51');
+INSERT INTO `users` VALUES (1, 'Phạm Mạnh Hà', 'phammanhha305@gmail.com', NULL, '$2y$10$1CJjI5Xw.cRFdmQfVZrwme4.nT8n.GamuTxjWDqmOhW/zjlWpO08.', '9AF4ncUwmCXnQjgBrO0aLh1cVQIuTTyw69ByhlbQl8uTzrzBQQcHPr41dgLp', '2019-04-11 23:18:20', '2019-05-01 00:10:51');
 INSERT INTO `users` VALUES (2, 'Thuỷ', 'ycdh@hapulico.com', NULL, '$2y$10$Kj.GvFotPGI580n1MuK8RelRacYUC5/3Y8.YhqdYU8oUB2fGmhzpO', NULL, '2019-04-28 11:27:09', '2019-04-28 11:27:09');
 INSERT INTO `users` VALUES (3, 'Hồng Anh', 'honganh@hapulico.com', NULL, '$2y$10$P6zOaSsV5L9h7Egbo6aoR.HMRLRE11bDe94ylJF9MQK0pl2d9SVHi', NULL, '2019-04-28 11:28:03', '2019-04-28 11:28:03');
-INSERT INTO `users` VALUES (4, 'Cường', 'cuong@hapulico.com', NULL, '$2y$10$Cficxclre9dOqk1VLNe6tupHj3UGaGK3Mn6uzDZCsWiBASde1wA2m', '37FfEsxfVstkHdKUCuBzRCM5yxt2jY5br0GTw7iw4z0neUAiG76LdJL6ZOtj', '2019-04-28 11:30:44', '2019-05-01 04:55:16');
+INSERT INTO `users` VALUES (4, 'Cường', 'cuong@hapulico.com', NULL, '$2y$10$zNt7N7If8tufbHzTFRKRmeHnFfn1v6lh/vaSO3wGS2OTRw4R5e4M6', 'Q54hS6oQn2iKGqOd28VJ1G0z0P5NkrhAx2BndxQSYEfgE5wVEMY2DhreISVN', '2019-04-28 11:30:44', '2019-05-02 03:30:45');
+INSERT INTO `users` VALUES (5, 'Phong', 'phong@hapulico.com', NULL, '$2y$10$WI/GJDJWoCcHxTiGArwQuuUqvqM497smnMNpDmXb6mtCY6XTAbwge', 'gB7TN7aEKNtGaUNshijCvjXlAxxUFU1VEpKyTLg6T1LY4WO5dtNdVXujt7TP', '2019-05-04 03:51:00', '2019-05-04 03:51:00');
+INSERT INTO `users` VALUES (6, 'phuong', 'phuong@hapulico.com', NULL, '$2y$10$k8hItHGiXyIPH3L9fmqx6Oy2rBp/tt61bagk0XsuDJXXXj9na3D9G', NULL, '2019-05-06 03:06:16', '2019-05-06 03:06:16');
 
 SET FOREIGN_KEY_CHECKS = 1;

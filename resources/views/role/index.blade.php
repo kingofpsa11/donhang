@@ -61,7 +61,7 @@
                               'title' => 'Phân quyền cho ' . $role->name,
                               'model' => $role ])
                 @can('edit_roles')
-                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                    <input type="submit" value="Lưu" class="btn btn-primary">
                 @endcan
             @endif
         </form>

@@ -11,57 +11,38 @@
         <form action="@yield('route')" method="POST" id="form">
             @csrf
             @yield('method')
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Đơn hàng</h3>
 
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        {{--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>--}}
-                    </div>
-                </div>
-                <!-- /.box-header -->
-
-                <div class="box-body">
+            <div class="box">
+                <div class="box-header">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Đơn vị đặt hàng</label>
-                                <select class="form-control input-sm select2 customer" name="contract[customer_id]" required>
+                                <select class="form-control select2 customer" name="contract[customer_id]" required>
                                     @yield('customer')
                                 </select>
                             </div>
                         </div>
                         @yield('contract-number')
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Ngày đặt hàng</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control input-sm" value="@yield('contract-date')" name="contract[date]" required>
+                                    <input type="text" class="form-control" value="@yield('contract-date')" name="contract[date]" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2 pull-right">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control input-sm" readonly name="contract[total_value]" value="@yield('contract-total-value')">
+                                <input type="text" class="form-control" readonly name="contract[total_value]" value="@yield('contract-total-value')">
                             </div>
                         </div>
                     </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Nội dung</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
@@ -83,10 +64,14 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <div class="col-md-3 pull-right">
-                        <button class="btn btn-primary addRow col-md-4 disabled">Thêm dòng</button>
-                        <input type="submit" value="Lưu" class="btn btn-success save col-md-4">
-                        <a href="{{ route('contract.index') }}" class="btn btn-danger col-md-4 cancel">Hủy</a>
+                    <div class="col-md-2 pull-right">
+                        <button class="btn btn-primary addRow
+                            @if (Request::is('*/create'))
+                                disabled
+                            @endif
+                        ">Thêm dòng</button>
+                        <input type="submit" value="Lưu" class="btn btn-success save">
+                        <a href="{{ route('contract.create') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
             </div>
@@ -200,7 +185,6 @@
             //Add or remove row to table
             $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
                 e.preventDefault();
-                console.log(123);
                 let tableBody = $('tbody');
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = $('tr:last');
