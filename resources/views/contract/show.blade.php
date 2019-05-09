@@ -18,14 +18,14 @@
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Số đơn hàng</label>
                             <input type="text" class="form-control" readonly value="{{ $contract->number }}">
                         </div>
                     </div>
                 <!-- /.col -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Ngày đặt hàng</label>
                             <div class="input-group">
@@ -80,22 +80,45 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="row">
-                    <div class="col-md-3 pull-right">
-                        <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info pull-right col-md-3">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" id="export">Xuất Excel</button>
+                        <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
-                        <button class="btn btn-primary pull-right col-md-3" id="export">Export</button>
-                        <a href="{{ route('manufacturer-order.create', [$contract]) }}" class="btn btn-warning pull-right col-md-3" id="manufacturer_order">LSX</a>
+                        <a href="{{ route('manufacturer-order.create', [$contract]) }}" class="btn btn-warning" id="manufacturer_order">LSX</a>
+                        <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.box -->
     </section>
+    <form action="{{ route('contract.destroy', [$contract]) }}" method="POST">
+        @csrf()
+        @method('DELETE')
+        <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa đơn hàng</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Chắc chắn xóa đơn hàng {{ $contract->number }}?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
+                        <input type="submit" class="btn btn-danger waves-effect waves-light" value="Xóa">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection
 
 @section('javascript')
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script>
         $(function () {
             $('[data-mask]').inputmask();
@@ -130,28 +153,14 @@
                 e.preventDefault();
             });
 
-            $('#export').on('click', function () {
-                let tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
-                let tab = document.getElementsByTagName('table')[0]; // id of table
-
-                for(let j = 0 ; j < tab.rows.length ; j++)
-                {
-                    tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-                    //tab_text=tab_text+"</tr>";
-                }
-
-                tab_text=tab_text+"</table>";
-                tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-                tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
-                tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // remove input params
-
-                return window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-            });
-            
             //create manufacturer order
-            $('#manufacturer_order').on('click', function () {
+            // $('#manufacturer_order').on('click', function () {
+            //
+            // });
+            $('#export').on('click', function () {
+                $('#contract-show').table2excel();
+            });
 
-            })
         });
     </script>
 @stop

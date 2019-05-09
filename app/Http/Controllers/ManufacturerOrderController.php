@@ -18,7 +18,8 @@ class ManufacturerOrderController extends Controller
      */
     public function index()
     {
-        //
+        $contract_details = ContractDetail::whereNotNull('manufacturer_order_id')->orderBy('id', 'desc')->take(1000)->get();
+        return view('manufacturer_order.index')->with('contract_details', $contract_details);
     }
 
     /**
@@ -28,6 +29,12 @@ class ManufacturerOrderController extends Controller
      */
     public function create(Contract $contract)
     {
+        foreach ($contract->contract_details as $contract_detail) {
+            if (isset($contract_detail->manufacturerOrder->id)) {
+                return redirect()->route('manufacturer-order.show', [$contract]);
+            }
+        }
+
         $suppliers = Supplier::all();
         return view('manufacturer_order.create')->with(['contract' => $contract, 'suppliers' => $suppliers]);
     }
@@ -84,9 +91,10 @@ class ManufacturerOrderController extends Controller
      * @param  \App\ManufacturerOrder  $manufacturerOrder
      * @return \Illuminate\Http\Response
      */
-    public function edit(ManufacturerOrder $manufacturerOrder)
+    public function edit(Contract $contract)
     {
-        //
+        $suppliers = Supplier::all();
+        return view('manufacturer_order.edit')->with(['contract' => $contract, 'suppliers' => $suppliers]);
     }
 
     /**

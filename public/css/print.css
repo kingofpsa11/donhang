@@ -3,13 +3,23 @@
         width: 21cm;
         height: 29.7cm;
     }
-    .box-header .box-title{
-        display: none;
-    }
+
     .hidden {
         display: block!important;
     }
+
     .control-button, .main-footer {
         display: none!important;
+    }
+
+    .box .box-header .box-title {
+        display: block;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .sign-name {
+        font-weight: bold;
+        font-size: 15px;
     }
 }

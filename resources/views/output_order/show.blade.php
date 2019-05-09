@@ -9,7 +9,7 @@
     <section class="content container-fluid">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Nội dung</h3>
+                <h3 class="box-title text-center">LỆNH XUẤT HÀNG</h3>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -27,13 +27,20 @@
                     <!-- /.col -->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Ngày đặt hàng</label>
+                            <label>Ngày xuất hàng</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract[date]" value="{{ $outputOrder->date }}" readonly>
                             </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Người nhận hàng</label>
+                            <input type="text" class="form-control">
                             <!-- /.input group -->
                         </div>
                     </div>
@@ -74,10 +81,10 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="row hidden">
-                    <div class="col-xs-6" style="text-align: center">
+                    <div class="col-xs-6 sign-name" style="text-align: center">
                         <p>PHÒNG KẾ HOẠCH KINH DOANH</p>
                     </div>
-                    <div class="col-xs-6" style="text-align: center">
+                    <div class="col-xs-6 sign-name" style="text-align: center">
                         <p>NGƯỜI LẬP</p>
                     </div>
                 </div>
@@ -86,7 +93,7 @@
                         <a href="{{ route('output-order.edit', [$outputOrder->id]) }}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
-                        <button class="btn btn-default">In</button>
+                        <button class="btn btn-default print">In</button>
                     </div>
                 </div>
             </div>
@@ -128,6 +135,11 @@
 
             $(window).on('beforeprint', function () {
 
+            });
+
+            $('.print').on('click', function (e) {
+                e.preventDefault();
+                window.print();
             })
         });
     </script>

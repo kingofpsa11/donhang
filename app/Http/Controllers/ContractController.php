@@ -28,6 +28,7 @@ class ContractController extends Controller
      */
     public function create()
     {
+
         $customers = Customer::all();
         return view('contract.create')->with(['customers' => $customers]);
     }
@@ -40,10 +41,20 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
+        $numberIsExist = Contract::where('number', $request->contract['number'])
+            ->where('customer_id', $request->contract['customer_id'])
+            ->whereYear('date', date('Y', (int)$request->contract['date']))
+            ->count();
+
+        if ($numberIsExist > 0) {
+            flash('Số đơn hàng đã tồn tại')->error();
+            return redirect()->back();
+        }
 
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
-        $contract->number = $this->getLastContract($contract->customer_id);
+//        $contract->number = $this->getLastContract($contract->customer_id);
+        $contract->number = $request->contract['number'];
         $contract->date = $request->contract['date'];
         $contract->total_value = $request->contract['total_value'];
 
@@ -132,7 +143,9 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contract)
     {
-        //
+        $contract->delete();
+        flash('Đã xóa đơn hàng ' . $contract->number)->success();
+        return redirect()->route('contract.index');
     }
 
     public function  getLastContract($customer_id)

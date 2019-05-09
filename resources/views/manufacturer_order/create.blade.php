@@ -1,4 +1,6 @@
-@extends('manufacturer_order.form')
+@extends('manufacturer_order._form')
+
+@section('action', 'Tạo lệnh sản xuất')
 
 @section('route')
     {{ route('manufacturer-order.store', $contract) }}
@@ -28,13 +30,14 @@
                 {{ $contract_detail->note }}
             </td>
             <td class="col-md-2" data-col-seq="6">
-                <select name="contract_detail[{{ $i }}][supplier_id]" class="form-control">
+                <select name="contract_detail[{{ $i }}][supplier_id]" class="form-control" required>
                     <option value="">--Nhập đơn vị sản xuất--</option>
                     @foreach($suppliers as $supplier)
                         <option value="{{ $supplier->id }}">{{ $supplier->short_name }}</option>
                     @endforeach
                 </select>
             </td>
+            <td class="col-md-1"></td>
         </tr>
         @php($i++)
     @endforeach

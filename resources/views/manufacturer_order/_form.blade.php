@@ -1,19 +1,8 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Đơn hàng')
+@section('title', 'Lệnh sản xuất')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Lệnh sản xuất
-            <small>Tạo đơn hàng</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-dashboard"></i> Danh mục LSX</a></li>
-            <li class="active">Tạo LSX</li>
-        </ol>
-    </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
         <form action="@yield('route')" method="POST" id="form">
@@ -21,7 +10,7 @@
             @yield('method')
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Đơn hàng</h3>
+                    <h3 class="box-title">Lệnh sản xuất</h3>
                 </div>
                 <!-- /.box-header -->
 
@@ -55,8 +44,6 @@
                     <!-- /.row -->
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer">
-                </div>
             </div>
 
             <div class="box">
@@ -75,20 +62,24 @@
                             <th>Trạng thái</th>
                             <th>Ghi chú</th>
                             <th>Đơn vị sản xuất</th>
+                            @if (isset($contract_detail->manufacturerOrder->number))
+                                <th>Số LSX/ĐH</th>
+                            @endif
+
                         </tr>
                         </thead>
                         <tbody>
                             @yield('table-body')
                         </tbody>
                     </table>
-                    <div class="box-footer">
-                        <div class="col-md-3 pull-right">
-                            <input type="submit" value="Lưu" class="btn btn-success save col-md-4">
-                            <a href="{{ route('contract.show', [$contract]) }}" class="btn btn-danger col-md-4 cancel">Hủy</a>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="col-md-3 pull-right">
+                        <input type="submit" value="Lưu" class="btn btn-success save">
+                        <a href="{{ route('manufacturer-order.show', [$contract]) }}" class="btn btn-danger cancel">Hủy</a>
+                    </div>
+                </div>
             </div>
             <!-- /.box -->
         </form>

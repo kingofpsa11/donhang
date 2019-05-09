@@ -23,8 +23,13 @@
                                 </select>
                             </div>
                         </div>
-                        @yield('contract-number')
-                        <div class="col-md-2">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Số đơn hàng</label>
+                                <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number ?? ''}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Ngày đặt hàng</label>
                                 <div class="input-group">
@@ -36,7 +41,7 @@
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-2 pull-right">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
                                 <input type="text" class="form-control" readonly name="contract[total_value]" value="@yield('contract-total-value')">
@@ -179,6 +184,13 @@
                     $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
                     $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
                     $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+                    if (i === 0) {
+                        if (rows.length === 1) {
+                            $(row).find('button.removeRow').addClass('hidden');
+                        } else {
+                            $(row).find('button.removeRow').removeClass('hidden');
+                        }
+                    }
                 });
             }
 
@@ -198,6 +210,8 @@
                 newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
+                lastRow.find('button.removeRow').removeClass('hidden');
+                newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
                 newRow.find('option').remove();
                 newRow.find('input').val('');

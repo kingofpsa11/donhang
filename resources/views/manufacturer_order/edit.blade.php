@@ -1,86 +1,58 @@
-@extends('contract.form')
+@extends('manufacturer_order._form')
+
+@section('action', 'Sửa lệnh sản xuất')
 
 @section('route')
-    {{ route('contract.update', $contract->id) }}
+    {{ route('manufacturer-order.update', $contract) }}
 @endsection
 
 @section('contract-date')
     {{ $contract->date }}
 @stop
 
-@section('contract-number')
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Số đơn hàng</label>
-            <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number }}">
-        </div>
-    </div>
-    <!-- /.col -->
-@stop
-
-@section('contract-total-value')
-    {{ $contract->total_value }}
-@stop
-
 @section('method')
     @method('PUT')
 @stop
 
-@section('customer')
-    @foreach ($customers as $customer)
-        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-        {{--@if ($customer === $contract->$customer)--}}
-            {{--<option value="{{ $customer->id }}" selected>{{ $customer->short_name }}</option>--}}
-        {{--@else--}}
-            {{--<option value="{{ $customer->id }}">{{ $customer->short_name }}</option>--}}
-        {{--@endif--}}
-    @endforeach
-@stop
-
 @section('table-body')
-    @php
-        $count = count($contract->contract_details);
-        $i = 0;
-    @endphp
+    @php($i=0)
     @foreach ($contract->contract_details as $contract_detail)
         <tr data-key="{{ $i }}">
-            <td data-col-seq="0">{{ $i + 1 }}</td>
+            <td class="" data-col-seq="0">{{ $i + 1 }}</td>
             <td class="col-md-4" data-col-seq="1">
-                <div class="form-group">
-                    <select class="form-control input-sm select2 price" style="width: 100%;" name="contract_detail[{{ $i }}][price_id]">
-                        <option value="{{ $contract_detail->price_id }}">{{ $contract_detail->price->product->name }}</option>
-                    </select>
-                </div>
+                <input type="hidden" value="{{ $contract_detail->id }}" name="contract_detail[{{ $i }}][id]">
+                {{ $contract_detail->price->product->name }}
             </td>
             <td class="col-md-1" data-col-seq="2">
-                <div class="form-group">
-                    <input type="number" class="form-control input-sm" name="contract_detail[{{ $i }}][quantity]" value="{{ $contract_detail->quantity }}">
+                {{ $contract_detail->quantity }}
+            </td>
+            <td class="col-md-1" data-col-seq="3">
+                <div class="pull-right">
+                    {{ $contract_detail->deadline }}
                 </div>
             </td>
-            <td class="col-md-2" data-col-seq="3">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="contract_detail[{{ $i }}][selling_price]" value="{{ $contract_detail->selling_price }}" readonly>
-                </div>
-            </td>
-            <td class="col-md-2" data-col-seq="4">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control input-sm" name="contract_detail[{{ $i }}][deadline]" value="{{ $contract_detail->deadline }}">
-                    </div>
-                </div>
+            <td class="col-md-1" data-col-seq="4">
+                {{ $contract_detail->status }}
             </td>
             <td class="col-md-2" data-col-seq="5">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="contract_detail[{{ $i }}][note]" value="{{ $contract_detail->note }}">
-                </div>
+                {{ $contract_detail->note }}
             </td>
-            <td data-col-seq="6">
-                <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <td class="col-md-2" data-col-seq="6">
+                <select name="contract_detail[{{ $i }}][supplier_id]" class="form-control" required>
+                    <option value="">--Nhập đơn vị sản xuất--</option>
+                    @foreach($suppliers as $supplier)
+                        @if ($supplier->id === $contract_detail->manufacturerOrder->supplier_id)
+                            <option value="{{ $supplier->id }}" selected>{{ $supplier->short_name }}</option>
+                        @else
+                            <option value="{{ $supplier->id }}">{{ $supplier->short_name }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </td>
+            <td class="col-md-1" data-col-seq="6">
+                {{ $contract_detail->manufacturerOrder->number }}
             </td>
         </tr>
-        @php( $i++ )
+        @php($i++)
     @endforeach
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp đơn hàng</h3>
+            <h3 class="box-title">Tổng hợp lệnh sản xuất</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -11,13 +11,11 @@
                 <thead>
                 <tr>
                     <th>ĐVĐH</th>
-                    <th>Số đơn hàng</th>
+                    <th>Ngày lập</th>
+                    <th>LSX</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
-                    <th>Đơn giá</th>
-                    <th>Ngày lập</th>
                     <th>Tiến độ</th>
-                    <th>LSX</th>
                     <th>Trạng thái</th>
                     <th>Action</th>
                 </tr>
@@ -27,20 +25,18 @@
                 @foreach ($contract_details as $contract_detail)
                     <tr>
                         <td>{{ $contract_detail->contract->customer->short_name }}</td>
-                        <td>{{ $contract_detail->contract->number }}</td>
+                        <td>{{ $contract_detail->contract->date }}</td>
+                        <td>{{ $contract_detail->manufacturerOrder->number }}</td>
                         <td>{{ $contract_detail->price->product->name }}</td>
                         <td>{{ $contract_detail->quantity }}</td>
-                        <td>{{ $contract_detail->selling_price }}</td>
-                        <td>{{ $contract_detail->contract->date }}</td>
                         <td>{{ $contract_detail->deadline }}</td>
-                        <td>{{ $contract_detail->manufacturer_order_number }}</td>
                         <td>{{ $contract_detail->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('manufacturer-order.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('manufacturer-order.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
@@ -52,15 +48,13 @@
                 <tfoot>
                     <tr>
                         <th>ĐVĐH</th>
-                        <th>Số đơn hàng</th>
+                        <th>Ngày lập</th>
+                        <th>LSX</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Ngày lập</th>
                         <th>Tiến độ</th>
-                        <th>LSX</th>
                         <th>Trạng thái</th>
-                        <td></td>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
             </table>
@@ -90,23 +84,17 @@
                 },
                 "columns" : [
                     { "data" : "customer" },
-                    { "data" : "number" },
-                    { "data" : "product" },
-                    { "data" : "quantity" },
-                    {
-                        "data"      : "selling_price",
-                        render      : $.fn.dataTable.render.number( '.', ','),
-                        className   : 'dt-body-right'
-                    },
                     {
                         "data"      : "date",
                         className   : 'dt-body-right'
                     },
+                    { "data" : "number" },
+                    { "data" : "product" },
+                    { "data" : "quantity" },
                     {
                         "data"      : "deadline",
                         className   : 'dt-body-right'
                     },
-                    { "data" : "order" },
                     {
                         "data"      : "status",
                         "render"    : function (data) {
@@ -127,22 +115,6 @@
                         targets: "_all",
                         className   : 'dt-head-center',
                     },
-                    {
-                        targets : [0,1,3],
-                        width   : '5%'
-                    },
-                    {
-                        targets : 2,
-                        width   : '30%'
-                    },
-                    {
-                        targets : [4,5,6],
-                        width   : '10%'
-                    },
-                    {
-                        targets : 9,
-                        width   : '10%'
-                    }
                 ]
             });
 

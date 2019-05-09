@@ -8,16 +8,6 @@
     {{ $contract->date }}
 @stop
 
-@section('contract-number')
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Số đơn hàng</label>
-            <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number }}">
-        </div>
-    </div>
-    <!-- /.col -->
-@stop
-
 @section('contract-total-value')
     {{ $contract->total_value }}
 @stop
