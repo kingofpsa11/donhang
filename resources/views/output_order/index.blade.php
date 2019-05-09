@@ -54,7 +54,7 @@
                         <th>Tên sản phẩm</th>
                         <th>Số lượng xuất</th>
                         <th>LSX</th>
-                        <th>Action</th>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
@@ -69,7 +69,7 @@
         $(document).ready(function () {
             $('#example2 tfoot th').each( function () {
                 var title = $(this).text();
-                $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
+                $(this).html( '<input type="text" style="width:100%;" placeholder="Tìm" />' );
             } );
 
 
@@ -97,6 +97,10 @@
                     {
                         targets     : 4,
                         width       : '40%',
+                    },
+                    {
+                        targets     : 7,
+                        width       : '10%',
                     },
                     {
                         targets     : '_all',

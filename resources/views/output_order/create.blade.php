@@ -1,5 +1,7 @@
 @extends('output_order._form')
 
+@section('action', 'Tạo lệnh xuất hàng')
+
 @section('route')
     {{ route('output-order.store') }}
 @endsection
@@ -38,7 +40,13 @@
             <input type="text" class="form-control input-sm" name="outputOrderDetails[0][note]">
         </td>
         <td data-col-seq="7">
-            <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>
 @endsection
+
+@section('javascript')
+    @parent
+        });
+    </script>
+@stop

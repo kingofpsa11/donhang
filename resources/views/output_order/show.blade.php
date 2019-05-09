@@ -88,18 +88,40 @@
                         <p>NGƯỜI LẬP</p>
                     </div>
                 </div>
-                <div class="row control-button">
-                    <div class="col-md-1 pull-right">
-                        <a href="{{ route('output-order.edit', [$outputOrder->id]) }}" class="btn btn-info">
+                <div class="control-button">
+                    <div>
+                        <a href="{{ route('output-order.edit', [$outputOrder->id]) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-default print">In</button>
+                        <button class="btn btn-danger">Xoá</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.box -->
     </section>
+    <form action="{{ route('output-order.destroy', [$outputOrder]) }}" method="POST">
+        @csrf()
+        @method('DELETE')
+        <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa đơn hàng</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Chắc chắn lệnh xuất hàng số {{ $outputOrder->number }}?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
+                        <input type="submit" class="btn btn-danger waves-effect waves-light" value="Xóa">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection
 
 @section('javascript')

@@ -45,6 +45,16 @@ class OutputOrderController extends Controller
      */
     public function store(Request $request)
     {
+        $numberIsExist = OutputOrder::where('number', $request->outputOrder['number'])
+            ->where('customer_id', $request->outputOrder['customer_id'])
+            ->whereYear('date', date('Y', (int)$request->outputOrder['date']))
+            ->count();
+
+        if ($numberIsExist > 0) {
+            flash('Số lệnh xuất hàng đã tồn tại')->error();
+            return redirect()->back();
+        }
+
         $outputOrder = new OutputOrder();
         $outputOrder->customer_id = $request->outputOrder['customer_id'];
         $outputOrder->number = $request->outputOrder['number'];
@@ -132,6 +142,8 @@ class OutputOrderController extends Controller
      */
     public function destroy(OutputOrder $outputOrder)
     {
-        //
+        $outputOrder->delete();
+        flash('Đã xoá lệnh xuất hàng số ' . $outputOrder->number)->success();
+        return redirect()->route('output-order.index');
     }
 }

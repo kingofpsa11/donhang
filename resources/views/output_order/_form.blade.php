@@ -2,8 +2,6 @@
 
 @section('title', 'Lệnh xuất hàng')
 
-@section('action', 'Tạo LXH')
-
 @section('content')
 	
 	<!-- Main content -->
@@ -14,10 +12,6 @@
 			<div class="box box-default">
 				<div class="box-header with-border">
 					<h3 class="box-title">Lệnh xuất hàng</h3>
-					
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-					</div>
 				</div>
 				<!-- /.box-header -->
 				
@@ -26,7 +20,7 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Đơn vị xuất hàng</label>
-								<select class="form-control input-sm select2 customer" name="outputOrder[customer_id]" required>
+								<select class="form-control select2 customer" name="outputOrder[customer_id]" required>
                                     @yield('customer')
 								</select>
 							</div>
@@ -34,7 +28,7 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Số lệnh xuất hàng</label>
-								<input type="text" class="form-control input-sm" name="outputOrder[number]" required>
+								<input type="text" class="form-control" name="outputOrder[number]" required value="{{ $outputOrder->number ?? '' }}">
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -44,7 +38,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<input type="text" class="form-control input-sm" value="@yield('output-order-date')" name="outputOrder[date]" required>
+									<input type="text" class="form-control" value="@yield('output-order-date')" name="outputOrder[date]" required>
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -82,15 +76,14 @@
 				</div>
 				<!-- /.box-body -->
                 <div class="box-footer">
-                    <div class="col-md-4 pull-right">
-                        <button class="btn btn-primary col-md-3 addRow
+                    <div>
+                        <button class="btn btn-primary addRow
                             @if (Request::is('*/create'))
                                 disabled
                             @endif
                         ">Thêm dòng</button>
-                        <input type="submit" value="Lưu" class="btn btn-success save col-md-3">
-                        <a href="{{ url('output-order') }}" class="btn btn-danger col-md-3 cancel">Hủy</a>
-                        <button class="btn btn-default col-md-3 print">In</button>
+                        <input type="submit" value="Lưu" class="btn btn-success save">
+                        <a href="{{ url('output-order') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
 			</div>
@@ -170,6 +163,7 @@
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
+                
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').text(i + 1);
@@ -179,6 +173,13 @@
                     $(row).children('[data-col-seq="4"]').find('select').attr('name', 'outputOrderDetails[' + i + '][contract_detail_id]');
                     $(row).children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + i + '][quantity]');
                     $(row).children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + i + '][note]');
+                    if (i === 0) {
+                        if (rows.length === 1) {
+                            $(row).find('button.removeRow').addClass('hidden');
+                        } else {
+                            $(row).find('button.removeRow').removeClass('hidden');
+                        }
+                    }
                 });
             }
             
@@ -199,6 +200,8 @@
                 newRow.children('[data-col-seq="4"]').find('select').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_detail_id]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
                 newRow.children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
+                lastRow.find('button.removeRow').removeClass('hidden');
+                newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
                 newRow.find('option').remove();
                 newRow.find('input').val('');
@@ -227,14 +230,12 @@
                     let datePart = date.split('/');
                     let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
                     $(el).val(newDate.getTime()/1000);
-                })
+                });
             }
             
             $('#form').on('submit', function () {
                 convertDateToTimestamp($('[name="outputOrder[date]"]'));
-            })
+            });
 
-
-        });
-    </script>
-@stop
+        
+@show

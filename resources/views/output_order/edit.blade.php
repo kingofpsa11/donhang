@@ -1,5 +1,7 @@
 @extends('output_order._form')
 
+@section('action', 'Sửa lênh xuất hàng')
+
 @section('route')
     {{ route('output-order.update', $outputOrder->id) }}
 @endsection
@@ -8,14 +10,14 @@
     {{ $outputOrder->date }}
 @stop
 
-@section('contract-number')
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Số lệnh xuất hàng</label>
-            <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="outputOrder[number]" value="{{ $outputOrder->number }}">
-        </div>
-    </div>
-    <!-- /.col -->
+@section('customer')
+    @foreach ($customers as $customer)
+        @if ($customer->id === $outputOrder->customer_id)
+            <option value="{{ $customer->id }}" selected>{{ $customer->short_name }}</option>
+        @else
+            <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
+        @endif
+    @endforeach
 @stop
 
 @section('method')
@@ -28,43 +30,37 @@
         <tr data-key="{{ $i }}">
             <td data-col-seq="0">1</td>
             <td class="col-md-1" data-col-seq="1">
-                <div class="form-group">
-                    <input class="form-control input-sm" name="outputOrderDetails[{{ $i }}][contract_id]" readonly value="{{ $outputOrderDetail->contractDetail->contract->number }}">
-                </div>
+                <input class="form-control input-sm" name="outputOrderDetails[{{ $i }}][contract_id]" readonly value="{{ $outputOrderDetail->contractDetail->contract->number }}">
             </td>
             <td class="col-md-1" data-col-seq="2">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][manufacturer_order_number]" readonly value="{{ $outputOrderDetail->contractDetail->manufacturer_order_number }}">
-            
-                </div>
+                <input type="text" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][manufacturer_order_number]" readonly value="{{ $outputOrderDetail->contractDetail->manufacturerOrder->number ?? ''}}">
             </td>
             <td class="col-md-2" data-col-seq="3">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][code]" readonly value="{{ $outputOrderDetail->contractDetail->price->product->code }}">
-            
-                </div>
+                <input type="text" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][code]" readonly value="{{ $outputOrderDetail->contractDetail->price->product->code }}">
             </td>
             <td class="col-md-5" data-col-seq="4">
-                <div class="form-group">
-                    <select type="text" class="form-control input-sm select2 contract" name="outputOrderDetails[{{ $i }}][contract_detail_id]" style="width:100%" required>
-                        <option value="{{ $outputOrderDetail->contract_detail_id }}">{{ $outputOrderDetail->contractDetail->price->product->name }}</option>
-                    </select>
-                </div>
+                <select type="text" class="form-control input-sm select2 contract" name="outputOrderDetails[{{ $i }}][contract_detail_id]" style="width:100%" required>
+                    <option value="{{ $outputOrderDetail->contract_detail_id }}">{{ $outputOrderDetail->contractDetail->price->product->name }}</option>
+                </select>
             </td>
             <td class="col-md-1" data-col-seq="5">
-                <div class="form-group">
-                    <input type="number" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][quantity]" value="{{ $outputOrderDetail->quantity }}">
-                </div>
+                <input type="number" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][quantity]" value="{{ $outputOrderDetail->quantity }}">
             </td>
             <td class="col-md-2" data-col-seq="6">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][note]" value="{{ $outputOrderDetail->note }}">
-                </div>
+                <input type="text" class="form-control input-sm" name="outputOrderDetails[{{ $i }}][note]" value="{{ $outputOrderDetail->note }}">
             </td>
             <td data-col-seq="7">
-                <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>
         @php( $i++ )
     @endforeach
 @endsection
+
+@section('javascript')
+    @parent
+        addSelect2(contractSelect);
+        getProduct(contractSelect);
+        });
+    </script>
+@stop
