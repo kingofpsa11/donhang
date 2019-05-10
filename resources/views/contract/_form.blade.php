@@ -68,8 +68,8 @@
                     </table>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="col-md-2 pull-right">
+                <div class="box-footer text-right">
+                    <div>
                         <button class="btn btn-primary addRow
                             @if (Request::is('*/create'))
                                 disabled
@@ -86,7 +86,6 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
         $(document).ready(function () {
             let customerSelect = $('.select2.customer');
@@ -130,8 +129,6 @@
             maskDate(date);
             maskDate(deadline);
 
-
-
             function addSelect2 (el) {
                 el.select2({
                     placeholder: 'Nhập tên sản phẩm',
@@ -139,6 +136,14 @@
                     ajax: {
                         url: '{{ route('prices.shows') }}',
                         delay: 200,
+                        data: function (params) {
+                            let query = {
+                                search: params.term,
+                                customer_id: customerSelect.val()
+                            };
+
+                            return query;
+                        },
                         dataType: 'json',
                         dropdownAutoWidth : true,
                         processResults: function (data) {
@@ -147,7 +152,7 @@
                                     return {
                                         text: item.name,
                                         id: item.id,
-                                        selling_price: item.selling_price,
+                                        selling_price: item.sellPrice,
                                     }
                                 })
                             };

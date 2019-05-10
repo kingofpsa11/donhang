@@ -20,7 +20,7 @@ class CreatePricesTable extends Migration
             $table->unsignedBigInteger('purchase_price')->nullable();
             $table->unsignedBigInteger('selling_price')->nullable();
             $table->integer('status');
-            $table->date('effective_date')->nullable();
+            $table->date('effective_date');
             $table->timestamps();
         });
     }

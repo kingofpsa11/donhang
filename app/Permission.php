@@ -23,6 +23,16 @@ class Permission extends \Spatie\Permission\Models\Permission
             'add_contracts',
             'edit_contracts',
             'delete_contracts',
+
+            'view_output_orders',
+            'add_output_orders',
+            'edit_output_orders',
+            'delete_output_orders',
+
+            'view_products',
+            'add_products',
+            'edit_products',
+            'delete_products',
         ];
     }
 }

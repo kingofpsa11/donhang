@@ -75,7 +75,7 @@
 					</table>
 				</div>
 				<!-- /.box-body -->
-                <div class="box-footer">
+                <div class="box-footer text-right">
                     <div>
                         <button class="btn btn-primary addRow
                             @if (Request::is('*/create'))

@@ -89,11 +89,11 @@ class DatabaseSeeder extends Seeder
 //        }
 
         // Seed the default permissions
-//        $permissions = Permission::defaultPermissions();
-//
-//        foreach ($permissions as $perms) {
-//            Permission::firstOrCreate(['name' => $perms]);
-//        }
+        $permissions = Permission::defaultPermissions();
+
+        foreach ($permissions as $perms) {
+            Permission::firstOrCreate(['name' => $perms]);
+        }
 
 //        $this->command->info('Default Permissions added.');
 //        $role = Role::firstOrCreate(['name' => 'Admin']);

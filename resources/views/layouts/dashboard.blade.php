@@ -415,6 +415,7 @@ desired effect
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
 
