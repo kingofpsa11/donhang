@@ -1,6 +1,6 @@
 <!-- Name Form Input -->
 <div class="form-group @if ($errors->has('name')) has-error @endif">
-    <label for="">Name</label>
+    <label for="">Tên</label>
     <input type="text" class="form-control" placeholder="Name" name="name" value="{{ $user->name ?? null }}">
     @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
 </div>
@@ -21,7 +21,7 @@
 
 <!-- Roles Form Input -->
 <div class="form-group @if ($errors->has('roles')) has-error @endif">
-    <label for="">Roles</label>
+    <label for="">Vai trò</label>
     <select name="roles[]" id="" class="form-control" multiple>
         @foreach ($roles as $key => $singleRole)
             @if (isset($user))
@@ -40,5 +40,5 @@
 
 <!-- Permissions -->
 @if(isset($user))
-    @include('shared._permissions', ['closed' => 'true', 'model' => $user ])
+    @include('shared._permissions', ['closed' => 'false', 'model' => $user ])
 @endif

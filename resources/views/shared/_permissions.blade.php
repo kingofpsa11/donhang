@@ -2,7 +2,7 @@
     <div class="panel-heading" role="tab" id="{{ isset($title) ? Str::slug($title) :  'permissionHeading' }}">
         <h4 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#dd-{{ isset($title) ? Str::slug($title) :  'permissionHeading' }}" aria-expanded="{{ $closed ?? 'true' }}" aria-controls="dd-{{ isset($title) ? Str::slug($title) :  'permissionHeading' }}">
-                {{ $title ?? 'Override Permissions' }} {!! isset($user) ? '<span class="text-danger">(' . $user->getDirectPermissions()->count() . ')</span>' : '' !!}
+                {{ $title ?? 'Phân quyền chi tiết' }} {!! isset($user) ? '<span class="text-danger">(' . $user->getAllPermissions()->count() . ')</span>' : '' !!}
             </a>
         </h4>
     </div>
@@ -16,8 +16,8 @@
                         $per_found = $role->hasPermissionTo($perm->name);
                     }
 
-                    if( isset($user)) {
-                        $per_found = $user->hasDirectPermission($perm->name);
+                    if( isset($user) ) {
+                        $per_found = $user->hasPermissionTo($perm->name);
                     }
                     ?>
 

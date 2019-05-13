@@ -37,7 +37,7 @@
                             @endif
                         </td>
                         <td>
-                            <div class="btn-group">
+                            <div class="row">
                                 <a href="{{ route('product.show', [$product])}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
@@ -57,10 +57,10 @@
                         <th>Tên sản phẩm</th>
                         <th>Trạng thái</th>
                         <td></td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
-            <button class="btn btn-primary" id="export">Export</button>
         </div>
         <!-- /.box-body -->
     </div>
