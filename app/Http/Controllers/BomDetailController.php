@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Bom;
+use App\BomDetail;
 use Illuminate\Http\Request;
 
-class BomController extends Controller
+class BomDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class BomController extends Controller
      */
     public function index()
     {
-        $boms = Bom::all();
-        return view('boms.index',compact('boms'));
+        //
     }
 
     /**
@@ -25,7 +24,7 @@ class BomController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class BomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bom  $bom
+     * @param  \App\BomDetail  $bomDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(Bom $bom)
+    public function show(BomDetail $bomDetail)
     {
         //
     }
@@ -53,10 +52,10 @@ class BomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bom  $bom
+     * @param  \App\BomDetail  $bomDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bom $bom)
+    public function edit(BomDetail $bomDetail)
     {
         //
     }
@@ -65,10 +64,10 @@ class BomController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bom  $bom
+     * @param  \App\BomDetail  $bomDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bom $bom)
+    public function update(Request $request, BomDetail $bomDetail)
     {
         //
     }
@@ -76,10 +75,10 @@ class BomController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bom  $bom
+     * @param  \App\BomDetail  $bomDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bom $bom)
+    public function destroy(BomDetail $bomDetail)
     {
         //
     }

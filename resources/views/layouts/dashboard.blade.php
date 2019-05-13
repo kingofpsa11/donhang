@@ -285,6 +285,8 @@ desired effect
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>
                 </li>
+
+                <li><a href="{{ route('bom.index') }}"><i class="fa fa-link"></i> <span>Định mức</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

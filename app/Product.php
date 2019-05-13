@@ -20,6 +20,11 @@ class Product extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function boms()
+    {
+        return $this->hasMany('App\Bom');
+    }
+
     protected $attributes = [
         'status' => 10
     ];

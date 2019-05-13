@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', 'UserController@notifications');
 
     Route::resource('profit-rate', 'ProfitRateController');
+
+    Route::resource('bom', 'BomController');
 });
 
 Auth::routes();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBomsTable extends Migration
+class CreateManufacturerNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateBomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('boms', function (Blueprint $table) {
+        Schema::create('manufacturer_notes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->integer('status');
-            $table->unsignedBigInteger('stage');
+            $table->unsignedBigInteger('bom_id');
+            $table->foreign('bom_id')->references('id')->on('boms')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->unsignedBigInteger('manufacturer_order_id');
+            $table->foreign('manufacturer_order_id')->references('id')->on('manufacturer_orders')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateBomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boms');
+        Schema::dropIfExists('manufacturer_notes');
     }
 }
