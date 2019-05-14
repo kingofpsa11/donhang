@@ -3,7 +3,8 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp đơn hàng</h3>
+            <h3 class="box-title">Tổng hợp định mức</h3>
+            <a href="{{ route('bom.create') }}" class="btn btn-primary pull-right">Tạo định mức mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -25,10 +26,10 @@
                         <td>{{ $bom->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('bom.show', ['bom' => $bom->id])}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('bom.edit', ['bom' => $bom->id])}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
@@ -39,23 +40,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ĐVĐH</th>
-                        <th>Số đơn hàng</th>
+                        <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Ngày lập</th>
-                        <th>Tiến độ</th>
-                        <th>LSX</th>
                         <th>Trạng thái</th>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
-        </div>
-
-        <div class="box-footer">
-            <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
         </div>
         <!-- /.box-body -->
     </div>
@@ -81,24 +72,8 @@
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
                 "columns" : [
-                    { "data" : "customer" },
-                    { "data" : "number" },
-                    { "data" : "product" },
-                    { "data" : "quantity" },
-                    {
-                        "data"      : "selling_price",
-                        render      : $.fn.dataTable.render.number( '.', ','),
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "date",
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "deadline",
-                        className   : 'dt-body-right'
-                    },
-                    { "data" : "order" },
+                    { "data" : "code" },
+                    { "data" : "name" },
                     {
                         "data"      : "status",
                         "render"    : function (data) {
@@ -119,22 +94,6 @@
                         targets: "_all",
                         className   : 'dt-head-center',
                     },
-                    {
-                        targets : [0,1,3],
-                        width   : '5%'
-                    },
-                    {
-                        targets : 2,
-                        width   : '30%'
-                    },
-                    {
-                        targets : [4,5,6],
-                        width   : '10%'
-                    },
-                    {
-                        targets : 9,
-                        width   : '10%'
-                    }
                 ]
             });
 

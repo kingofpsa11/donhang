@@ -1,4 +1,4 @@
-@extends('contract._form')
+@extends('boms._form')
 
 @section('route')
     {{ route('contract.store') }}
@@ -8,13 +8,6 @@
     @php
         echo date('d/m/Y');
     @endphp
-@stop
-
-@section('customer')
-    <option value="">--Lựa chọn đơn vị đặt hàng--</option>
-    @foreach ($customers as $customer)
-        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-    @endforeach
 @stop
 
 @section('table-body')

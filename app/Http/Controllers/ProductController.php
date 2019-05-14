@@ -113,4 +113,13 @@ class ProductController extends Controller
         $products = Product::take(10)->get();
         return response()->json($products);
     }
+
+    public function getProduct(Request $request)
+    {
+        $term = $request->term;
+
+        $products = Product::where('name', 'LIKE', '%' . $term . '%')->orderBy('id')->take(20)->get();
+
+        return response()->json($products);
+    }
 }

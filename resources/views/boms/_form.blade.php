@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Đơn hàng')
+@section('title', 'Định mức')
 
-@section('action', 'Tạo đơn hàng')
+@section('action', 'Tạo định mức')
 
 @section('content')
 
@@ -17,41 +17,27 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Đơn vị đặt hàng</label>
-                                <select class="form-control select2 customer" name="contract[customer_id]" required>
-                                    @yield('customer')
-                                </select>
+                                <label for="" class="control-label">Tên sản phẩm</label>
+                                <select name="product_id" class="form-control"></select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Số đơn hàng</label>
-                                <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number ?? ''}}" required>
+                                <label for="" class="control-label">Tên định mức</label>
+                                <input type="text" name="name" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Ngày đặt hàng</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control" value="@yield('contract-date')" name="contract[date]" required>
-                                </div>
-                                <!-- /.input group -->
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" readonly name="contract[total_value]" value="@yield('contract-total-value')">
+                                <label for="" class="control-label">Công đoạn</label>
+                                <input type="text" name="stage" class="form-control">
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
-                    <table id="example1" class="table table-bordered table-striped table-condensed">
+                    <table id="table" class="table table-bordered table-striped table-condensed">
                         <thead>
                         <tr>
                             <th>STT</th>
@@ -88,95 +74,27 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-            let customerSelect = $('.select2.customer');
-            customerSelect.select2();
-
-            $('tbody').on('change', '[name$="[quantity]"]', calculateTotal);
-
-            function calculateTotal() {
-                let rows = $('tr[data-key]');
-                let total_value = 0;
-                rows.each(function (i, el) {
-                    let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
-                    let quantity = $(el).find('[name$="[quantity]"]').val();
-                    total_value += selling_price * quantity;
-                });
-
-                $('[name$="[total_value]"]').val(total_value);
-            }
-
-            function maskCurrency(obj) {
-                obj.inputmask({
-                    alias: 'integer',
-                    autoGroup: true,
-                    groupSeparator: '.'
-                });
-            }
-
-            function maskDate(obj) {
-                obj.inputmask({
-                    'alias': 'dd/mm/yyyy'
-                });
-            }
-
-            let total_value = $('[name="contract[total_value]"]');
-            let selling_price = $('[name$="[selling_price]"]');
-            let date = $('[name="contract[date]"]');
-            let deadline = $('[name$="[deadline]"]');
-
-            maskCurrency(total_value);
-            maskCurrency(selling_price);
-            maskDate(date);
-            maskDate(deadline);
-
-            function addSelect2 (el) {
-                el.select2({
-                    placeholder: 'Nhập tên sản phẩm',
-                    minimumInputLength: 2,
-                    ajax: {
-                        url: '{{ route('prices.shows') }}',
-                        delay: 200,
-                        data: function (params) {
-                            let query = {
-                                search: params.term,
-                                customer_id: customerSelect.val()
-                            };
-
-                            return query;
-                        },
-                        dataType: 'json',
-                        dropdownAutoWidth : true,
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data, function (item) {
-                                    return {
-                                        text: item.name,
-                                        id: item.id,
-                                        selling_price: item.sellPrice,
-                                    }
-                                })
-                            };
-                        },
-                        cache: true
+            
+            let product = $('[name="product_id"]');
+            product.select2({
+                placeholder: 'Nhập tên sản phẩm',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '{{ route('product.getProduct') }}',
+                    delay: 200,
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id,
+                                }
+                            })
+                        };
                     },
-                });
-            }
-
-            function getPrice (el) {
-                el.on('select2:select', function (e) {
-                    let data = e.params.data;
-                    $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
-                    $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
-                    calculateTotal();
-                });
-            }
-
-            let priceSelect = $('.select2.price');
-
-            customerSelect.on('select2:select', function () {
-                $('.addRow').removeClass('disabled');
-                addSelect2(priceSelect);
-                getPrice(priceSelect);
+                    cache: true
+                },
             });
 
             function updateNumberOfRow() {
@@ -228,7 +146,7 @@
                 maskDate(newRow.find('[name$="[deadline]"]'));
             });
 
-            $('#example1').on('click', '.removeRow', function (e) {
+            $('#table').on('click', '.removeRow', function (e) {
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
                 updateNumberOfRow();
@@ -239,29 +157,6 @@
                 e.preventDefault();
             });
 
-            function convertDateToTimestamp(obj) {
-                obj.each(function (i, el) {
-                    let date = $(el).val();
-                    $(el).inputmask('remove');
-                    let datePart = date.split('/');
-                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                    $(el).val(newDate.getTime()/1000);
-                })
-            }
-
-            function convertNumber(obj) {
-                obj.each(function (i, el) {
-                    $(el).inputmask('remove');
-                    $(el).val($(el).val().replace(/(\d+).(?=\d{3})/g, "$1"));
-                })
-            }
-
-            $('#form').on('submit', function () {
-                convertNumber($('[name$="[selling_price]"]'));
-                convertNumber($('[name$="[total_value]"]'));
-                convertDateToTimestamp($('[name$="[date]"]'));
-                convertDateToTimestamp($('[name$="[deadline]"]'));
-            });
         })
     </script>
 @stop

@@ -15,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::resource('customer','CustomerController');
@@ -40,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('output-order', 'OutputOrderController');
 
     Route::get('product/all', 'ProductController@shows')->name('product.shows');
+    Route::get('product/getProduct', 'ProductController@getProduct')->name('product.getProduct');
     Route::resource('product', 'ProductController');
 
     Route::resource('roles', 'RoleController');

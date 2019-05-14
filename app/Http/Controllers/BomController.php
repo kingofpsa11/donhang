@@ -25,7 +25,7 @@ class BomController extends Controller
      */
     public function create()
     {
-
+        return view('boms.create');
     }
 
     /**
