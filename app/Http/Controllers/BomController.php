@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bom;
+use App\BomDetail;
 use Illuminate\Http\Request;
 
 class BomController extends Controller
@@ -36,7 +37,24 @@ class BomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bom = new Bom();
+        $bom->product_id = $request->bom['product_id'];
+        $bom->stage = $request->bom['stage'];
+        $bom->name = $request->bom['name'];
+        if ($bom->save()) {
+            $bom_details = [];
+            foreach ($request->bom_details as $value) {
+                $bom_detail = new BomDetail();
+                $bom_detail->bom_id = $bom->id;
+                $bom_detail->product_id = $value['product_id'];
+                $bom_detail->quantity = $value['quantity'];
+                array_push($bom_details, $bom_detail);
+            }
+
+            if ($bom->bomDetails()->saveMany($bom_details)){
+                return view('boms.show', compact('bom'));
+            }
+        }
     }
 
     /**
@@ -47,7 +65,7 @@ class BomController extends Controller
      */
     public function show(Bom $bom)
     {
-        //
+        return view('boms.show', compact('bom'));
     }
 
     /**
@@ -58,7 +76,7 @@ class BomController extends Controller
      */
     public function edit(Bom $bom)
     {
-        //
+        return view('boms.edit', compact('bom'));
     }
 
     /**

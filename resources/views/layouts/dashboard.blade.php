@@ -287,6 +287,17 @@ desired effect
                 </li>
 
                 <li><a href="{{ route('bom.index') }}"><i class="fa fa-link"></i> <span>Định mức</span></a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Quản lý kho</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('good-delivery.create') }}"><i class="fa fa-circle-o"></i>Phiếu xuất kho</a></li>
+                    </ul>
+                </li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

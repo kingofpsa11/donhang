@@ -1,42 +1,26 @@
 @extends('boms._form')
 
 @section('route')
-    {{ route('contract.store') }}
+    {{ route('bom.store') }}
 @endsection
-
-@section('contract-date')
-    @php
-        echo date('d/m/Y');
-    @endphp
-@stop
 
 @section('table-body')
     <tr data-key="0">
         <td data-col-seq="0">1</td>
-        <td class="col-md-5" data-col-seq="1">
-            <select class="form-control input-sm select2 price" style="width: 100%;" name="contract_detail[0][price_id]" required>
-            </select>
+        <td class="col-md-1" data-col-seq="1">
+            <input type="text" class="form-control input-sm" readonly="" name="bom_details[0][code]">
         </td>
-        <td class="col-md-1" data-col-seq="2">
-            <input type="number" class="form-control input-sm" name="contract_detail[0][quantity]">
+        <td class="col-md-6" data-col-seq="2">
+            <select name="bom_details[0][product_id]" required class="form-control" style="width: 100%;"></select>
         </td>
         <td class="col-md-2" data-col-seq="3">
-            <input type="text" class="form-control input-sm" name="contract_detail[0][selling_price]" readonly>
+            <input type="text" class="form-control input-sm" name="bom_details[0][quantity]" required>
         </td>
-        <td class="col-md-2" data-col-seq="4">
-            <div class="input-group">
-                <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control input-sm" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]">
-            </div>
+        <td class="col-md-3" data-col-seq="4">
+            <input type="text" class="form-control input-sm" name=bom_details[0][note]>
         </td>
-        <td class="col-md-2" data-col-seq="5">
-            <input type="text" class="form-control input-sm" name="contract_detail[0][note]">
-        </td>
-        <td data-col-seq="6">
+        <td data-col-seq="5">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>
-
 @endsection

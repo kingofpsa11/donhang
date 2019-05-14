@@ -26,10 +26,10 @@
                         <td>{{ $bom->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('bom.show', ['bom' => $bom->id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('bom.show', [$bom])}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('bom.edit', ['bom' => $bom->id])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('bom.edit', [$bom])}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>

@@ -1,73 +1,34 @@
-@extends('contract._form')
+@extends('boms._form')
 
 @section('route')
-    {{ route('contract.update', $contract->id) }}
+    {{ route('bom.update', $bom) }}
 @endsection
-
-@section('contract-date')
-    {{ $contract->date }}
-@stop
-
-@section('contract-total-value')
-    {{ $contract->total_value }}
-@stop
 
 @section('method')
     @method('PUT')
 @stop
 
-@section('customer')
-    @foreach ($customers as $customer)
-        @if ($customer->id === $contract->customer_id)
-            <option value="{{ $customer->id }}" selected>{{ $customer->short_name }}</option>
-        @else
-            <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-        @endif
-    @endforeach
-@stop
-
 @section('table-body')
-    @php
-        $count = count($contract->contract_details);
-        $i = 0;
-    @endphp
-    @foreach ($contract->contract_details as $contract_detail)
+    @php ($i = 0)
+    @foreach ($bom->bomDetails as $bomDetail)
         <tr data-key="{{ $i }}">
             <td data-col-seq="0">{{ $i + 1 }}</td>
-            <td class="col-md-4" data-col-seq="1">
-                <div class="form-group">
-                    <select class="form-control input-sm select2 price" style="width: 100%;" name="contract_detail[{{ $i }}][price_id]">
-                        <option value="{{ $contract_detail->price_id }}">{{ $contract_detail->price->product->name }}</option>
-                    </select>
-                </div>
+            <td class="col-md-1" data-col-seq="1">
+                <input type="text" class="form-control" value="{{ $bomDetail->product->code }}" readonly>
             </td>
-            <td class="col-md-1" data-col-seq="2">
-                <div class="form-group">
-                    <input type="number" class="form-control input-sm" name="contract_detail[{{ $i }}][quantity]" value="{{ $contract_detail->quantity }}">
-                </div>
+            <td class="col-md-6" data-col-seq="2">
+                <select class="form-control input-sm select2 price" style="width: 100%;" name="$bomDetail[{{ $i }}][product_id]">
+                    <option value="{{ $bomDetail->product_id }}">{{ $bomDetail->product->name }}</option>
+                </select>
             </td>
             <td class="col-md-2" data-col-seq="3">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="contract_detail[{{ $i }}][selling_price]" value="{{ $contract_detail->selling_price }}" readonly>
-                </div>
+                <input type="text" class="form-control input-sm" name="$bomDetails[{{ $i }}][quantity]" value="{{ $bomDetail->quantity }}">
             </td>
-            <td class="col-md-2" data-col-seq="4">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control input-sm" name="contract_detail[{{ $i }}][deadline]" value="{{ $contract_detail->deadline }}">
-                    </div>
-                </div>
+            <td class="col-md-3" data-col-seq="4">
+                <input type="text" class="form-control input-sm" name="$bomDetails[{{ $i }}][note]">
             </td>
-            <td class="col-md-2" data-col-seq="5">
-                <div class="form-group">
-                    <input type="text" class="form-control input-sm" name="contract_detail[{{ $i }}][note]" value="{{ $contract_detail->note }}">
-                </div>
-            </td>
-            <td data-col-seq="6">
-                <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <td data-col-seq="5">
+                <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>
         @php( $i++ )

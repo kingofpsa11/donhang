@@ -18,19 +18,23 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm</label>
-                                <select name="product_id" class="form-control"></select>
+                                <select name="bom[product_id]" class="form-control">
+                                    @if (isset( $bom ))
+                                        <option value="{{ $bom->product_id }}">{{ $bom->product->name }}</option>
+                                    @endif
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Tên định mức</label>
-                                <input type="text" name="name" class="form-control">
+                                <input type="text" name="bom[name]" class="form-control" value="{{ $bom->name ?? '' }}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Công đoạn</label>
-                                <input type="text" name="stage" class="form-control">
+                                <input type="text" name="bom[stage]" class="form-control" value="{{ $bom->stage ?? '' }}">
                             </div>
                         </div>
                     </div>
@@ -41,10 +45,9 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên sản phẩm</th>
+                            <th>Mã vật tư</th>
+                            <th>Tên vật tư</th>
                             <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Tiến độ</th>
                             <th>Ghi chú</th>
                         </tr>
                         </thead>
@@ -56,13 +59,9 @@
                 <!-- /.box-body -->
                 <div class="box-footer text-right">
                     <div>
-                        <button class="btn btn-primary addRow
-                            @if (Request::is('*/create'))
-                                disabled
-                            @endif
-                        ">Thêm dòng</button>
+                        <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('contract.create') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ route('bom.create') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
             </div>
@@ -74,28 +73,43 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-            
-            let product = $('[name="product_id"]');
-            product.select2({
-                placeholder: 'Nhập tên sản phẩm',
-                minimumInputLength: 2,
-                ajax: {
-                    url: '{{ route('product.getProduct') }}',
-                    delay: 200,
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id,
-                                }
-                            })
-                        };
+
+            let product = $('[name*="[product_id]"]');
+
+            function getMaterial(el) {
+                el.select2({
+                    placeholder: 'Nhập tên sản phẩm',
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: '{{ route('product.getProduct') }}',
+                        delay: 200,
+                        dataType: 'json',
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+                                        code: item.code,
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
                     },
-                    cache: true
-                },
-            });
+                });
+            }
+
+            function getProductCode(el) {
+                el.on('select2:select', function (e) {
+                    let data = e.params.data;
+                    let row = el.parents('tr');
+                    row.find('[name*=code]').val(data.code);
+                })
+            }
+
+            getMaterial(product);
+            getProductCode($('tr [name*=product_id]'));
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
@@ -124,7 +138,7 @@
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = $('tr:last');
                 let newRow = lastRow.clone();
-                let select2 = newRow.find('.select2.price');
+                let select2 = newRow.find('[name*=product_id]');
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
@@ -140,10 +154,7 @@
                 newRow.find('input').val('');
                 tableBody.append(newRow);
 
-                addSelect2(select2);
-                getPrice(select2);
-                maskCurrency(newRow.find('[name$="[selling_price]"]'));
-                maskDate(newRow.find('[name$="[deadline]"]'));
+                getMaterial(select2);
             });
 
             $('#table').on('click', '.removeRow', function (e) {

@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('profit-rate', 'ProfitRateController');
 
     Route::resource('bom', 'BomController');
+
+    Route::resource('good-delivery', 'GoodDeliveryController');
 });
 
 Auth::routes();

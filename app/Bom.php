@@ -14,4 +14,13 @@ class Bom extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    public function bomDetails()
+    {
+        return $this->hasMany('App\BomDetail');
+    }
+
+    protected $attributes = [
+        'status' => 10
+    ];
 }
