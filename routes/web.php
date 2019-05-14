@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('price/search', 'PriceController@shows')->name('prices.shows');
     Route::resource('price', 'PriceController');
 
+    Route::get('output-order/getUndoneOutputOrder', 'OutputOrderController@getUndoneOutputOrders')->name('output-order.getUndoneOutputOrder');
     Route::resource('output-order', 'OutputOrderController');
 
     Route::get('product/all', 'ProductController@shows')->name('product.shows');
@@ -58,7 +59,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('bom', 'BomController');
 
-    Route::resource('good-delivery', 'GoodDeliveryController');
+    Route::prefix('good-delivery')->name('good-delivery.')->group(function () {
+        Route::get('/', 'GoodDeliveryController@index')->name('index');
+        Route::get('/create/{outputOrder}', 'GoodDeliveryController@create')->name('create');
+        Route::post('/{outputOrder}', 'GoodDeliveryController@store')->name('store');
+        Route::get('/{outputOrder}', 'GoodDeliveryController@show')->name('show');
+        Route::get('/{outputOrder}/edit', 'GoodDeliveryController@edit')->name('edit');
+        Route::post('/{outputOrder}/update', 'GoodDeliveryController@update')->name('update');
+    });
 });
 
 Auth::routes();

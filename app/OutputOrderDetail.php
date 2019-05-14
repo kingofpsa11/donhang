@@ -19,4 +19,9 @@ class OutputOrderDetail extends Model
     {
         return $this->belongsTo('App\ContractDetail');
     }
+
+    public function goodDeliveryDetails()
+    {
+        return $this->hasMany('App\GoodDeliveryDetail');
+    }
 }

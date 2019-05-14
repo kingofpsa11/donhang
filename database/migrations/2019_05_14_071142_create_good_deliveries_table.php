@@ -15,8 +15,11 @@ class CreateGoodDeliveriesTable extends Migration
     {
         Schema::create('good_deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('contract_detail_id');
-            $table->
+            $table->unsignedBigInteger('output_order_id');
+            $table->foreign('output_order_id')->references('id')->on('output_orders')->onDelete('cascade');
+            $table->integer('number');
+            $table->date('date');
+            $table->integer('status');
             $table->timestamps();
         });
     }

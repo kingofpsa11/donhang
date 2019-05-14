@@ -146,4 +146,11 @@ class OutputOrderController extends Controller
         flash('Đã xoá lệnh xuất hàng số ' . $outputOrder->number)->success();
         return redirect()->route('output-order.index');
     }
+
+    public function getUndoneOutputOrders()
+    {
+        $undoneOutputOrders = OutputOrder::where('status', 10)->get();
+
+        return view('output_order.undone', compact('undoneOutputOrders'));
+    }
 }

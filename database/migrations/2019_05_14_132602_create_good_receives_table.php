@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOutputOrdersTable extends Migration
+class CreateGoodReceivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateOutputOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('output_orders', function (Blueprint $table) {
+        Schema::create('good_receives', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->unsignedBigInteger('delivery_note_id');
             $table->integer('number');
             $table->date('date');
-            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateOutputOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('output_orders');
+        Schema::dropIfExists('good_receives');
     }
 }
