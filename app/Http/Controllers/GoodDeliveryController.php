@@ -36,7 +36,7 @@ class GoodDeliveryController extends Controller
      */
     public function store(Request $request, OutputOrder $outputOrder)
     {
-        //
+
     }
 
     /**

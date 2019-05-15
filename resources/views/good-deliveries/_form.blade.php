@@ -40,6 +40,13 @@
                                 <!-- /.input group -->
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Số phiếu</label>
+                                <input type="text" class="form-control input-sm" value="" name="goodDelivery[number]">
+                                <!-- /.input group -->
+                            </div>
+                        </div>
                     </div>
                     <!-- /.row -->
                 </div>
@@ -56,10 +63,10 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Số lượng thực xuất</th>
-                            <th>Ghi chú</th>
+                            <th class="col-md-6">Tên sản phẩm</th>
+                            <th class="col-md-2">Số lượng</th>
+                            <th class="col-md-2">Số lượng thực xuất</th>
+                            <th class="col-md-2">Ghi chú</th>
                         </tr>
                         </thead>
                         <tbody>
