@@ -128,4 +128,14 @@ class ManufacturerOrderController extends Controller
         }
         return ((int)$newNumber->number + 1);
     }
+
+    public function showManufacturer()
+    {
+        $contract_details = ContractDetail::whereNotNull('manufacturer_order_id')
+            ->where('status', '!=', 0)
+            ->orderBy('id', 'desc')
+            ->take(1000)
+            ->get();
+        return view('manufacturer_order.index')->with('contract_details', $contract_details);
+    }
 }

@@ -35,7 +35,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control input-sm" value="{{ $outputOrder->date }}" readonly name="outputOrder[date]">
+                                    <input type="text" class="form-control" value="@yield('date')" name="outputOrder[date]">
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -43,7 +43,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Số phiếu</label>
-                                <input type="text" class="form-control input-sm" value="" name="goodDelivery[number]">
+                                <input type="text" class="form-control" value="" name="goodDelivery[number]">
                                 <!-- /.input group -->
                             </div>
                         </div>

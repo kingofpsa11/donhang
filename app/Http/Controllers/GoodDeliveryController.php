@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\GoodDelivery;
+use App\GoodDeliveryDetail;
 use App\OutputOrder;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,25 @@ class GoodDeliveryController extends Controller
      */
     public function store(Request $request, OutputOrder $outputOrder)
     {
+        $goodDelivery = new GoodDelivery();
 
+        $goodDelivery->output_order_id = $outputOrder->id;
+        $goodDelivery->number = $this->getNewNumber();
+
+        if ( $goodDelivery->save() ) {
+            $goodDeliveryDetails = [];
+            foreach ($request->goodDeliveryDetails as $value) {
+                $goodDeliveryDetail = new GoodDeliveryDetail();
+                $goodDeliveryDetail->good_delivery_id = $value['good_delivery_id'];
+                $goodDeliveryDetail->output_order_detail_id = $value['output_order_detail_id'];
+                $goodDeliveryDetail->quantity = $value['quantity'];
+                array_push($goodDeliveryDetails, $goodDeliveryDetail);
+            }
+
+            if($goodDelivery->goodDeliveryDetails()->saveMany($goodDeliveryDetails)) {
+                return redirect()->route('good-delivery.show', [$goodDelivery]);
+            }
+        }
     }
 
     /**
@@ -45,9 +64,9 @@ class GoodDeliveryController extends Controller
      * @param  \App\GoodDelivery  $goodDelivery
      * @return \Illuminate\Http\Response
      */
-    public function show(GoodDelivery $goodDelivery)
+    public function show(OutputOrder $outputOrder)
     {
-        //
+        return view('good-deliveries.show', compact('outputOrder'));
     }
 
     /**
@@ -56,9 +75,9 @@ class GoodDeliveryController extends Controller
      * @param  \App\GoodDelivery  $goodDelivery
      * @return \Illuminate\Http\Response
      */
-    public function edit(GoodDelivery $goodDelivery)
+    public function edit(OutputOrder $outputOrder)
     {
-        //
+        return view('good-deliveries.edit', compact('outputOrder'));
     }
 
     /**
@@ -82,5 +101,13 @@ class GoodDeliveryController extends Controller
     public function destroy(GoodDelivery $goodDelivery)
     {
         //
+    }
+
+    public function getNewNumber()
+    {
+        $newNumber = GoodDelivery::whereYear('date', date('Y'))
+                ->max('number');
+        return $newNumber + 1;
+
     }
 }

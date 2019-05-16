@@ -21,6 +21,11 @@ class OutputOrder extends Model
         return $this->belongsTo('App\Customer');
     }
 
+    public function goodDelivery()
+    {
+        return $this->hasOne('App\GoodDelivery');
+    }
+
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');

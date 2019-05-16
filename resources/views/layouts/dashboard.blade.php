@@ -298,6 +298,17 @@ desired effect
                         <li><a href="{{ route('output-order.getUndoneOutputOrder') }}"><i class="fa fa-circle-o"></i>Danh sách LXH</a></li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Quản lý sản xuất</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
+                    </ul>
+                </li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
