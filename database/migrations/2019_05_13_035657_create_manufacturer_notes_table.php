@@ -15,13 +15,9 @@ class CreateManufacturerNotesTable extends Migration
     {
         Schema::create('manufacturer_notes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->unsignedBigInteger('bom_id');
-            $table->foreign('bom_id')->references('id')->on('boms')->onDelete('cascade');
-            $table->integer('quantity');
-            $table->unsignedBigInteger('manufacturer_order_id');
-            $table->foreign('manufacturer_order_id')->references('id')->on('manufacturer_orders')->onDelete('cascade');
+            $table->integer('number');
+            $table->date('date');
+            $table->integer('status');
             $table->timestamps();
         });
     }

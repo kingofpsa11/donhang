@@ -20,6 +20,11 @@ class Bom extends Model
         return $this->hasMany('App\BomDetail');
     }
 
+    public function manufacturerNoteDetails()
+    {
+        return $this->hasMany('App\ManufacturerNoteDetail');
+    }
+
     protected $attributes = [
         'status' => 10
     ];

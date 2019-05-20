@@ -174,4 +174,19 @@ class ContractController extends Controller
 
         return response()->json($result);
     }
+
+    public function getManufacturerOrder(Request $request)
+    {
+        $term = $request->term;
+
+        $result = DB::table('contracts')
+            ->join('contract_details', 'contracts.id', '=', 'contract_details.contract_id')
+            ->join('prices', 'prices.id', '=', 'contract_details.price_id')
+            ->join('products', 'products.id', '=', 'prices.product_id')
+            ->select('products.name', 'contracts.number', 'contract_details.id')
+            ->where('contracts.number', $term)
+            ->get();
+
+        return response()->json($result);
+    }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ManufacturerNote;
+use App\ManufacturerNoteDetail;
 use Illuminate\Http\Request;
 
-class ManufacturerNoteController extends Controller
+class ManufacturerNoteDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class ManufacturerNoteController extends Controller
      */
     public function create()
     {
-        return view('manufacturer-note.create');
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class ManufacturerNoteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ManufacturerNote  $manufacturerNote
+     * @param  \App\ManufacturerNoteDetail  $manufacturerNoteDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(ManufacturerNote $manufacturerNote)
+    public function show(ManufacturerNoteDetail $manufacturerNoteDetail)
     {
         //
     }
@@ -52,10 +52,10 @@ class ManufacturerNoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ManufacturerNote  $manufacturerNote
+     * @param  \App\ManufacturerNoteDetail  $manufacturerNoteDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(ManufacturerNote $manufacturerNote)
+    public function edit(ManufacturerNoteDetail $manufacturerNoteDetail)
     {
         //
     }
@@ -64,10 +64,10 @@ class ManufacturerNoteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ManufacturerNote  $manufacturerNote
+     * @param  \App\ManufacturerNoteDetail  $manufacturerNoteDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ManufacturerNote $manufacturerNote)
+    public function update(Request $request, ManufacturerNoteDetail $manufacturerNoteDetail)
     {
         //
     }
@@ -75,10 +75,10 @@ class ManufacturerNoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ManufacturerNote  $manufacturerNote
+     * @param  \App\ManufacturerNoteDetail  $manufacturerNoteDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ManufacturerNote $manufacturerNote)
+    public function destroy(ManufacturerNoteDetail $manufacturerNoteDetail)
     {
         //
     }

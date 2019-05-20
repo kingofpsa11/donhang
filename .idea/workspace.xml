@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/OutputOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/OutputOrder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Bom.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bom.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ContractDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ContractDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ManufacturerNote.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNote.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/manufacturer_order/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer_order/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,19 +43,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="304" column="71" lean-forward="true" selection-start-line="304" selection-start-column="71" selection-end-line="304" selection-end-column="71" />
+            <state relative-caret-position="440">
+              <caret line="309" column="62" lean-forward="true" selection-start-line="309" selection-start-column="62" selection-end-line="309" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/manufacturer_order/index.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="500">
+              <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -64,17 +61,39 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+            <state relative-caret-position="300">
+              <caret line="24" column="127" selection-start-line="24" selection-start-column="127" selection-end-line="24" selection-end-column="127" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="187" column="20" lean-forward="true" selection-start-line="187" selection-start-column="20" selection-end-line="187" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="138" column="49" selection-start-line="138" selection-start-column="49" selection-end-line="138" selection-end-column="49" />
+            <state relative-caret-position="280">
+              <caret line="54" column="31" lean-forward="true" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="18" column="116" selection-start-line="18" selection-start-column="116" selection-end-line="18" selection-end-column="116" />
+              <folding>
+                <element signature="e#620#638#0#HTML" expanded="true" />
+                <element signature="e#783#801#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,15 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/database/migrations/2019_04_10_032525_create_products_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_04_10_032552_create_prices_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_10_030430_create_profite_rates_table.php" />
-        <option value="$PROJECT_DIR$/app/ProfiteRate.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ProfiteRateController.php" />
-        <option value="$PROJECT_DIR$/resources/views/profit-rate/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/profit-rate/_form.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_10_030430_create_profit_rates_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/profit-rate/create.blade.php" />
         <option value="$PROJECT_DIR$/app/ProfitRate.php" />
         <option value="$PROJECT_DIR$/resources/views/profit-rate/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProfitRateController.php" />
@@ -142,14 +152,12 @@
         <option value="$PROJECT_DIR$/resources/views/user/_form.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
         <option value="$PROJECT_DIR$/resources/views/shared/_permissions.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_24_025709_create_boms_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_13_045358_create_bom_details_table.php" />
         <option value="$PROJECT_DIR$/app/Product.php" />
         <option value="$PROJECT_DIR$/resources/views/output_order/_form.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" />
         <option value="$PROJECT_DIR$/resources/views/boms/create.blade.php" />
-        <option value="$PROJECT_DIR$/app/Bom.php" />
         <option value="$PROJECT_DIR$/app/BomDetail.php" />
         <option value="$PROJECT_DIR$/resources/views/boms/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/product/index.blade.php" />
@@ -172,9 +180,20 @@
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer_order/index.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php" />
+        <option value="$PROJECT_DIR$/app/ManufacturerNote.php" />
+        <option value="$PROJECT_DIR$/app/ContractDetail.php" />
+        <option value="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" />
+        <option value="$PROJECT_DIR$/app/Bom.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
       </list>
     </option>
   </component>
@@ -278,10 +297,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -304,24 +323,17 @@
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -335,21 +347,7 @@
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="contract" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="good-deliveries" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="manufacturer_order" type="462c0819:PsiDirectoryNode" />
+              <item name="manufacturer-note" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
@@ -357,20 +355,6 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="output_order" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="product" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="profit-rate" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
@@ -396,18 +380,18 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\xampp\htdocs\donhang\resources\views" />
+      <recent name="C:\xampp\htdocs\donhang\resources\views\good-deliveries" />
+      <recent name="C:\xampp\htdocs\donhang\resources\views" />
+      <recent name="C:\xampp\htdocs\donhang\resources\views\output_order" />
+      <recent name="E:\xampp\htdocs\donhang\resources\views\boms" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\xampp\htdocs\donhang\app" />
       <recent name="C:\xampp\htdocs\donhang\resources\views\contract" />
       <recent name="E:\xampp\htdocs\donhang\resources\views\layouts" />
       <recent name="E:\xampp\htdocs\donhang\resources\views\layout" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\donhang\resources\views\good-deliveries" />
-      <recent name="C:\xampp\htdocs\donhang\resources\views" />
-      <recent name="C:\xampp\htdocs\donhang\resources\views\output_order" />
-      <recent name="E:\xampp\htdocs\donhang\resources\views\boms" />
-      <recent name="E:\xampp\htdocs\donhang\resources\views\profit-rate" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -457,11 +441,12 @@
       <workItem from="1557718335686" duration="12136000" />
       <workItem from="1557911517108" duration="8951000" />
       <workItem from="1557989961805" duration="5739000" />
+      <workItem from="1558313681849" duration="13502000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="595279000" />
+    <option name="totallyTimeSpent" value="608781000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -473,12 +458,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.1988273" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.20095949" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49920508" visible="true" weight="0.1516165" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -503,58 +488,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/spatie/laravel-permission/src/Traits/HasPermissions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="140" column="85" selection-start-line="140" selection-start-column="65" selection-end-line="140" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/shared/_permissions.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="31" column="18" lean-forward="true" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PriceController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="70" column="74" selection-start-line="70" selection-start-column="74" selection-end-line="70" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_02_133019_create_notifications_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasTimestamps.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -587,13 +520,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Bom.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
@@ -700,13 +626,6 @@
     <entry file="file://$PROJECT_DIR$/resources/views/manufacturer_order/create.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/output_order/undone.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
@@ -744,24 +663,10 @@
     <entry file="file://$PROJECT_DIR$/resources/views/contract/create.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="73" column="13" selection-start-line="61" selection-start-column="12" selection-end-line="73" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="68" column="61" lean-forward="true" selection-start-line="64" selection-start-column="28" selection-end-line="68" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/ContractDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -831,33 +736,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="304" column="71" lean-forward="true" selection-start-line="304" selection-start-column="71" selection-end-line="304" selection-end-column="71" />
+        <state relative-caret-position="460">
+          <caret line="135" column="35" lean-forward="true" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+        <state relative-caret-position="240">
+          <caret line="22" column="89" lean-forward="true" selection-start-line="22" selection-start-column="89" selection-end-line="22" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ContractDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ManufacturerNoteDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Bom.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ManufacturerNote.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/manufacturer_order/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="120">
+          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
           <folding>
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="138" column="49" selection-start-line="138" selection-start-column="49" selection-end-line="138" selection-end-column="49" />
+        <state relative-caret-position="520">
+          <caret line="187" column="20" lean-forward="true" selection-start-line="187" selection-start-column="20" selection-end-line="187" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="24" column="127" selection-start-line="24" selection-start-column="127" selection-end-line="24" selection-end-column="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="309" column="62" lean-forward="true" selection-start-line="309" selection-start-column="62" selection-end-line="309" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="18" column="116" selection-start-line="18" selection-start-column="116" selection-end-line="18" selection-end-column="116" />
+          <folding>
+            <element signature="e#620#638#0#HTML" expanded="true" />
+            <element signature="e#783#801#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="54" column="31" lean-forward="true" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
         </state>
       </provider>
     </entry>

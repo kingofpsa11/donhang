@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
     Route::get('contract/search', 'ContractController@shows')->name('contract.shows');
+    Route::get('contract/getManufacturerOrder', 'ContractController@getManufacturerOrder')->name('contract.getManufacturerOrder');
     Route::resource('contract','ContractController');
 
     Route::prefix('manufacturer-order')->name('manufacturer-order.')->group(function () {
@@ -68,6 +69,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{outputOrder}/edit', 'GoodDeliveryController@edit')->name('edit');
         Route::post('/{outputOrder}/update', 'GoodDeliveryController@update')->name('update');
     });
+
+    Route::resource('manufacturer-note', 'ManufacturerNoteController');
+
+
 });
 
 Auth::routes();

@@ -35,6 +35,11 @@ class ContractDetail extends Model
         return $this->belongsTo('App\ManufacturerOrder');
     }
 
+    public function manufacturerNoteDetails()
+    {
+        return $this->hasMany('App\ManufacturerNoteDetail');
+    }
+
     public function setDeadlineAttribute($value)
     {
         $this->attributes['deadline'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
