@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bom;
 use App\BomDetail;
+use App\Product;
 use Illuminate\Http\Request;
 
 class BomController extends Controller
@@ -100,5 +101,11 @@ class BomController extends Controller
     public function destroy(Bom $bom)
     {
         //
+    }
+
+    public function getBom(Request $request)
+    {
+        $bom = Bom::where('product_id', $request->product_id)->get();
+        return response()->json($bom);
     }
 }

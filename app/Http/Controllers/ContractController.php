@@ -183,8 +183,9 @@ class ContractController extends Controller
             ->join('contract_details', 'contracts.id', '=', 'contract_details.contract_id')
             ->join('prices', 'prices.id', '=', 'contract_details.price_id')
             ->join('products', 'products.id', '=', 'prices.product_id')
-            ->select('products.name', 'contracts.number', 'contract_details.id')
-            ->where('contracts.number', $term)
+            ->join('manufacturer_orders', 'contract_details.manufacturer_order_id','=', 'manufacturer_orders.id')
+            ->select('products.name', 'manufacturer_orders.number', 'contract_details.id', DB::raw('products.id as product_id'))
+            ->where('manufacturer_orders.number', $term)
             ->get();
 
         return response()->json($result);

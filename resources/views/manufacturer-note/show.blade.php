@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Đơn hàng')
+@section('title', 'Phiếu sản xuất')
 
 
 @section('content')

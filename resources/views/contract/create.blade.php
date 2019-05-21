@@ -25,7 +25,7 @@
             </select>
         </td>
         <td class="col-md-1" data-col-seq="2">
-            <input type="number" class="form-control input-sm" name="contract_detail[0][quantity]">
+            <input type="number" class="form-control input-sm" name="contract_detail[0][quantity]" required>
         </td>
         <td class="col-md-2" data-col-seq="3">
             <input type="text" class="form-control input-sm" name="contract_detail[0][selling_price]" readonly>
@@ -35,7 +35,7 @@
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control input-sm" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]">
+                <input type="text" class="form-control input-sm" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" required>
             </div>
         </td>
         <td class="col-md-2" data-col-seq="5">

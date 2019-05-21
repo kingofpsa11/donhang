@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ManufacturerNote;
+use App\ManufacturerNoteDetail;
 use Illuminate\Http\Request;
 
 class ManufacturerNoteController extends Controller
@@ -35,7 +36,24 @@ class ManufacturerNoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $manufacturerNote = new ManufacturerNote();
+        $manufacturerNote->number = $request->manufacturerNote['number'];
+        $manufacturerNote->date = $request->manufacturerNote['date'];
+        if ($manufacturerNote->save()) {
+            $manufacturerNoteDetails = [];
+            foreach ($request->manufacturerNoteDetails as $value) {
+                $manufacturerNoteDetail = new ManufacturerNoteDetail();
+                $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
+                $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
+                $manufacturerNoteDetail->bom_id = $value['bom_id'];
+                $manufacturerNoteDetail->quantity = $value['quantity'];
+                array_push($manufacturerNoteDetails, $manufacturerNoteDetail);
+            }
+
+            if ($manufacturerNote->manufacturerNoteDetails()->saveMany($manufacturerNoteDetails)) {
+                return view('manufacturer-note.show', compact('manufacturerNote'));
+            }
+        }
     }
 
     /**

@@ -16,7 +16,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Số phiếu sản xuất</label>
-                                <input type="text" class="form-control" name="manufacturerNote[number]" required value="{{ $manufacturerNote->number ?? '' }}">
+                                <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->number ?? '' }}" required>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -26,7 +26,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="@yield('date')" name="manufacturerNote[date]" required>
+                                    <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? '' }}" name="manufacturerNote[date]" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -34,7 +34,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Đơn vị</label>
-                                <input type="text" class="form-control" name="manufacturerNote[number]" required>
+                                <input type="text" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -101,6 +101,7 @@
                                         text: item.name,
                                         id: item.id,
                                         manufacturerNumber: item.number,
+                                        product_id: item.product_id,
                                     }
                                 })
                             };
@@ -111,48 +112,36 @@
             }
 
             function addSelect2Bom(el) {
-                let bomId = contract_detail.val();
-                el.select2({
-                    placeholder: 'Nhập số LSX',
-                    minimumInputLength: 1,
-                    ajax: {
-                        url: '{{ route('bom.getBom') }}',
-                        delay: 200,
-                        data: function(params) {
-                            return {
-                                search: params.term,
-                                bomId: bomId,
-                            }
-                        },
-                        dataType: 'json',
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data, function (item) {
-                                    return {
-                                        text: item.name,
-                                        id: item.id,
-                                    }
-                                })
-                            };
-                        },
-                        cache: true
-                    },
+                let product_id = el.parents('tr').find('input[name$="[product_id]"]').val();
+                el.html('');
+                $.ajax({
+                    url: '{{ route('bom.getBom') }}',
+                    data: {product_id: product_id},
+                    dataType: 'json',
+                    success: function (data) {
+                        if (Object.keys(data).length !== 0) {
+                            $.each(data, function (i, element) {
+                                el.append(`<option value="${element.id}">${element.name}</option>`);
+                            });
+                        } else {
+                            el.append(`<option value="">Chưa có định mức</option>`);
+                        }
+                    }
                 });
             }
 
             let contract_detail = $('[name$="[contract_detail_id]"]');
             addSelect2Contract(contract_detail);
-
-            contract_detail.on('select2:select', function () {
-               addSelect2Bom($('[name$="bom_id"]'));
-            });
+            getProduct(contract_detail);
 
             function getProduct(el) {
                 el.on('select2:select', function (e) {
                     let data = e.params.data;
-                    $(this).parents('tr').find('input[name$="[code]"]').val(data.code);
-                    $(this).parents('tr').find('input[name$="[contract_id]"]').val(data.number);
-                    $(this).parents('tr').find('input[name$="[quantity]"]').val(data.quantity);
+                    $(this).parents('tr').find('input[name$="[manufacturer_order_number]"]').val(data.manufacturerNumber);
+                    $(this).parents('tr').find('input[name$="[product_id]"]').val(data.product_id);
+
+                    let bomIdElement = $(this).parents('tr').find('select[name$="[bom_id]"]');
+                    addSelect2Bom(bomIdElement);
                 });
             }
             
@@ -162,11 +151,11 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + i + '][contract_id]');
-                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + i + '][manufacturer_order_number]');
-                    $(row).children('[data-col-seq="3"]').find('select').attr('name', 'outputOrderDetails[' + i + '][contract_detail_id]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + i + '][quantity]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + i + '][note]');
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][manufacturer_order_number]');
+                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][contract_detail_id]');
+                    $(row).children('[data-col-seq="3"]').find('select').attr('name', 'manufacturerNoteDetails[' + i + '][bom_id]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][quantity]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][note]');
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -188,11 +177,11 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_id]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][manufacturer_order_number]');
-                newRow.children('[data-col-seq="3"]').find('select').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_detail_id]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
+                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][manufacturer_order_number]');
+                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][contract_detail_id]');
+                newRow.children('[data-col-seq="3"]').find('select').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][bom_id]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][quantity]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -227,7 +216,6 @@
             }
             
             $('#form').on('submit', function () {
-                convertDateToTimestamp($('[name="outputOrder[date]"]'));
+                convertDateToTimestamp($('[name="manufacturerNote[date]"]'));
             });
-
 @show

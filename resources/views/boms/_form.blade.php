@@ -116,11 +116,10 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
-                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'bom_details[' + (i) + '][code]');
+                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'bom_details[' + (i) + '][product_id]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'bom_details[' + (i) + '][quantity]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'bom_details[' + (i) + '][note]');
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -142,11 +141,10 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
+                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'bom_details[' + (numberOfProduct) + '][code]');
+                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'bom_details[' + (numberOfProduct) + '][product_id]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'bom_details[' + (numberOfProduct) + '][quantity]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'bom_details[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -155,6 +153,7 @@
                 tableBody.append(newRow);
 
                 getMaterial(select2);
+                getProductCode(select2);
             });
 
             $('#table').on('click', '.removeRow', function (e) {
