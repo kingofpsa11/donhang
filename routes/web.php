@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('manufacturer-note', 'ManufacturerNoteController');
 
+    Route::resource('good-transfer', 'GoodTransferController');
 });
 
 Auth::routes();

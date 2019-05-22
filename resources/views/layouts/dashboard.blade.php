@@ -308,6 +308,7 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
                         <li><a href="{{ route('manufacturer-note.create') }}"><i class="fa fa-circle-o"></i>Phiếu sản xuất</a></li>
+                        <li><a href="{{ route('good-transfer.create') }}"><i class="fa fa-circle-o"></i>Phiếu chuyển kho</a></li>
                     </ul>
                 </li>
             </ul>

@@ -25,6 +25,11 @@ class Product extends Model
         return $this->hasMany('App\Bom');
     }
 
+    public function goodTransferDetails()
+    {
+        return $this->hasMany('App\GoodTransferDetail');
+    }
+
     protected $attributes = [
         'status' => 10
     ];

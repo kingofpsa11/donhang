@@ -1,20 +1,24 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Phiếu sản xuất')
-
+@section('title', 'Phiếu xuất')
 
 @section('content')
-    
+
     <!-- Main content -->
     <section class="content container-fluid">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Phiếu sản xuất</h3>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Số phiếu sản xuất</label>
-                            <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->number ?? '' }}" readonly>
+                            <label>Đơn vị xuất hàng</label>
+                            <input type="text" class="form-control" name="goodTransfer[delivery_store]" value="{{ $goodTransfer->delivery_store }}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Đơn vị nhập hàng</label>
+                            <input type="text" class="form-control" name="goodTransfer[receive_store]" value="{{ $goodTransfer->receive_store }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -24,69 +28,58 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? '' }}" name="manufacturerNote[date]" readonly>
+                                <input type="text" class="form-control" value="{{ $goodTransfer->date }}" name="goodTransfer[date]" readonly>
                             </div>
                             <!-- /.input group -->
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Đơn vị</label>
-                            <input type="text" class="form-control" required>
+                            <label>Số phiếu</label>
+                            <input type="text" class="form-control" name="goodTransfer[number]" value="{{ $goodTransfer->receive_number }}" readonly>
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
                 <table class="table table-bordered table-striped hover" id="contract-show">
                     <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th class="col-md-1">Số LSX</th>
-                        <th class="col-md-5">Tên sản phẩm</th>
-                        <th class="col-md-1">Số lượng</th>
-                        <th class="col-md-2">Ghi chú</th>
-                    </tr>
+                        <tr>
+                            <th>STT</th>
+                            <th class="col-md-6">Tên sản phẩm</th>
+                            <th class="col-md-3">Định mức</th>
+                            <th class="col-md-3">Số lượng</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach ($manufacturerNote->manufacturerNoteDetails as $manufacturerNoteDetail)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrder->number }}</td>
-                            <td>{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</td>
-                            <td>{{ $manufacturerNoteDetail->quantity }}</td>
-                            <td>{{ $manufacturerNoteDetail->note }}</td>
-                        </tr>
-                    @endforeach
+                        @foreach ($goodTransfer->goodTransferDetails as $goodTransferDetail)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $goodTransferDetail->product->name }}</td>
+                                <td>{{ $goodTransferDetail->bom->name ?? ''}}</td>
+                                <td>{{ $goodTransferDetail->quantity }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="row hidden">
-                    <div class="col-xs-6 sign-name" style="text-align: center">
-                        <p>PHÒNG KẾ HOẠCH KINH DOANH</p>
-                    </div>
-                    <div class="col-xs-6 sign-name" style="text-align: center">
-                        <p>NGƯỜI LẬP</p>
-                    </div>
-                </div>
-                <div class="control-button">
-                    <div>
-                        <a href="{{ route('manufacturer-note.edit', $manufacturerNote) }}" class="btn btn-primary">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-primary" id="export">Xuất Excel</button>
+                        <a href="{{ route('good-transfer.edit', $goodTransfer)}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
-                        <button class="btn btn-default print">In</button>
-                        <button class="btn btn-danger">Xoá</button>
+                        <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.box -->
     </section>
-    <form action="{{ route('manufacturer-note.destroy', [$manufacturerNote]) }}" method="POST">
+    <form action="{{ route('good-transfer.destroy', $goodTransfer) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
@@ -94,10 +87,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa đơn hàng</h4>
+                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa phiếu chuyển kho</h4>
                     </div>
                     <div class="modal-body">
-                        <h5>Chắc chắn xóa{{ $manufacturerNote->number }}?</h5>
+                        <h5>Chắc chắn xóa phiếu {{ $goodTransfer->number }}?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
@@ -110,9 +103,14 @@
 @endsection
 
 @section('javascript')
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(function () {
             $('[data-mask]').inputmask();
+
+            let customerSelect = $('.select2.customer');
+            customerSelect.select2();
 
             $('#contract-show').DataTable({
                 'paging'        : false,
@@ -121,7 +119,10 @@
                 searching       : false,
                 ordering        : false,
                 columnDefs: [
-
+                    {
+                        targets: '_all',
+                        className   : 'dt-head-center'
+                    }
                 ]
             });
 
@@ -129,10 +130,10 @@
                 e.preventDefault();
             });
 
-            $('.print').on('click', function (e) {
-                e.preventDefault();
-                window.print();
-            })
+            $('#export').on('click', function () {
+                $('#contract-show').table2excel();
+            });
+
         });
     </script>
 @stop

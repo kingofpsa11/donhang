@@ -15,7 +15,8 @@ class ManufacturerNoteController extends Controller
      */
     public function index()
     {
-        //
+        $manufacturerNoteDetails = ManufacturerNoteDetail::all();
+        return view('manufacturer-note.index', compact('manufacturerNoteDetails'));
     }
 
     /**
@@ -64,7 +65,7 @@ class ManufacturerNoteController extends Controller
      */
     public function show(ManufacturerNote $manufacturerNote)
     {
-        //
+        return view('manufacturer-note.show', compact('manufacturerNote'));
     }
 
     /**
@@ -75,7 +76,7 @@ class ManufacturerNoteController extends Controller
      */
     public function edit(ManufacturerNote $manufacturerNote)
     {
-        //
+        return view('manufacturer-note.edit', compact('manufacturerNote'));
     }
 
     /**
