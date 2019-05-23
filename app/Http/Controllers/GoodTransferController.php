@@ -15,7 +15,8 @@ class GoodTransferController extends Controller
      */
     public function index()
     {
-        //
+        $goodTransfers = GoodTransfer::all();
+        return view('good-transfer.index', compact('goodTransfers'));
     }
 
     /**
@@ -91,7 +92,12 @@ class GoodTransferController extends Controller
      */
     public function update(Request $request, GoodTransfer $goodTransfer)
     {
-        //
+        if (isset($request->approved)) {
+            $goodTransfer->status = 5;
+            $goodTransfer->save();
+
+            return redirect()->route('good-transfer.index');
+        }
     }
 
     /**

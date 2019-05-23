@@ -3,46 +3,45 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp đơn hàng</h3>
+            <h3 class="box-title">Tổng hợp phiếu chuyển kho</h3>
+            <a href="{{ route('good-transfer.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>ĐVĐH</th>
-                    <th>Số đơn hàng</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Đơn giá</th>
+                    <th>Số phiếu nhập</th>
+                    <th>Số phiếu xuất</th>
                     <th>Ngày lập</th>
-                    <th>Tiến độ</th>
-                    <th>LSX</th>
+                    <th>Đơn vị xuất</th>
+                    <th>Đơn vị nhập</th>
                     <th>Trạng thái</th>
+                    <th>Người lập</th>
                     <th>Action</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($contract_details as $contract_detail)
+                @foreach ($goodTransfers as $goodTransfer)
                     <tr>
-                        <td>{{ $contract_detail->contract->customer->short_name }}</td>
-                        <td>{{ $contract_detail->contract->number }}</td>
-                        <td>{{ $contract_detail->price->product->name }}</td>
-                        <td>{{ $contract_detail->quantity }}</td>
-                        <td>{{ $contract_detail->selling_price }}</td>
-                        <td>{{ $contract_detail->contract->date }}</td>
-                        <td>{{ $contract_detail->deadline }}</td>
-                        <td>{{ $contract_detail->manufacturer_order_number }}</td>
-                        <td>{{ $contract_detail->status }}</td>
+                        <td>{{ $goodTransfer->receive_number ?? '' }}</td>
+                        <td>{{ $goodTransfer->delivery_number ?? ''}}</td>
+                        <td>{{ $goodTransfer->date }}</td>
+                        <td>{{ $goodTransfer->delivery_store }}</td>
+                        <td>{{ $goodTransfer->receive_store }}</td>
+                        <td>{{ $goodTransfer->status }}</td>
+                        <td>{{ $goodTransfer->user->name }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('good-transfer.show', $goodTransfer)}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
+                                @role('User')
+                                <a href="{{ route('good-transfer.edit', $goodTransfer)}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
+                                @endrole
                             </div>
                         </td>
                     </tr>
@@ -51,15 +50,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ĐVĐH</th>
-                        <th>Số đơn hàng</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
+                        <th>Số phiếu nhập</th>
+                        <th>Số phiếu xuất</th>
                         <th>Ngày lập</th>
-                        <th>Tiến độ</th>
-                        <th>LSX</th>
+                        <th>Đơn vị xuất</th>
+                        <th>Đơn vị nhập</th>
                         <th>Trạng thái</th>
+                        <th>Người lập</th>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -67,7 +64,7 @@
         </div>
 
         <div class="box-footer">
-            <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
+
         </div>
         <!-- /.box-body -->
     </div>
@@ -92,61 +89,22 @@
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
-                "columns" : [
-                    { "data" : "customer" },
-                    { "data" : "number" },
-                    { "data" : "product" },
-                    { "data" : "quantity" },
+                columnDefs: [
                     {
-                        "data"      : "selling_price",
-                        render      : $.fn.dataTable.render.number( '.', ','),
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "date",
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "deadline",
-                        className   : 'dt-body-right'
-                    },
-                    { "data" : "order" },
-                    {
-                        "data"      : "status",
+                        targets : 5,
+                        width   : '10%',
                         "render"    : function (data) {
                             if (data === '10') {
-                                return '<span class="label label-warning">Đang sản xuất</span>';
-                            } else if (data === '0') {
-                                return '<span class="label label-success">Xong</span>';
+                                return '<span class="label label-warning">Đang chờ duyệt</span>';
+                            } else if (data === '5') {
+                                return '<span class="label label-success">Đã duyệt</span>';
                             }
                         }
                     },
                     {
-                        "data" : "action",
-                        "className" : 'dt-body-right',
-                    }
-                ],
-                columnDefs: [
-                    {
                         targets: "_all",
                         className   : 'dt-head-center',
                     },
-                    {
-                        targets : [0,1,3],
-                        width   : '5%'
-                    },
-                    {
-                        targets : 2,
-                        width   : '30%'
-                    },
-                    {
-                        targets : [4,5,6],
-                        width   : '10%'
-                    },
-                    {
-                        targets : 9,
-                        width   : '10%'
-                    }
                 ]
             });
 

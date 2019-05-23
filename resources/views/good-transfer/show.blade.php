@@ -68,11 +68,23 @@
             <div class="box-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
+                        @role('User')
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
+                        @if (  )
                         <a href="{{ route('good-transfer.edit', $goodTransfer)}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
+                        @endrole
+                        @role('Admin')
+                            @if( $goodTransfer->status === 10 )
+                                <form action="{{ route('good-transfer.update', $goodTransfer) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="submit" class="btn btn-success" value="Duyệt" name="approved">
+                                </form>
+                            @endif
+                        @endrole
                     </div>
                 </div>
             </div>
