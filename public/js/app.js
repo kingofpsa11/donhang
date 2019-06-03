@@ -60213,7 +60213,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 });
 var notifications = [];
 var NOTIFICATION_TYPES = {
-  manufacturer: 'App\\Notifications\\ManufacturerOrder'
+  manufacturer: 'App\\Notifications\\ManufacturerOrder',
+  goodTransfer: 'App\\Notifications\\GoodTransfer'
 };
 $(document).ready(function () {
   if (Laravel.userId) {
@@ -60260,6 +60261,8 @@ function routeNotification(notification) {
 
   if (notification.type === NOTIFICATION_TYPES.manufacturer) {
     to = 'manufacturer-order' + to;
+  } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
+    to = 'good-transfer' + to;
   }
 
   return '/' + to;
@@ -60271,6 +60274,8 @@ function makeNotificationText(notification) {
   if (notification.type === NOTIFICATION_TYPES.manufacturer) {
     // const name = notification.data.manufacturer_id;
     text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.manufacturer_id;
+  } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
+    text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
   }
 
   return text;

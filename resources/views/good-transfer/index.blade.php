@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp phiếu chuyển kho</h3>
-            <a href="{{ route('good-transfer.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
+            <a href="{{ route('good-transfer.create') }}" class="btn btn-primary pull-right">Tạo phiếu chuyển kho</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
@@ -62,11 +62,6 @@
                 </tfoot>
             </table>
         </div>
-
-        <div class="box-footer">
-
-        </div>
-        <!-- /.box-body -->
     </div>
     <!-- /.box -->
 @stop

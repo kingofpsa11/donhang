@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\GoodTransfer;
 use App\GoodTransferDetail;
 use Illuminate\Http\Request;
+use App\User;
 
 class GoodTransferController extends Controller
 {
@@ -50,7 +51,7 @@ class GoodTransferController extends Controller
                 $goodTransferDetail = new GoodTransferDetail();
                 $goodTransferDetail->good_transfer_id = $goodTransfer->id;
                 $goodTransferDetail->product_id = $value['product_id'];
-//                $goodTransferDetail->bom_id = $value['bom_id'];
+                $goodTransferDetail->bom_id = $value['bom_id'];
                 $goodTransferDetail->quantity = $value['quantity'];
                 array_push($goodTransferDetails, $goodTransferDetail);
             }
@@ -95,6 +96,12 @@ class GoodTransferController extends Controller
         if (isset($request->approved)) {
             $goodTransfer->status = 5;
             $goodTransfer->save();
+            $goodTransferId = $goodTransfer->id;
+
+            $users = User::role('Nhân viên')->get();
+            foreach ($users as $user) {
+                $user->notify(new \App\Notifications\GoodTransfer($goodTransferId));
+            }
 
             return redirect()->route('good-transfer.index');
         }

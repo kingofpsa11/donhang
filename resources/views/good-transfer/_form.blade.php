@@ -106,6 +106,7 @@
                                     return {
                                         text: item.name,
                                         id: item.id,
+                                        product_id: item.product_id
                                     }
                                 })
                             };
@@ -116,33 +117,37 @@
             }
 
             function addSelect2Bom (el) {
-                el.parents('tr').find('.product_id').on('select2:select', function () {
+                let product_id = el.parents('tr').find('[name$="[product_id]"]').val();
+                el.html('');
 
-                    let product_id = el.parents('tr').find('input[name$="[product_id]"]').val();
-                    el.html('');
-
-                    $.ajax({
-                        url: '{{ route('bom.getBom') }}',
-                        data: {product_id: product_id},
-                        dataType: 'json',
-                        success: function (data) {
-                            if (Object.keys(data).length !== 0) {
-                                $.each(data, function (i, element) {
-                                    el.append(`<option value="${element.id}">${element.name}</option>`);
-                                });
-                            } else {
-                                el.append(`<option value="">Chưa có định mức</option>`);
-                            }
+                $.ajax({
+                    url: '{{ route('bom.getBom') }}',
+                    data: {product_id: product_id},
+                    dataType: 'json',
+                    success: function (data) {
+                        if (Object.keys(data).length !== 0) {
+                            el.append(`<option value="">--Chọn định mức sản phẩm--</option>`);
+                            $.each(data, function (i, element) {
+                                el.append(`<option value="${element.id}">${element.name}</option>`);
+                            });
+                        } else {
+                            el.append(`<option value="">Chưa có định mức</option>`);
                         }
-                    });
+                    }
                 });
             }
 
-            let product_select = $('.product_id');
+            function getProduct(el) {
+                el.on('select2:select', function (e) {
+                    let bomIdElement = $(this).parents('tr').find('select[name$="[bom_id]"]');
+                    addSelect2Bom(bomIdElement);
+                });
+            }
 
-            addSelect2(product_select);
+            let productElement = $('.product_id');
 
-            addSelect2Bom($('.bom_id'));
+            addSelect2(productElement);
+            getProduct(productElement);
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');

@@ -69,13 +69,15 @@
                 <div class="row">
                     <div class="col-md-12 text-right">
                         @role('User')
-                        <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        @if (  )
-                        <a href="{{ route('good-transfer.edit', $goodTransfer)}}" class="btn btn-info">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                        </a>
-                        <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
+                            <button class="btn btn-primary" id="export">Xuất Excel</button>
+                            @if ( $goodTransfer->status !== 5 )
+                            <a href="{{ route('good-transfer.edit', $goodTransfer)}}" class="btn btn-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                            </a>
+                            <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
+                            @endif
                         @endrole
+
                         @role('Admin')
                             @if( $goodTransfer->status === 10 )
                                 <form action="{{ route('good-transfer.update', $goodTransfer) }}" method="POST">
@@ -91,6 +93,7 @@
         </div>
         <!-- /.box -->
     </section>
+    @role('User')
     <form action="{{ route('good-transfer.destroy', $goodTransfer) }}" method="POST">
         @csrf()
         @method('DELETE')
@@ -112,6 +115,7 @@
             </div>
         </div>
     </form>
+    @endrole('User')
 @endsection
 
 @section('javascript')

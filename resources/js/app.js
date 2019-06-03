@@ -48,7 +48,8 @@ window.Echo = new Echo({
 var notifications = [];
 
 const NOTIFICATION_TYPES = {
-    manufacturer: 'App\\Notifications\\ManufacturerOrder'
+    manufacturer: 'App\\Notifications\\ManufacturerOrder',
+    goodTransfer: 'App\\Notifications\\GoodTransfer',
 };
 
 $(document).ready(function () {
@@ -81,7 +82,6 @@ function showNotifications(notifications, target) {
         dropdownMenu.find('.menu').html(htmlElements.join(''));
     } else {
         dropdownMenu.find('span.label').addClass('hidden');
-
         dropdownMenu.html('<li class="header">Không có thông báo mới</li>');
         dropdownMenu.find('.menu').html('');
     }
@@ -97,6 +97,8 @@ function routeNotification(notification) {
     var to = '?read=' + notification.id;
     if (notification.type === NOTIFICATION_TYPES.manufacturer) {
         to = 'manufacturer-order' + to;
+    } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
+        to = 'good-transfer' + to;
     }
 
     return '/' + to;
@@ -107,6 +109,8 @@ function makeNotificationText(notification) {
     if (notification.type === NOTIFICATION_TYPES.manufacturer) {
         // const name = notification.data.manufacturer_id;
         text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.manufacturer_id;
+    } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
+        text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
     }
 
     return text;
