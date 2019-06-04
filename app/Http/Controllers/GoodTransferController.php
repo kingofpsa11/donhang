@@ -6,6 +6,7 @@ use App\GoodTransfer;
 use App\GoodTransferDetail;
 use Illuminate\Http\Request;
 use App\User;
+use App\Bom;
 
 class GoodTransferController extends Controller
 {
@@ -97,6 +98,30 @@ class GoodTransferController extends Controller
             $goodTransfer->status = 5;
             $goodTransfer->save();
             $goodTransferId = $goodTransfer->id;
+
+            $bomGoodTransfer = new GoodTransfer();
+            $bomGoodTransfer->delivery_number = $goodTransfer->receive_number;
+            $bomGoodTransfer->date = time();
+            $bomGoodTransfer->delivery_store = $goodTransfer->delivery_store;
+            $bomGoodTransfer->receive_store = $goodTransfer->receive_store;
+            $bomGoodTransfer->status = 5;
+            $bomGoodTransfer->user_id = auth()->user()->id;
+
+            if ($bomGoodTransfer->save()) {
+                $bomGoodTransferDetails = [];
+                foreach ($goodTransfer->goodTransferDetails as $goodTransferDetail) {
+                    $bom = Bom::find($goodTransferDetail->bom_id);
+                    foreach ($bom->bomDetails as $bomDetail) {
+                        $bomGoodTransferDetail = new GoodTransferDetail();
+                        $bomGoodTransferDetail->good_transfer_id = $bomGoodTransfer->id;
+                        $bomGoodTransferDetail->product_id = $bomDetail->product_id;
+                        $bomGoodTransferDetail->quantity = $goodTransferDetail->quantity * $bomDetail->quantity;
+                        array_push($bomGoodTransferDetails, $bomGoodTransferDetail);
+                    }
+                }
+
+                $bomGoodTransfer->goodTransferDetails()->saveMany($bomGoodTransferDetails);
+            }
 
             $users = User::role('Nhân viên')->get();
             foreach ($users as $user) {
