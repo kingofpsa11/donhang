@@ -17,7 +17,7 @@
             <td class="" data-col-seq="0">{{ $loop->iteration }}</td>
             <td class="col-md-6" data-col-seq="1">
                 <input type="hidden" value="{{ $outputOrderDetail->id }}" name="goodDeliveryDetails[{{ $i }}][output_order_detail_id]">
-                {{ $outputOrderDetail->contractDetail->product->name }}
+                {{ $outputOrderDetail->contractDetail->price->product->name }}
             </td>
             <td class="col-md-2" data-col-seq="2">
                 {{ $outputOrderDetail->quantity }}

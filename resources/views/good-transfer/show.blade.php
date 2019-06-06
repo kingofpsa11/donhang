@@ -58,7 +58,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $goodTransferDetail->product->name }}</td>
                                 <td>{{ $goodTransferDetail->bom->name ?? ''}}</td>
-                                <td>{{ $goodTransferDetail->quantity }}</td>
+                                <td>{{ $goodTransferDetail->receive_quantity ?? ''}}</td>
                             </tr>
                         @endforeach
                     </tbody>

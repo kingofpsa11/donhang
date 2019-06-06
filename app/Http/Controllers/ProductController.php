@@ -118,7 +118,7 @@ class ProductController extends Controller
     {
         $term = $request->term;
 
-        $products = Product::where('name', 'LIKE', '%' . $term . '%')->orderBy('id')->take(20)->get();
+        $products = Product::where('name', 'LIKE', '%' . $term . '%')->orderBy('id')->get();
 
         return response()->json($products);
     }

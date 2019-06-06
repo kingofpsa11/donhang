@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('manufacturer-note', 'ManufacturerNoteController');
 
+    Route::get('good-transfer/showInventory', 'GoodTransferController@showInventory')->name('good-transfer.showInventory');
     Route::resource('good-transfer', 'GoodTransferController');
 });
 

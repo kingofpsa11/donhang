@@ -35,4 +35,8 @@ class OutputOrder extends Model
     {
         return Carbon::createFromFormat('Y-m-d', $value, 'Asia/Bangkok')->format(config('app.date_format'));
     }
+
+    protected $attributes = [
+        'status' => 10
+    ];
 }

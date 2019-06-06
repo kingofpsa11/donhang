@@ -20,7 +20,8 @@ class CreateGoodTransferDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->bigInteger('bom_id');
-            $table->float('quantity', 8, 3);
+            $table->float('delivery_quantity', 8, 3)->default(0);
+            $table->float('receive_quantity', 8, 3)->default(0);
             $table->timestamps();
         });
     }

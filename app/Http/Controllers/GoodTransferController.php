@@ -53,7 +53,7 @@ class GoodTransferController extends Controller
                 $goodTransferDetail->good_transfer_id = $goodTransfer->id;
                 $goodTransferDetail->product_id = $value['product_id'];
                 $goodTransferDetail->bom_id = $value['bom_id'];
-                $goodTransferDetail->quantity = $value['quantity'];
+                $goodTransferDetail->receive_quantity = $value['quantity'];
                 array_push($goodTransferDetails, $goodTransferDetail);
             }
 
@@ -115,7 +115,7 @@ class GoodTransferController extends Controller
                         $bomGoodTransferDetail = new GoodTransferDetail();
                         $bomGoodTransferDetail->good_transfer_id = $bomGoodTransfer->id;
                         $bomGoodTransferDetail->product_id = $bomDetail->product_id;
-                        $bomGoodTransferDetail->quantity = $goodTransferDetail->quantity * $bomDetail->quantity;
+                        $bomGoodTransferDetail->delivery_quantity = $goodTransferDetail->receive_quantity * $bomDetail->quantity;
                         array_push($bomGoodTransferDetails, $bomGoodTransferDetail);
                     }
                 }
@@ -141,5 +141,13 @@ class GoodTransferController extends Controller
     public function destroy(GoodTransfer $goodTransfer)
     {
         //
+    }
+
+    public function showInventory()
+    {
+        $inventory = GoodTransferDetail::groupBy('product_id')
+            ->selectRaw('(sum(receive_quantity) - sum(delivery_quantity)) as quantity, product_id')
+            ->get();
+        return view('good-transfer.showInventory',compact('inventory'));
     }
 }
