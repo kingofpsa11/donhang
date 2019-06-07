@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Supplier;
+use App\GoodReceiveDetail;
 use Illuminate\Http\Request;
 
-class SupplierController extends Controller
+class GoodReceiveDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SupplierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\GoodReceiveDetail  $goodReceiveDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show(GoodReceiveDetail $goodReceiveDetail)
     {
         //
     }
@@ -52,10 +52,10 @@ class SupplierController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\GoodReceiveDetail  $goodReceiveDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplier $supplier)
+    public function edit(GoodReceiveDetail $goodReceiveDetail)
     {
         //
     }
@@ -64,10 +64,10 @@ class SupplierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Supplier  $supplier
+     * @param  \App\GoodReceiveDetail  $goodReceiveDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, GoodReceiveDetail $goodReceiveDetail)
     {
         //
     }
@@ -75,21 +75,11 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\GoodReceiveDetail  $goodReceiveDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy(GoodReceiveDetail $goodReceiveDetail)
     {
         //
-    }
-
-    public function listSupplier(Request $request)
-    {
-        $term = $request->term;
-
-        $suppliers = Supplier::where('name', 'LIKE', '%' . $term . '%')
-            ->get();
-
-        return response()->json($suppliers);
     }
 }

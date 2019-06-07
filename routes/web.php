@@ -37,6 +37,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('newNumber/{supplier_id}', 'ManufacturerOrderController@getNewNumber')->name('manufacturer-order.as');
 
+    Route::get('supplier/listSupplier', 'SupplierController@listSupplier')->name('supplier.listSupplier');
+    Route::resource('supplier', 'SupplierController');
+
     Route::get('price/search', 'PriceController@shows')->name('prices.shows');
     Route::resource('price', 'PriceController');
 
@@ -72,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('manufacturer-note', 'ManufacturerNoteController');
+
+    Route::resource('good-receive', 'GoodReceiveController');
 
     Route::get('good-transfer/showInventory', 'GoodTransferController@showInventory')->name('good-transfer.showInventory');
     Route::resource('good-transfer', 'GoodTransferController');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GoodReceiveDetail;
 use App\GoodReceive;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class GoodReceiveController extends Controller
      */
     public function create()
     {
-        //
+        return view('good-receives.create');
     }
 
     /**
@@ -35,7 +36,27 @@ class GoodReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $goodReceive = new GoodReceive();
+        $goodReceive->number = $request->goodReceive['number'];
+        $goodReceive->supplier_id = $request->goodReceive['supplier_id'];
+        $goodReceive->date = $request->goodReceive['date'];
+        $goodReceive->supplier_user = $request->goodReceive['supplier_user'];
+
+        if ($goodReceive->save()) {
+            $goodReceiveDetails = [];
+            foreach ($request->goodReceiveDetails as $value) {
+                $goodReceiveDetail = new GoodReceiveDetail();
+                $goodReceiveDetail->good_receive_id = $goodReceive->id;
+                $goodReceiveDetail->product_id = $value['product_id'];
+                $goodReceiveDetail->quantity = $value['quantity'];
+                $goodReceiveDetail->store_id = $value['store_id'];
+                array_push($goodReceiveDetails, $goodReceiveDetail);
+            }
+
+            if($goodReceive->goodReceiveDetails()->saveMany($goodReceiveDetails)) {
+                return redirect()->route('good-receive.show', [$goodReceive]);
+            }
+        }
     }
 
     /**
@@ -46,7 +67,7 @@ class GoodReceiveController extends Controller
      */
     public function show(GoodReceive $goodReceive)
     {
-        //
+        return view('good-receives.show', compact('goodReceive'));
     }
 
     /**
