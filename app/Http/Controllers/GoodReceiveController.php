@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GoodReceiveDetail;
 use App\GoodReceive;
+use App\GoodTransferDetail;
 use Illuminate\Http\Request;
 
 class GoodReceiveController extends Controller
@@ -15,7 +16,8 @@ class GoodReceiveController extends Controller
      */
     public function index()
     {
-        //
+        $goodReceiveDetails = GoodReceiveDetail::all();
+        return view('good-receives.index', compact('goodReceiveDetails'));
     }
 
     /**

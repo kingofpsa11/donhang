@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class GoodReceive extends Model
 {
-    protected $fillable = ['id', 'number', 'supplier', 'supplier_id', 'status', 'date', 'note'];
+    protected $fillable = ['id', 'number', 'supplier_user', 'supplier_id', 'status', 'date', 'note'];
 
     public $timestamps = true;
 

@@ -10,33 +10,31 @@
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>ĐVĐH</th>
                     <th>Ngày lập</th>
-                    <th>LSX</th>
+                    <th>Đơn vị giao hàng</th>
+                    <th>Số phiếu</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
-                    <th>Tiến độ</th>
                     <th>Trạng thái</th>
                     <th>Action</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($contract_details as $contract_detail)
+                @foreach ($goodReceiveDetails as $goodReceiveDetail)
                     <tr>
-                        <td>{{ $contract_detail->contract->customer->short_name }}</td>
-                        <td>{{ $contract_detail->contract->date }}</td>
-                        <td>{{ $contract_detail->manufacturerOrder->number }}</td>
-                        <td>{{ $contract_detail->price->product->name }}</td>
-                        <td>{{ $contract_detail->quantity }}</td>
-                        <td>{{ $contract_detail->deadline }}</td>
-                        <td>{{ $contract_detail->status }}</td>
+                        <td>{{ $goodReceiveDetail->goodReceive->date }}</td>
+                        <td>{{ $goodReceiveDetail->goodReceive->supplier->short_name }}</td>
+                        <td>{{ $goodReceiveDetail->goodReceive->number }}</td>
+                        <td>{{ $goodReceiveDetail->product->name }}</td>
+                        <td>{{ $goodReceiveDetail->quantity }}</td>
+                        <td>{{ $goodReceiveDetail->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('manufacturer-order.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('good-receive.show', $goodReceiveDetail->good_receive_id)}}" class="btn btn-success btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('manufacturer-order.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('good-receive.edit', $goodReceiveDetail->good_receive_id)}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
@@ -47,14 +45,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ĐVĐH</th>
                         <th>Ngày lập</th>
-                        <th>LSX</th>
+                        <th>Đơn vị giao hàng</th>
+                        <th>Số phiếu</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
-                        <th>Tiến độ</th>
                         <th>Trạng thái</th>
-                        <th>Action</th>
+                        <td>Action</td>
                     </tr>
                 </tfoot>
             </table>
@@ -82,34 +79,6 @@
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
-                "columns" : [
-                    { "data" : "customer" },
-                    {
-                        "data"      : "date",
-                        className   : 'dt-body-right'
-                    },
-                    { "data" : "number" },
-                    { "data" : "product" },
-                    { "data" : "quantity" },
-                    {
-                        "data"      : "deadline",
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "status",
-                        "render"    : function (data) {
-                            if (data === '10') {
-                                return '<span class="label label-warning">Đang sản xuất</span>';
-                            } else if (data === '0') {
-                                return '<span class="label label-success">Xong</span>';
-                            }
-                        }
-                    },
-                    {
-                        "data" : "action",
-                        "className" : 'dt-body-right',
-                    }
-                ],
                 columnDefs: [
                     {
                         targets: "_all",

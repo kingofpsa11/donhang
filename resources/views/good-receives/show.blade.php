@@ -61,7 +61,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $goodReceiveDetail->product->code }}</td>
-                            <td>{{ $goodTransferDetail->product->name ?? ''}}</td>
+                            <td>{{ $goodReceiveDetail->product->name ?? ''}}</td>
                             <td></td>
                             <td>{{ $goodReceiveDetail->store_id }}</td>
                             <td>{{ $goodReceiveDetail->quantity }}</td>

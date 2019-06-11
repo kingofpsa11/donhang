@@ -98,10 +98,10 @@
                                 {{ $contract_detail->note }}
                             </td>
                             <td class="col-md-1" data-col-seq="6">
-                                {{ $contract_detail->manufacturerOrder->supplier->short_name }}
+                                {{ $contract_detail->manufacturerOrder->supplier->short_name ?? ''}}
                             </td>
                             <td class="col-md-1" data-col-seq="7">
-                                {{ $contract_detail->manufacturerOrder->number }}
+                                {{ $contract_detail->manufacturerOrder->number ?? ''}}
                             </td>
                         </tr>
                         @php($i++)

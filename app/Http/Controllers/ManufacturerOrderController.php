@@ -82,7 +82,7 @@ class ManufacturerOrderController extends Controller
      */
     public function show(Contract $contract)
     {
-        return response()->view('manufacturer_order.show',['contract' => $contract]);
+        return response()->view('manufacturer_order.show', compact('contract'));
     }
 
     /**
