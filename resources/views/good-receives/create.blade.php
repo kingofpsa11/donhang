@@ -24,9 +24,14 @@
             <input type="text" class="form-control" name="goodReceiveDetails[0][unit]" readonly>
         </td>
         <td data-col-seq="4">
-            <input type="text" class="form-control" name="goodReceiveDetails[0][store_id]" required>
+            <select class="form-control bom_id" style="width: 100%;" name="goodReceiveDetails[0][bom_id]">
+                <option value="">--Chọn định mức sản phẩm--</option>
+            </select>
         </td>
         <td data-col-seq="5">
+            <input type="text" class="form-control" name="goodReceiveDetails[0][store_id]" required>
+        </td>
+        <td data-col-seq="6">
             <input type="text" class="form-control" name="goodReceiveDetails[0][quantity]" required>
         </td>
         <td data-col-seq="6">

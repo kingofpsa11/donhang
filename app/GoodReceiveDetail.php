@@ -9,8 +9,11 @@ class GoodReceiveDetail extends Model
     protected $fillable = [
         'good_receive_id',
         'product_id',
+        'bom_id',
         'quantity',
-        'store'
+        'actual_quantity',
+        'store_id',
+        'status'
     ];
 
     public $timestamps = true;
@@ -24,4 +27,13 @@ class GoodReceiveDetail extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    public function bom()
+    {
+        return $this->belongsTo('App\Bom');
+    }
+
+    protected $attributes = [
+        'status' => 10
+    ];
 }

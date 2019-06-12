@@ -12,15 +12,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Đơn vị giao hàng</label>
-                            <select class="form-control" name="goodReceive[supplier_id]" required>
-                                <option value="{{ $goodReceive->supplier_id }}" selected>{{ $goodReceive->supplier->name }}</option>
-                            </select>
+                            <input type="text" class="form-control" value="{{ $goodReceive->supplier->name }}" readonly="">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Người giao</label>
-                            <input type="text" class="form-control" name="goodReceive[supplier]" value="{{ $goodReceive->supplier_user }}">
+                            <input type="text" class="form-control" name="goodReceive[supplier]" value="{{ $goodReceive->supplier_user }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -30,7 +28,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" value="{{ $goodReceive->date }}" name="goodReceive[date]" required>
+                                <input type="text" class="form-control" value="{{ $goodReceive->date }}" name="goodReceive[date]" readonly>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -38,7 +36,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Số phiếu</label>
-                            <input type="text" class="form-control" name="goodReceive[number]" value="{{ $goodReceive->number }}" required>
+                            <input type="text" class="form-control" name="goodReceive[number]" value="{{ $goodReceive->number }}" readonly>
                         </div>
                     </div>
                 </div>
@@ -49,11 +47,13 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th class="col-md-2">Mã sản phẩm</th>
-                        <th class="col-md-6">Tên sản phẩm</th>
+                        <th class="col-md-1">Mã sản phẩm</th>
+                        <th class="col-md-5">Tên sản phẩm</th>
                         <th class="col-md-1">Đvt</th>
+                        <th class="col-md-2">Định mức</th>
                         <th class="col-md-1">Kho</th>
-                        <th class="col-md-2">Số lượng</th>
+                        <th class="col-md-1">Số lượng</th>
+                        <th class="col-md-1">Số lượng thực xuất</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,8 +63,10 @@
                             <td>{{ $goodReceiveDetail->product->code }}</td>
                             <td>{{ $goodReceiveDetail->product->name ?? ''}}</td>
                             <td></td>
+                            <td>{{ $goodReceiveDetail->bom->name ?? '' }}</td>
                             <td>{{ $goodReceiveDetail->store_id }}</td>
                             <td>{{ $goodReceiveDetail->quantity }}</td>
+                            <td>{{ $goodReceiveDetail->actual_quantity }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -74,7 +76,7 @@
             <div class="box-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        @role('User')
+                        {{--@role('User')--}}
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
                         @if ( $goodReceive->status !== 5 )
                             <a href="{{ route('good-receive.edit', $goodReceive)}}" class="btn btn-info">
@@ -82,17 +84,17 @@
                             </a>
                             <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                         @endif
-                        @endrole
+                        {{--@endrole--}}
 
-                        @role('Admin')
+                        {{--@role('Admin')--}}
                         @if( $goodReceive->status === 10 )
-                            <form action="{{ route('good-receive.update', $goodReceive) }}" method="POST">
+                            <form action="{{ route('good-receive.update', $goodReceive) }}" method="POST" class="btn">
                                 @csrf
                                 @method('PATCH')
                                 <input type="submit" class="btn btn-success" value="Duyệt" name="approved">
                             </form>
                         @endif
-                        @endrole
+                        {{--@endrole--}}
                     </div>
                 </div>
             </div>
