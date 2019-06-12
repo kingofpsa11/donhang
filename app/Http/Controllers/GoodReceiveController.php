@@ -146,6 +146,8 @@ class GoodReceiveController extends Controller
      */
     public function destroy(GoodReceive $goodReceive)
     {
-        //
+        $goodReceive->delete();
+        flash('Đã xóa phiếu xuất ' . $goodReceive->number)->warning();
+        return redirect()->route('good-receive.index');
     }
 }

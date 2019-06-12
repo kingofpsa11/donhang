@@ -2,60 +2,54 @@
 
 @section('title', 'Phiếu xuất kho')
 
+@section('action', 'Tạo phiếu')
+
 @section('content')
+    
     <!-- Main content -->
     <section class="content container-fluid">
         <form action="@yield('route')" method="POST" id="form">
             @csrf
             @yield('method')
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Phiếu xuất kho</h3>
-                </div>
-                <!-- /.box-header -->
-
-                <div class="box-body">
+            
+            <div class="box">
+                <div class="box-header">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <label>Đơn vị đặt hàng</label>
-                                <input type="text" value="{{ $outputOrder->customer->name }}" readonly class="form-control">
+                                <label>Đơn vị nhận hàng</label>
+                                <select class="form-control" name="goodDelivery[customer_id]" required>
+                                    @if (isset($goodDelivery))
+                                        <option value="{{ $goodDelivery->customer_id }}">{{ $goodDelivery->customer->name }}</option>
+                                    @endif
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>Số lệnh xuất hàng</label>
-                                <input type="text" value="{{ $outputOrder->number }}" readonly class="form-control">
+                                <label>Người nhận</label>
+                                <input type="text" class="form-control" name="goodDelivery[customer_user]" value="{{ $goodDelivery->customer_user ?? '' }}">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>Ngày xuất hàng</label>
+                                <label>Ngày</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="@yield('date')" name="outputOrder[date]">
+                                    <input type="text" class="form-control" value="{{ $goodDelivery->date ?? date('d/m/Y') }}" name="goodDelivery[date]" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số phiếu</label>
-                                <input type="text" class="form-control" value="" name="goodDelivery[number]">
-                                <!-- /.input group -->
+                                <input type="text" class="form-control" name="goodDelivery[number]" value="{{ $goodDelivery->number ?? '' }}" required>
                             </div>
                         </div>
                     </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.box-body -->
-            </div>
-
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Nội dung</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
@@ -63,22 +57,29 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th class="col-md-6">Tên sản phẩm</th>
-                            <th class="col-md-2">Số lượng</th>
-                            <th class="col-md-2">Số lượng thực xuất</th>
-                            <th class="col-md-2">Ghi chú</th>
+                            <th class="col-md-1">Mã sản phẩm</th>
+                            <th class="col-md-7">Tên sản phẩm</th>
+                            <th class="col-md-1">Đvt</th>
+                            <th class="col-md-1">Kho</th>
+                            @if (Request::is('*/edit'))
+                                <th class="col-md-1">Số lượng</th>
+                                <th class="col-md-1">Số lượng thực xuất</th>
+                            @else
+                                <th class="col-md-2">Số lượng</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
-                            @yield('table-body')
+                        @yield('table-body')
                         </tbody>
                     </table>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="col-md-3 pull-right text-right">
-                        <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('output-order.getUndoneOutputOrder') }}" class="btn btn-danger cancel">Hủy</a>
+                <div class="box-footer text-right">
+                    <div>
+                        <button class="btn btn-info addRow">Thêm dòng</button>
+                        <input type="submit" value="Lưu" class="btn btn-success" name="saveDraft">
+                        <input type="reset" value="Hủy" class="btn btn-danger">
                     </div>
                 </div>
             </div>
@@ -88,39 +89,151 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script>
-
-        function maskDate(obj) {
-            obj.inputmask({
-                'alias': 'dd/mm/yyyy'
+        $(document).ready(function () {
+            
+            function maskDate(obj) {
+                obj.inputmask({
+                    'alias': 'dd/mm/yyyy'
+                });
+            }
+            
+            let date = $('[name*="[date]"]');
+            
+            maskDate(date);
+            
+            function addCustomerSelect2 (el) {
+                el.select2({
+                    placeholder: 'Nhập đơn vị nhận hàng',
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: '{{ route('customer.listCustomer') }}',
+                        delay: 200,
+                        dataType: 'json',
+                        dropdownAutoWidth : true,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                });
+            }
+            
+            function addSelect2 (el) {
+                el.select2({
+                    placeholder: 'Nhập tên sản phẩm',
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: '{{ route('product.getProduct') }}',
+                        delay: 200,
+                        dataType: 'json',
+                        dropdownAutoWidth : true,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+                                        product_id: item.product_id,
+                                        code: item.code
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                });
+                
+                el.on('select2:select', function (e) {
+                    let data = e.params.data;
+                    let row = el.closest('tr');
+                    row.find('input[name*="code"]').val(data.code);
+                });
+            }
+            
+            let productSelect = $('.product_id');
+            addSelect2(productSelect);
+            
+            let customerInput = $('[name*="customer_id"]');
+            addCustomerSelect2(customerInput);
+            
+            function updateNumberOfRow() {
+                let rows = $('tr[data-key]');
+                rows.each(function (i, row) {
+                    $(row).attr('data-key', i);
+                    $(row).children('[data-col-seq="0"]').find('span', i + 1);
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'goodDeliveryDetails[' + i + '][code]');
+                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'goodDeliveryDetails[' + i + '][product_id]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'goodDeliveryDetails[' + i + '][unit]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'goodDeliveryDetails[' + i + '][store_id]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'goodDeliveryDetails[' + i + '][quantity]');
+                    
+                    if (rows.length === 1) {
+                        $(row).find('button.removeRow').addClass('hidden');
+                    } else {
+                        $(row).find('button.removeRow').removeClass('hidden');
+                    }
+                });
+            }
+            
+            updateNumberOfRow();
+            
+            //Add or remove row to table
+            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
+                e.preventDefault();
+                let tableBody = $('tbody');
+                let numberOfProduct = tableBody.children().length;
+                let lastRow = $('tr:last');
+                let newRow = lastRow.clone();
+                let select2 = newRow.find('.product_id');
+                
+                newRow.attr('data-key', numberOfProduct);
+                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
+                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'goodDeliveryDetails[' + (numberOfProduct) + '][product_id]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'goodDeliveryDetails[' + (numberOfProduct) + '][unit]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'goodDeliveryDetails[' + (numberOfProduct) + '][store_id]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'goodDeliveryDetails[' + (numberOfProduct) + '][quantity]');
+                lastRow.find('button.removeRow').removeClass('hidden');
+                newRow.find('button.removeRow').removeClass('hidden');
+                newRow.find('.select2-container').remove();
+                newRow.find('option').remove();
+                newRow.find('input').val('');
+                tableBody.append(newRow);
+                
+                addSelect2(select2);
             });
-        }
-
-        let date = $('[name="outputOrder[date]"]');
-        let deadline = $('[name$="[deadline]"]');
-
-        maskDate(date);
-        maskDate(deadline);
-
-        //Click cancel button
-        $('button.cancel').on('click', function (e) {
-            e.preventDefault();
-        });
-
-        function convertDateToTimestamp(obj) {
-            obj.each(function (i, el) {
-                let date = $(el).val();
-                $(el).inputmask('remove');
-                let datePart = date.split('/');
-                let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                $(el).val(newDate.getTime()/1000);
-            })
-        }
-
-        $('#form').on('submit', function () {
-            convertDateToTimestamp($('[name$="[date]"]'));
-            convertDateToTimestamp($('[name$="[deadline]"]'));
+            
+            $('#example1').on('click', '.removeRow', function (e) {
+                let currentRow = $(this).parents('tr');
+                currentRow.remove();
+                updateNumberOfRow();
+            });
+            
+            //Click cancel button
+            $('button.cancel').on('click', function (e) {
+                e.preventDefault();
+            });
+            
+            function convertDateToTimestamp(obj) {
+                obj.each(function (i, el) {
+                    let date = $(el).val();
+                    $(el).inputmask('remove');
+                    let datePart = date.split('/');
+                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
+                    $(el).val(newDate.getTime()/1000);
+                });
+            }
+            
+            $('#form').on('submit', function () {
+                convertDateToTimestamp($('[name$="[date]"]'));
+            });
         })
     </script>
 @stop

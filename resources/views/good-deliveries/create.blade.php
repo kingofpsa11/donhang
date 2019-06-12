@@ -1,33 +1,36 @@
 @extends('good-deliveries._form')
 
-@section('action', 'Tạo phiếu')
-
 @section('route')
-    {{ route('good-delivery.store', [$outputOrder]) }}
+    {{ route('good-delivery.store') }}
 @endsection
 
 @section('date')
-   {{ date('d/m/Y') }}
+    @php
+        echo date('d/m/Y');
+    @endphp
 @stop
 
 @section('table-body')
-    @foreach ($outputOrder->outputOrderDetails as $outputOrderDetail)
-        @php( $i = $loop->index)
-        <tr data-key="{{ $loop->index }}">
-            <td class="" data-col-seq="0">{{ $loop->iteration }}</td>
-            <td class="col-md-6" data-col-seq="1">
-                <input type="hidden" value="{{ $outputOrderDetail->id }}" name="goodDeliveryDetails[{{ $i }}][output_order_detail_id]">
-                {{ $outputOrderDetail->contractDetail->price->product->name }}
-            </td>
-            <td class="col-md-2" data-col-seq="2">
-                {{ $outputOrderDetail->quantity }}
-            </td>
-            <td class="col-md-2" data-col-seq="3">
-                <input type="text" class="form-control" name="goodDeliveryDetails[{{ $i }}][quantity]" required>
-            </td>
-            <td class="col-md-2" data-col-seq="4">
-                {{ $outputOrderDetail->note }}
-            </td>
-        </tr>
-    @endforeach
+    <tr data-key="0">
+        <td data-col-seq="0">1</td>
+        <td data-col-seq="1">
+            <input type="text" class="form-control" readonly name="goodDeliveryDetails[0][code]">
+        </td>
+        <td data-col-seq="2">
+            <select class="form-control product_id" style="width: 100%;" name="goodDeliveryDetails[0][product_id]" required>
+            </select>
+        </td>
+        <td data-col-seq="3">
+            <input type="text" class="form-control" name="goodDeliveryDetails[0][unit]" readonly>
+        </td>
+        <td data-col-seq="4">
+            <input type="text" class="form-control" name="goodDeliveryDetails[0][store_id]" required>
+        </td>
+        <td data-col-seq="5">
+            <input type="text" class="form-control" name="goodDeliveryDetails[0][quantity]" required>
+        </td>
+        <td data-col-seq="6">
+            <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        </td>
+    </tr>
 @endsection

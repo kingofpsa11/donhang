@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\GoodDelivery;
 use App\GoodDeliveryDetail;
-use App\OutputOrder;
 use Illuminate\Http\Request;
 
 class GoodDeliveryController extends Controller
@@ -16,7 +15,8 @@ class GoodDeliveryController extends Controller
      */
     public function index()
     {
-        //
+        $goodDeliveryDetails = GoodDeliveryDetail::all();
+        return view('good-deliveries.index', compact('goodDeliveryDetails'));
     }
 
     /**
@@ -24,9 +24,9 @@ class GoodDeliveryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(OutputOrder $outputOrder)
+    public function create()
     {
-        return view('good-deliveries.create', compact('outputOrder'));
+        return view('good-deliveries.create');
     }
 
     /**
@@ -35,20 +35,22 @@ class GoodDeliveryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, OutputOrder $outputOrder)
+    public function store(Request $request)
     {
         $goodDelivery = new GoodDelivery();
+        $goodDelivery->number = $request->goodDelivery['number'];
+        $goodDelivery->customer_id = $request->goodDelivery['customer_id'];
+        $goodDelivery->date = $request->goodDelivery['date'];
+        $goodDelivery->customer_user = $request->goodDelivery['customer_user'];
 
-        $goodDelivery->output_order_id = $outputOrder->id;
-        $goodDelivery->number = $this->getNewNumber();
-
-        if ( $goodDelivery->save() ) {
+        if ($goodDelivery->save()) {
             $goodDeliveryDetails = [];
             foreach ($request->goodDeliveryDetails as $value) {
                 $goodDeliveryDetail = new GoodDeliveryDetail();
-                $goodDeliveryDetail->good_delivery_id = $value['good_delivery_id'];
-                $goodDeliveryDetail->output_order_detail_id = $value['output_order_detail_id'];
+                $goodDeliveryDetail->good_delivery_id = $goodDelivery->id;
+                $goodDeliveryDetail->product_id = $value['product_id'];
                 $goodDeliveryDetail->quantity = $value['quantity'];
+                $goodDeliveryDetail->store_id = $value['store_id'];
                 array_push($goodDeliveryDetails, $goodDeliveryDetail);
             }
 
@@ -64,9 +66,9 @@ class GoodDeliveryController extends Controller
      * @param  \App\GoodDelivery  $goodDelivery
      * @return \Illuminate\Http\Response
      */
-    public function show(OutputOrder $outputOrder)
+    public function show(GoodDelivery $goodDelivery)
     {
-        return view('good-deliveries.show', compact('outputOrder'));
+        return view('good-deliveries.show', compact('goodDelivery'));
     }
 
     /**
@@ -75,9 +77,9 @@ class GoodDeliveryController extends Controller
      * @param  \App\GoodDelivery  $goodDelivery
      * @return \Illuminate\Http\Response
      */
-    public function edit(OutputOrder $outputOrder)
+    public function edit(GoodDelivery $goodDelivery)
     {
-        return view('good-deliveries.edit', compact('outputOrder'));
+        return view('good-deliveries.edit', compact('goodDelivery'));
     }
 
     /**

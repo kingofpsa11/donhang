@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('customer/listCustomer', 'CustomerController@listCustomer')->name('customer.listCustomer');
     Route::resource('customer','CustomerController');
 
     Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
@@ -65,18 +66,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('bom/getBom', 'BomController@getBom')->name('bom.getBom');
     Route::resource('bom', 'BomController');
 
-    Route::prefix('good-delivery')->name('good-delivery.')->group(function () {
-        Route::get('/', 'GoodDeliveryController@index')->name('index');
-        Route::get('/create/{outputOrder}', 'GoodDeliveryController@create')->name('create');
-        Route::post('/{outputOrder}', 'GoodDeliveryController@store')->name('store');
-        Route::get('/{outputOrder}', 'GoodDeliveryController@show')->name('show');
-        Route::get('/{outputOrder}/edit', 'GoodDeliveryController@edit')->name('edit');
-        Route::post('/{outputOrder}/update', 'GoodDeliveryController@update')->name('update');
-    });
-
     Route::resource('manufacturer-note', 'ManufacturerNoteController');
 
     Route::resource('good-receive', 'GoodReceiveController');
+
+    Route::resource('good-delivery', 'GoodDeliveryController');
 
     Route::get('good-transfer/showInventory', 'GoodTransferController@showInventory')->name('good-transfer.showInventory');
     Route::resource('good-transfer', 'GoodTransferController');

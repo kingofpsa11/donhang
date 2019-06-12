@@ -101,7 +101,7 @@
         </div>
         <!-- /.box -->
     </section>
-    @role('User')
+{{--    @role('User')--}}
     <form action="{{ route('good-receive.destroy', $goodReceive) }}" method="POST">
         @csrf()
         @method('DELETE')
@@ -123,7 +123,7 @@
             </div>
         </div>
     </form>
-    @endrole('User')
+{{--    @endrole('User')--}}
 @endsection
 
 @section('javascript')

@@ -15,12 +15,15 @@ class CreateGoodDeliveryDetailsTable extends Migration
     {
         Schema::create('good_delivery_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('output_order_detail_id');
+            $table->unsignedBigInteger('output_order_detail_id')->nullable();
             $table->foreign('output_order_detail_id')->references('id')->on('output_order_details')->onDelete('cascade');
             $table->unsignedBigInteger('good_delivery_id');
             $table->foreign('good_delivery_id')->references('id')->on('good_deliveries')->onDelete('cascade');
-            $table->integer('quantity');
-            $table->unsignedBigInteger('store');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->float('quantity', 8 ,3);
+            $table->float('actual_quantity', 8, 3)->default(0);
+            $table->unsignedBigInteger('store_id');
             $table->timestamps();
         });
     }

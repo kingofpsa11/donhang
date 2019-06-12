@@ -83,4 +83,13 @@ class CustomerController extends Controller
     {
         //
     }
+
+    public function listCustomer(Request $request)
+    {
+        $term = $request->term;
+
+        $listCustomer = Customer::where('name', 'LIKE', '%' . $term . '%')
+            ->get();
+        return response()->json($listCustomer);
+    }
 }
