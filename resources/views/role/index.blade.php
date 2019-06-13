@@ -55,11 +55,12 @@
             @if($role->name === 'Admin')
                 @include('shared._permissions', [
                               'title' => 'Phân quyền cho ' . $role->name,
-                              'options' => 'disabled'])
+                              'options' => 'disabled',
+                              'closed' => 'false' ])
             @else
                 @include('shared._permissions', [
                               'title' => 'Phân quyền cho ' . $role->name,
-                              'model' => $role ])
+                              'closed' => 'false' ])
                 @can('edit_roles')
                     <input type="submit" value="Lưu" class="btn btn-primary">
                 @endcan

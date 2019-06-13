@@ -11,17 +11,11 @@
 			@yield('method')
 			<div class="box box-default">
 				<div class="box-header with-border">
-					<h3 class="box-title">Lệnh xuất hàng</h3>
-				</div>
-				<!-- /.box-header -->
-				
-				<div class="box-body">
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label>Đơn vị xuất hàng</label>
+								<label>Đơn vị nhận hàng</label>
 								<select class="form-control select2 customer" name="outputOrder[customer_id]" required>
-                                    @yield('customer')
 								</select>
 							</div>
 						</div>
@@ -29,6 +23,7 @@
 							<div class="form-group">
 								<label>Số lệnh xuất hàng</label>
 								<input type="text" class="form-control" name="outputOrder[number]" required value="{{ $outputOrder->number ?? '' }}">
+                                <span class="check-number"></span>
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -45,17 +40,9 @@
 						</div>
 					</div>
 					<!-- /.row -->
-				</div>
-				<!-- /.box-body -->
-				<div class="box-footer">
-				</div>
-			</div>
-			
-			<div class="box">
-				<div class="box-header">
-					<h3 class="box-title">Nội dung</h3>
-				</div>
-				<!-- /.box-header -->
+                </div>
+                <!-- /.box-header -->
+
 				<div class="box-body table-responsive">
 					<table id="example1" class="table table-bordered table-striped table-condensed">
 						<thead>
@@ -97,7 +84,26 @@
         $(function () {
 
             let customerSelect = $('.select2.customer');
-            customerSelect.select2();
+            customerSelect.select2({
+                placeholder: 'Nhập đơn vị nhận hàng',
+                minimumInputLength: 1,
+                ajax: {
+                    url: '{{ route('customer.listCustomer') }}',
+                    delay: 200,
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+            });
             
             function maskDate(obj) {
                 obj.inputmask({
@@ -232,8 +238,22 @@
                     $(el).val(newDate.getTime()/1000);
                 });
             }
-            
+
+            function checkNumber() {
+                let number = $('[name*="number"]').val();
+                let customer_id = customerSelect.val();
+                $.get(
+                    "{{ route('contract.checkNumber') }}",
+                    { number: number, customer_id: customer_id },
+                    function (result) {
+
+                    },
+                    "json"
+                )
+            }
+
             $('#form').on('submit', function () {
+
                 convertDateToTimestamp($('[name="outputOrder[date]"]'));
             });
 

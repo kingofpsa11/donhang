@@ -18,7 +18,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Người giao</label>
-                            <input type="text" class="form-control" name="gooddelivery[supplier]" value="{{ $goodDelivery->supplier_user }}" readonly>
+                            <input type="text" class="form-control" name="goodDelivery[supplier]" value="{{ $goodDelivery->supplier_user }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -28,7 +28,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" value="{{ $goodDelivery->date }}" name="gooddelivery[date]" readonly>
+                                <input type="text" class="form-control" value="{{ $goodDelivery->date }}" name="goodDelivery[date]" readonly>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -36,7 +36,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Số phiếu</label>
-                            <input type="text" class="form-control" name="gooddelivery[number]" value="{{ $goodDelivery->number }}" readonly>
+                            <input type="text" class="form-control" name="goodDelivery[number]" value="{{ $goodDelivery->number }}" readonly>
                         </div>
                     </div>
                 </div>

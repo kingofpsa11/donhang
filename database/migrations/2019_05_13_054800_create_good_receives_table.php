@@ -16,7 +16,7 @@ class CreateGoodReceivesTable extends Migration
         Schema::create('good_receives', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('number');
-            $table->string('supplier', 100)->nullable();
+            $table->string('supplier_user', 100)->nullable();
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->date('date');

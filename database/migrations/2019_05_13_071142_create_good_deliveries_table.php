@@ -17,6 +17,8 @@ class CreateGoodDeliveriesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('output_order_id')->nullable();
             $table->foreign('output_order_id')->references('id')->on('output_orders')->onDelete('cascade');
+            $table->unsignedBigInteger('good_receive_id')->nullable();
+            $table->foreign('good_receive_id')->references('id')->on('good_receives')->onDelete('cascade');
             $table->integer('number');
             $table->date('date');
             $table->unsignedBigInteger('customer_id');

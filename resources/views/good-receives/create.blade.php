@@ -29,7 +29,8 @@
             </select>
         </td>
         <td data-col-seq="5">
-            <input type="text" class="form-control" name="goodReceiveDetails[0][store_id]" required>
+            <select class="form-control" style="width: 100%;" name="goodReceiveDetails[0][store_id]" required>
+            </select>
         </td>
         <td data-col-seq="6">
             <input type="text" class="form-control" name="goodReceiveDetails[0][quantity]" required>

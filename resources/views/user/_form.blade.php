@@ -40,5 +40,5 @@
 
 <!-- Permissions -->
 @if(isset($user))
-    @include('shared._permissions', ['closed' => 'false', 'model' => $user ])
+    @include('shared._permissions')
 @endif

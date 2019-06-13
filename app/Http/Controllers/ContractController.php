@@ -157,6 +157,14 @@ class ContractController extends Controller
         return $newContract;
     }
 
+    public function checkNumber(Request $request)
+    {
+        $number = $request->number;
+        $customer_id = $request->customer_id;
+
+        $contract = 
+    }
+
     public function shows(Request $request)
     {
         $term = $request->search;

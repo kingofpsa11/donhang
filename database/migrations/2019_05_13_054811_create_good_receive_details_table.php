@@ -24,7 +24,7 @@ class CreateGoodReceiveDetailsTable extends Migration
             $table->float('quantity', 8 , 3);
             $table->float('actual_quantity', 8 , 3)->default(0);
             $table->unsignedBigInteger('store_id');
-//            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
             $table->integer('status');
             $table->timestamps();
         });

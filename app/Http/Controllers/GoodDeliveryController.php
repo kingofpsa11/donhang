@@ -91,7 +91,45 @@ class GoodDeliveryController extends Controller
      */
     public function update(Request $request, GoodDelivery $goodDelivery)
     {
-        //
+        if($request->goodDeliveryDetails[0]['actual_quantity'] != 0) {
+            foreach ($request->goodDeliveryDetails as $value) {
+                $goodDeliveryDetail = GoodDeliveryDetail::find($value['id']);
+                $goodDeliveryDetail->actual_quantity = $value['actual_quantity'];
+                $goodDeliveryDetail->save();
+            }
+        } else {
+            $goodDelivery->number = $request->goodDelivery['number'];
+            $goodDelivery->customer_id = $request->goodDelivery['customer_id'];
+            $goodDelivery->date = $request->goodDelivery['date'];
+            $goodDelivery->customer_user = $request->goodDelivery['customer_user'];
+
+            $goodDelivery->goodDeliveryDetails()->update(['status' => 9]);
+
+            if ($goodDelivery->save()) {
+                foreach ($request->goodDeliveryDetails as $value) {
+                    if (isset($value['id'])) {
+                        $goodDeliveryDetail = GoodDeliveryDetail::find($value['id']);
+                        $goodDeliveryDetail->product_id = $value['product_id'];
+                        $goodDeliveryDetail->quantity = $value['quantity'];
+                        $goodDeliveryDetail->store_id = $value['store_id'];
+                        $goodDeliveryDetail->status = 10;
+                        $goodDeliveryDetail->save();
+                    } else {
+                        $goodDeliveryDetail = new GoodDeliveryDetail();
+                        $goodDeliveryDetail->good_delivery_id = $goodDelivery->id;
+                        $goodDeliveryDetail->product_id = $value['product_id'];
+                        $goodDeliveryDetail->quantity = $value['quantity'];
+                        $goodDeliveryDetail->store_id = $value['store_id'];
+                        $goodDeliveryDetail->status = 10;
+                        $goodDeliveryDetail->save();
+                    }
+                }
+
+                $goodDelivery->goodDeliveryDetails()->where('status',9)->delete();
+            }
+        }
+
+        return view('good-deliveries.show', compact('goodDelivery'));
     }
 
     /**

@@ -127,6 +127,30 @@
                 });
             }
 
+            function addStoreSelect2 (el) {
+                el.select2({
+                    placeholder: 'Nhập kho',
+                    minimumInputLength: 2,
+                    ajax: {
+                        url: '{{ route('store.listStore') }}',
+                        delay: 200,
+                        dataType: 'json',
+                        dropdownAutoWidth : true,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.code,
+                                        id: item.id,
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                });
+            }
+
             function addSelect2Bom (el) {
                 let product_id = el.parents('tr').find('[name*="[product_id]"]').val();
                 el.html('');
@@ -142,7 +166,6 @@
                                 el.append(`<option value="${element.id}">${element.name}</option>`);
                             });
                         } else {
-                            el.append(`<option>--Chưa có định mức--</option>`);
                             el.append(`<option value="">--Không dùng định mức--</option>`);
                         }
                     }
@@ -178,6 +201,7 @@
                     let data = e.params.data;
                     let row = el.closest('tr');
                     addSelect2Bom(row.find('[name*="bom_id"]'));
+                    addStoreSelect2(row.find('[name*="store_id"]'));
                     row.find('input[name*="code"]').val(data.code);
                 });
             }
@@ -197,7 +221,7 @@
                     $(row).children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][product_id]');
                     $(row).children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][unit]');
                     $(row).children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][bom_id]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][store_id]');
+                    $(row).children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][store_id]');
                     $(row).children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][quantity]');
 
                     if (rows.length === 1) {
@@ -224,7 +248,7 @@
                 newRow.children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][product_id]');
                 newRow.children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][unit]');
                 newRow.children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][bom_id]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][store_id]');
+                newRow.children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][store_id]');
                 newRow.children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][quantity]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');

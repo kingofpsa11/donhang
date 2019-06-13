@@ -78,22 +78,22 @@
                     <div class="col-md-12 text-right">
                         {{--@role('User')--}}
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        @if ( $goodReceive->status !== 5 )
-                            <a href="{{ route('good-receive.edit', $goodReceive)}}" class="btn btn-info">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                            </a>
-                            <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
-                        @endif
+                        <a href="{{ route('good-receive.edit', $goodReceive)}}" class="btn btn-info">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                        </a>
+                        <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                         {{--@endrole--}}
 
                         {{--@role('Admin')--}}
+                        <form action="{{ route('good-receive.update', $goodReceive) }}" method="POST" class="btn">
+                            @csrf
+                            @method('PATCH')
                         @if( $goodReceive->status === 10 )
-                            <form action="{{ route('good-receive.update', $goodReceive) }}" method="POST" class="btn">
-                                @csrf
-                                @method('PATCH')
-                                <input type="submit" class="btn btn-success" value="Duyệt" name="approved">
-                            </form>
+                            <input type="submit" class="btn btn-success" value="Duyệt" name="approved">
+                        @elseif ($goodReceive->status === 5)
+                            <input type="submit" class="btn btn-danger" value="Hủy" name="rejected">
                         @endif
+                        </form>
                         {{--@endrole--}}
                     </div>
                 </div>

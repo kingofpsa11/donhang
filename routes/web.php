@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
     Route::get('contract/search', 'ContractController@shows')->name('contract.shows');
     Route::get('contract/getManufacturerOrder', 'ContractController@getManufacturerOrder')->name('contract.getManufacturerOrder');
+    Route::get('contract/checkNumber', 'ContractController@checkNumber')->name('contract.checkNumber');
     Route::resource('contract','ContractController');
 
     Route::prefix('manufacturer-order')->name('manufacturer-order.')->group(function () {
@@ -67,6 +68,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('bom', 'BomController');
 
     Route::resource('manufacturer-note', 'ManufacturerNoteController');
+
+    Route::get('store/listStore', 'StoreController@listStore')->name('store.listStore');
+    Route::resource('store', 'StoreController');
 
     Route::resource('good-receive', 'GoodReceiveController');
 

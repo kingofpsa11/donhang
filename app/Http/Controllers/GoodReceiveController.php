@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\GoodDelivery;
 use App\GoodReceiveDetail;
 use App\GoodReceive;
-use App\GoodTransferDetail;
+use App\GoodDeliveryDetail;
+use App\User;
+use App\Bom;
 use Illuminate\Http\Request;
 
 class GoodReceiveController extends Controller
@@ -57,7 +60,11 @@ class GoodReceiveController extends Controller
             }
 
             if($goodReceive->goodReceiveDetails()->saveMany($goodReceiveDetails)) {
-                return redirect()->route('good-receive.show', [$goodReceive]);
+                $users = User::role('Nhân viên')->get();
+                foreach ($users as $user) {
+                    $user->notify(new \App\Notifications\GoodReceive($goodReceive->id));
+                }
+                return redirect()->route('good-receive.show', $goodReceive);
             }
         }
     }
@@ -93,13 +100,52 @@ class GoodReceiveController extends Controller
      */
     public function update(Request $request, GoodReceive $goodReceive)
     {
+        if (isset($request->approved)) {
+            $goodReceive->status = 5;
+            $goodReceive->save();
+            $goodReceiveId = $goodReceive->id;
+
+            if (isset($goodReceive->goodReceiveDetails->first()->bom_id)) {
+                $bomGoodDelivery = new GoodDelivery();
+                $bomGoodDelivery->good_receive_id = $goodReceive->id;
+                $bomGoodDelivery->number = $goodReceive->number;
+                $bomGoodDelivery->customer_id = $goodReceive->supplier_id;
+                $bomGoodDelivery->date = time();
+                $bomGoodDelivery->status = 5;
+//                $bomGoodDelivery->user_id = auth()->user()->id;
+
+                if ($bomGoodDelivery->save()) {
+                    $bomGoodDeliveryDetails = [];
+                    foreach ($goodReceive->goodReceiveDetails as $goodReceiveDetail) {
+                        $bom = Bom::find($goodReceiveDetail->bom_id);
+                        foreach ($bom->bomDetails as $bomDetail) {
+                            $bomGoodDeliveryDetail = new GoodDeliveryDetail();
+                            $bomGoodDeliveryDetail->good_delivery_id = $bomGoodDelivery->id;
+                            $bomGoodDeliveryDetail->product_id = $bomDetail->product_id;
+                            $bomGoodDeliveryDetail->actual_quantity = $goodReceiveDetail->quantity * $bomDetail->quantity;
+                            $bomGoodDeliveryDetail->store_id = $goodReceiveDetail->store_id;
+                            array_push($bomGoodDeliveryDetails, $bomGoodDeliveryDetail);
+                        }
+                    }
+
+                    $bomGoodDelivery->goodDeliveryDetails()->saveMany($bomGoodDeliveryDetails);
+                }
+            }
+
+            $users = User::role('Nhân viên')->get();
+            foreach ($users as $user) {
+                $user->notify(new \App\Notifications\GoodReceive($goodReceiveId));
+            }
+
+            return redirect()->route('good-receive.index');
+        }
+
         if($request->goodReceiveDetails[0]['actual_quantity'] != 0) {
             foreach ($request->goodReceiveDetails as $value) {
                 $goodReceiveDetail = GoodReceiveDetail::find($value['id']);
                 $goodReceiveDetail->actual_quantity = $value['actual_quantity'];
                 $goodReceiveDetail->save();
             }
-            die;
         } else {
             $goodReceive->number = $request->goodReceive['number'];
             $goodReceive->supplier_id = $request->goodReceive['supplier_id'];
@@ -119,7 +165,6 @@ class GoodReceiveController extends Controller
                         $goodReceiveDetail->status = 10;
                         $goodReceiveDetail->save();
                     } else {
-                        return $value;
                         $goodReceiveDetail = new GoodReceiveDetail();
                         $goodReceiveDetail->good_receive_id = $goodReceive->id;
                         $goodReceiveDetail->product_id = $value['product_id'];

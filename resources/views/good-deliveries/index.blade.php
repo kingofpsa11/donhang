@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp phiếu xuất kho</h3>
-            <a class="btn btn-primary pull-right" href="{{ route('good-receive.create') }}">Tạo phiếu nhập mới</a>
+            <a class="btn btn-primary pull-right" href="{{ route('good-receive.create') }}">Tạo phiếu xuất mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

@@ -96,8 +96,8 @@ class DatabaseSeeder extends Seeder
         }
 
 //        $this->command->info('Default Permissions added.');
-//        $role = Role::firstOrCreate(['name' => 'Admin']);
-//        $role->syncPermissions(Permission::all());
+        $role = Role::firstOrCreate(['name' => 'Admin']);
+        $role->syncPermissions(Permission::all());
 //        $user = User::find(1);
 //        $user->assignRole('Admin');
 //        // Confirm roles needed
@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
 //                // create one user for each role
 //                $this->createUser($role);
 //            }
-//
+////
 //            $this->command->info('Roles ' . $input_roles . ' added successfully');
 //
 //        } else {

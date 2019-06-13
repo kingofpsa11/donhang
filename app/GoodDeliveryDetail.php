@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GoodDeliveryDetail extends Model
 {
-    protected $fillable = ['id', 'output_order_detail_id', 'good_delivery_id', 'quantiy', 'store'];
+    protected $fillable = ['id', 'output_order_detail_id', 'good_delivery_id', 'quantiy', 'store_id'];
 
     public $timestamps = true;
 
@@ -24,4 +24,15 @@ class GoodDeliveryDetail extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    public function store()
+    {
+        return $this->belongsTo('App\Store');
+    }
+
+    protected $attributes = [
+        'status' => 10,
+        'quantity' => 0,
+        'actual_quantity' => 0,
+    ];
 }

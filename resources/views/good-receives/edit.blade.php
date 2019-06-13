@@ -47,7 +47,7 @@
             <td data-col-seq="6">
                 <input type="text" class="form-control" name="goodReceiveDetails[0][quantity]" value="{{ $goodReceiveDetail->quantity }}" required>
             </td>
-            <td>
+            <td data-col-seq="7">
                 <input type="text" class="form-control" name="goodReceiveDetails[0][actual_quantity]" value="{{ $goodReceiveDetail->actual_quantity }}">
             </td>
             <td data-col-seq="8">

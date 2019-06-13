@@ -33,6 +33,11 @@ class GoodReceiveDetail extends Model
         return $this->belongsTo('App\Bom');
     }
 
+    public function store()
+    {
+        return $this->belongsTo('App\Store');
+    }
+
     protected $attributes = [
         'status' => 10
     ];
