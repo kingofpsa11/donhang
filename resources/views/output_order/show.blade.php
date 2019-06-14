@@ -2,7 +2,6 @@
 
 @section('title', 'Đơn hàng')
 
-
 @section('content')
     
     <!-- Main content -->
@@ -11,21 +10,28 @@
             <div class="box-header">
                 <h3 class="box-title text-center">LỆNH XUẤT HÀNG</h3>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Đơn vị xuất hàng</label>
                             <input type="text" class="form-control" readonly value="{{ $outputOrder->customer->name }}">
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Người nhận hàng</label>
+                            <input type="text" class="form-control" value="{{ $outputOrder->customer_user }}" readonly>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Số lệnh xuất hàng</label>
                             <input type="text" class="form-control" readonly value="{{ $outputOrder->number }}">
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Ngày xuất hàng</label>
                             <div class="input-group">
@@ -37,13 +43,7 @@
                             <!-- /.input group -->
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Người nhận hàng</label>
-                            <input type="text" class="form-control">
-                            <!-- /.input group -->
-                        </div>
-                    </div>
+
                 </div>
                 <!-- /.row -->
             </div>
@@ -88,13 +88,19 @@
                         <p>NGƯỜI LẬP</p>
                     </div>
                 </div>
-                <div class="control-button">
+                <div class="control-button text-right">
                     <div>
-                        <a href="{{ route('output-order.edit', [$outputOrder->id]) }}" class="btn btn-primary">
+                        <a href="{{ route('output-order.edit', $outputOrder) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-default print">In</button>
                         <button class="btn btn-danger">Xoá</button>
+
+                        <form action="{{ route('output-order.update', $outputOrder) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('PATCH')
+                            <input type="submit" value="Duyệt" class="btn btn-success" name="approved">
+                        </form>
                     </div>
                 </div>
             </div>

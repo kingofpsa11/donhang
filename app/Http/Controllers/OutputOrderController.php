@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\OutputOrder;
 use App\OutputOrderDetail;
+use App\GoodDelivery;
+use App\GoodDeliveryDetail;
+use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -109,27 +112,63 @@ class OutputOrderController extends Controller
      */
     public function update(Request $request, OutputOrder $outputOrder)
     {
-        $outputOrder->customer_id = $request->outputOrder['customer_id'];
-        $outputOrder->number = $request->outputOrder['customer_id'];;
-        $outputOrder->date = $request->outputOrder['date'];
+        // Duyệt lệnh xuất hàng
+        if (isset($request->approved)) {
+            $outputOrder->status = 5;
+            $outputOrder->save();
+            $outputOrderId = $outputOrder->id;
 
-        if ($outputOrder->save()) {
-            $outputOrder->outputOrderDetails()->delete();
+            $goodDelivery = new GoodDelivery();
+            $goodDelivery->output_order_id = $outputOrder->id;
+            $goodDelivery->number = $outputOrder->number;
+            $goodDelivery->customer_id = $outputOrder->customer_id;
+            $goodDelivery->customer_user = $outputOrder->customer_user;
+            $goodDelivery->date = time();
 
-            $outputOrderDetails = [];
-            foreach ($request->outputOrderDetails as $value) {
-                $outputOrderDetail = new OutputOrderDetail();
-                $outputOrderDetail->price_id = $value['price_id'];
-                $outputOrderDetail->selling_price = $value['selling_price'];
-                $outputOrderDetail->deadline = $value['deadline'];
-                $outputOrderDetail->note = $value['note'];
-                $outputOrderDetail->quantity = $value['quantity'];
-                $outputOrderDetail->status = 10;
-                array_push($outputOrderDetails, $outputOrderDetail);
+            if ($goodDelivery->save()) {
+                $goodDeliveryDetails = [];
+                foreach ($outputOrder->outputOrderDetails as $outputOrderDetail) {
+                    $goodDeliveryDetail = new GoodDeliveryDetail();
+                    $goodDeliveryDetail->output_order_detail_id = $outputOrderDetail->id;
+                    $goodDeliveryDetail->good_delivery_id = $goodDelivery->id;
+                    $goodDeliveryDetail->product_id = $outputOrderDetail->contractDetail->price->product->id;
+                    $goodDeliveryDetail->quantity = $outputOrderDetail->quantity;
+                    array_push($goodDeliveryDetails, $goodDeliveryDetail);
+                }
+
+                $goodDelivery->goodDeliveryDetails()->saveMany($goodDeliveryDetails);
             }
 
-            if($outputOrder->outputOrderDetails()->saveMany($outputOrderDetails)) {
-                return redirect()->route('output-order.show', [$outputOrder]);
+            $users = User::role(5)->get();
+            foreach ($users as $user) {
+                $user->notify(new \App\Notifications\OutputOrder($outputOrder->number, $goodDelivery->id));
+            }
+
+            return redirect()->route('output-order.index');
+
+        } else {
+            $outputOrder->customer_id = $request->outputOrder['customer_id'];
+            $outputOrder->number = $request->outputOrder['number'];
+            $outputOrder->date = $request->outputOrder['date'];
+
+            if ($outputOrder->save()) {
+                $outputOrder->outputOrderDetails()->delete();
+
+                $outputOrderDetails = [];
+                foreach ($request->outputOrderDetails as $value) {
+                    $outputOrderDetail = new OutputOrderDetail();
+                    $outputOrderDetail->price_id = $value['price_id'];
+                    $outputOrderDetail->selling_price = $value['selling_price'];
+                    $outputOrderDetail->deadline = $value['deadline'];
+                    $outputOrderDetail->note = $value['note'];
+                    $outputOrderDetail->quantity = $value['quantity'];
+                    $outputOrderDetail->status = 10;
+                    array_push($outputOrderDetails, $outputOrderDetail);
+                }
+
+                if($outputOrder->outputOrderDetails()->saveMany($outputOrderDetails)) {
+                    return redirect()->route('output-order.show', [$outputOrder]);
+                }
             }
         }
     }
@@ -152,5 +191,19 @@ class OutputOrderController extends Controller
         $undoneOutputOrders = OutputOrder::where('status', 10)->get();
 
         return view('output_order.undone', compact('undoneOutputOrders'));
+    }
+
+    public function checkNumber(Request $request)
+    {
+        $number = $request->number;
+        $customer_id = $request->customer_id;
+        $year = $request->year;
+
+        $outputOrder = OutputOrder::where('customer_id', $customer_id)
+            ->whereYear('date', $year)
+            ->where('number', $number)
+            ->count();
+
+        return $outputOrder;
     }
 }

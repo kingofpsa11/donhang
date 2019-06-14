@@ -12,21 +12,27 @@
 			<div class="box box-default">
 				<div class="box-header with-border">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">
 								<label>Đơn vị nhận hàng</label>
 								<select class="form-control select2 customer" name="outputOrder[customer_id]" required>
 								</select>
 							</div>
 						</div>
-						<div class="col-md-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Người nhận hàng</label>
+                                <input type="text" class="form-control" name="outputOrder[customer_user]" value="{{ $outputOrder->customer_user ?? '' }}">
+                            </div>
+                        </div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Số lệnh xuất hàng</label>
 								<input type="text" class="form-control" name="outputOrder[number]" required value="{{ $outputOrder->number ?? '' }}">
-                                <span class="check-number"></span>
+                                <span class="check-number text-red"></span>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Ngày xuất hàng</label>
 								<div class="input-group">
@@ -239,22 +245,26 @@
                 });
             }
 
-            function checkNumber() {
+            $('#form').on('submit', function (e) {
+                e.preventDefault();
+                let form = this;
                 let number = $('[name*="number"]').val();
                 let customer_id = customerSelect.val();
+                let year = $('[name*="date"]').val().split('/')[2];
+
                 $.get(
-                    "{{ route('contract.checkNumber') }}",
-                    { number: number, customer_id: customer_id },
+                    "{{ route('output-order.checkNumber') }}",
+                    { number: number, customer_id: customer_id, year: year },
                     function (result) {
-
+                        if (result > 0) {
+                            $('[name*="number"]').parent().find('span').html('Đã tồn tại số lệnh');
+                        } else {
+                            convertDateToTimestamp($('[name="outputOrder[date]"]'));
+                            form.submit();
+                        }
                     },
-                    "json"
-                )
-            }
-
-            $('#form').on('submit', function () {
-
-                convertDateToTimestamp($('[name="outputOrder[date]"]'));
+                    "text"
+                );
             });
 
         

@@ -161,8 +161,14 @@ class ContractController extends Controller
     {
         $number = $request->number;
         $customer_id = $request->customer_id;
+        $year = $request->year;
 
-        $contract = 
+        $contract = Contract::where('customer_id', $customer_id)
+            ->whereYear('date', $year)
+            ->where('number', $number)
+            ->count();
+
+        return $contract;
     }
 
     public function shows(Request $request)

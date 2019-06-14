@@ -24,4 +24,8 @@ class OutputOrderDetail extends Model
     {
         return $this->hasMany('App\GoodDeliveryDetail');
     }
+
+    protected $attributes = [
+        'status' => 10
+    ];
 }

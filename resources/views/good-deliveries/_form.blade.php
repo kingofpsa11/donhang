@@ -8,21 +8,23 @@
     
     <!-- Main content -->
     <section class="content container-fluid">
+        @php
+            if(!isset($view)) $view = 'required';
+        @endphp
         <form action="@yield('route')" method="POST" id="form">
             @csrf
             @yield('method')
-            
             <div class="box">
                 <div class="box-header">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Đơn vị nhận hàng</label>
-                                <select class="form-control" name="goodDelivery[customer_id]" required>
-                                    @if (isset($goodDelivery))
-                                        <option value="{{ $goodDelivery->customer_id }}">{{ $goodDelivery->customer->name }}</option>
-                                    @endif
-                                </select>
+                                    <select class="form-control" name="goodDelivery[customer_id]" @if($view === 'readonly') disabled @endif style="width:100%;">
+                                        @if (isset($goodDelivery))
+                                            <option value="{{ $goodDelivery->customer_id }}">{{ $goodDelivery->customer->name }}</option>
+                                        @endif
+                                    </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -38,7 +40,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $goodDelivery->date ?? date('d/m/Y') }}" name="goodDelivery[date]" required>
+                                    <input type="text" class="form-control" value="{{ $goodDelivery->date ?? date('d/m/Y') }}" name="goodDelivery[date]" {{ $view }}>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -46,7 +48,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số phiếu</label>
-                                <input type="text" class="form-control" name="goodDelivery[number]" value="{{ $goodDelivery->number ?? '' }}" required>
+                                <input type="text" class="form-control" name="goodDelivery[number]" value="{{ $goodDelivery->number ?? '' }}" {{ $view }}>
                             </div>
                         </div>
                     </div>
@@ -126,8 +128,9 @@
                 });
             }
             
-            function addSelect2 (el) {
+            function addProductSelect2 (el) {
                 el.select2({
+                    width: 'style',
                     placeholder: 'Nhập tên sản phẩm',
                     minimumInputLength: 2,
                     ajax: {
@@ -159,7 +162,7 @@
             }
             
             let productSelect = $('.product_id');
-            addSelect2(productSelect);
+            addProductSelect2(productSelect);
             
             let customerInput = $('[name*="customer_id"]');
             addCustomerSelect2(customerInput);
@@ -207,7 +210,7 @@
                 newRow.find('input').val('');
                 tableBody.append(newRow);
                 
-                addSelect2(select2);
+                addProductSelect2(select2);
             });
             
             $('#example1').on('click', '.removeRow', function (e) {

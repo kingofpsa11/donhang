@@ -4,6 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp đơn hàng</h3>
+            <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -64,10 +65,6 @@
                     </tr>
                 </tfoot>
             </table>
-        </div>
-
-        <div class="box-footer">
-            <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
         </div>
         <!-- /.box-body -->
     </div>

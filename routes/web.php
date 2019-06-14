@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('price', 'PriceController');
 
     Route::get('output-order/getUndoneOutputOrder', 'OutputOrderController@getUndoneOutputOrders')->name('output-order.getUndoneOutputOrder');
+    Route::get('output-order/checkNumber', 'OutputOrderController@checkNumber')->name('output-order.checkNumber');
     Route::resource('output-order', 'OutputOrderController');
 
     Route::get('product/all', 'ProductController@shows')->name('product.shows');

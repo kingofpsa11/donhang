@@ -23,7 +23,7 @@ class CreateGoodDeliveryDetailsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->float('quantity', 8 ,3);
             $table->float('actual_quantity', 8, 3)->default(0);
-            $table->unsignedBigInteger('store_id');
+            $table->unsignedBigInteger('store_id')->nullable();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
             $table->integer('status');
             $table->timestamps();

@@ -4,9 +4,10 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp LXH</h3>
+            <a href="{{ route('output-order.create') }}" class="btn btn-primary pull-right">Tạo Lệnh xuất hàng mới</a>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
@@ -17,6 +18,7 @@
                     <th>Tên sản phẩm</th>
                     <th>Số lượng xuất</th>
                     <th>LSX</th>
+                    <th>Trạng thái</th>
                     <th>Action</th>
                 </tr>
 
@@ -31,6 +33,7 @@
                         <td>{{ $outputOrderDetail->contractDetail->price->product->name }}</td>
                         <td>{{ $outputOrderDetail->quantity }}</td>
                         <td>{{ $outputOrderDetail->manufacturer_order_number }}</td>
+                        <td>{{ $outputOrderDetail->outputOrder->status }}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('output-order.show', [$outputOrderDetail->output_order_id])}}" class="btn btn-success btn-xs">
@@ -54,6 +57,7 @@
                         <th>Tên sản phẩm</th>
                         <th>Số lượng xuất</th>
                         <th>LSX</th>
+                        <th>Trạng thái</th>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -99,7 +103,7 @@
                         width       : '40%',
                     },
                     {
-                        targets     : 7,
+                        targets     : 8,
                         width       : '10%',
                     },
                     {

@@ -17,6 +17,7 @@ class CreateOutputOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->string('customer_user')->nullable();
             $table->integer('number');
             $table->date('date');
             $table->integer('status');

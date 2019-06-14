@@ -1,4 +1,4 @@
-@extends('good-deliveries._form')
+@extends('good-deliveries._form', ['view' => $view])
 
 @section('action', 'Sửa phiếu xuất')
 
@@ -11,6 +11,13 @@
 @stop
 
 @section('table-body')
+    @php
+        if(isset($goodDelivery->outputOrder)) {
+            $view = 'readonly';
+        } else {
+            $view = 'required';
+        }
+    @endphp
     @foreach ($goodDelivery->goodDeliveryDetails as $goodDeliveryDetail)
         @php( $i = $loop->index)
         <tr data-key="{{ $loop->index }}">
@@ -19,10 +26,10 @@
                 <input type="hidden" name="goodDeliveryDetails[{{ $i }}][id]" value="{{ $goodDeliveryDetail->id }}">
             </td>
             <td data-col-seq="1">
-                <input type="text" class="form-control" readonly name="goodDeliveryDetails[{{ $i }}][code]" value="{{ $goodDeliveryDetail->product->code }}">
+                <input type="text" class="form-control" name="goodDeliveryDetails[{{ $i }}][code]" value="{{ $goodDeliveryDetail->product->code }}" readonly>
             </td>
             <td data-col-seq="2">
-                <select class="form-control product_id" style="width: 100%;" name="goodDeliveryDetails[{{ $i }}][product_id]" required>
+                <select class="form-control product_id" style="width: 100%;" name="goodDeliveryDetails[{{ $i }}][product_id]" @if($view === 'readonly') disabled @endif>
                     <option value="{{ $goodDeliveryDetail->product_id }}">{{ $goodDeliveryDetail->product->name }}</option>
                 </select>
             </td>
@@ -30,10 +37,10 @@
                 <input type="text" class="form-control" name="goodDeliveryDetails[0][unit]" readonly>
             </td>
             <td data-col-seq="4">
-                <input type="text" class="form-control" name="goodDeliveryDetails[0][store_id]" value="{{ $goodDeliveryDetail->store_id }}" required>
+                <input type="text" class="form-control" name="goodDeliveryDetails[0][store_id]" value="{{ $goodDeliveryDetail->store_id }}" {{ $view }}>
             </td>
             <td data-col-seq="5">
-                <input type="text" class="form-control" name="goodDeliveryDetails[0][quantity]" value="{{ $goodDeliveryDetail->quantity }}" required>
+                <input type="text" class="form-control" name="goodDeliveryDetails[0][quantity]" value="{{ $goodDeliveryDetail->quantity }}" {{ $view }}>
             </td>
             <td data-col-seq="6">
                 <input type="text" class="form-control" name="goodDeliveryDetails[0][actual_quantity]" value="{{ $goodDeliveryDetail->actual_quantity }}">

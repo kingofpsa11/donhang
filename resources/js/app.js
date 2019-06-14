@@ -50,6 +50,7 @@ var notifications = [];
 const NOTIFICATION_TYPES = {
     manufacturer: 'App\\Notifications\\ManufacturerOrder',
     goodTransfer: 'App\\Notifications\\GoodTransfer',
+    outputOrder: 'App\\Notifications\\OutputOrder',
 };
 
 $(document).ready(function () {
@@ -71,9 +72,10 @@ function addNotifications(newNotifications, target) {
 }
 
 function showNotifications(notifications, target) {
-    var dropdownMenu = $(target).find('.dropdown-menu');
+    let dropdownMenu = $(target).find('.dropdown-menu');
+
     if (notifications.length) {
-        var htmlElements = notifications.map(function (notification) {
+        let htmlElements = notifications.map(function (notification) {
             return makeNotification(notification);
         });
         $(target).find('span.label').removeClass('hidden');
@@ -82,35 +84,39 @@ function showNotifications(notifications, target) {
         dropdownMenu.find('.menu').html(htmlElements.join(''));
     } else {
         dropdownMenu.find('span.label').addClass('hidden');
-        dropdownMenu.html('<li class="header">Không có thông báo mới</li>');
+        dropdownMenu.find('.header').html(`Bạn không có thông báo mới`);
         dropdownMenu.find('.menu').html('');
     }
 }
 
 function makeNotification(notification) {
-    var to = routeNotification(notification);
-    var notificationText = makeNotificationText(notification);
+    let to = routeNotification(notification);
+    let notificationText = makeNotificationText(notification);
     return '<li><a href="' + to + '"><i class="fa fa-users text-aqua"></i>' + notificationText + '</a></li>';
 }
 
 function routeNotification(notification) {
-    var to = '?read=' + notification.id;
+    let to = '?read=' + notification.id;
     if (notification.type === NOTIFICATION_TYPES.manufacturer) {
         to = 'manufacturer-order' + to;
     } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
         to = 'good-transfer' + to;
+    } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
+        to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
     }
 
     return '/' + to;
 }
 
 function makeNotificationText(notification) {
-    var text = '';
+    let text = '';
     if (notification.type === NOTIFICATION_TYPES.manufacturer) {
         // const name = notification.data.manufacturer_id;
         text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.manufacturer_id;
     } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
         text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
+    } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
+        text = 'Phòng KHKD đã gửi LXH số ' + notification.data.output_order_number;
     }
 
     return text;

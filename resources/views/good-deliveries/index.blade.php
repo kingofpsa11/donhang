@@ -7,7 +7,7 @@
             <a class="btn btn-primary pull-right" href="{{ route('good-receive.create') }}">Tạo phiếu xuất mới</a>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
@@ -33,14 +33,12 @@
                         <td>{{ $goodDeliveryDetail->actual_quantity }}</td>
                         <td>{{ $goodDeliveryDetail->status }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{{ route('good-delivery.show', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-success btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('good-delivery.edit', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                                </a>
-                            </div>
+                            <a href="{{ route('good-delivery.show', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-success">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
+                            </a>
+                            <a href="{{ route('good-delivery.edit', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                            </a>
                         </td>
                     </tr>
                 @endforeach
