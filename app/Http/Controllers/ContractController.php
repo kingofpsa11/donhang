@@ -180,9 +180,11 @@ class ContractController extends Controller
             ->join('prices', 'prices.id', '=', 'contract_details.price_id')
             ->join('products', 'products.id', '=', 'prices.product_id')
             ->leftJoin('output_order_details', 'contract_details.id', '=', 'output_order_details.contract_detail_id')
-            ->select('products.name', 'products.code', 'contract_details.id', 'contracts.number', DB::raw('(`contract_details`.`quantity` - IFNULL(`output_order_details`.`quantity`, 0)) as quantity'))
+            ->select('products.name', 'products.code', 'contract_details.id', 'contracts.number', DB::raw('(`contract_details`.`quantity` - IFNULL(SUM(`output_order_details`.`quantity`),0)) AS `remain_quantity`'))
             ->where('contracts.number', 'LIKE', '%' . $term . '%')
             ->where('customer_id', '=', $request->customer_id)
+            ->groupBy('contract_details.id', 'products.name', 'products.code', 'contracts.number', 'contract_details.quantity')
+            ->having('remain_quantity', '>', 0)
             ->take(10)
             ->get();
 
