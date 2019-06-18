@@ -80,13 +80,18 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12 text-right">
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
                         <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
-                        <a href="{{ route('manufacturer-order.create', [$contract]) }}" class="btn btn-warning" id="manufacturer_order">LSX</a>
+                        <a href="{{ route('manufacturer-order.create', $contract) }}" class="btn btn-warning" id="manufacturer_order">LSX</a>
                         <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
+                        <form action="{{ route('contract.update', $contract) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('PATCH')
+                            <input type="submit" value="Duyệt" class="btn btn-success" name="approved">
+                        </form>
                     </div>
                 </div>
             </div>

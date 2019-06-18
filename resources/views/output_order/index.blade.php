@@ -35,14 +35,12 @@
                         <td>{{ $outputOrderDetail->manufacturer_order_number }}</td>
                         <td>{{ $outputOrderDetail->outputOrder->status }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{{ route('output-order.show', [$outputOrderDetail->output_order_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('output-order.show', [$outputOrderDetail->output_order_id])}}" class="btn btn-success">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('output-order.edit', [$outputOrderDetail->output_order_id])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('output-order.edit', [$outputOrderDetail->output_order_id])}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
-                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -103,8 +101,20 @@
                         width       : '40%',
                     },
                     {
+                        targets     : 7,
+                        render      : function ( data, type, row) {
+                            if (data == 5) {
+                                return '<span class="label label-primary">Đã duyệt<span>';
+                            } else if ( data == 10) {
+                                return '<span class="label label-default">Đang chờ duyệt<span>';
+                            }
+                        },
+                        className   : 'dt-body-center'
+                    },
+                    {
                         targets     : 8,
                         width       : '10%',
+                        className   : 'dt-body-center'
                     },
                     {
                         targets     : '_all',

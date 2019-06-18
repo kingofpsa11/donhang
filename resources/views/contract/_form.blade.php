@@ -11,25 +11,24 @@
         <form action="@yield('route')" method="POST" id="form">
             @csrf
             @yield('method')
-
             <div class="box">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <label>Đơn vị đặt hàng</label>
+                                <label>Khách hàng</label>
                                 <select class="form-control select2 customer" name="contract[customer_id]" required>
-                                    @yield('customer')
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số đơn hàng</label>
                                 <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number ?? ''}}" required>
+                                <span class="check-number text-red"></span>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Ngày đặt hàng</label>
                                 <div class="input-group">
@@ -41,7 +40,7 @@
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
                                 <input type="text" class="form-control" readonly name="contract[total_value]" value="@yield('contract-total-value')">
@@ -55,11 +54,12 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Tiến độ</th>
-                            <th>Ghi chú</th>
+                            <th class="col-md-1">Mã sản phẩm</th>
+                            <th class="col-md-5">Tên sản phẩm</th>
+                            <th class="col-md-1">Số lượng</th>
+                            <th class="col-md-1">Đơn giá</th>
+                            <th class="col-md-2">Tiến độ</th>
+                            <th class="col-md-2">Ghi chú</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,7 +89,26 @@
     <script>
         $(document).ready(function () {
             let customerSelect = $('.select2.customer');
-            customerSelect.select2();
+            customerSelect.select2({
+                placeholder: 'Nhập khách hàng',
+                minimumInputLength: 1,
+                ajax: {
+                    url: '{{ route('customer.listCustomer') }}',
+                    delay: 200,
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+            });
 
             $('tbody').on('change', '[name$="[quantity]"]', calculateTotal);
 
@@ -153,6 +172,7 @@
                                         text: item.name,
                                         id: item.id,
                                         selling_price: item.sellPrice,
+                                        code: item.code
                                     }
                                 })
                             };
@@ -165,6 +185,7 @@
             function getPrice (el) {
                 el.on('select2:select', function (e) {
                     let data = e.params.data;
+                    $(this).parents('tr').find('input[name$="[code]"]').val(data.code);
                     $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
                     $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
                     calculateTotal();
@@ -184,11 +205,12 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
-                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (i) + '][code]');
+                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
+                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -211,10 +233,11 @@
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
                 newRow.children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
+                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
+                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -256,11 +279,30 @@
                 })
             }
 
-            $('#form').on('submit', function () {
-                convertNumber($('[name$="[selling_price]"]'));
-                convertNumber($('[name$="[total_value]"]'));
-                convertDateToTimestamp($('[name$="[date]"]'));
-                convertDateToTimestamp($('[name$="[deadline]"]'));
+            $('#form').on('submit', function (e) {
+                e.preventDefault();
+                let form = this;
+                let number = $('[name*="number"]').val();
+                let customer_id = customerSelect.val();
+                let year = $('[name*="date"]').val().split('/')[2];
+                $('[name*="number"]').parent().find('span').html('');
+
+                $.get(
+                    "{{ route('contract.checkNumber') }}",
+                    { number: number, customer_id: customer_id, year: year },
+                    function (result) {
+                        if (result > 0) {
+                            $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');
+                        } else {
+                            convertNumber($('[name$="[selling_price]"]'));
+                            convertNumber($('[name$="[total_value]"]'));
+                            convertDateToTimestamp($('[name$="[date]"]'));
+                            convertDateToTimestamp($('[name$="[deadline]"]'));
+                            form.submit();
+                        }
+                    },
+                    "text"
+                );
             });
         })
     </script>

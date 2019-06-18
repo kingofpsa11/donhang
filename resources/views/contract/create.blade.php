@@ -20,28 +20,31 @@
 @section('table-body')
     <tr data-key="0">
         <td data-col-seq="0">1</td>
-        <td class="col-md-5" data-col-seq="1">
-            <select class="form-control input-sm select2 price" style="width: 100%;" name="contract_detail[0][price_id]" required>
+        <td data-col-seq="1">
+            <input type="text" class="form-control" name="contract_detail[0][code]" readonly>
+        </td>
+        <td data-col-seq="2">
+            <select class="form-control select2 price" style="width: 100%;" name="contract_detail[0][price_id]" required>
             </select>
         </td>
-        <td class="col-md-1" data-col-seq="2">
-            <input type="number" class="form-control input-sm" name="contract_detail[0][quantity]" required>
+        <td data-col-seq="3">
+            <input type="number" class="form-control" name="contract_detail[0][quantity]" required>
         </td>
-        <td class="col-md-2" data-col-seq="3">
-            <input type="text" class="form-control input-sm" name="contract_detail[0][selling_price]" readonly>
+        <td data-col-seq="4">
+            <input type="text" class="form-control" name="contract_detail[0][selling_price]" readonly>
         </td>
-        <td class="col-md-2" data-col-seq="4">
+        <td data-col-seq="5">
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control input-sm" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" required>
+                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" required>
             </div>
         </td>
-        <td class="col-md-2" data-col-seq="5">
-            <input type="text" class="form-control input-sm" name="contract_detail[0][note]">
-        </td>
         <td data-col-seq="6">
+            <input type="text" class="form-control" name="contract_detail[0][note]">
+        </td>
+        <td data-col-seq="7">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>

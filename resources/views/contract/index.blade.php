@@ -37,14 +37,12 @@
                         <td>{{ $contract_detail->manufacturer_order_number }}</td>
                         <td>{{ $contract_detail->status }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                                </a>
-                            </div>
+                            <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
+                            </a>
+                            <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -116,11 +114,12 @@
                             } else if (data === '0') {
                                 return '<span class="label label-success">Xong</span>';
                             }
-                        }
+                        },
+                        className   : 'dt-body-center'
                     },
                     {
                         "data" : "action",
-                        "className" : 'dt-body-right',
+                        "className" : 'dt-body-center',
                     }
                 ],
                 columnDefs: [

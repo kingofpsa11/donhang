@@ -60215,7 +60215,8 @@ var notifications = [];
 var NOTIFICATION_TYPES = {
   manufacturer: 'App\\Notifications\\ManufacturerOrder',
   goodTransfer: 'App\\Notifications\\GoodTransfer',
-  outputOrder: 'App\\Notifications\\OutputOrder'
+  outputOrder: 'App\\Notifications\\OutputOrder',
+  contract: 'App\\Notifications\\Contract'
 };
 $(document).ready(function () {
   if (Laravel.userId) {
@@ -60266,6 +60267,8 @@ function routeNotification(notification) {
     to = 'good-transfer' + to;
   } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
     to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
+  } else if (notification.type === NOTIFICATION_TYPES.contract) {
+    to = 'good-delivery/' + notification.data.contract_id + '/edit' + to;
   }
 
   return '/' + to;
@@ -60281,6 +60284,12 @@ function makeNotificationText(notification) {
     text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
   } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
     text = 'Phòng KHKD đã gửi LXH số ' + notification.data.output_order_number;
+  } else if (notification.type === NOTIFICATION_TYPES.contract) {
+    if (notification.data.status === 5) {
+      text = 'Lãnh đạo đã phê duyệt đơn hàng số ' + notification.data.contract_id;
+    } else {
+      text = 'Phòng KHKD đã trình đơn hàng số ' + notification.data.contract_id;
+    }
   }
 
   return text;

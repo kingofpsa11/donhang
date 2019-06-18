@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contract;
 use App\ContractDetail;
 use App\Customer;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -70,6 +71,8 @@ class ContractController extends Controller
             }
 
             if($contract->contract_details()->saveMany($contract_details)) {
+                $user = User::find(11);
+                $user->notify(new \App\Notifications\Contract($contract->id, $contract->status));
                 return redirect()->route('contract.show', [$contract]);
             }
         }
@@ -109,28 +112,44 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        $contract->customer_id = $request->contract['customer_id'];
-        $contract->number = $request->contract['number'];
-        $contract->total_value = $request->contract['total_value'];
-        $contract->date = $request->contract['date'];
+        // Duyệt đơn hàng
+        if (isset($request->approved)) {
+            $contract->status = 5;
+            $contract->save();
 
-        if ($contract->save()) {
-            $contract->contract_details()->delete();
-
-            $contract_details = [];
-            foreach ($request->contract_detail as $value) {
-                $contract_detail = new ContractDetail();
-                $contract_detail->price_id = $value['price_id'];
-                $contract_detail->selling_price = $value['selling_price'];
-                $contract_detail->deadline = $value['deadline'];
-                $contract_detail->note = $value['note'];
-                $contract_detail->quantity = $value['quantity'];
-                $contract_detail->status = 10;
-                array_push($contract_details, $contract_detail);
+            $users = User::role(6)->get();
+            foreach ($users as $user) {
+                $user->notify(new \App\Notifications\Contract($contract->id, $contract->status));
             }
 
-            if($contract->contract_details()->saveMany($contract_details)) {
-                return redirect()->route('contract.show', ['contract' => $contract]);
+            die;
+
+            return redirect()->route('contract.index');
+
+        } else {
+            $contract->customer_id = $request->contract['customer_id'];
+            $contract->number = $request->contract['number'];
+            $contract->total_value = $request->contract['total_value'];
+            $contract->date = $request->contract['date'];
+
+            if ($contract->save()) {
+                $contract->contract_details()->delete();
+
+                $contract_details = [];
+                foreach ($request->contract_detail as $value) {
+                    $contract_detail = new ContractDetail();
+                    $contract_detail->price_id = $value['price_id'];
+                    $contract_detail->selling_price = $value['selling_price'];
+                    $contract_detail->deadline = $value['deadline'];
+                    $contract_detail->note = $value['note'];
+                    $contract_detail->quantity = $value['quantity'];
+                    $contract_detail->status = 10;
+                    array_push($contract_details, $contract_detail);
+                }
+
+                if ($contract->contract_details()->saveMany($contract_details)) {
+                    return redirect()->route('contract.show', $contract);
+                }
             }
         }
     }
@@ -206,4 +225,5 @@ class ContractController extends Controller
 
         return response()->json($result);
     }
+
 }

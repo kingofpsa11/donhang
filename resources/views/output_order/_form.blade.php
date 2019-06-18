@@ -19,6 +19,8 @@
 								</select>
 							</div>
 						</div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Người nhận hàng</label>
@@ -146,12 +148,18 @@
                                         id: item.id,
                                         number: item.number,
                                         code: item.code,
-                                        quantity: item.quantity
+                                        remain_quantity: item.remain_quantity
                                     }
                                 })
                             };
                         },
                         cache: true
+                    },
+                    templateResult: function (repo) {
+                        if (repo.loading) {
+                            return 'Đang tìm kiếm';
+                        }
+                        return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.remain_quantity}</div></div></div> `);
                     },
                 });
             }
@@ -161,7 +169,7 @@
                     let data = e.params.data;
                     $(this).parents('tr').find('input[name$="[code]"]').val(data.code);
                     $(this).parents('tr').find('input[name$="[contract_id]"]').val(data.number);
-                    $(this).parents('tr').find('input[name$="[quantity]"]').val(data.quantity);
+                    $(this).parents('tr').find('input[name$="[quantity]"]').val(data.remain_quantity);
                 });
             }
             
