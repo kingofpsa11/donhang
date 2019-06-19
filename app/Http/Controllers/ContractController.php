@@ -116,42 +116,46 @@ class ContractController extends Controller
         if (isset($request->approved)) {
             $contract->status = 5;
             $contract->save();
-
-            $users = User::role(6)->get();
-            foreach ($users as $user) {
-                $user->notify(new \App\Notifications\Contract($contract->id, $contract->status));
-            }
-
-            die;
-
-            return redirect()->route('contract.index');
-
         } else {
             $contract->customer_id = $request->contract['customer_id'];
             $contract->number = $request->contract['number'];
             $contract->total_value = $request->contract['total_value'];
             $contract->date = $request->contract['date'];
 
+            $contract->contract_details->update(['status' => 9]);
+
             if ($contract->save()) {
-                $contract->contract_details()->delete();
-
-                $contract_details = [];
-                foreach ($request->contract_detail as $value) {
-                    $contract_detail = new ContractDetail();
-                    $contract_detail->price_id = $value['price_id'];
-                    $contract_detail->selling_price = $value['selling_price'];
-                    $contract_detail->deadline = $value['deadline'];
-                    $contract_detail->note = $value['note'];
-                    $contract_detail->quantity = $value['quantity'];
-                    $contract_detail->status = 10;
-                    array_push($contract_details, $contract_detail);
+                foreach ($request->goodDeliveryDetails as $value) {
+                    if (isset($value['id'])) {
+                        $contract_detail = ContractDetail::find($value['id']);
+                        $contract_detail->price_id = $value['price_id'];
+                        $contract_detail->selling_price = $value['selling_price'];
+                        $contract_detail->deadline = $value['deadline'];
+                        $contract_detail->note = $value['note'];
+                        $contract_detail->quantity = $value['quantity'];
+                        $contract_detail->status = 10;
+                        $contract_detail->save();
+                    } else {
+                        $contract_detail = new ContractDetail();
+                        $contract_detail->price_id = $value['price_id'];
+                        $contract_detail->selling_price = $value['selling_price'];
+                        $contract_detail->deadline = $value['deadline'];
+                        $contract_detail->note = $value['note'];
+                        $contract_detail->quantity = $value['quantity'];
+                        $contract_detail->save();
+                    }
                 }
 
-                if ($contract->contract_details()->saveMany($contract_details)) {
-                    return redirect()->route('contract.show', $contract);
-                }
+                $contract->contract_details()->where('status',9)->delete();
             }
         }
+
+        $users = User::role(6)->get();
+        foreach ($users as $user) {
+            $user->notify(new \App\Notifications\Contract($contract->id, $contract->status));
+        }
+
+        return view('contract.show', compact('contract'));
     }
 
     /**

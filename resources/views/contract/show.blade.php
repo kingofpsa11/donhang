@@ -56,7 +56,7 @@
                             <th class="col-md-1">Số lượng</th>
                             <th class="col-md-1">Đơn giá</th>
                             <th class="col-md-2">Tiến độ</th>
-                            <th>Trạng thái</th>
+                            <th class="col-md-1">Trạng thái</th>
                             <th class="col-md-2">Ghi chú</th>
                         </tr>
                     </thead>
@@ -69,7 +69,7 @@
                                 <td>{{ $contract_detail->quantity }}</td>
                                 <td>{{ $contract_detail->selling_price }}</td>
                                 <td>{{ $contract_detail->deadline }}</td>
-                                <td>{{ $contract_detail->status }}</td>
+                                <td>{!! $contract_detail->status === 10 ? '<span class="label label-primary">Chờ phê duyệt</span>' : ''!!}</td>
                                 <td>{{ $contract_detail->note }}</td>
                             </tr>
                             @php($i++)
@@ -81,17 +81,24 @@
             <div class="box-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
+                        @php($role = \App\Role::whereIn('id', [6,7])->get())
+                        @role(6)
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
                         <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <a href="{{ route('manufacturer-order.create', $contract) }}" class="btn btn-warning" id="manufacturer_order">LSX</a>
                         <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
-                        <form action="{{ route('contract.update', $contract) }}" method="POST" style="display: inline-block;">
-                            @csrf
-                            @method('PATCH')
-                            <input type="submit" value="Duyệt" class="btn btn-success" name="approved">
-                        </form>
+                        @endrole
+                        @role(7)
+                            @if($contract->status === 10)
+                                <form action="{{ route('contract.update', $contract) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="submit" value="Phê duyệt" class="btn btn-success" name="approved">
+                                </form>
+                            @endif
+                        @endrole
                     </div>
                 </div>
             </div>

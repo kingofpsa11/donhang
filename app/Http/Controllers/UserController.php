@@ -192,4 +192,13 @@ class UserController extends Controller
     {
         return \auth()->user()->unreadNotifications()->get()->toArray();
     }
+
+    public function markAsReadNotification()
+    {
+        $user = \auth()->user();
+
+        $user->unreadNotifications->markAsRead();
+
+        return 1;
+    }
 }

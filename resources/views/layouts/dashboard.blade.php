@@ -131,7 +131,9 @@ desired effect
                                 </ul>
                                 <!-- /.menu -->
                             </li>
-                            <li class="footer"><a href="javascript:void()">Đánh dấu tất cả đã xem</a></li>
+                            <li class="footer">
+                                <a href="javascript:void(0)">Đánh dấu tất cả đã xem</a>
+                            </li>
                         </ul>
                     </li>
                     <!-- /.messages-menu -->
@@ -151,7 +153,10 @@ desired effect
                                 <ul class="menu">
                                 </ul>
                             </li>
-                            <li class="footer"><a href="javascript:void()">Đánh dấu tất cả đã xem</a></li>
+                            <li class="footer">
+                                <a href="javascript:void(0)" class="markAllRead">Đánh dấu tất cả đã xem</a>
+                                <a href="javascript:void(0)" class="viewAll pull-right">Xem tất cả</a>
+                            </li>
                         </ul>
                     </li>
                     <!-- Tasks Menu -->
@@ -459,6 +464,13 @@ desired effect
         
         // flash auto hide
         $('#flash-msg .alert').not('.alert-danger, .alert-important').delay(3000).slideUp(500);
+
+        $('.markAllRead').on('click', function() {
+            $.get('{{ route("users.markAsReadNotifications") }}', function (result) {
+                console.log(result);
+            });
+        });
+
     })
 </script>
 </body>

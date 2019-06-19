@@ -55,13 +55,16 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('roles', 'RoleController');
 
-    Route::resource('users', 'UserController');
+    Route::get('/markAsReadNotifications', 'UserController@markAsReadNotification')->name('users.markAsReadNotifications');
+    Route::get('/notifications', 'UserController@notifications');
     Route::get('export', 'UserController@export');
+    Route::resource('users', 'UserController');
+
 
     Route::get('change-password', 'Auth\ChangePasswordController@showChangePasswordForm');
     Route::put('change-password', 'Auth\ChangePasswordController@changePassword')->name('auth.change-password');
 
-    Route::get('/notifications', 'UserController@notifications');
+
 
     Route::resource('profit-rate', 'ProfitRateController');
 

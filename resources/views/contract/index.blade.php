@@ -7,7 +7,7 @@
             <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
@@ -38,7 +38,7 @@
                         <td>{{ $contract_detail->status }}</td>
                         <td>
                             <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
+                                <i class="fa fa-tag" aria-hidden="true"></i> Xem
                             </a>
                             <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa

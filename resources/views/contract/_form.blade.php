@@ -18,6 +18,9 @@
                             <div class="form-group">
                                 <label>Khách hàng</label>
                                 <select class="form-control select2 customer" name="contract[customer_id]" required>
+                                    @if (isset($contract))
+                                        <option value="{{ $contract->customer_id }}">{{ $contract->customer->name }}</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -196,9 +199,10 @@
 
             customerSelect.on('select2:select', function () {
                 $('.addRow').removeClass('disabled');
-                addSelect2(priceSelect);
-                getPrice(priceSelect);
             });
+
+            addSelect2(priceSelect);
+            getPrice(priceSelect);
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
@@ -220,6 +224,8 @@
                     }
                 });
             }
+
+            updateNumberOfRow();
 
             //Add or remove row to table
             $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
@@ -291,7 +297,7 @@
                     "{{ route('contract.checkNumber') }}",
                     { number: number, customer_id: customer_id, year: year },
                     function (result) {
-                        if (result > 0) {
+                        if (result > 0 && window.location.pathname.indexOf('create')) {
                             $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');
                         } else {
                             convertNumber($('[name$="[selling_price]"]'));

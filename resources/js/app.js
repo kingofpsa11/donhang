@@ -87,6 +87,7 @@ function showNotifications(notifications, target) {
         dropdownMenu.find('span.label').addClass('hidden');
         dropdownMenu.find('.header').html(`Bạn không có thông báo mới`);
         dropdownMenu.find('.menu').html('');
+        dropdownMenu.find('.markAllRead').html('');
     }
 }
 
@@ -105,7 +106,7 @@ function routeNotification(notification) {
     } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
         to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
     } else if (notification.type === NOTIFICATION_TYPES.contract) {
-        to = 'good-delivery/' + notification.data.contract_id + '/edit' + to;
+        to = 'contract/' + notification.data.contract_id + '/' + to;
     }
 
     return '/' + to;
@@ -124,7 +125,7 @@ function makeNotificationText(notification) {
         if (notification.data.status === 5) {
             text = 'Lãnh đạo đã phê duyệt đơn hàng số ' + notification.data.contract_id;
         } else {
-            text = 'Phòng KHKD đã trình đơn hàng số ' + notification.data.contract_id;
+            text = 'Phòng KHKD trình đơn hàng số ' + notification.data.contract_id;
         }
     }
 
