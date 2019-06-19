@@ -38,7 +38,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="@yield('contract-date')" name="contract[date]" required>
+                                    <input type="text" class="form-control" value="{{ $contract->date ?? date('d/m/Y') }}" name="contract[date]" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" readonly name="contract[total_value]" value="@yield('contract-total-value')">
+                                <input type="text" class="form-control" readonly name="contract[total_value]" value="{{ $contract->total_value ?? ''}}">
                             </div>
                         </div>
                     </div>
@@ -208,13 +208,13 @@
                 let rows = $('tr[data-key]');
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
-                    $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_detail[' + (i) + '][code]');
-                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'contract_detail[' + (i) + '][price_id]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (i) + '][quantity]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (i) + '][selling_price]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (i) + '][deadline]');
-                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'contract_detail[' + (i) + '][note]');
+                    $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_details[' + (i) + '][code]');
+                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'contract_details[' + (i) + '][price_id]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (i) + '][quantity]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (i) + '][selling_price]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (i) + '][deadline]');
+                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'contract_details[' + (i) + '][note]');
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -237,13 +237,13 @@
                 let select2 = newRow.find('.select2.price');
 
                 newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
-                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'contract_detail[' + (numberOfProduct) + '][price_id]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][selling_price]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'contract_detail[' + (numberOfProduct) + '][note]');
+                newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
+                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][code]');
+                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'contract_details[' + (numberOfProduct) + '][price_id]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][quantity]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][selling_price]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][deadline]');
+                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -297,7 +297,7 @@
                     "{{ route('contract.checkNumber') }}",
                     { number: number, customer_id: customer_id, year: year },
                     function (result) {
-                        if (result > 0 && window.location.pathname.indexOf('create')) {
+                        if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
                             $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');
                         } else {
                             convertNumber($('[name$="[selling_price]"]'));

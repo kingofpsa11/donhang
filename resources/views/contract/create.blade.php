@@ -4,45 +4,32 @@
     {{ route('contract.store') }}
 @endsection
 
-@section('contract-date')
-    @php
-        echo date('d/m/Y');
-    @endphp
-@stop
-
-@section('customer')
-    <option value="">--Lựa chọn đơn vị đặt hàng--</option>
-    @foreach ($customers as $customer)
-        <option value="{{ $customer->id }}">{{ $customer->short_name }}</option>
-    @endforeach
-@stop
-
 @section('table-body')
     <tr data-key="0">
         <td data-col-seq="0">1</td>
         <td data-col-seq="1">
-            <input type="text" class="form-control" name="contract_detail[0][code]" readonly>
+            <input type="text" class="form-control" name="contract_details[0][code]" readonly>
         </td>
         <td data-col-seq="2">
-            <select class="form-control select2 price" style="width: 100%;" name="contract_detail[0][price_id]" required>
+            <select class="form-control select2 price" style="width: 100%;" name="contract_details[0][price_id]" required>
             </select>
         </td>
         <td data-col-seq="3">
-            <input type="number" class="form-control" name="contract_detail[0][quantity]" required>
+            <input type="number" class="form-control" name="contract_details[0][quantity]" required>
         </td>
         <td data-col-seq="4">
-            <input type="text" class="form-control" name="contract_detail[0][selling_price]" readonly>
+            <input type="text" class="form-control" name="contract_details[0][selling_price]" readonly>
         </td>
         <td data-col-seq="5">
             <div class="input-group">
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_detail[0][deadline]" required>
+                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="contract_details[0][deadline]" required>
             </div>
         </td>
         <td data-col-seq="6">
-            <input type="text" class="form-control" name="contract_detail[0][note]">
+            <input type="text" class="form-control" name="contract_details[0][note]">
         </td>
         <td data-col-seq="7">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>

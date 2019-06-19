@@ -105,7 +105,7 @@
         </div>
         <!-- /.box -->
     </section>
-    <form action="{{ route('contract.destroy', [$contract]) }}" method="POST">
+    <form action="{{ route('contract.destroy', $contract) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">

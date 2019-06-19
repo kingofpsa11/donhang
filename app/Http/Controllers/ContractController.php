@@ -122,10 +122,10 @@ class ContractController extends Controller
             $contract->total_value = $request->contract['total_value'];
             $contract->date = $request->contract['date'];
 
-            $contract->contract_details->update(['status' => 9]);
+            $contract->contract_details()->update(['status' => 9]);
 
             if ($contract->save()) {
-                foreach ($request->goodDeliveryDetails as $value) {
+                foreach ($request->contract_details as $value) {
                     if (isset($value['id'])) {
                         $contract_detail = ContractDetail::find($value['id']);
                         $contract_detail->price_id = $value['price_id'];
