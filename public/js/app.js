@@ -60280,16 +60280,16 @@ function makeNotificationText(notification) {
 
   if (notification.type === NOTIFICATION_TYPES.manufacturer) {
     // const name = notification.data.manufacturer_id;
-    text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.manufacturer_id;
+    text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.number;
   } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
     text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
   } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
     text = 'Phòng KHKD đã gửi LXH số ' + notification.data.output_order_number;
   } else if (notification.type === NOTIFICATION_TYPES.contract) {
     if (notification.data.status === 5) {
-      text = 'Lãnh đạo đã phê duyệt đơn hàng số ' + notification.data.contract_id;
+      text = 'Lãnh đạo đã phê duyệt đơn hàng số ' + notification.data.number;
     } else {
-      text = 'Phòng KHKD trình đơn hàng số ' + notification.data.contract_id;
+      text = 'Phòng KHKD trình đơn hàng số ' + notification.data.number;
     }
   }
 

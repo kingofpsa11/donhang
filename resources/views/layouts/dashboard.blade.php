@@ -292,6 +292,7 @@ desired effect
                 </li>
 
                 <li><a href="{{ route('bom.index') }}"><i class="fa fa-link"></i> <span>Định mức</span></a></li>
+                <li><a href="{{ route('profit-rate.create') }}"><i class="fa fa-link"></i>Tỉ lệ giá</a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Quản lý kho</span>

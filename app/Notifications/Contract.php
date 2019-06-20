@@ -14,16 +14,18 @@ class Contract extends Notification implements ShouldQueue
 
     protected $contractId;
     protected $status;
+    protected $number;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($contractId, $status)
+    public function __construct($contractId, $status, $number)
     {
         $this->contractId = $contractId;
         $this->status = $status;
+        $this->number = $number;
     }
 
     /**
@@ -62,6 +64,7 @@ class Contract extends Notification implements ShouldQueue
         return [
             'contract_id' => $this->contractId,
             'status' => $this->status,
+            'number' => $this->number,
         ];
     }
 
@@ -74,6 +77,7 @@ class Contract extends Notification implements ShouldQueue
             'data' => [
                 'contract_id' => $this->contractId,
                 'status' => $this->status,
+                'number' => $this->number,
             ],
         ]);
     }

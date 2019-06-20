@@ -21,9 +21,8 @@ class CreateContractDetailsTable extends Migration
             $table->foreign('price_id')->references('id')->on('prices')->onDelete('cascade');
             $table->integer('quantity');
             $table->unsignedBigInteger('selling_price')->nullable();
-            $table->unsignedBigInteger('manufacturer_order_id');
-            $table->foreign('manufacturer_order_id')->references('id')->on('manufacturers')->onDelete('cascade');
-//            $table->string('manufacturer_order_number')->nullable();
+            $table->unsignedBigInteger('supplier_id');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->date('deadline');
             $table->text('note')->nullable();
             $table->integer('status');

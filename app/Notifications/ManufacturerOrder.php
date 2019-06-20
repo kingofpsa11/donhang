@@ -12,15 +12,17 @@ class ManufacturerOrder extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $manufacturer_id;
+    protected $manufacturerOrderId;
+    protected $number;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($manufacturer_id)
+    public function __construct($manufacturerOrderId, $number)
     {
-        $this->manufacturer_id = $manufacturer_id;
+        $this->manufacturerOrderId = $manufacturerOrderId;
+        $this->number = $number;
     }
 
     /**
@@ -57,7 +59,8 @@ class ManufacturerOrder extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
-            'manufacturer_id' => $this->manufacturer_id,
+            'manufacturer_order_id' => $this->manufacturerOrderId,
+            'number' => $this->number,
         ];
     }
 
@@ -67,7 +70,8 @@ class ManufacturerOrder extends Notification implements ShouldQueue
             'id' => $this->id,
             'read_at' => null,
             'data' => [
-                'manufacturer_id' => $this->manufacturer_id
+                'manufacturer_id' => $this->manufacturerOrderId,
+                'number' => $this->number,
             ],
         ]);
     }

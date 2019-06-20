@@ -4,16 +4,15 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp lệnh sản xuất</h3>
-            <a href="{{ route('manufacturer-note.create') }}" class="btn btn-primary">Tạo phiếu sản xuất</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>ĐVĐH</th>
                     <th>Ngày lập</th>
                     <th>LSX</th>
+                    <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Tiến độ</th>
@@ -23,22 +22,19 @@
 
                 </thead>
                 <tbody>
-                @foreach ($contract_details as $contract_detail)
+                @foreach ($manufacturerOrderDetails as $manufacturerOrderDetail)
                     <tr>
-                        <td>{{ $contract_detail->contract->customer->short_name }}</td>
-                        <td>{{ $contract_detail->contract->date }}</td>
-                        <td>{{ $contract_detail->manufacturerOrder->number }}</td>
-                        <td>{{ $contract_detail->price->product->name }}</td>
-                        <td>{{ $contract_detail->quantity }}</td>
-                        <td>{{ $contract_detail->deadline }}</td>
-                        <td>{{ $contract_detail->status }}</td>
+                        <td>{{ $manufacturerOrderDetail->manufacturerOrder->contract->date }}</td>
+                        <td>{{ $manufacturerOrderDetail->manufacturerOrder->number }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->name }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->quantity }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->deadline }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('manufacturer-order.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('manufacturer-order.show', $manufacturerOrderDetail->manufacturerOrder)}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('manufacturer-order.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
                         </td>
@@ -48,14 +44,14 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ĐVĐH</th>
                         <th>Ngày lập</th>
                         <th>LSX</th>
+                        <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Tiến độ</th>
                         <th>Trạng thái</th>
-                        <th>Action</th>
+                        <td>Action</td>
                     </tr>
                 </tfoot>
             </table>
@@ -83,35 +79,41 @@
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
-                "columns" : [
-                    { "data" : "customer" },
-                    {
-                        "data"      : "date",
-                        className   : 'dt-body-right'
-                    },
-                    { "data" : "number" },
-                    { "data" : "product" },
-                    { "data" : "quantity" },
-                    {
-                        "data"      : "deadline",
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "status",
-                        "render"    : function (data) {
-                            if (data === '10') {
-                                return '<span class="label label-warning">Đang sản xuất</span>';
-                            } else if (data === '0') {
-                                return '<span class="label label-success">Xong</span>';
-                            }
-                        }
-                    },
-                    {
-                        "data" : "action",
-                        "className" : 'dt-body-right',
-                    }
-                ],
                 columnDefs: [
+                    {
+                        targets     : [0,5],
+                        className   : 'dt-body-right',
+                        width       : '8%'
+                    },
+                    {
+                        targets     : 1,
+                        width       : '5%',
+                        className   : 'dt-body-center'
+                    },
+                    {
+                        targets     : 2,
+                        className   : 'dt-body-center',
+                        width       : '10%',
+                    },
+                    {
+                        targets     : 3,
+                        width       : '40%',
+                    },
+                    {
+                        targets     : 4,
+                        className   : 'dt-body-center',
+                        width       : '5%',
+                    },
+                    {
+                        targets     : 6,
+                        className   : 'dt-body-center',
+                        width       : '10%',
+                    },
+                    {
+                        targets     : 7,
+                        className   : 'dt-body-center',
+                        width       : '5%',
+                    },
                     {
                         targets: "_all",
                         className   : 'dt-head-center',

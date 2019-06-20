@@ -39,9 +39,20 @@
                 </div>
             </td>
             <td data-col-seq="6">
-                <input type="text" class="form-control" name="contract_details[{{ $i }}][note]" value="{{ $contract_detail->note }}">
+                <select name="contract_details[{{ $i }}][supplier_id]" class="form-control">
+                    @foreach($suppliers as $supplier)
+                        @if ($contract_detail->supplier_id === $supplier->id)
+                            <option value="{{ $supplier->id }}" selected>{{ $supplier->short_name }}</option>
+                        @else
+                            <option value="{{ $supplier->id }}">{{ $supplier->short_name }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </td>
             <td data-col-seq="7">
+                <input type="text" class="form-control" name="contract_details[{{ $i }}][note]" value="{{ $contract_detail->note }}">
+            </td>
+            <td data-col-seq="8">
                 <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>

@@ -27,15 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('contract/checkNumber', 'ContractController@checkNumber')->name('contract.checkNumber');
     Route::resource('contract','ContractController');
 
-    Route::prefix('manufacturer-order')->name('manufacturer-order.')->group(function () {
-        Route::get('/', 'ManufacturerOrderController@index')->name('index');
-        Route::get('/create/{contract}', 'ManufacturerOrderController@create')->name('create');
-        Route::post('/{contract}', 'ManufacturerOrderController@store')->name('store');
-        Route::get('/{contract}', 'ManufacturerOrderController@show')->name('show');
-        Route::get('/{contract}/edit', 'ManufacturerOrderController@edit')->name('edit');
-        Route::post('/{contract}/update', 'ManufacturerOrderController@update')->name('update');
-        Route::get('/showManufacturer', 'ManufacturerOrderController@showManufacturer')->name('showManufacturer');
-    });
+    Route::resource('manufacturer-order', 'ManufacturerOrderController');
 
     Route::get('newNumber/{supplier_id}', 'ManufacturerOrderController@getNewNumber')->name('manufacturer-order.as');
 

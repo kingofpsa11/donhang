@@ -58,10 +58,11 @@
                         <tr>
                             <th>STT</th>
                             <th class="col-md-1">Mã sản phẩm</th>
-                            <th class="col-md-5">Tên sản phẩm</th>
+                            <th class="col-md-4">Tên sản phẩm</th>
                             <th class="col-md-1">Số lượng</th>
                             <th class="col-md-1">Đơn giá</th>
                             <th class="col-md-2">Tiến độ</th>
+                            <th class="col-md-1">Đơn vị SX</th>
                             <th class="col-md-2">Ghi chú</th>
                         </tr>
                         </thead>

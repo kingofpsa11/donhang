@@ -16,7 +16,7 @@
 
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Đơn vị đặt hàng</label>
                                 <input type="text" value="{{ $contract->customer->name }}" readonly class="form-control">
@@ -35,7 +35,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control input-sm" value="{{ $contract->date }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $contract->date }}" readonly>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -56,12 +56,12 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Tiến độ</th>
-                            <th>Trạng thái</th>
-                            <th>Ghi chú</th>
-                            <th>Đơn vị sản xuất</th>
+                            <th class="col-md-1">Mã sản phẩm</th>
+                            <th class="col-md-5">Tên sản phẩm</th>
+                            <th class="col-md-1">Số lượng</th>
+                            <th class="col-md-1">Tiến độ</th>
+                            <th class="col-md-2">Ghi chú</th>
+                            <th class="col-md-2">Đơn vị sản xuất</th>
                             @if (isset($contract_detail->manufacturerOrder->number))
                                 <th>Số LSX/ĐH</th>
                             @endif
@@ -75,7 +75,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <div class="col-md-3 pull-right">
+                    <div class="col-md-12 text-right">
                         <input type="submit" value="Lưu" class="btn btn-success save">
                         <a href="{{ route('manufacturer-order.show', [$contract]) }}" class="btn btn-danger cancel">Hủy</a>
                     </div>

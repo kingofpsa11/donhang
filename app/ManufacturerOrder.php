@@ -10,13 +10,23 @@ class ManufacturerOrder extends Model
 
     public $timestamps = true;
 
-    public function contractDetails()
+    public function contract()
     {
-        return $this->hasMany('App\ContractDetail');
+        return $this->belongsTo('App\Contract');
     }
 
     public function supplier()
     {
         return $this->belongsTo('App\Supplier');
     }
+
+    public function manufacturerOrderDetails()
+    {
+        return $this->hasMany('App\ManufacturerOrderDetail');
+    }
+
+    protected $attributes = [
+        'status' => 10,
+    ];
+
 }

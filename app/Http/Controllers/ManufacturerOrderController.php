@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contract;
 use App\ContractDetail;
 use App\ManufacturerOrder;
+use App\ManufacturerOrderDetail;
 use App\Supplier;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,8 +19,8 @@ class ManufacturerOrderController extends Controller
      */
     public function index()
     {
-        $contract_details = ContractDetail::whereNotNull('manufacturer_order_id')->orderBy('id', 'desc')->take(1000)->get();
-        return view('manufacturer_order.index')->with('contract_details', $contract_details);
+        $manufacturerOrderDetails = ManufacturerOrderDetail::all();
+        return view('manufacturer_order.index', compact('manufacturerOrderDetails'));
     }
 
     /**
@@ -27,16 +28,10 @@ class ManufacturerOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Contract $contract)
+    public function create()
     {
-        foreach ($contract->contract_details as $contract_detail) {
-            if (isset($contract_detail->manufacturerOrder->id)) {
-                return redirect()->route('manufacturer-order.show', [$contract]);
-            }
-        }
-
         $suppliers = Supplier::all();
-        return view('manufacturer_order.create')->with(['contract' => $contract, 'suppliers' => $suppliers]);
+        return view('manufacturer_order.create', compact('suppliers'));
     }
 
     /**
@@ -45,33 +40,9 @@ class ManufacturerOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Contract $contract)
+    public function store(Request $request)
     {
-        $newNumber = 0;
-        $supplier_id = null;
-        $manufacturer_id = null;
 
-        foreach ($request->contract_detail as $value) {
-            if (($newNumber == 0 && $supplier_id == null) || $supplier_id != $value['supplier_id']) {
-                $manufacturerOrder = new ManufacturerOrder();
-                $manufacturerOrder->supplier_id = $value['supplier_id'];
-                $newNumber = $this->getNewNumber($manufacturerOrder['supplier_id']);
-                $supplier_id = $value['supplier_id'];
-                $manufacturerOrder->number = $newNumber;
-                $manufacturerOrder->save();
-                $manufacturer_id = $manufacturerOrder->id;
-            }
-            $contractDetail = ContractDetail::find($value['id']);
-            $contractDetail->manufacturer_order_id = $manufacturer_id;
-            $contractDetail->save();
-        }
-
-        $users = User::role('Nhà máy')->get();
-        foreach ($users as $user) {
-            $user->notify(new \App\Notifications\ManufacturerOrder($manufacturer_id));
-        }
-
-        return redirect()->route('manufacturer-order.show', $contract);
     }
 
     /**
@@ -80,9 +51,9 @@ class ManufacturerOrderController extends Controller
      * @param  \App\ManufacturerOrder  $manufacturerOrder
      * @return \Illuminate\Http\Response
      */
-    public function show(Contract $contract)
+    public function show(ManufacturerOrder $manufacturerOrder)
     {
-        return response()->view('manufacturer_order.show', compact('contract'));
+        return response()->view('manufacturer_order.show', compact('manufacturerOrder'));
     }
 
     /**

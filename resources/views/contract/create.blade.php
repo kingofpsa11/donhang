@@ -29,9 +29,16 @@
             </div>
         </td>
         <td data-col-seq="6">
-            <input type="text" class="form-control" name="contract_details[0][note]">
+            <select name="contract_details[0][supplier_id]" class="form-control">
+                @foreach($suppliers as $supplier)
+                    <option value="{{ $supplier->id }}">{{ $supplier->short_name }}</option>
+                @endforeach
+            </select>
         </td>
         <td data-col-seq="7">
+            <input type="text" class="form-control" name="contract_details[0][note]">
+        </td>
+        <td data-col-seq="8">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>

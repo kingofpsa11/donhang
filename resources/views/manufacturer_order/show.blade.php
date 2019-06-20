@@ -1,16 +1,15 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Đơn hàng')
+@section('title', 'Lệnh sản xuất')
 
 @section('content')
     <section class="content-header">
         <h1>
             Lệnh sản xuất
-            <small>Tạo đơn hàng</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-dashboard"></i> Danh mục LSX</a></li>
-            <li class="active">Tạo LSX</li>
+            <li class="active">Xem LSX</li>
         </ol>
     </section>
 
@@ -18,32 +17,40 @@
     <section class="content container-fluid">
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">Đơn hàng</h3>
+                <h3 class="box-title">Lệnh sản xuất</h3>
             </div>
             <!-- /.box-header -->
 
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    @role(3)
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Đơn vị đặt hàng</label>
-                            <input type="text" value="{{ $contract->customer->name }}" readonly class="form-control">
+                            <input type="text" value="{{ $manufacturerOrder->contract->customer->name }}" readonly class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Số đơn hàng</label>
-                            <input type="text" value="{{ $contract->number }}" readonly class="form-control">
+                            <input type="text" value="{{ $manufacturerOrder->contract->number }}" readonly class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    @endrole
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Số lệnh sản xuất</label>
+                            <input type="text" value="{{ $manufacturerOrder->number }}" readonly class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Ngày đặt hàng</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control input-sm" value="{{ $contract->date }}" readonly>
+                                <input type="text" class="form-control" value="{{ $manufacturerOrder->contract->date }}" readonly>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -66,53 +73,43 @@
                     <thead>
                     <tr>
                         <th>STT</th>
+                        <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Tiến độ</th>
                         <th>Trạng thái</th>
                         <th>Ghi chú</th>
-                        <th>Đơn vị sản xuất</th>
-                        <th>Số LSX/ĐH</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @php($i=0)
-                    @foreach ($contract->contract_details as $contract_detail)
+                    @foreach ($manufacturerOrder->manufacturerOrderDetails as $manufacturerOrderDetail )
+                        @php( $i = $loop->index )
                         <tr data-key="{{ $i }}">
-                            <td class="" data-col-seq="0">{{ $i + 1 }}</td>
+                            <td class="" data-col-seq="0">{{ $loop->iteration }}</td>
                             <td class="col-md-4" data-col-seq="1">
-                                {{ $contract_detail->price->product->name }}
+                                {{ $manufacturerOrderDetail->contractDetail->price->product->code }}
                             </td>
-                            <td class="col-md-1" data-col-seq="2">
-                                {{ $contract_detail->quantity }}
+                            <td class="col-md-4" data-col-seq="2">
+                                {{ $manufacturerOrderDetail->contractDetail->price->product->name }}
                             </td>
-                            <td class="col-md-2" data-col-seq="3">
+                            <td class="col-md-1" data-col-seq="3">
+                                {{ $manufacturerOrderDetail->contractDetail->quantity }}
+                            </td>
+                            <td class="col-md-2" data-col-seq="4">
                                 <div class="pull-right">
-                                    {{ $contract_detail->deadline }}
+                                    {{ $manufacturerOrderDetail->contractDetail->deadline }}
                                 </div>
                             </td>
-                            <td class="col-md-1" data-col-seq="4">
-                                {{ $contract_detail->status }}
+                            <td class="col-md-1" data-col-seq="5">
+                                {{ $manufacturerOrderDetail->contractDetail->status }}
                             </td>
-                            <td class="col-md-2" data-col-seq="5">
-                                {{ $contract_detail->note }}
-                            </td>
-                            <td class="col-md-1" data-col-seq="6">
-                                {{ $contract_detail->manufacturerOrder->supplier->short_name ?? ''}}
-                            </td>
-                            <td class="col-md-1" data-col-seq="7">
-                                {{ $contract_detail->manufacturerOrder->number ?? ''}}
+                            <td class="col-md-2" data-col-seq="6">
+                                {{ $manufacturerOrderDetail->contractDetail->note }}
                             </td>
                         </tr>
-                        @php($i++)
                     @endforeach
                     </tbody>
                 </table>
-                <div class="box-footer">
-                    <div class="col-md-3 pull-right">
-                        <a href="{{ route('manufacturer-order.edit', $contract) }}" class="btn btn-primary col-md-4 pull-right">Sửa</a>
-                    </div>
-                </div>
             </div>
             <!-- /.box-body -->
         </div>
