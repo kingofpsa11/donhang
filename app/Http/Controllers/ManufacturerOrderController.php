@@ -62,10 +62,9 @@ class ManufacturerOrderController extends Controller
      * @param  \App\ManufacturerOrder  $manufacturerOrder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contract $contract)
+    public function edit()
     {
-        $suppliers = Supplier::all();
-        return view('manufacturer_order.edit')->with(['contract' => $contract, 'suppliers' => $suppliers]);
+
     }
 
     /**

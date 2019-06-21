@@ -215,7 +215,8 @@
                     $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (i) + '][quantity]');
                     $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (i) + '][selling_price]');
                     $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (i) + '][deadline]');
-                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'contract_details[' + (i) + '][note]');
+                    $(row).children('[data-col-seq="6"]').find('select').attr('name', 'contract_details[' + (i) + '][supplier_id]');
+                    $(row).children('[data-col-seq="7"]').find('input').attr('name', 'contract_details[' + (i) + '][note]');
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -244,11 +245,12 @@
                 newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][quantity]');
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][selling_price]');
                 newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][note]');
+                newRow.children('[data-col-seq="6"]').find('select').attr('name', 'contract_details[' + (numberOfProduct) + '][supplier_id]');
+                newRow.children('[data-col-seq="7"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
-                newRow.find('option').remove();
+                newRow.children('[data-col-seq="2"]').find('option').remove();
                 newRow.find('input').val('');
                 tableBody.append(newRow);
 

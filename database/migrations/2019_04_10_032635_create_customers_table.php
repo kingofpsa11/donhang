@@ -18,6 +18,9 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('short_name');
             $table->string('address')->nullable();
+            $table->string('code')->nullable();
+            $table->string('tax_registration_number')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }

@@ -60,10 +60,10 @@ class GoodReceiveController extends Controller
             }
 
             if($goodReceive->goodReceiveDetails()->saveMany($goodReceiveDetails)) {
-                $users = User::role('Nhân viên')->get();
-                foreach ($users as $user) {
-                    $user->notify(new \App\Notifications\GoodReceive($goodReceive->id));
-                }
+
+                $user = User::find(9);
+                $user->notify(new \App\Notifications\GoodReceive($goodReceive->id, $goodReceive->number));
+
                 return redirect()->route('good-receive.show', $goodReceive);
             }
         }
@@ -132,7 +132,7 @@ class GoodReceiveController extends Controller
                 }
             }
 
-            $users = User::role('Nhân viên')->get();
+            $users = User::role(4)->get();
             foreach ($users as $user) {
                 $user->notify(new \App\Notifications\GoodReceive($goodReceiveId));
             }

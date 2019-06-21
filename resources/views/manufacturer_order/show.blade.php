@@ -3,25 +3,11 @@
 @section('title', 'Lệnh sản xuất')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Lệnh sản xuất
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-dashboard"></i> Danh mục LSX</a></li>
-            <li class="active">Xem LSX</li>
-        </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">Lệnh sản xuất</h3>
-            </div>
-            <!-- /.box-header -->
-
-            <div class="box-body">
                 <div class="row">
                     @role(3)
                     <div class="col-md-12">
@@ -56,18 +42,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Nội dung</h3>
             </div>
             <!-- /.box-header -->
+
             <div class="box-body table-responsive">
                 <table id="example1" class="table table-bordered table-striped table-condensed">
                     <thead>
@@ -86,24 +63,24 @@
                         @php( $i = $loop->index )
                         <tr data-key="{{ $i }}">
                             <td class="" data-col-seq="0">{{ $loop->iteration }}</td>
-                            <td class="col-md-4" data-col-seq="1">
+                            <td data-col-seq="1">
                                 {{ $manufacturerOrderDetail->contractDetail->price->product->code }}
                             </td>
-                            <td class="col-md-4" data-col-seq="2">
+                            <td data-col-seq="2">
                                 {{ $manufacturerOrderDetail->contractDetail->price->product->name }}
                             </td>
-                            <td class="col-md-1" data-col-seq="3">
+                            <td data-col-seq="3">
                                 {{ $manufacturerOrderDetail->contractDetail->quantity }}
                             </td>
-                            <td class="col-md-2" data-col-seq="4">
+                            <td data-col-seq="4">
                                 <div class="pull-right">
                                     {{ $manufacturerOrderDetail->contractDetail->deadline }}
                                 </div>
                             </td>
-                            <td class="col-md-1" data-col-seq="5">
+                            <td data-col-seq="5">
                                 {{ $manufacturerOrderDetail->contractDetail->status }}
                             </td>
-                            <td class="col-md-2" data-col-seq="6">
+                            <td data-col-seq="6">
                                 {{ $manufacturerOrderDetail->contractDetail->note }}
                             </td>
                         </tr>
@@ -113,7 +90,6 @@
             </div>
             <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </section>
 @endsection
 

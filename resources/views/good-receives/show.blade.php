@@ -76,7 +76,7 @@
             <div class="box-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        {{--@role('User')--}}
+                        {{--@role(4)--}}
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
                         <a href="{{ route('good-receive.edit', $goodReceive)}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
@@ -85,15 +85,15 @@
                         {{--@endrole--}}
 
                         {{--@role('Admin')--}}
-                        <form action="{{ route('good-receive.update', $goodReceive) }}" method="POST" class="btn">
-                            @csrf
-                            @method('PATCH')
-                        @if( $goodReceive->status === 10 )
-                            <input type="submit" class="btn btn-success" value="Duyệt" name="approved">
-                        @elseif ($goodReceive->status === 5)
-                            <input type="submit" class="btn btn-danger" value="Hủy" name="rejected">
-                        @endif
-                        </form>
+                        {{--<form action="{{ route('good-receive.update', $goodReceive) }}" method="POST" style="display: inline-block;">--}}
+                            {{--@csrf--}}
+                            {{--@method('PATCH')--}}
+                        {{--@if( $goodReceive->status === 10 )--}}
+                            {{--<input type="submit" class="btn btn-success" value="Duyệt" name="approved">--}}
+                        {{--@elseif ($goodReceive->status === 5)--}}
+                            {{--<input type="submit" class="btn btn-danger" value="Hủy" name="rejected">--}}
+                        {{--@endif--}}
+                        {{--</form>--}}
                         {{--@endrole--}}
                     </div>
                 </div>

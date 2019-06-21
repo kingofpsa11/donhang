@@ -70,7 +70,7 @@ class ManufacturerOrder extends Notification implements ShouldQueue
             'id' => $this->id,
             'read_at' => null,
             'data' => [
-                'manufacturer_id' => $this->manufacturerOrderId,
+                'manufacturer_order_id' => $this->manufacturerOrderId,
                 'number' => $this->number,
             ],
         ]);

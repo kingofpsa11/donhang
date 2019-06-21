@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                 @foreach ($manufacturerOrderDetails as $manufacturerOrderDetail)
-                    <tr>
+                    <tr class="danger">
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->contract->date }}</td>
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->number }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code }}</td>

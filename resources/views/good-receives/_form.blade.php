@@ -15,23 +15,23 @@
             <div class="box">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Đơn vị giao hàng</label>
-                                <select class="form-control" name="goodReceive[supplier_id]" required>
+                                <select class="form-control" name="goodReceive[supplier_id]" required style="width: 100%;">
                                     @if (isset($goodReceive))
                                         <option value="{{ $goodReceive->supplier_id }}">{{ $goodReceive->supplier->name }}</option>
                                     @endif
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Người giao</label>
                                 <input type="text" class="form-control" name="goodReceive[supplier_user]" value="{{ $goodReceive->supplier_user ?? '' }}">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Ngày</label>
                                 <div class="input-group">
@@ -43,7 +43,7 @@
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số phiếu</label>
                                 <input type="text" class="form-control" name="goodReceive[number]" value="{{ $goodReceive->number ?? '' }}" required>
@@ -78,7 +78,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer text-right">
                     <div>
-                        <button class="btn btn-info addRow">Thêm dòng</button>
+                        <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success" name="saveDraft">
                         <input type="reset" value="Hủy" class="btn btn-danger">
                     </div>
@@ -105,7 +105,7 @@
 
             function addSupplierSelect2 (el) {
                 el.select2({
-                    placeholder: 'Nhập đơn vị giao',
+                    placeholder: 'Nhập đơn vị giao hàng',
                     minimumInputLength: 2,
                     ajax: {
                         url: '{{ route('supplier.listSupplier') }}',

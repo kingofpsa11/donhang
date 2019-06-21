@@ -119,6 +119,7 @@ class ContractController extends Controller
                 $user->notify(new \App\Notifications\Contract($contract->id, $contract->status, $contract->number));
             }
 
+            $manufacturerOrder = null;
             foreach ($contract->contract_details as $contract_detail) {
                 $existManufacturerOrder = ManufacturerOrder::where('contract_id', $contract->id)
                             ->where('supplier_id', $contract_detail->supplier_id)
@@ -159,11 +160,11 @@ class ContractController extends Controller
                         $manufacturerOrderDetail->save();
                     }
                 }
+            }
 
-                $users = User::role(4)->get();
-                foreach ($users as $user) {
-                    $user->notify(new \App\Notifications\ManufacturerOrder($manufacturerOrder->id, $manufacturerOrder->number));
-                }
+            $users = User::role(4)->get();
+            foreach ($users as $user) {
+                $user->notify(new \App\Notifications\ManufacturerOrder($manufacturerOrder->id, $manufacturerOrder->number));
             }
         } else {
             $contract->customer_id = $request->contract['customer_id'];
