@@ -302,6 +302,9 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ route('output-order.getUndoneOutputOrder') }}"><i class="fa fa-circle-o"></i>Danh sách LXH</a></li>
+                        <li><a href="{{ route('good-receive.create') }}"><i class="fa fa-circle-o"></i>Phiếu nhập kho</a></li>
+                        <li><a href="{{ route('good-delivery.create') }}"><i class="fa fa-circle-o"></i>Phiếu xuất kho</a></li>
+                        <li><a href="{{ route('good-transfer.showInventory') }}"><i class="fa fa-circle-o"></i>Tồn kho</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -314,9 +317,7 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
                         <li><a href="{{ route('manufacturer-note.create') }}"><i class="fa fa-circle-o"></i>Phiếu sản xuất</a></li>
-                        <li><a href="{{ route('good-receive.create') }}"><i class="fa fa-circle-o"></i>Phiếu nhập kho</a></li>
-                        <li><a href="{{ route('good-delivery.create') }}"><i class="fa fa-circle-o"></i>Phiếu xuất kho</a></li>
-                        <li><a href="{{ route('good-transfer.showInventory') }}"><i class="fa fa-circle-o"></i>Tồn kho</a></li>
+
                     </ul>
                 </li>
             </ul>

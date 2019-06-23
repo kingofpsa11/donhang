@@ -6,6 +6,7 @@ use App\GoodDelivery;
 use App\GoodReceiveDetail;
 use App\GoodReceive;
 use App\GoodDeliveryDetail;
+use App\Role;
 use App\User;
 use App\Bom;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class GoodReceiveController extends Controller
      */
     public function create()
     {
-        return view('good-receives.create');
+        $roles = Role::find([4,5]);
+        return view('good-receives.create', compact('roles'));
     }
 
     /**

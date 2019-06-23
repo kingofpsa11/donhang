@@ -60,7 +60,9 @@
                             <th class="col-md-1">Mã sản phẩm</th>
                             <th class="col-md-5">Tên sản phẩm</th>
                             <th class="col-md-1">Đvt</th>
+                            @role(4)
                             <th class="col-md-2">Định mức</th>
+                            @endrole
                             <th class="col-md-1">Kho</th>
                             @if (Request::is('*/edit'))
                             <th class="col-md-1">Số lượng</th>
@@ -131,22 +133,30 @@
                 el.select2({
                     placeholder: 'Nhập kho',
                     minimumInputLength: 2,
+                    dropdownCssClass: 'bigdrop',
                     ajax: {
                         url: '{{ route('store.listStore') }}',
                         delay: 200,
                         dataType: 'json',
-                        dropdownAutoWidth : true,
+                        // dropdownAutoWidth : true,
                         processResults: function (data) {
                             return {
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.code,
                                         id: item.id,
+                                        name: item.name
                                     }
                                 })
                             };
                         },
                         cache: true
+                    },
+                    templateResult: function (repo) {
+                        if (repo.loading) {
+                            return 'Đang tìm kiếm';
+                        }
+                        return $(`<div class="container-fluid"><div class="row"><div class="col-md-4">${repo.text}</div><div class="col-md-8">${repo.name}</div></div></div> `);
                     },
                 });
             }
