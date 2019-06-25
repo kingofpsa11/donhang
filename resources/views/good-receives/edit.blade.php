@@ -27,10 +27,11 @@
                 </select>
             </td>
             <td data-col-seq="3">
-                <input type="text" class="form-control" name="goodReceiveDetails[0][unit]" readonly>
+                <input type="text" class="form-control" name="goodReceiveDetails[{{ $i }}][unit]" value="{{ $goodReceiveDetail->unit ?? '' }}" readonly>
             </td>
+            @role(4)
             <td data-col-seq="4">
-                <select class="form-control bom_id" style="width: 100%;" name="goodReceiveDetails[0][bom_id]">
+                <select class="form-control bom_id" style="width: 100%;" name="goodReceiveDetails[{{ $i }}][bom_id]">
                     <option value="">--Không dùng định mức--</option>
                     @foreach($goodReceiveDetail->product->boms as $bom)
                         @if ($bom->id === $goodReceiveDetail->bom_id)
@@ -41,16 +42,16 @@
                     @endforeach
                 </select>
             </td>
+            @endrole
             <td data-col-seq="5">
-                <input type="text" class="form-control" name="goodReceiveDetails[0][store_id]" value="{{ $goodReceiveDetail->store_id }}" required>
+                <select class="form-control" style="width: 100%;" name="goodReceiveDetails[{{ $i }}][store_id]" required>
+                    <option value="{{ $goodReceiveDetail->store_id }}">{{ $goodReceiveDetail->store_id }}</option>
+                </select>
             </td>
             <td data-col-seq="6">
-                <input type="text" class="form-control" name="goodReceiveDetails[0][quantity]" value="{{ $goodReceiveDetail->quantity }}" required>
+                <input type="text" class="form-control" name="goodReceiveDetails[{{ $i }}][quantity]" value="{{ $goodReceiveDetail->quantity }}" required>
             </td>
             <td data-col-seq="7">
-                <input type="text" class="form-control" name="goodReceiveDetails[0][actual_quantity]" value="{{ $goodReceiveDetail->actual_quantity }}">
-            </td>
-            <td data-col-seq="8">
                 <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>

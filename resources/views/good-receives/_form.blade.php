@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số phiếu</label>
-                                <input type="text" class="form-control" name="goodReceive[number]" value="{{ $goodReceive->number ?? '' }}" required>
+                                <input type="text" class="form-control" name="goodReceive[number]" value="{{ $newNumber ?? $goodReceive->number ?? '' }}" required>
                             </div>
                         </div>
                     </div>
@@ -58,18 +58,13 @@
                         <tr>
                             <th>STT</th>
                             <th class="col-md-1">Mã sản phẩm</th>
-                            <th class="col-md-5">Tên sản phẩm</th>
+                            <th class="col">Tên sản phẩm</th>
                             <th class="col-md-1">Đvt</th>
                             @role(4)
                             <th class="col-md-2">Định mức</th>
                             @endrole
                             <th class="col-md-1">Kho</th>
-                            @if (Request::is('*/edit'))
-                            <th class="col-md-1">Số lượng</th>
-                            <th class="col-md-1">Số lượng thực xuất</th>
-                            @else
                             <th class="col-md-2">Số lượng</th>
-                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -218,7 +213,7 @@
 
             let productElement = $('.product_id');
             addSelect2(productElement);
-
+            addStoreSelect2($('[name*="store_id"]'));
             let supplier = $('[name*="supplier_id"]');
             addSupplierSelect2(supplier);
 
