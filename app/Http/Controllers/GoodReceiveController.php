@@ -160,7 +160,7 @@ class GoodReceiveController extends Controller
     public function getNewNumber()
     {
         $newNumber = GoodReceive::whereYear('date', date('Y',time()))
-            ->max('number');
+            ->max('number') + 1;
         if ($newNumber === null) {
             $newNumber = 1;
         }

@@ -77,7 +77,9 @@
                     <div>
                         <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success" name="saveDraft">
-                        <input type="reset" value="Hủy" class="btn btn-danger">
+                        @if( isset($goodReceive) )
+                            <a href="{{ route('good-receive.show', $goodReceive) }}" class="btn btn-danger">Hủy</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -127,7 +129,7 @@
             function addStoreSelect2 (el) {
                 el.select2({
                     placeholder: 'Nhập kho',
-                    minimumInputLength: 2,
+                    minimumInputLength: 1,
                     dropdownCssClass: 'bigdrop',
                     ajax: {
                         url: '{{ route('store.listStore') }}',
@@ -263,6 +265,7 @@
                 tableBody.append(newRow);
 
                 addSelect2(select2);
+                addStoreSelect2(newRow.find('[name*="store_id"]'));
             });
 
             $('#example1').on('click', '.removeRow', function (e) {

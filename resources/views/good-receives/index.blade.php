@@ -31,14 +31,12 @@
                         <td>{{ $goodReceiveDetail->quantity }}</td>
                         <td>{{ $goodReceiveDetail->status }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{{ route('good-receive.show', $goodReceiveDetail->good_receive_id)}}" class="btn btn-success btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('good-receive.edit', $goodReceiveDetail->good_receive_id)}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                                </a>
-                            </div>
+                            <a href="{{ route('good-receive.show', $goodReceiveDetail->good_receive_id)}}" class="btn btn-success">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
+                            </a>
+                            <a href="{{ route('good-receive.edit', $goodReceiveDetail->good_receive_id)}}" class="btn btn-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                            </a>
                         </td>
                     </tr>
                 @endforeach
