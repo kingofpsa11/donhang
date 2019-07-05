@@ -59,17 +59,22 @@ class GoodReceiveController extends Controller
                 $goodReceiveDetail->quantity = $value['quantity'];
                 if (isset($value['bom_id'])) {
                     $goodReceiveDetail->bom_id = $value['bom_id'];
+                    $goodDeliveryBom = new GoodDelivery();
+                    $goodDeliveryBom->good_receive_id = $goodReceive->id;
+                    $goodDeliveryBom->getNewNumber();
+                    $goodDeliveryBom->date = $request->goodReceive['date'];
+                    $goodDeliveryBom->customer_id = $goodReceive->supplier->;
+                    $goodDeliveryBom->save();
                 }
                 $goodReceiveDetail->store_id = $value['store_id'];
                 array_push($goodReceiveDetails, $goodReceiveDetail);
             }
 
             if($goodReceive->goodReceiveDetails()->saveMany($goodReceiveDetails)) {
-
-                $user = User::find(9);
-                $user->notify(new \App\Notifications\GoodReceive($goodReceive->id, $goodReceive->number));
-
                 return redirect()->route('good-receive.show', $goodReceive);
+            } else {
+                $goodReceive->delete();
+                return redirect()->route('good-receive.index');
             }
         }
     }

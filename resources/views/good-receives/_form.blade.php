@@ -58,13 +58,16 @@
                         <tr>
                             <th>STT</th>
                             <th class="col-md-1">Mã sản phẩm</th>
-                            <th class="col">Tên sản phẩm</th>
+                            <th class="col-md-5">Tên sản phẩm</th>
                             <th class="col-md-1">Đvt</th>
                             @role(4)
                             <th class="col-md-2">Định mức</th>
-                            @endrole
                             <th class="col-md-1">Kho</th>
                             <th class="col-md-2">Số lượng</th>
+                            @else
+                            <th class="col-md-2">Kho</th>
+                            <th class="col-md-3">Số lượng</th>
+                            @endrole
                         </tr>
                         </thead>
                         <tbody>

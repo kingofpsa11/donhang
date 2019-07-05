@@ -43,4 +43,9 @@ class GoodDelivery extends Model
     protected $attributes = [
         'status' => 10,
     ];
+
+    public function getNewNumber()
+    {
+        $this->number = self::whereYear('date', date('Y'))->max('number') + 1;
+    }
 }

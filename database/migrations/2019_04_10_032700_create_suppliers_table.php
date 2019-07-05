@@ -17,7 +17,10 @@ class CreateSuppliersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('short_name');
-            $table->string('address');
+            $table->string('address')->nullable();
+            $table->string('code')->nullable();
+            $table->string('tax_registration_number')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }

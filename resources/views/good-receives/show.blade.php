@@ -42,7 +42,7 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
+            <div class="box-body table-responsive">
                 <table class="table table-bordered table-striped hover" id="contract-show">
                     <thead>
                     <tr>
@@ -55,7 +55,6 @@
                         @endrole
                         <th class="col-md-2">Kho</th>
                         <th class="col-md-1">Số lượng</th>
-                        {{--<th class="col-md-1">Số lượng thực nhập</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -68,9 +67,8 @@
                             @role(4)
                             <td>{{ $goodReceiveDetail->bom->name ?? '' }}</td>
                             @endrole
-                            <td>{{ $goodReceiveDetail->store_id }}</td>
+                            <td>{{ $goodReceiveDetail->store->code }}</td>
                             <td>{{ $goodReceiveDetail->quantity }}</td>
-                            <td>{{ $goodReceiveDetail->actual_quantity }}</td>
                         </tr>
                     @endforeach
                     </tbody>
