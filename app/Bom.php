@@ -33,4 +33,8 @@ class Bom extends Model
     protected $attributes = [
         'status' => 10
     ];
+
+    public static function getBomDetails($id) {
+        return self::where('id', $id)->with('bomDetails')->first();
+    }
 }

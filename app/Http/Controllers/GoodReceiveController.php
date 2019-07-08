@@ -51,32 +51,27 @@ class GoodReceiveController extends Controller
         $goodReceive->supplier_user = $request->goodReceive['supplier_user'];
 
         if ($goodReceive->save()) {
-            $goodReceiveDetails = [];
-            foreach ($request->goodReceiveDetails as $value) {
+            foreach ($request->goodReceiveDetails as $goodReceiveDetails) {
                 $goodReceiveDetail = new GoodReceiveDetail();
                 $goodReceiveDetail->good_receive_id = $goodReceive->id;
-                $goodReceiveDetail->product_id = $value['product_id'];
-                $goodReceiveDetail->quantity = $value['quantity'];
-                if (isset($value['bom_id'])) {
-                    $goodReceiveDetail->bom_id = $value['bom_id'];
-                    $goodDeliveryBom = new GoodDelivery();
-                    $goodDeliveryBom->good_receive_id = $goodReceive->id;
-                    $goodDeliveryBom->getNewNumber();
-                    $goodDeliveryBom->date = $request->goodReceive['date'];
-                    $goodDeliveryBom->customer_id = $goodReceive->supplier->code;
-                    $goodDeliveryBom->save();
-                }
-                $goodReceiveDetail->store_id = $value['store_id'];
-                array_push($goodReceiveDetails, $goodReceiveDetail);
-            }
+                $goodReceiveDetail->product_id = $goodReceiveDetails['product_id'];
+                $goodReceiveDetail->quantity = $goodReceiveDetails['quantity'];
+                $goodReceiveDetail->store_id = $goodReceiveDetails['store_id'];
 
-            if($goodReceive->goodReceiveDetails()->saveMany($goodReceiveDetails)) {
-                return redirect()->route('good-receive.show', $goodReceive);
-            } else {
-                $goodReceive->delete();
-                return redirect()->route('good-receive.index');
+                if (isset($goodReceiveDetails['bom_id'])) {
+                    $goodReceiveDetail->bom_id = $goodReceiveDetails['bom_id'];
+                }
+
+                $goodReceiveDetail->save();
+
+                if (isset($goodReceiveDetails['bom_id'])) {
+                    $goodDeliveryBom = new GoodDelivery();
+                    $goodDeliveryBom->createNewDeliverBom($goodReceive, $goodReceiveDetail);
+                }
             }
         }
+
+        return redirect()->route('good-receive.show', $goodReceive);
     }
 
     /**

@@ -9,19 +9,19 @@
         <div class="box">
             <div class="box-header">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Đơn vị giao hàng</label>
                             <input type="text" class="form-control" value="{{ $goodReceive->supplier->name }}" readonly="">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Người giao</label>
                             <input type="text" class="form-control" name="goodReceive[supplier]" value="{{ $goodReceive->supplier_user }}" readonly>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Ngày</label>
                             <div class="input-group">
@@ -33,7 +33,7 @@
                             <!-- /.input group -->
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Số phiếu</label>
                             <input type="text" class="form-control" name="goodReceive[number]" value="{{ $goodReceive->number }}" readonly>

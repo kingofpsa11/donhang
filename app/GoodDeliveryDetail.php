@@ -35,4 +35,5 @@ class GoodDeliveryDetail extends Model
         'quantity' => 0,
         'actual_quantity' => 0,
     ];
+
 }

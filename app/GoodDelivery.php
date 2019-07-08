@@ -48,4 +48,25 @@ class GoodDelivery extends Model
     {
         $this->number = self::whereYear('date', date('Y'))->max('number') + 1;
     }
+
+    public function createNewDeliverBom(GoodReceive $goodReceive, GoodReceiveDetail $goodReceiveDetail) {
+        $this->good_receive_id = $goodReceive->id;
+        $this->getNewNumber();
+        $this->date = $goodReceive->date;
+        $this->customer_id = $goodReceive->supplier_id;
+
+        if ($this->save()) {
+            $bom = Bom::getBomDetails($goodReceiveDetail->bom_id);
+
+            foreach ($bom->bomDetails as $bomDetail) {
+                $goodDeliveryBomDetail = new GoodDeliveryDetail();
+                $goodDeliveryBomDetail->good_delivery_id = $this->id;
+                $goodDeliveryBomDetail->good_receive_detail_id = $goodReceiveDetail->id;
+                $goodDeliveryBomDetail->product_id = $bomDetail->product_id;
+                $goodDeliveryBomDetail->actual_quantity = $goodReceiveDetail->quantity * $bomDetail->quantity;
+                $goodDeliveryBomDetail->store_id = $goodReceiveDetail->store_id;
+                $goodDeliveryBomDetail->save();
+            }
+        }
+    }
 }
