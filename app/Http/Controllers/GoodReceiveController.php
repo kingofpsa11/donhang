@@ -63,7 +63,7 @@ class GoodReceiveController extends Controller
                     $goodDeliveryBom->good_receive_id = $goodReceive->id;
                     $goodDeliveryBom->getNewNumber();
                     $goodDeliveryBom->date = $request->goodReceive['date'];
-                    $goodDeliveryBom->customer_id = $goodReceive->supplier->;
+                    $goodDeliveryBom->customer_id = $goodReceive->supplier->code;
                     $goodDeliveryBom->save();
                 }
                 $goodReceiveDetail->store_id = $value['store_id'];
