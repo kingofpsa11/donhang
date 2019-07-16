@@ -26,10 +26,10 @@
                         <td>{{ $bom->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('bom.show', [$bom])}}" class="btn btn-success btn-xs">
+                                <a href="{{ route('bom.show', [$bom])}}" class="btn btn-success">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('bom.edit', [$bom])}}" class="btn btn-info btn-xs">
+                                <a href="{{ route('bom.edit', [$bom])}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
@@ -82,7 +82,8 @@
                             } else if (data === '0') {
                                 return '<span class="label label-success">Xong</span>';
                             }
-                        }
+                        },
+                        className   : 'dt-body-center'
                     },
                     {
                         "data" : "action",

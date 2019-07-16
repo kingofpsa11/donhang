@@ -52,7 +52,7 @@ class GoodDelivery extends Model
     public function createNewDeliverBom(GoodReceive $goodReceive, GoodReceiveDetail $goodReceiveDetail) {
         $this->good_receive_id = $goodReceive->id;
         $this->getNewNumber();
-        $this->date = $goodReceive->date;
+        $this->date = strtotime(Carbon::createFromFormat('d/m/Y', $goodReceive->date, 'Asia/Bangkok')->format('Y-m-d'));
         $this->customer_id = $goodReceive->supplier_id;
 
         if ($this->save()) {
