@@ -31,7 +31,7 @@
         <td data-col-seq="6">
             <select name="contract_details[0][supplier_id]" class="form-control">
                 @foreach($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}">{{ $supplier->short_name }}</option>
+                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                 @endforeach
             </select>
         </td>

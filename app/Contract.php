@@ -30,6 +30,11 @@ class Contract extends Model
         return $this->hasMany('App\ContractDetail');
     }
 
+    public function manufacturerOrder()
+    {
+        return $this->hasMany('App\ManufacturerOrder');
+    }
+
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');

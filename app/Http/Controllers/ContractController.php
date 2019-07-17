@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Contract;
 use App\ContractDetail;
 use App\Customer;
-use App\ManufacturerNoteDetail;
 use App\ManufacturerOrder;
 use App\ManufacturerOrderDetail;
 use App\Supplier;
@@ -49,7 +48,7 @@ class ContractController extends Controller
     {
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
-//        $contract->number = $this->getLastContract($contract->customer_id);
+//        $contract->getLastContract($contract->customer_id);
         $contract->number = $request->contract['number'];
         $contract->date = $request->contract['date'];
         $contract->total_value = $request->contract['total_value'];
@@ -271,7 +270,8 @@ class ContractController extends Controller
             ->join('contract_details', 'contracts.id', '=', 'contract_details.contract_id')
             ->join('prices', 'prices.id', '=', 'contract_details.price_id')
             ->join('products', 'products.id', '=', 'prices.product_id')
-            ->join('manufacturer_orders', 'contract_details.manufacturer_order_id','=', 'manufacturer_orders.id')
+            ->join('manufacturer_orders', 'contract_details.id','=', 'manufacturer_orders.contract_id')
+            ->join('manufacturer_order_details', 'manufacturer_orders.id', '=', 'manufacturer_order_id')
             ->select('products.name', 'manufacturer_orders.number', 'contract_details.id', DB::raw('products.id as product_id'))
             ->where('manufacturer_orders.number', $term)
             ->get();

@@ -16,8 +16,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Khách hàng</label>
-                                <select class="form-control select2 customer" name="contract[customer_id]" required>
+                                <label for="selectCustomer">Khách hàng</label>
+                                <select class="form-control select2 customer" name="contract[customer_id]" id="selectCustomer" required>
                                     @if (isset($contract))
                                         <option value="{{ $contract->customer_id }}">{{ $contract->customer->name }}</option>
                                     @endif
@@ -160,12 +160,10 @@
                         url: '{{ route('prices.shows') }}',
                         delay: 200,
                         data: function (params) {
-                            let query = {
+                            return {
                                 search: params.term,
                                 customer_id: customerSelect.val()
                             };
-
-                            return query;
                         },
                         dataType: 'json',
                         dropdownAutoWidth : true,
@@ -260,7 +258,7 @@
                 maskDate(newRow.find('[name$="[deadline]"]'));
             });
 
-            $('#example1').on('click', '.removeRow', function (e) {
+            $('#example1').on('click', '.removeRow', function () {
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
                 updateNumberOfRow();
@@ -291,10 +289,11 @@
             $('#form').on('submit', function (e) {
                 e.preventDefault();
                 let form = this;
-                let number = $('[name*="number"]').val();
+                let numberObj = $('[name*="number"]');
+                let number = numberObj.val();
                 let customer_id = customerSelect.val();
                 let year = $('[name*="date"]').val().split('/')[2];
-                $('[name*="number"]').parent().find('span').html('');
+                numberObj.parent().find('span').html('');
 
                 $.get(
                     "{{ route('contract.checkNumber') }}",

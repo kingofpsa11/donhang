@@ -37,6 +37,7 @@
                             <th>STT</th>
                             <th>Mã vật tư</th>
                             <th>Tên vật tư</th>
+                            <th>Đvt</th>
                             <th>Số lượng</th>
                             <th>Ghi chú</th>
                         </tr>
@@ -48,6 +49,7 @@
                                 <td>{{ $i }}</td>
                                 <td>{{ $bomDetail->product->code }}</td>
                                 <td>{{ $bomDetail->product->name }}</td>
+                                <td></td>
                                 <td>{{ $bomDetail->quantity }}</td>
                                 <td></td>
                             </tr>

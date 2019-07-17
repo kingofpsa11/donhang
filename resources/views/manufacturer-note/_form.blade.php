@@ -13,28 +13,28 @@
 				<div class="box-header with-border">
 					<h3 class="box-title">Phiếu sản xuất</h3>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>Số phiếu sản xuất</label>
-                                <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->number ?? '' }}" required>
+                                <label>Số lệnh sản xuất</label>
+                                <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerOrder->number ?? '' }}" readonly>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Ngày</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? '' }}" name="manufacturerNote[date]" required>
+                                    <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? date('d/m/Y') }}" name="manufacturerNote[date]" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Đơn vị</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -45,11 +45,10 @@
 						<thead>
 						<tr>
 							<th>STT</th>
-							<th class="col-md-1">Số LSX</th>
-							<th class="col-md-5">Tên sản phẩm</th>
-                            <th class="col-md-3">Định mức</th>
-							<th class="col-md-1">Số lượng</th>
-							<th class="col-md-2">Ghi chú</th>
+							<th class="col-md-5 text-center">Tên sản phẩm</th>
+                            <th class="col-md-4 text-center">Phôi</th>
+							<th class="col-md-1 text-center">Số lượng</th>
+							<th class="col-md-2 text-center">Ghi chú</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -131,7 +130,7 @@
             }
 
             let contract_detail = $('[name$="[contract_detail_id]"]');
-            addSelect2Contract(contract_detail);
+            // addSelect2Contract(contract_detail);
             getProduct(contract_detail);
 
             function getProduct(el) {
@@ -144,61 +143,6 @@
                     addSelect2Bom(bomIdElement);
                 });
             }
-            
-            function updateNumberOfRow() {
-                let rows = $('tr[data-key]');
-                
-                rows.each(function (i, row) {
-                    $(row).attr('data-key', i);
-                    $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][manufacturer_order_number]');
-                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][contract_detail_id]');
-                    $(row).children('[data-col-seq="3"]').find('select').attr('name', 'manufacturerNoteDetails[' + i + '][bom_id]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][quantity]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'manufacturerNoteDetails[' + i + '][note]');
-                    if (i === 0) {
-                        if (rows.length === 1) {
-                            $(row).find('button.removeRow').addClass('hidden');
-                        } else {
-                            $(row).find('button.removeRow').removeClass('hidden');
-                        }
-                    }
-                });
-            }
-            
-            //Add or remove row to table
-            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
-                e.preventDefault();
-                let tableBody = $('tbody');
-                let numberOfProduct = tableBody.children().length;
-                let lastRow = $('tr:last');
-                let newRow = lastRow.clone();
-                let select2 = newRow.find('.select2.contract');
-
-                newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][manufacturer_order_number]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][contract_detail_id]');
-                newRow.children('[data-col-seq="3"]').find('select').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][bom_id]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][quantity]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'manufacturerNoteDetails[' + numberOfProduct + '][note]');
-                lastRow.find('button.removeRow').removeClass('hidden');
-                newRow.find('button.removeRow').removeClass('hidden');
-                newRow.find('.select2-container').remove();
-                newRow.find('option').remove();
-                newRow.find('input').val('');
-                tableBody.append(newRow);
-
-                addSelect2(select2);
-                getProduct(select2);
-            });
-
-            $('#example1').on('click', '.removeRow', function (e) {
-                e.preventDefault();
-                let currentRow = $(this).parents('tr');
-                currentRow.remove();
-                updateNumberOfRow();
-            });
             
             //Click cancel button
             $('button.cancel').on('click', function (e) {

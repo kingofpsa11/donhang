@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
 use App\ManufacturerNote;
 use App\ManufacturerNoteDetail;
+use App\ManufacturerOrder;
 use Illuminate\Http\Request;
 
 class ManufacturerNoteController extends Controller
@@ -24,9 +26,10 @@ class ManufacturerNoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ManufacturerOrder $manufacturerOrder)
     {
-        return view('manufacturer-note.create');
+        $manufacturerOrder->load('manufacturerOrderDetails.contractDetail.price.product');
+        return view('manufacturer-note.create', compact('manufacturerOrder'));
     }
 
     /**
@@ -51,10 +54,9 @@ class ManufacturerNoteController extends Controller
                 array_push($manufacturerNoteDetails, $manufacturerNoteDetail);
             }
 
-            if ($manufacturerNote->manufacturerNoteDetails()->saveMany($manufacturerNoteDetails)) {
-                return view('manufacturer-note.show', compact('manufacturerNote'));
-            }
+            $manufacturerNote->manufacturerNoteDetails()->saveMany($manufacturerNoteDetails);
         }
+        return view('manufacturer-note.show', compact('manufacturerNote'));
     }
 
     /**

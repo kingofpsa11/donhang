@@ -13,31 +13,34 @@
 @stop
 
 @section('table-body')
-    <tr data-key="0">
-        <td data-col-seq="0">1</td>
-        <td data-col-seq="1">
-            <input class="form-control" readonly name="manufacturerNoteDetails[0][manufacturer_order_number]">
-        </td>
-        <td data-col-seq="2">
-            <input type="hidden" name="manufacturerNoteDetails[0][product_id]">
-            <select type="text" class="form-control contract_detail" name="manufacturerNoteDetails[0][contract_detail_id]" style="width:100%" required>
-            </select>
-        </td>
-        <td data-col-seq="3">
-            <select type="text" class="form-control bom" name="manufacturerNoteDetails[0][bom_id]" style="width:100%" required>
-                <option value="">--Chọn định mức của sản phẩm--</option>
-            </select>
-        </td>
-        <td data-col-seq="4">
-            <input type="number" class="form-control" name="manufacturerNoteDetails[0][quantity]" required>
-        </td>
-        <td data-col-seq="5">
-            <input type="text" class="form-control" name="manufacturerNoteDetails[0][note]">
-        </td>
-        <td data-col-seq="6">
-            <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
-        </td>
-    </tr>
+    @foreach( $manufacturerOrder->manufacturerOrderDetails as $manufacturerOrderDetail )
+        @php( $i = $loop->index )
+        <tr data-key="{{ $i }}">
+            <td data-col-seq="0">{{ $loop->iteration }}</td>
+            <td data-col-seq="1">
+                {{ $manufacturerOrderDetail->contractDetail->price->product->name }}
+            </td>
+            <td data-col-seq="1">
+                <input type="hidden" name="manufacturerNoteDetails[{{ $i }}][contract_detail_id]" value="{{ $manufacturerOrderDetail->contract_detail_id }}">
+                <select type="text" class="form-control contract_detail" name="manufacturerNoteDetails[{{ $i }}][contract_detail_id]" style="width:100%" required>
+                    @foreach ($manufacturerOrderDetail->contractDetail->price->product->boms as $bom)
+                        <option value="{{ $bom->id }}">{{ $bom->name }}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td data-col-seq="3">
+                <select type="text" class="form-control bom" name="manufacturerNoteDetails[{{ $i }}][bom_id]" style="width:100%" required>
+                    <option value="">--Chọn định mức của sản phẩm--</option>
+                </select>
+            </td>
+            <td data-col-seq="4">
+                <input type="number" class="form-control" name="manufacturerNoteDetails[{{ $i }}][quantity]" required>
+            </td>
+            <td data-col-seq="5">
+                <input type="text" class="form-control" name="manufacturerNoteDetails[{{ $i }}][note]">
+            </td>
+        </tr>
+    @endforeach
 @endsection
 
 @section('javascript')

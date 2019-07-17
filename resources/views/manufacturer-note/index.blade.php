@@ -4,6 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp Phiếu sản xuất</h3>
+            <a href="{{ route('manufacturer-note.create') }}" class="btn btn-primary pull-right">Tạo mới phiếu sản xuất</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

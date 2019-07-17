@@ -89,15 +89,31 @@
                 </table>
             </div>
             <!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        @role(4)
+                        <button class="btn btn-primary" id="export">Xuất Excel</button>
+                        <a href="{{ route('manufacturer-note.create')}}" class="btn btn-info">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo phiếu cắt phôi
+                        </a>
+                        @endrole
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection
 
 @section('javascript')
     <script>
-        //Click cancel button
-        $('button.cancel').on('click', function (e) {
-            e.preventDefault();
+        {{--//Click cancel button--}}
+        {{--$('button.cancel').on('click', function (e) {--}}
+            {{--e.preventDefault();--}}
+        {{--});--}}
+        $('#export').on('click', function () {
+            $('#contract-show').table2excel();
         });
     </script>
 @stop
