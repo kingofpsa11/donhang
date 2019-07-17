@@ -25,7 +25,7 @@ class Contract extends Model
         return $this->belongsTo('App\Price');
     }
 
-    public function contract_details()
+    public function contractDetails()
     {
         return $this->hasMany('App\ContractDetail');
     }

@@ -45,8 +45,8 @@
 						<thead>
 						<tr>
 							<th>STT</th>
-							<th class="col-md-5 text-center">Tên sản phẩm</th>
-                            <th class="col-md-4 text-center">Phôi</th>
+							<th class="col-md-4 text-center">Tên sản phẩm</th>
+                            <th class="col-md-5 text-center">Phôi</th>
 							<th class="col-md-1 text-center">Số lượng</th>
 							<th class="col-md-2 text-center">Ghi chú</th>
 						</tr>
@@ -143,6 +143,68 @@
                     addSelect2Bom(bomIdElement);
                 });
             }
+    
+            function updateNumberOfRow() {
+                let rows = $('tr[data-key]');
+                rows.each(function (i, row) {
+                    $(row).attr('data-key', i);
+                    $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_details[' + (i) + '][code]');
+                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'contract_details[' + (i) + '][price_id]');
+                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (i) + '][quantity]');
+                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (i) + '][selling_price]');
+                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (i) + '][deadline]');
+                    $(row).children('[data-col-seq="6"]').find('select').attr('name', 'contract_details[' + (i) + '][supplier_id]');
+                    $(row).children('[data-col-seq="7"]').find('input').attr('name', 'contract_details[' + (i) + '][note]');
+                    
+                    if (i === 0) {
+                        if (rows.length === 1) {
+                            $(row).find('button.removeRow').addClass('hidden');
+                        } else {
+                            $(row).find('button.removeRow').removeClass('hidden');
+                        }
+                    }
+                });
+            }
+    
+            updateNumberOfRow();
+    
+            //Add or remove row to table
+            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
+                e.preventDefault();
+                let tableBody = $('tbody');
+                let numberOfProduct = tableBody.children().length;
+                let lastRow = $('tr:last');
+                let newRow = lastRow.clone();
+                let select2 = newRow.find('.select2.price');
+        
+                newRow.attr('data-key', numberOfProduct);
+                newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
+                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][code]');
+                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'contract_details[' + (numberOfProduct) + '][price_id]');
+                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][quantity]');
+                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][selling_price]');
+                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][deadline]');
+                newRow.children('[data-col-seq="6"]').find('select').attr('name', 'contract_details[' + (numberOfProduct) + '][supplier_id]');
+                newRow.children('[data-col-seq="7"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][note]');
+                lastRow.find('button.removeRow').removeClass('hidden');
+                newRow.find('button.removeRow').removeClass('hidden');
+                newRow.find('.select2-container').remove();
+                newRow.children('[data-col-seq="2"]').find('option').remove();
+                newRow.find('input').val('');
+                tableBody.append(newRow);
+        
+                addSelect2(select2);
+                getPrice(select2);
+                maskCurrency(newRow.find('[name$="[selling_price]"]'));
+                maskDate(newRow.find('[name$="[deadline]"]'));
+            });
+    
+            $('#example1').on('click', '.removeRow', function () {
+                let currentRow = $(this).parents('tr');
+                currentRow.remove();
+                updateNumberOfRow();
+            });
             
             //Click cancel button
             $('button.cancel').on('click', function (e) {
@@ -162,4 +224,6 @@
             $('#form').on('submit', function () {
                 convertDateToTimestamp($('[name="manufacturerNote[date]"]'));
             });
+        });
+    </script>
 @show

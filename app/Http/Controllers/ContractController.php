@@ -65,7 +65,7 @@ class ContractController extends Controller
                 array_push($contract_details, $contract_detail);
             }
 
-            if($contract->contract_details()->saveMany($contract_details)) {
+            if($contract->contractDetails()->saveMany($contract_details)) {
                 $user = User::find(11);
                 $user->notify(new \App\Notifications\Contract($contract->id, $contract->status, $contract->number));
                 return redirect()->route('contract.show', $contract);
@@ -172,7 +172,7 @@ class ContractController extends Controller
             $contract->date = $request->contract['date'];
             $contract->status = 10;
 
-            $contract->contract_details()->update(['status' => 9]);
+            $contract->contractDetails()->update(['status' => 9]);
 
             if ($contract->save()) {
                 foreach ($request->contract_details as $value) {
@@ -196,7 +196,7 @@ class ContractController extends Controller
                     }
                 }
 
-                $contract->contract_details()->where('status',9)->delete();
+                $contract->contractDetails()->where('status',9)->delete();
             }
 
             $user = User::find(11);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Contract;
 use App\ManufacturerNote;
 use App\ManufacturerNoteDetail;
 use App\ManufacturerOrder;
