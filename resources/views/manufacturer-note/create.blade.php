@@ -3,7 +3,7 @@
 @section('action', 'Tạo phiếu sản xuất')
 
 @section('route')
-    {{ route('manufacturer-note.store') }}
+    {{ route('manufacturer-notes.store') }}
 @endsection
 
 @section('date')

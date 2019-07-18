@@ -40,20 +40,18 @@ class ManufacturerNoteController extends Controller
     public function store(Request $request)
     {
         $manufacturerNote = new ManufacturerNote();
-        $manufacturerNote->number = $request->manufacturerNote['number'];
-        $manufacturerNote->date = $request->manufacturerNote['date'];
+        $manufacturerNote->number = $request->number;
+        $manufacturerNote->date = $request->date;
+
         if ($manufacturerNote->save()) {
-            $manufacturerNoteDetails = [];
             foreach ($request->manufacturerNoteDetails as $value) {
                 $manufacturerNoteDetail = new ManufacturerNoteDetail();
                 $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
                 $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
-                $manufacturerNoteDetail->bom_id = $value['bom_id'];
+                $manufacturerNoteDetail->product_id = $value['product_id'];
                 $manufacturerNoteDetail->quantity = $value['quantity'];
-                array_push($manufacturerNoteDetails, $manufacturerNoteDetail);
+                $manufacturerNoteDetail->save();
             }
-
-            $manufacturerNote->manufacturerNoteDetails()->saveMany($manufacturerNoteDetails);
         }
         return view('manufacturer-note.show', compact('manufacturerNote'));
     }
@@ -66,6 +64,7 @@ class ManufacturerNoteController extends Controller
      */
     public function show(ManufacturerNote $manufacturerNote)
     {
+        $manufacturerNote->load('manufacturerNoteDetails.contractDetail.manufacturerOrderDetail');
         return view('manufacturer-note.show', compact('manufacturerNote'));
     }
 

@@ -16,7 +16,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số lệnh sản xuất</label>
-                                <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerOrder->number ?? '' }}" readonly>
+                                <input type="text" class="form-control" name="number" value="{{ $manufacturerOrder->number ?? '' }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -26,7 +26,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? date('d/m/Y') }}" name="manufacturerNote[date]" required>
+                                    <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? date('d/m/Y') }}" name="date" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -61,7 +61,7 @@
                     <div>
                         <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ url('manufacturer-note') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ url('manufacturer-notes') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
 			</div>
@@ -183,7 +183,7 @@
             }
             
             $('#form').on('submit', function () {
-                convertDateToTimestamp($('[name="manufacturerNote[date]"]'));
+                convertDateToTimestamp($('[name="date"]'));
             });
         });
     </script>

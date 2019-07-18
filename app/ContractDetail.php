@@ -30,9 +30,9 @@ class ContractDetail extends Model
         return $this->hasMany('App\OutputOrderDetail');
     }
 
-    public function manufacturerOrder()
+    public function manufacturerOrderDetail()
     {
-        return $this->belongsTo('App\ManufacturerOrder');
+        return $this->hasOne('App\ManufacturerOrderDetail');
     }
 
     public function manufacturerNoteDetails()

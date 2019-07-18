@@ -54,7 +54,7 @@
                     @foreach ($manufacturerNote->manufacturerNoteDetails as $manufacturerNoteDetail)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrder->number }}</td>
+                            <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
                             <td>{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</td>
                             <td>{{ $manufacturerNoteDetail->quantity }}</td>
                             <td>{{ $manufacturerNoteDetail->note }}</td>
@@ -74,8 +74,8 @@
                     </div>
                 </div>
                 <div class="control-button">
-                    <div>
-                        <a href="{{ route('manufacturer-note.edit', $manufacturerNote) }}" class="btn btn-primary">
+                    <div class="text-right">
+                        <a href="{{ route('manufacturer-notes.edit', $manufacturerNote) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-default print">In</button>
@@ -86,7 +86,7 @@
         </div>
         <!-- /.box -->
     </section>
-    <form action="{{ route('manufacturer-note.destroy', [$manufacturerNote]) }}" method="POST">
+    <form action="{{ route('manufacturer-notes.destroy', [$manufacturerNote]) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">

@@ -63,8 +63,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('bom/getBom', 'BomController@getBom')->name('bom.getBom');
     Route::resource('bom', 'BomController');
 
-    Route::get('manufacturer-note/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-note.create');
-    Route::resource('manufacturer-note', 'ManufacturerNoteController');
+    Route::get('manufacturer-notes/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-notes.create');
+    Route::resource('manufacturer-notes', 'ManufacturerNoteController');
 
     Route::get('store/listStore', 'StoreController@listStore')->name('store.listStore');
     Route::resource('store', 'StoreController');
