@@ -27,7 +27,7 @@ class ManufacturerNoteController extends Controller
      */
     public function create(ManufacturerOrder $manufacturerOrder)
     {
-        $manufacturerOrder->load('manufacturerOrderDetails.contractDetail.price.product');
+        $manufacturerOrder->load('manufacturerOrderDetails.contractDetail.price.product','contract.contractDetails');
         return view('manufacturer-note.create', compact('manufacturerOrder'));
     }
 

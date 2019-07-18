@@ -105,7 +105,7 @@ class BomController extends Controller
 
     public function getBom(Request $request)
     {
-        $bom = Bom::where('product_id', $request->product_id)->get();
+        $bom = Bom::where('product_id', $request->productId)->with('bomDetails.product')->get();
         return response()->json($bom);
     }
 }

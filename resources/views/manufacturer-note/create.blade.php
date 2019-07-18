@@ -14,22 +14,29 @@
 
 @section('table-body')
     <tr data-key="0">
-        <td>
+        <td data-col-seq="0">
             <span>1</span>
         </td>
         <td data-col-seq="1">
             <select name="manufacturerNoteDetails[0][contract_detail_id]" class="form-control">
-                @foreach( $manufacturerOrder->contract->contractDetails as $contractDetails)
-                    <option value="{{ $contractDetails->id }}">{{ $contractDetails->price->product->name }}</option>
+                <option value="" hidden>--Chọn sản phẩm--</option>
+                @foreach( $manufacturerOrder->contract->contractDetails as $contractDetail)
+                    @foreach( $contractDetail->price->product->boms as $bom )
+                        <optgroup label="{{ $contractDetail->price->product->name }}">
+                        @foreach( $bom->bomDetails as $bomDetail )
+                            <option value="{{ $contractDetail->id }}" data-bom-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
+                        @endforeach
+                        </optgroup>
+                    @endforeach
                 @endforeach
             </select>
         </td>
         <td data-col-seq="2">
-            <select type="text" class="form-control" name="manufacturerNoteDetails[0][product_id]" style="width:100%" required>
+            <select class="form-control" name="manufacturerNoteDetails[0][product_id]" required>
             </select>
         </td>
         <td data-col-seq="3">
-            <input type="number" class="form-control" name="manufacturerNoteDetails[0][quantity]" required>
+            <input type="text" class="form-control" name="manufacturerNoteDetails[0][quantity]" required>
         </td>
         <td data-col-seq="4">
             <input type="text" class="form-control" name="manufacturerNoteDetails[0][note]">
