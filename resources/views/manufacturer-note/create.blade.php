@@ -41,5 +41,8 @@
         <td data-col-seq="4">
             <input type="text" class="form-control" name="manufacturerNoteDetails[0][note]">
         </td>
+        <td data-col-seq="5">
+            <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        </td>
     </tr>
 @endsection

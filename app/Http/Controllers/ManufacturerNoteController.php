@@ -48,6 +48,7 @@ class ManufacturerNoteController extends Controller
                 $manufacturerNoteDetail = new ManufacturerNoteDetail();
                 $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
                 $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
+                $manufacturerNoteDetail->bom_detail_id = $value['bom_detail_id'];
                 $manufacturerNoteDetail->product_id = $value['product_id'];
                 $manufacturerNoteDetail->quantity = $value['quantity'];
                 $manufacturerNoteDetail->save();
@@ -76,6 +77,7 @@ class ManufacturerNoteController extends Controller
      */
     public function edit(ManufacturerNote $manufacturerNote)
     {
+        $manufacturerNote->load('manufacturerNoteDetails.contractDetail.contract.contractDetails', 'manufacturerNoteDetails.bomDetail.product.boms.bomDetails.product');
         return view('manufacturer-note.edit', compact('manufacturerNote'));
     }
 
@@ -88,7 +90,30 @@ class ManufacturerNoteController extends Controller
      */
     public function update(Request $request, ManufacturerNote $manufacturerNote)
     {
-        //
+        $manufacturerNote->date = $request->date;
+
+        if ($manufacturerNote->save()) {
+            foreach ($request->manufacturerNoteDetails as $value) {
+                if (isset($value['id'])) {
+                    $manufacturerNoteDetail = ManufacturerNoteDetail::find($value['id']);
+                    $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
+                    $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
+                    $manufacturerNoteDetail->bom_detail_id = $value['bom_detail_id'];
+                    $manufacturerNoteDetail->product_id = $value['product_id'];
+                    $manufacturerNoteDetail->quantity = $value['quantity'];
+                    $manufacturerNoteDetail->save();
+                } else {
+                    $manufacturerNoteDetail = new ManufacturerNoteDetail();
+                    $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
+                    $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
+                    $manufacturerNoteDetail->bom_detail_id = $value['bom_detail_id'];
+                    $manufacturerNoteDetail->product_id = $value['product_id'];
+                    $manufacturerNoteDetail->quantity = $value['quantity'];
+                    $manufacturerNoteDetail->save();
+                }
+            }
+        }
+        return view('manufacturer-note.show', compact('manufacturerNote'));
     }
 
     /**

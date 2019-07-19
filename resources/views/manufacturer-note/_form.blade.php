@@ -16,7 +16,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số lệnh sản xuất</label>
-                                <input type="text" class="form-control" name="number" value="{{ $manufacturerOrder->number ?? '' }}" readonly>
+                                <input type="text" class="form-control" name="number" value="{{ $manufacturerOrder->number ?? $manufacturerNote->manufacturerNoteDetails()->first()->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -72,7 +72,7 @@
 
 @section('javascript')
     <script>
-        $(function () {
+        $(document).ready(function () {
 
             function maskDate(obj) {
                 obj.inputmask({
@@ -126,12 +126,10 @@
                     $(row).children('[data-col-seq="3"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][quantity]');
                     $(row).children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][note]');
 
-                    if (i === 0) {
-                        if (rows.length === 1) {
-                            $(row).find('button.removeRow').addClass('hidden');
-                        } else {
-                            $(row).find('button.removeRow').removeClass('hidden');
-                        }
+                    if (rows.length === 1) {
+                        $(row).find('button.removeRow').addClass('hidden');
+                    } else {
+                        $(row).find('button.removeRow').removeClass('hidden');
                     }
                 });
             }
@@ -148,17 +146,15 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
+                console.log(newRow.children('[data-col-seq="0"]').html());
                 newRow.children('[data-col-seq="1"]').find('select').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][contract_detail_id]');
                 newRow.children('[data-col-seq="2"]').find('select').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][product_id]');
                 newRow.children('[data-col-seq="3"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][quantity]');
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
-                newRow.find('.select2-container').remove();
-                newRow.children('[data-col-seq="2"]').find('option').remove();
                 newRow.find('input').val('');
                 tableBody.append(newRow);
-        
             });
     
             $('#example1').on('click', '.removeRow', function () {

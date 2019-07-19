@@ -3,7 +3,7 @@
 @section('action', 'Sửa lênh xuất hàng')
 
 @section('route')
-    {{ route('manufacturer-note.update', $manufacturerNote) }}
+    {{ route('manufacturer-notes.update', $manufacturerNote) }}
 @endsection
 
 @section('method')
@@ -14,37 +14,54 @@
     @foreach ($manufacturerNote->manufacturerNoteDetails as $manufacturerNoteDetail)
         @php( $i = $loop->index )
         <tr data-key="{{ $i }}">
-            <td data-col-seq="0">{{ $loop->iteration }}</td>
+            <td data-col-seq="{{ $i }}">
+                <span>{{ $loop->iteration }}</span>
+                <input type="hidden" name="manufacturerNoteDetails[{{ $i }}][id]" value="{{ $manufacturerNoteDetail->id }}">
+            </td>
             <td data-col-seq="1">
-                <input class="form-control" readonly name="manufacturerNoteDetails[{{ $i }}][manufacturer_order_number]" value="{{ $manufacturerNoteDetail->contractDetail->manufacturerOrder->number }}">
+                <select name="manufacturerNoteDetails[{{ $i }}][contract_detail_id]" class="form-control">
+                    <option value="" hidden>--Chọn sản phẩm--</option>
+                    @foreach( $manufacturerNoteDetail->contractDetail->contract->contractDetails as $contractDetail)
+                        @foreach( $contractDetail->price->product->boms as $bom )
+                            <optgroup label="{{ $contractDetail->price->product->name }}">
+                                @foreach( $bom->bomDetails as $bomDetail )
+                                    @if ( $manufacturerNoteDetail->bom_detail_id === $bomDetail->id )
+                                        <option value="{{ $contractDetail->id }}" data-bom-id="{{ $bomDetail->product->id }}" selected>{{ $bomDetail->product->name }}</option>
+                                    @else
+                                        <option value="{{ $contractDetail->id }}" data-bom-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
+                                    @endif
+
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    @endforeach
+                </select>
             </td>
             <td data-col-seq="2">
-                <input type="hidden" name="manufacturerNoteDetails[{{ $i }}][product_id]">
-                <select type="text" class="form-control contract_detail" name="manufacturerNoteDetails[{{ $i }}][contract_detail_id]" style="width:100%" required>
-                    <option value="{{ $manufacturerNoteDetail->contract_detail_id }}">{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</option>
+                <select class="form-control" name="manufacturerNoteDetails[{{ $i }}][product_id]" required>
+                    <option value="" hidden>--Chọn loại phôi--</option>
+                    @foreach( $manufacturerNoteDetail->bomDetail->product->boms as $bom )
+                        <optgroup label="{{ $bom->name }}">
+                            @foreach( $bom->bomDetails as $bomDetail )
+                                @if ( $bomDetail->product_id === $manufacturerNoteDetail->product_id )
+                                    <option value="{{ $bomDetail->product_id }}" selected>{{ $bomDetail->product->name }}</option>
+                                @else
+                                    <option value="{{ $bomDetail->product_id }}">{{ $bomDetail->product->name }}</option>
+                                @endif
+                            @endforeach
+                        </optgroup>
+                    @endforeach
                 </select>
             </td>
             <td data-col-seq="3">
-                <select type="text" class="form-control bom" name="manufacturerNoteDetails[{{ $i }}][bom_id]" style="width:100%" required>
-                    <option value="{{ $manufacturerNoteDetail->bom_id }}">{{ $manufacturerNoteDetail->bom->name }}</option>
-                </select>
+                <input type="text" class="form-control" name="manufacturerNoteDetails[{{ $i }}][quantity]" value="{{ $manufacturerNoteDetail->quantity }}" required>
             </td>
             <td data-col-seq="4">
-                <input type="number" class="form-control" name="manufacturerNoteDetails[{{ $i }}][quantity]" value="{{ $manufacturerNoteDetail->quantity }}" required>
-            </td>
-            <td data-col-seq="5">
                 <input type="text" class="form-control" name="manufacturerNoteDetails[{{ $i }}][note]" value="{{ $manufacturerNoteDetail->note }}">
             </td>
-            <td data-col-seq="6">
+            <td data-col-seq="5">
                 <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>
-        @php( $i++ )
     @endforeach
 @endsection
-
-@section('javascript')
-    @parent
-        });
-    </script>
-@stop

@@ -20,8 +20,13 @@ class ManufacturerNoteDetail extends Model
         return $this->belongsTo('App\ContractDetail');
     }
 
-    public function bom()
+    public function bomDetail()
     {
-        return $this->belongsTo('App\Bom');
+        return $this->belongsTo('App\BomDetail');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
     }
 }
