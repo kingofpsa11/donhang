@@ -13,8 +13,8 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Số phiếu sản xuất</label>
-                            <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->number ?? '' }}" readonly>
+                            <label>Số lệnh sản xuất</label>
+                            <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->manufacturerNoteDetails()->first()->contractDetail->manufacturerOrderDetail->manufacturerOrder->number ?? '' }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -44,8 +44,8 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th class="col-md-1">Số LSX</th>
-                        <th class="col-md-5">Tên sản phẩm</th>
+                        <th class="col-md-4">Tên sản phẩm</th>
+                        <th class="col-md-5">Phôi</th>
                         <th class="col-md-1">Số lượng</th>
                         <th class="col-md-2">Ghi chú</th>
                     </tr>
@@ -54,8 +54,8 @@
                     @foreach ($manufacturerNote->manufacturerNoteDetails as $manufacturerNoteDetail)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
                             <td>{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</td>
+                            <td>{{ $manufacturerNoteDetail->product->name }}</td>
                             <td>{{ $manufacturerNoteDetail->quantity }}</td>
                             <td>{{ $manufacturerNoteDetail->note }}</td>
                         </tr>

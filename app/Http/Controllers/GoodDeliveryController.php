@@ -55,7 +55,7 @@ class GoodDeliveryController extends Controller
             }
 
             if($goodDelivery->goodDeliveryDetails()->saveMany($goodDeliveryDetails)) {
-                return redirect()->route('good-delivery.show', [$goodDelivery]);
+                return redirect()->route('good-deliveries.show', [$goodDelivery]);
             }
         }
     }

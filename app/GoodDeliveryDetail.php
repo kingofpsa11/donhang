@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GoodDeliveryDetail extends Model
 {
-    protected $fillable = ['id', 'output_order_detail_id', 'good_delivery_id', 'quantiy', 'store_id'];
+    protected $fillable = ['id', 'output_order_detail_id', 'good_delivery_id', 'good_receive_detail_id', 'product_id', 'quantity', 'actual_quantity', 'store_id', 'status'];
 
     public $timestamps = true;
 

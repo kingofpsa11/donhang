@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('good-receive', 'GoodReceiveController');
 
-    Route::resource('good-delivery', 'GoodDeliveryController');
+    Route::resource('good-deliveries', 'GoodDeliveryController');
 
     Route::get('good-transfer/showInventory', 'GoodTransferController@showInventory')->name('good-transfer.showInventory');
     Route::resource('good-transfer', 'GoodTransferController');

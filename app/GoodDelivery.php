@@ -7,7 +7,9 @@ use Carbon\Carbon;
 
 class GoodDelivery extends Model
 {
-    protected $fillable = ['id', 'output_order_id', 'number', 'date'];
+    protected $fillable = ['id', 'output_order_id', 'good_receive_id', 'number', 'date', 'customer_id', 'status'];
+
+//    protected $dates = ['date'];
 
     public $timestamps = true;
 
@@ -28,7 +30,7 @@ class GoodDelivery extends Model
 
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
+        $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
     }
 
     public function getDateAttribute($value)
@@ -44,29 +46,29 @@ class GoodDelivery extends Model
         'status' => 10,
     ];
 
-    public function getNewNumber()
+    public static function getNewNumber()
     {
-        $this->number = self::whereYear('date', date('Y'))->max('number') + 1;
+        return self::whereYear('date', date('Y'))->max('number') + 1;
     }
 
-    public function createNewDeliverBom(GoodReceive $goodReceive, GoodReceiveDetail $goodReceiveDetail) {
-        $this->good_receive_id = $goodReceive->id;
-        $this->getNewNumber();
-        $this->date = strtotime(Carbon::createFromFormat('d/m/Y', $goodReceive->date, 'Asia/Bangkok')->format('Y-m-d'));
-        $this->customer_id = $goodReceive->supplier_id;
+    public static function createNewDeliverBom(GoodReceive $goodReceive, GoodReceiveDetail $goodReceiveDetail) {
+        self::firstOrCreate([
+            'good_receive_id' => $goodReceive->id,
+            'number' => self::getNewNumber(),
+            'date' => strtotime(Carbon::createFromFormat('d/m/Y', $goodReceive->date, 'Asia/Bangkok')->format('Y-m-d')),
+            'customer_id' => $goodReceive->supplier_id
+        ]);
 
-        if ($this->save()) {
-            $bom = Bom::getBomDetails($goodReceiveDetail->bom_id);
+        $bom = Bom::getBomDetails($goodReceiveDetail->bom_id);
 
-            foreach ($bom->bomDetails as $bomDetail) {
-                $goodDeliveryBomDetail = new GoodDeliveryDetail();
-                $goodDeliveryBomDetail->good_delivery_id = $this->id;
-                $goodDeliveryBomDetail->good_receive_detail_id = $goodReceiveDetail->id;
-                $goodDeliveryBomDetail->product_id = $bomDetail->product_id;
-                $goodDeliveryBomDetail->actual_quantity = $goodReceiveDetail->quantity * $bomDetail->quantity;
-                $goodDeliveryBomDetail->store_id = $goodReceiveDetail->store_id;
-                $goodDeliveryBomDetail->save();
-            }
+        foreach ($bom->bomDetails as $bomDetail) {
+            $goodDeliveryBomDetail = new GoodDeliveryDetail();
+            $goodDeliveryBomDetail->good_delivery_id = self::id;
+            $goodDeliveryBomDetail->good_receive_detail_id = $goodReceiveDetail->id;
+            $goodDeliveryBomDetail->product_id = $bomDetail->product_id;
+            $goodDeliveryBomDetail->actual_quantity = $goodReceiveDetail->quantity * $bomDetail->quantity;
+            $goodDeliveryBomDetail->store_id = $goodReceiveDetail->store_id;
+            $goodDeliveryBomDetail->save();
         }
     }
 }

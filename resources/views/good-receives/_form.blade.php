@@ -18,7 +18,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Đơn vị giao hàng</label>
-                                <select class="form-control" name="goodReceive[supplier_id]" required style="width: 100%;">
+                                <select class="form-control" name="supplier_id" required style="width: 100%;">
                                     @if (isset($goodReceive))
                                         <option value="{{ $goodReceive->supplier_id }}">{{ $goodReceive->supplier->name }}</option>
                                     @endif
@@ -28,7 +28,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Người giao</label>
-                                <input type="text" class="form-control" name="goodReceive[supplier_user]" value="{{ $goodReceive->supplier_user ?? '' }}">
+                                <input type="text" class="form-control" name="supplier_user" value="{{ $goodReceive->supplier_user ?? '' }}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -38,7 +38,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $goodReceive->date ?? date('d/m/Y') }}" name="goodReceive[date]" required>
+                                    <input type="text" class="form-control" value="{{ $goodReceive->date ?? date('d/m/Y') }}" name="date" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số phiếu</label>
-                                <input type="text" class="form-control" name="goodReceive[number]" value="{{ $newNumber ?? $goodReceive->number ?? '' }}" required>
+                                <input type="text" class="form-control" name="number" value="{{ $newNumber ?? $goodReceive->number ?? '' }}" required>
                             </div>
                         </div>
                     </div>
@@ -162,16 +162,16 @@
             }
 
             function addSelect2Bom (el) {
-                let product_id = el.parents('tr').find('[name*="[product_id]"]').val();
+                let productId = el.parents('tr').find('[name*="product_id"]').val();
                 el.html('');
 
                 $.ajax({
                     url: '{{ route('bom.getBom') }}',
-                    data: {product_id: product_id},
+                    data: {productId: productId},
                     dataType: 'json',
                     success: function (data) {
                         if (Object.keys(data).length !== 0) {
-                            el.append(`<option value="">--Chọn định mức sản phẩm--</option>`);
+                            el.append(`<option value="" hidden>--Chọn định mức sản phẩm--</option>`);
                             $.each(data, function (i, element) {
                                 el.append(`<option value="${element.id}">${element.name}</option>`);
                             });
@@ -225,15 +225,15 @@
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
                 rows.each(function (i, row) {
-                    $(row).attr('data-key', i);
+            //         $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span', i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][code]');
-                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][product_id]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][unit]');
-                    $(row).children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][bom_id]');
-                    $(row).children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][store_id]');
-                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][quantity]');
-
+            //         $(row).children('[data-col-seq="1"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][code]');
+            //         $(row).children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][product_id]');
+            //         $(row).children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][unit]');
+            //         $(row).children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][bom_id]');
+            //         $(row).children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][store_id]');
+            //         $(row).children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][quantity]');
+            //
                     if (rows.length === 1) {
                         $(row).find('button.removeRow').addClass('hidden');
                     } else {
@@ -241,7 +241,7 @@
                     }
                 });
             }
-
+            //
             updateNumberOfRow();
 
             //Add or remove row to table
@@ -253,13 +253,13 @@
                 let newRow = lastRow.clone();
                 let select2 = newRow.find('.product_id');
 
-                newRow.attr('data-key', numberOfProduct);
+                // newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][product_id]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][unit]');
-                newRow.children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][bom_id]');
-                newRow.children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][store_id]');
-                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][quantity]');
+                // newRow.children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][product_id]');
+                // newRow.children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][unit]');
+                // newRow.children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][bom_id]');
+                // newRow.children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][store_id]');
+                // newRow.children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][quantity]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();

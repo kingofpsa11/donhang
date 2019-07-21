@@ -24,12 +24,13 @@
                     @foreach( $contractDetail->price->product->boms as $bom )
                         <optgroup label="{{ $contractDetail->price->product->name }}">
                         @foreach( $bom->bomDetails as $bomDetail )
-                            <option value="{{ $contractDetail->id }}" data-bom-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
+                            <option value="{{ $contractDetail->id }}" data-bom-detail-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
                         @endforeach
                         </optgroup>
                     @endforeach
                 @endforeach
             </select>
+            <input type="hidden" name="manufacturerNoteDetails[0][bom_detail_id]">
         </td>
         <td data-col-seq="2">
             <select class="form-control" name="manufacturerNoteDetails[0][product_id]" required>

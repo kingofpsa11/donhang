@@ -9,10 +9,19 @@ use App\GoodDeliveryDetail;
 use App\Role;
 use App\User;
 use App\Bom;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GoodReceiveController extends Controller
 {
+    protected $goodReceive;
+    protected $goodReceiveDetail;
+
+    public function __construct(GoodReceive $goodReceive)
+    {
+        $this->goodReceive = $goodReceive;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +29,7 @@ class GoodReceiveController extends Controller
      */
     public function index()
     {
-        $goodReceiveDetails = GoodReceiveDetail::all();
+        $goodReceiveDetails = GoodReceiveDetail::with('goodReceive')->get();
         return view('good-receives.index', compact('goodReceiveDetails'));
     }
 
@@ -32,8 +41,9 @@ class GoodReceiveController extends Controller
     public function create()
     {
         $roles = Role::find([4,5]);
-        $newNumber = $this->getNewNumber();
-        return view('good-receives.create', compact('roles', 'newNumber'));
+        $this->goodReceive->getNewNumber();
+        $newNumber = $this->goodReceive->number;
+        return view('good-receive.create', compact('roles', 'newNumber'));
     }
 
     /**
@@ -44,34 +54,53 @@ class GoodReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        $goodReceive = new GoodReceive();
-        $goodReceive->number = $request->goodReceive['number'];
-        $goodReceive->supplier_id = $request->goodReceive['supplier_id'];
-        $goodReceive->date = $request->goodReceive['date'];
-        $goodReceive->supplier_user = $request->goodReceive['supplier_user'];
+//        return $request->all();
+        $this->goodReceive->fill($request->all());
+        if ( $this->goodReceive->save() ) {
+            foreach ($request->code as $key => $value) {
+                $goodReceiveDetail = GoodReceiveDetail::create([
+                    'good_receive_id' => $this->goodReceive->id,
+                    'code' => $request->code[$key],
+                    'product_id' => $request->product_id[$key],
+                    'unit' => $request->unit[$key],
+                    'bom_id' => $request->bom_id[$key],
+                    'store_id' => $request->store_id[$key],
+                    'quantity' => $request->quantity[$key]
+                ]);
 
-        if ($goodReceive->save()) {
-            foreach ($request->goodReceiveDetails as $goodReceiveDetails) {
-                $goodReceiveDetail = new GoodReceiveDetail();
-                $goodReceiveDetail->good_receive_id = $goodReceive->id;
-                $goodReceiveDetail->product_id = $goodReceiveDetails['product_id'];
-                $goodReceiveDetail->quantity = $goodReceiveDetails['quantity'];
-                $goodReceiveDetail->store_id = $goodReceiveDetails['store_id'];
+                if ( isset($request->bom_id[$key]) ) {
 
-                if (isset($goodReceiveDetails['bom_id'])) {
-                    $goodReceiveDetail->bom_id = $goodReceiveDetails['bom_id'];
-                }
+                    $date = Carbon::createFromFormat(config('app.date_format'), $this->goodReceive->date, 'Asia/Bangkok')->format('Y-m-d');
+                    $goodDelivery = GoodDelivery::where('good_receive_id', $this->goodReceive->id)
+                        ->where('date', $date)
+                        ->where('customer_id', $this->goodReceive->supplier_id)
+                        ->first();
 
-                $goodReceiveDetail->save();
+                    if (!$goodDelivery) {
+                        $goodDelivery = GoodDelivery::create([
+                            'good_receive_id' => $this->goodReceive->id,
+                            'date' => $this->goodReceive->date,
+                            'customer_id' => $this->goodReceive->supplier_id,
+                            'number' => GoodDelivery::getNewNumber()
+                        ]);
+                    }
 
-                if (isset($goodReceiveDetails['bom_id'])) {
-                    $goodDeliveryBom = new GoodDelivery();
-                    $goodDeliveryBom->createNewDeliverBom($goodReceive, $goodReceiveDetail);
+                    $bom = Bom::getBomDetails($request->bom_id[$key]);
+
+                    foreach ($bom->bomDetails as $bomDetail) {
+                        GoodDeliveryDetail::firstOrCreate([
+                            'good_delivery_id' => $goodDelivery->id,
+                            'good_receive_detail_id' => $goodReceiveDetail->id,
+                            'product_id' => $bomDetail->product_id,
+                            'actual_quantity' => $goodReceiveDetail->quantity * $bomDetail->quantity,
+                            'store_id' => $goodReceiveDetail->store_id
+                        ]);
+                    }
                 }
             }
         }
 
-        return redirect()->route('good-receive.show', $goodReceive);
+        return redirect()->route('good-receive.show', $this->goodReceive);
     }
 
     /**
@@ -82,6 +111,7 @@ class GoodReceiveController extends Controller
      */
     public function show(GoodReceive $goodReceive)
     {
+        $goodReceive->load('goodReceiveDetails.product', 'goodReceiveDetails.bom', 'goodReceiveDetails.store', 'supplier');
         return view('good-receives.show', compact('goodReceive'));
     }
 
@@ -93,7 +123,7 @@ class GoodReceiveController extends Controller
      */
     public function edit(GoodReceive $goodReceive)
     {
-        return view('good-receives.edit', compact('goodReceive'));
+        return view('good-receive.edit', compact('goodReceive'));
     }
 
     /**
@@ -141,7 +171,7 @@ class GoodReceiveController extends Controller
             $goodReceive->goodReceiveDetails()->where('status',9)->delete();
         }
 
-        return view('good-receives.show', compact('goodReceive'));
+        return view('good-receive.show', compact('goodReceive'));
     }
 
     /**
@@ -152,6 +182,7 @@ class GoodReceiveController extends Controller
      */
     public function destroy(GoodReceive $goodReceive)
     {
+        $goodReceive->goodDelivery->delete();
         $goodReceive->delete();
         flash('Đã xóa phiếu xuất ' . $goodReceive->number)->warning();
         return redirect()->route('good-receive.index');

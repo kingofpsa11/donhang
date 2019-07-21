@@ -21,9 +21,14 @@ class GoodReceive extends Model
         return $this->hasMany('App\GoodReceiveDetail');
     }
 
+    public function goodDelivery()
+    {
+        return $this->hasOne('App\GoodDelivery');
+    }
+
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
+        $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
     }
 
     public function getDateAttribute($value)
@@ -38,4 +43,9 @@ class GoodReceive extends Model
     protected $attributes = [
         'status' => 10,
     ];
+
+    public function getNewNumber()
+    {
+        $this->number = ($this->whereYear('date', date('Y'))->max('number') + 1) ?? 1;
+    }
 }

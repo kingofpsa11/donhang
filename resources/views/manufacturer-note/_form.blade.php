@@ -85,36 +85,36 @@
             
             maskDate(date);
             
-            let contractDetailId = $('[name*="[contract_detail_id]"]');
-            getProduct(contractDetailId);
+            $('tbody').on('change', '[name*="[contract_detail_id]"]', function () {
+                let idOfProductBomDetail = $(this).find(':selected').data('product-id');
+                let idOfBomDetail = $(this).find(':selected').data('bom-detail-id');
+                let bomEl = $(this).parents('tr').find('[name*="product_id"]');
+                
+                //gán bom-detail-id cho input bom-detail-id
+                $(this).parent().find('input').val(idOfBomDetail);
+                
+                //Xoá các option của select product-id
+                bomEl.html('');
 
-            function getProduct(el) {
-                el.on('change', function () {
-                    let productId = el.find(':selected').data('bom-id');
-                    let bomEl = el.parents('tr').find('[name*="product_id"]');
-
-                    bomEl.html('');
-
-                    $.ajax({
-                        url: '{{ route('bom.getBom') }}',
-                        data: { productId: productId },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (Object.keys(data).length !== 0) {
-                                bomEl.append(`<option value="" hidden>--Chọn loại phôi--</option>`);
-                                $.each( data, function (i, el) {
-                                    bomEl.append(`<optgroup  label="${el.name}"></optgroup>`);
-                                    $.each( el.bom_details, function (index, element) {
-                                        bomEl.find('optgroup:last').append(`<option value="${element.product_id}">${element.product.name}</option>`);
-                                    });
+                $.ajax({
+                    url: '{{ route('bom.getBom') }}',
+                    data: { productId: idOfProductBomDetail },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (Object.keys(data).length !== 0) {
+                            bomEl.append(`<option value="" hidden>--Chọn loại phôi--</option>`);
+                            $.each( data, function (i, el) {
+                                bomEl.append(`<optgroup  label="${el.name}"></optgroup>`);
+                                $.each( el.bom_details, function (index, element) {
+                                    bomEl.find('optgroup:last').append(`<option value="${element.product_id}">${element.product.name}</option>`);
                                 });
-                            } else {
-                                bomEl.append(`<option value="">Chưa có định mức</option>`);
-                            }
+                            });
+                        } else {
+                            bomEl.append(`<option value="">Chưa có định mức</option>`);
                         }
-                    });
+                    }
                 });
-            }
+            });
     
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
@@ -122,6 +122,7 @@
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
                     $(row).children('[data-col-seq="1"]').find('select').attr('name', 'manufacturerNoteDetails[' + (i) + '][contract_detail_id]');
+                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][bom_detail_id]');
                     $(row).children('[data-col-seq="2"]').find('select').attr('name', 'manufacturerNoteDetails[' + (i) + '][product_id]');
                     $(row).children('[data-col-seq="3"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][quantity]');
                     $(row).children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][note]');
@@ -146,14 +147,15 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
-                console.log(newRow.children('[data-col-seq="0"]').html());
                 newRow.children('[data-col-seq="1"]').find('select').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][contract_detail_id]');
+                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][bom_detail_id]');
                 newRow.children('[data-col-seq="2"]').find('select').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][product_id]');
                 newRow.children('[data-col-seq="3"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][quantity]');
                 newRow.children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
-                newRow.find('input').val('');
+                newRow.find('input[name*="quantity"]').val('');
+                newRow.find('input[name*="note"]').val('');
                 tableBody.append(newRow);
             });
     
