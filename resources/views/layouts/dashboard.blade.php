@@ -65,7 +65,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+    <div class="wrapper">
 
     <!-- Main Header -->
     <header class="main-header">
@@ -441,37 +441,36 @@ desired effect
     immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-<script src="{{ asset('js/app.js') }}"></script>
-<!-- jQuery 3 -->
-{{--<script src="bower_components/jquery/dist/jquery.min.js"></script>--}}
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
-<script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
-<script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
-<script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-<script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- jQuery 3 -->
+    {{--<script src="bower_components/jquery/dist/jquery.min.js"></script>--}}
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
-@yield('javascript')
-@stack('scripts')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
+    @yield('javascript')
+    @stack('scripts')
 
-<script>
-    $(function () {
-        $('button').on('click', function (e) {
-            e.preventDefault();
-        });
-        
-        // flash auto hide
-        $('#flash-msg .alert').not('.alert-danger, .alert-important').delay(3000).slideUp(500);
-
-        $('.markAllRead').on('click', function() {
-            $.get('{{ route("users.markAsReadNotifications") }}', function (result) {
-                console.log(result);
+    <script>
+        $(function () {
+            $('button').on('click', function (e) {
+                e.preventDefault();
             });
-        });
 
-    })
-</script>
+            // flash auto hide
+            $('#flash-msg .alert').not('.alert-danger, .alert-important').delay(3000).slideUp(500);
+
+            $('.markAllRead').on('click', function() {
+                $.get('{{ route("users.markAsReadNotifications") }}', function (result) {
+                    console.log(result);
+                });
+            });
+        })
+    </script>
 </body>
 </html>

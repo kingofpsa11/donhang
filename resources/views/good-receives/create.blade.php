@@ -37,7 +37,7 @@
         <td data-col-seq="6">
             <input type="text" class="form-control" name="quantity[]" required>
         </td>
-        <td data-col-seq="6">
+        <td data-col-seq="7">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
         </td>
     </tr>

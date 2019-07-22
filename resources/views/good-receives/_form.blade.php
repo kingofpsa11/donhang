@@ -25,13 +25,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Người giao</label>
                                 <input type="text" class="form-control" name="supplier_user" value="{{ $goodReceive->supplier_user ?? '' }}">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Ngày</label>
                                 <div class="input-group">
@@ -43,10 +43,16 @@
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Số phiếu</label>
-                                <input type="text" class="form-control" name="number" value="{{ $newNumber ?? $goodReceive->number ?? '' }}" required>
+                                <input type="text" class="form-control" name="number" value="{{ $newNumber ?? $goodReceive->number }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <input type="text" class="form-control" name="note" value="{{ $goodReceive->note ?? '' }}">
                             </div>
                         </div>
                     </div>
