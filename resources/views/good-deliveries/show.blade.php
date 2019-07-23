@@ -47,13 +47,17 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th class="col-md-1">Mã sản phẩm</th>
-                        <th class="col-md-5">Tên sản phẩm</th>
+                        <th class="col-md-2">Mã sản phẩm</th>
+                        <th class="col-md-6">Tên sản phẩm</th>
                         <th class="col-md-1">Đvt</th>
-                        <th class="col-md-2">Định mức</th>
                         <th class="col-md-1">Kho</th>
+                        @role(5)
                         <th class="col-md-1">Số lượng</th>
                         <th class="col-md-1">Số lượng thực xuất</th>
+                        @else
+                        <th class="col-md-2">Số lượng thực xuất</th>
+                        @endrole
+
                     </tr>
                     </thead>
                     <tbody>
@@ -63,9 +67,10 @@
                             <td>{{ $goodDeliveryDetail->product->code }}</td>
                             <td>{{ $goodDeliveryDetail->product->name ?? ''}}</td>
                             <td></td>
-                            <td>{{ $goodDeliveryDetail->bom->name ?? '' }}</td>
-                            <td>{{ $goodDeliveryDetail->store_id }}</td>
+                            <td>{{ $goodDeliveryDetail->store->code }}</td>
+                            @role(5)
                             <td>{{ $goodDeliveryDetail->quantity }}</td>
+                            @endrole
                             <td>{{ $goodDeliveryDetail->actual_quantity }}</td>
                         </tr>
                     @endforeach
@@ -76,25 +81,23 @@
             <div class="box-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        {{--@role('User')--}}
+
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
                         @if ( $goodDelivery->status !== 5 )
-                            <a href="{{ route('good-delivery.edit', $goodDelivery)}}" class="btn btn-info">
+                            <a href="{{ route('good-deliveries.edit', $goodDelivery)}}" class="btn btn-info">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                             </a>
                             <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                         @endif
-                        {{--@endrole--}}
-                        
-                        {{--@role('Admin')--}}
+
                         @if( $goodDelivery->status === 10 )
-                            <form action="{{ route('good-delivery.update', $goodDelivery) }}" method="POST" class="btn">
+                            <form action="{{ route('good-deliveries.update', $goodDelivery) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('PATCH')
                                 <input type="submit" class="btn btn-success" value="Duyệt" name="approved">
                             </form>
                         @endif
-                        {{--@endrole--}}
+
                     </div>
                 </div>
             </div>
@@ -102,7 +105,7 @@
         <!-- /.box -->
     </section>
     {{--    @role('User')--}}
-    <form action="{{ route('good-delivery.destroy', $goodDelivery) }}" method="POST">
+    <form action="{{ route('good-deliveries.destroy', $goodDelivery) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">

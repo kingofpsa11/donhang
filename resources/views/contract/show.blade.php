@@ -64,17 +64,17 @@
                     </thead>
                     <tbody>
                         @php($i=1)
-                        @foreach ($contract->contract_details as $contract_detail)
+                        @foreach ($contract->contractDetails as $contractDetails)
                             <tr>
                                 <td>{{ $i }}</td>
-                                <td>{{ $contract_detail->price->product->code }}</td>
-                                <td>{{ $contract_detail->price->product->name }}</td>
-                                <td>{{ $contract_detail->quantity }}</td>
-                                <td>{{ $contract_detail->selling_price }}</td>
-                                <td>{{ $contract_detail->deadline }}</td>
-                                <td>{!! $contract_detail->status === 10 ? '<span class="label label-primary">Chờ phê duyệt</span>' : ''!!}</td>
-                                <td>{{ $contract_detail->supplier->short_name }}</td>
-                                <td>{{ $contract_detail->note }}</td>
+                                <td>{{ $contractDetails->price->product->code }}</td>
+                                <td>{{ $contractDetails->price->product->name }}</td>
+                                <td>{{ $contractDetails->quantity }}</td>
+                                <td>{{ $contractDetails->selling_price }}</td>
+                                <td>{{ $contractDetails->deadline }}</td>
+                                <td>{!! $contractDetails->status === 10 ? '<span class="label label-primary">Chờ phê duyệt</span>' : ''!!}</td>
+                                <td>{{ $contractDetails->supplier->short_name }}</td>
+                                <td>{{ $contractDetails->note }}</td>
                             </tr>
                             @php($i++)
                         @endforeach

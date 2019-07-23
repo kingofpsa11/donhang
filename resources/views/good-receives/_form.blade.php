@@ -233,13 +233,7 @@
                 rows.each(function (i, row) {
             //         $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span', i + 1);
-            //         $(row).children('[data-col-seq="1"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][code]');
-            //         $(row).children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][product_id]');
-            //         $(row).children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][unit]');
-            //         $(row).children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][bom_id]');
-            //         $(row).children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + i + '][store_id]');
-            //         $(row).children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + i + '][quantity]');
-            //
+
                     if (rows.length === 1) {
                         $(row).find('button.removeRow').addClass('hidden');
                     } else {
@@ -260,12 +254,8 @@
                 let select2 = newRow.find('.product_id');
 
                 // newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                // newRow.children('[data-col-seq="2"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][product_id]');
-                // newRow.children('[data-col-seq="3"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][unit]');
-                // newRow.children('[data-col-seq="4"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][bom_id]');
-                // newRow.children('[data-col-seq="5"]').find('select').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][store_id]');
-                // newRow.children('[data-col-seq="6"]').find('input').attr('name', 'goodReceiveDetails[' + (numberOfProduct) + '][quantity]');
+                newRow.children('[data-col-seq="0"]').find('span', numberOfProduct + 1);
+
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -286,20 +276,6 @@
             //Click cancel button
             $('button.cancel').on('click', function (e) {
                 e.preventDefault();
-            });
-
-            function convertDateToTimestamp(obj) {
-                obj.each(function (i, el) {
-                    let date = $(el).val();
-                    $(el).inputmask('remove');
-                    let datePart = date.split('/');
-                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                    $(el).val(newDate.getTime()/1000);
-                });
-            }
-
-            $('#form').on('submit', function () {
-                convertDateToTimestamp($('[name$="[date]"]'));
             });
         })
     </script>

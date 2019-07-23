@@ -48,7 +48,6 @@ class ContractController extends Controller
     {
         $contract = new Contract();
         $contract->customer_id = $request->contract['customer_id'];
-//        $contract->getLastContract($contract->customer_id);
         $contract->number = $request->contract['number'];
         $contract->date = $request->contract['date'];
         $contract->total_value = $request->contract['total_value'];
@@ -81,7 +80,7 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        $contract->load('contract_details');
+        $contract->load('contractDetails');
         return view('contract.show', compact('contract'));
     }
 

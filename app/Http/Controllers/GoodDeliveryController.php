@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class GoodDeliveryController extends Controller
 {
+    protected $goodDelivery;
+
+    public function __construct(GoodDelivery $goodDelivery)
+    {
+        $this->goodDelivery = $goodDelivery;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +33,8 @@ class GoodDeliveryController extends Controller
      */
     public function create()
     {
-        return view('good-deliveries.create');
+        $newNumber = self::getNewNumber();
+        return view('good-deliveries.create', compact('newNumber'));
     }
 
     /**
@@ -37,27 +45,21 @@ class GoodDeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        $goodDelivery = new GoodDelivery();
-        $goodDelivery->number = $request->goodDelivery['number'];
-        $goodDelivery->customer_id = $request->goodDelivery['customer_id'];
-        $goodDelivery->date = $request->goodDelivery['date'];
-        $goodDelivery->customer_user = $request->goodDelivery['customer_user'];
+        $this->goodDelivery->fill(
+            $request->all()
+        );
 
-        if ($goodDelivery->save()) {
-            $goodDeliveryDetails = [];
-            foreach ($request->goodDeliveryDetails as $value) {
-                $goodDeliveryDetail = new GoodDeliveryDetail();
-                $goodDeliveryDetail->good_delivery_id = $goodDelivery->id;
-                $goodDeliveryDetail->product_id = $value['product_id'];
-                $goodDeliveryDetail->quantity = $value['quantity'];
-                $goodDeliveryDetail->store_id = $value['store_id'];
-                array_push($goodDeliveryDetails, $goodDeliveryDetail);
-            }
-
-            if($goodDelivery->goodDeliveryDetails()->saveMany($goodDeliveryDetails)) {
-                return redirect()->route('good-deliveries.show', [$goodDelivery]);
+        if ($this->goodDelivery->save()) {
+            foreach ($request->code as $key => $value) {
+                GoodDeliveryDetail::create([
+                    'good_delivery_id' => $this->goodDelivery->id,
+                    'product_id' => $request->product_id[$key],
+                    'actual_quantity' => $request->actual_quantity[$key],
+                    'store_id' => $request->store_id[$key]
+                ]);
             }
         }
+        return redirect()->route('good-deliveries.show', $this->goodDelivery);
     }
 
     /**
@@ -68,6 +70,7 @@ class GoodDeliveryController extends Controller
      */
     public function show(GoodDelivery $goodDelivery)
     {
+        $goodDelivery->load('goodDeliveryDetails.product');
         return view('good-deliveries.show', compact('goodDelivery'));
     }
 

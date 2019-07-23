@@ -5,6 +5,37 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+/**
+ * App\GoodDelivery
+ *
+ * @property int $id
+ * @property int|null $output_order_id
+ * @property int|null $good_receive_id
+ * @property int $number
+ * @property string $date
+ * @property int $customer_id
+ * @property string|null $customer_user
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Customer $customer
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GoodDeliveryDetail[] $goodDeliveryDetails
+ * @property-read \App\OutputOrder|null $outputOrder
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereCustomerUser($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereGoodReceiveId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereOutputOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\GoodDelivery whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class GoodDelivery extends Model
 {
     protected $fillable = ['id', 'output_order_id', 'good_receive_id', 'number', 'date', 'customer_id', 'status'];
@@ -51,24 +82,4 @@ class GoodDelivery extends Model
         return self::whereYear('date', date('Y'))->max('number') + 1;
     }
 
-    public static function createNewDeliverBom(GoodReceive $goodReceive, GoodReceiveDetail $goodReceiveDetail) {
-        self::firstOrCreate([
-            'good_receive_id' => $goodReceive->id,
-            'number' => self::getNewNumber(),
-            'date' => strtotime(Carbon::createFromFormat('d/m/Y', $goodReceive->date, 'Asia/Bangkok')->format('Y-m-d')),
-            'customer_id' => $goodReceive->supplier_id
-        ]);
-
-        $bom = Bom::getBomDetails($goodReceiveDetail->bom_id);
-
-        foreach ($bom->bomDetails as $bomDetail) {
-            $goodDeliveryBomDetail = new GoodDeliveryDetail();
-            $goodDeliveryBomDetail->good_delivery_id = self::id;
-            $goodDeliveryBomDetail->good_receive_detail_id = $goodReceiveDetail->id;
-            $goodDeliveryBomDetail->product_id = $bomDetail->product_id;
-            $goodDeliveryBomDetail->actual_quantity = $goodReceiveDetail->quantity * $bomDetail->quantity;
-            $goodDeliveryBomDetail->store_id = $goodReceiveDetail->store_id;
-            $goodDeliveryBomDetail->save();
-        }
-    }
 }
