@@ -23,7 +23,7 @@
         <tr data-key="{{ $loop->index }}">
             <td class="" data-col-seq="0">
                 <span>{{ $loop->iteration }}</span>
-                <input type="hidden" name="id[]" value="{{ $goodDeliveryDetail->id }}">
+                <input type="hidden" name="good_delivery_detail_id[]" value="{{ $goodDeliveryDetail->id }}">
             </td>
             <td data-col-seq="1">
                 <input type="text" class="form-control" name="code[]" value="{{ $goodDeliveryDetail->product->code }}" readonly>
@@ -42,7 +42,7 @@
                 </select>
             </td>
             <td data-col-seq="5">
-                <input type="text" class="form-control" name="quantity[]" value="{{ $goodDeliveryDetail->quantity }}" {{ $view }}>
+                <input type="text" class="form-control" name="quantity[]" value="{{ $goodDeliveryDetail->quantity }}" readonly>
             </td>
             <td data-col-seq="6">
                 <input type="text" class="form-control" name="actual_quantity[]" value="{{ $goodDeliveryDetail->actual_quantity }}">

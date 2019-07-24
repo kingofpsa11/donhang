@@ -79,7 +79,7 @@ class GoodDelivery extends Model
 
     public static function getNewNumber()
     {
-        return self::whereYear('date', date('Y'))->max('number') + 1;
+        return (self::whereYear('date', date('Y'))->max('number') + 1) ?? 1;
     }
 
 }

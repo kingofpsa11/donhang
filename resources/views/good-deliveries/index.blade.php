@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp phiếu xuất kho</h3>
-            <a class="btn btn-primary pull-right" href="{{ route('good-receive.create') }}">Tạo phiếu xuất mới</a>
+            <a class="btn btn-primary pull-right" href="{{ route('good-deliveries.create') }}">Tạo phiếu xuất mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
@@ -33,10 +33,10 @@
                         <td>{{ $goodDeliveryDetail->actual_quantity }}</td>
                         <td>{{ $goodDeliveryDetail->status }}</td>
                         <td>
-                            <a href="{{ route('good-delivery.show', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-success">
+                            <a href="{{ route('good-deliveries.show', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-success">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                             </a>
-                            <a href="{{ route('good-delivery.edit', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-info">
+                            <a href="{{ route('good-deliveries.edit', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-info">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                             </a>
                         </td>

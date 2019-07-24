@@ -3,43 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/BomDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BomDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Contract.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ContractDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ContractDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Customer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/GoodDelivery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GoodDelivery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/GoodDeliveryDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GoodDeliveryDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/GoodReceive.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GoodReceive.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/GoodReceiveDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GoodReceiveDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerNote.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNote.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerOrder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerOrderDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerOrderDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/OutputOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/OutputOrder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/OutputOrderDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/OutputOrderDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Price.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Price.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/PriceQuotation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/PriceQuotation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/PriceQuotationDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/PriceQuotationDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ProfitRate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ProfitRate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Store.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Store.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Supplier.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Supplier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_14_133452_create_good_delivery_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_14_133452_create_good_delivery_details_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/contract/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receives/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receives/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,10 +35,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="496">
+              <caret line="207" column="31" lean-forward="true" selection-start-line="207" selection-start-column="31" selection-end-line="207" selection-end-column="31" />
+              <folding>
+                <element signature="e#40#61#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="72" column="56" selection-start-line="72" selection-start-column="56" selection-end-line="72" selection-end-column="56" />
+            <state relative-caret-position="216">
+              <caret line="114" column="57" lean-forward="true" selection-start-line="114" selection-start-column="57" selection-end-line="114" selection-end-column="57" />
               <folding>
                 <element signature="e#40#61#0#PHP" expanded="true" />
               </folding>
@@ -79,22 +59,25 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="80" column="30" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
+            <state relative-caret-position="540">
+              <caret line="27" column="64" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="64" />
               <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Contract.php">
+        <entry file="file://$PROJECT_DIR$/app/GoodDelivery.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="57" column="35" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="35" />
+            <state relative-caret-position="578">
+              <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
+              <folding>
+                <element signature="e#23#62#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,59 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/GoodDeliveryDetail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="68" column="24" lean-forward="true" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="199" column="53" selection-start-line="199" selection-start-column="53" selection-end-line="199" selection-end-column="53" />
-              <folding>
-                <element signature="e#795#821#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/good-receives/edit.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/good-receives/_form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
-              <caret line="226" column="12" selection-start-line="226" selection-start-column="12" selection-end-line="226" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="55" column="68" lean-forward="true" selection-start-line="55" selection-start-column="68" selection-end-line="55" selection-end-column="68" />
-              <folding>
-                <element signature="e#4697#4720#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="636">
+              <caret line="69" column="31" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -162,8 +94,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="39" column="43" lean-forward="true" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
+            <state relative-caret-position="278">
+              <caret line="28" column="128" selection-start-line="28" selection-start-column="128" selection-end-line="28" selection-end-column="128" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="199" column="53" selection-start-line="199" selection-start-column="53" selection-end-line="199" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -172,8 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bom</find>
-      <find>md-3</find>
       <find>$value</find>
       <find>date</find>
       <find>contract_details</find>
@@ -202,6 +141,8 @@
       <find>$i }}</find>
       <find>[</find>
       <find>=&gt;</find>
+      <find>update</find>
+      <find>good-delivery</find>
     </findStrings>
     <dirStrings>
       <dir>E:\xampp\htdocs\donhang\resources\views</dir>
@@ -213,7 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/manufacturer_order/create.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_20_022431_create_manufacturer_order_details_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_10_033621_create_manufacturer_orders_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_10_034859_create_contract_details_table.php" />
@@ -253,17 +193,18 @@
         <option value="$PROJECT_DIR$/resources/views/good-receives/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/GoodDeliveryDetail.php" />
         <option value="$PROJECT_DIR$/app/GoodReceiveDetail.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php" />
-        <option value="$PROJECT_DIR$/app/GoodDelivery.php" />
         <option value="$PROJECT_DIR$/resources/views/good-receives/_form.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_14_133452_create_good_delivery_details_table.php" />
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/show.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" />
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" />
+        <option value="$PROJECT_DIR$/app/GoodDelivery.php" />
+        <option value="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" />
       </list>
     </option>
   </component>
@@ -429,12 +370,6 @@
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="sass" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -443,13 +378,6 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="good-deliveries" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="good-receives" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
@@ -564,12 +492,12 @@
       <workItem from="1563528556119" duration="4307000" />
       <workItem from="1563580328908" duration="31713000" />
       <workItem from="1563702725754" duration="3546000" />
-      <workItem from="1563764420549" duration="28441000" />
+      <workItem from="1563764420549" duration="35714000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="974829000" />
+    <option name="totallyTimeSpent" value="982102000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -586,7 +514,7 @@
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.14872068" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.13646056" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49920508" weight="0.22185062" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -615,37 +543,6 @@
     <select />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_10_032700_create_suppliers_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="108" column="59" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/boms/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="80" column="40" lean-forward="true" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="2585" column="54" lean-forward="true" selection-start-line="2585" selection-start-column="54" selection-end-line="2585" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
@@ -853,16 +750,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/GoodDelivery.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="996">
-          <caret line="79" column="39" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="39" />
-          <folding>
-            <element signature="e#23#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_14_133452_create_good_delivery_details_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -870,27 +757,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-          <folding>
-            <element signature="e#40#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="559">
           <caret line="73" column="56" selection-start-line="73" selection-start-column="56" selection-end-line="73" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/GoodDeliveryDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="68" column="24" lean-forward="true" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -903,7 +773,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
+        <state relative-caret-position="-7">
           <caret line="80" column="30" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
           <folding>
             <element signature="e#40#57#0#PHP" expanded="true" />
@@ -913,7 +783,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Contract.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
+        <state relative-caret-position="-7">
           <caret line="57" column="35" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="35" />
         </state>
       </provider>
@@ -922,40 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1060">
           <caret line="58" column="61" lean-forward="true" selection-start-line="58" selection-start-column="61" selection-end-line="58" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="72" column="56" selection-start-line="72" selection-start-column="56" selection-end-line="72" selection-end-column="56" />
-          <folding>
-            <element signature="e#40#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="55" column="68" lean-forward="true" selection-start-line="55" selection-start-column="68" selection-end-line="55" selection-end-column="68" />
-          <folding>
-            <element signature="e#4697#4720#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="39" column="43" lean-forward="true" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -968,24 +804,113 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/good-receives/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
+        <state relative-caret-position="-7">
+          <caret line="39" column="30" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/good-receives/_form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
+        <state relative-caret-position="-7">
           <caret line="226" column="12" selection-start-line="226" selection-start-column="12" selection-end-line="226" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Http/Response.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="55" column="68" selection-start-line="55" selection-start-column="68" selection-end-line="55" selection-end-column="68" />
+          <folding>
+            <element signature="e#4697#4720#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
+        <state relative-caret-position="420">
           <caret line="199" column="53" selection-start-line="199" selection-start-column="53" selection-end-line="199" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/GoodDelivery.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
           <folding>
-            <element signature="e#795#821#0#HTML" expanded="true" />
+            <element signature="e#23#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="28" column="128" selection-start-line="28" selection-start-column="128" selection-end-line="28" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/GoodDeliveryDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="69" column="31" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/helpers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="1116" column="13" selection-start-line="1116" selection-start-column="13" selection-end-line="1116" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/HasOneOrMany.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="234" column="17" lean-forward="true" selection-start-line="234" selection-start-column="17" selection-end-line="234" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="64" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="207" column="31" lean-forward="true" selection-start-line="207" selection-start-column="31" selection-end-line="207" selection-end-column="31" />
+          <folding>
+            <element signature="e#40#61#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="114" column="57" lean-forward="true" selection-start-line="114" selection-start-column="57" selection-end-line="114" selection-end-column="57" />
+          <folding>
+            <element signature="e#40#61#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
