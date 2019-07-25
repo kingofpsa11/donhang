@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ManufacturerOrder extends Model
 {
-    protected $fillable = ['id', 'number', 'status', 'supplier_id'];
+    protected $fillable = ['id', 'number', 'status', 'supplier_id', 'contract_id'];
 
     public $timestamps = true;
 
@@ -54,4 +54,8 @@ class ManufacturerOrder extends Model
         'status' => 10,
     ];
 
+    public static function getNewNumber()
+    {
+        return (self::whereYear('date', date('Y'))->max('number') + 1) ?? 1;
+    }
 }

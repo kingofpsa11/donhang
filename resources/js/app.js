@@ -106,7 +106,7 @@ function routeNotification(notification) {
     } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
         to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
     } else if (notification.type === NOTIFICATION_TYPES.contract) {
-        to = 'contract/' + notification.data.contract_id + to;
+        to = 'contracts/' + notification.data.contract_id + to;
     }
 
     return '/' + to;

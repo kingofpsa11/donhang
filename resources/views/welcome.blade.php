@@ -78,7 +78,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @if (Auth::check())
-                <a href="{{ url('/contract') }}">Đơn hàng</a>
+                <a href="{{ route('contracts.index') }}">Đơn hàng</a>
             @else
                 <a href="{{ url('/login') }}">Login</a>
             @endif

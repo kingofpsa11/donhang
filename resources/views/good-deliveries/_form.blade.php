@@ -81,7 +81,7 @@
                     <div>
                         <button class="btn btn-info addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success" name="saveDraft">
-                        <a href="{{ route('good-deliveries.index') }}"></a>
+                        <a href="{{ route('good-deliveries.index') }}" class="btn btn-danger">Hủy</a>
                     </div>
                 </div>
             </div>

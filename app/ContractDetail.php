@@ -43,7 +43,7 @@ use Carbon\Carbon;
  */
 class ContractDetail extends Model
 {
-    protected $fillable = ['id', 'contract_id', 'price_id', 'quantity', 'selling_price', 'manufacturer_order_number', 'quantity_issue', 'deadline', 'note', 'status'];
+    protected $fillable = ['id', 'contract_id', 'price_id', 'quantity', 'selling_price', 'supplier_id', 'deadline', 'note', 'status'];
 
     public $timestamps = true;
 
@@ -83,7 +83,7 @@ class ContractDetail extends Model
 
     public function setDeadlineAttribute($value)
     {
-        $this->attributes['deadline'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
+        $this->attributes['deadline'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
     }
 
     public function getDeadlineAttribute($value)

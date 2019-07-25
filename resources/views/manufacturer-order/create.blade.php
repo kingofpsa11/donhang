@@ -1,4 +1,4 @@
-@extends('manufacturer_order._form')
+@extends('manufacturer-order._form')
 
 @section('action', 'Tạo lệnh sản xuất')
 
@@ -8,30 +8,30 @@
 
 @section('table-body')
 
-    @foreach ($contract->contract_details as $contract_detail)
+    @foreach ($contract->contractDetails as $contractDetail)
         @php($i = $loop->index)
         <tr data-key="{{ $loop->index }}">
             <td class="" data-col-seq="0">
                 {{ $loop->iteration }}
-                <input type="hidden" value="{{ $contract_detail->id }}" name="contract_detail[{{ $i }}][id]">
+                <input type="hidden" value="{{ $contractDetail->id }}" name="contract_detail[{{ $i }}][id]">
             </td>
             <td data-col-seq="1">
-                {{ $contract_detail->price->product->code }}
+                {{ $contractDetail->price->product->code }}
             </td>
             <td data-col-seq="1">
 
-                {{ $contract_detail->price->product->name }}
+                {{ $contractDetail->price->product->name }}
             </td>
             <td data-col-seq="2">
-                {{ $contract_detail->quantity }}
+                {{ $contractDetail->quantity }}
             </td>
             <td data-col-seq="3">
                 <div class="pull-right">
-                    {{ $contract_detail->deadline }}
+                    {{ $contractDetail->deadline }}
                 </div>
             </td>
             <td data-col-seq="4">
-                {{ $contract_detail->note }}
+                {{ $contractDetail->note }}
             </td>
             <td data-col-seq="5">
                 <select name="contract_details[{{ $i }}][supplier_id]" class="form-control" required>

@@ -134,7 +134,7 @@
             });
 
             //create manufacturer order
-            // $('#manufacturer_order').on('click', function () {
+            // $('#manufacturer-order').on('click', function () {
             //
             // });
             $('#export').on('click', function () {

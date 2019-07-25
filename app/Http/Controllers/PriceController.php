@@ -64,10 +64,9 @@ class PriceController extends Controller
 
         $result = DB::table('prices')
             ->join('products', 'prices.product_id', '=', 'products.id')
-            ->leftJoin('profit_rates', function($join) use($customer) {
+            ->leftJoin('profit_rates', function ($join) use($customer) {
                 $join->on('profit_rates.category_id', '=', 'products.category_id');
             })
-//            ->select('prices.id', 'products.name', 'prices.selling_price', 'profit_rates.rate')
             ->select('prices.id', 'products.name', 'products.code', DB::raw('(prices.selling_price * profit_rates.rate) as sellPrice'))
             ->where('profit_rates.customer_id', '=', $customer)
             ->where('products.name', 'LIKE', '%' . $term . '%')

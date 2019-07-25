@@ -21,13 +21,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('customer/listCustomer', 'CustomerController@listCustomer')->name('customer.listCustomer');
     Route::resource('customer','CustomerController');
 
+    //Contract
     Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
-    Route::get('contract/search', 'ContractController@shows')->name('contract.shows');
-    Route::get('contract/getManufacturerOrder', 'ContractController@getManufacturerOrder')->name('contract.getManufacturerOrder');
-    Route::get('contract/checkNumber', 'ContractController@checkNumber')->name('contract.checkNumber');
-    Route::resource('contract','ContractController');
-
-    Route::resource('manufacturer-order', 'ManufacturerOrderController');
+    Route::get('contracts/search', 'ContractController@shows')->name('contract.shows');
+    Route::get('contracts/getManufacturerOrder', 'ContractController@getManufacturerOrder')->name('contract.getManufacturerOrder');
+    Route::get('contracts/checkNumber', 'ContractController@checkNumber')->name('contract.checkNumber');
+    Route::resource('contracts','ContractController');
 
     Route::get('newNumber/{supplier_id}', 'ManufacturerOrderController@getNewNumber')->name('manufacturer-order.as');
 
@@ -52,19 +51,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export', 'UserController@export');
     Route::resource('users', 'UserController');
 
-
     Route::get('change-password', 'Auth\ChangePasswordController@showChangePasswordForm');
     Route::put('change-password', 'Auth\ChangePasswordController@changePassword')->name('auth.change-password');
-
-
 
     Route::resource('profit-rate', 'ProfitRateController');
 
     Route::get('bom/getBom', 'BomController@getBom')->name('bom.getBom');
     Route::resource('bom', 'BomController');
 
+    Route::resource('manufacturer-order', 'ManufacturerOrderController');
+
     Route::get('manufacturer-notes/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-notes.create');
-    Route::resource('manufacturer-notes', 'ManufacturerNoteController');
+    Route::resource('manufacturer-notes', 'ManufacturerNoteController')->except(['create']);
 
     Route::get('store/listStore', 'StoreController@listStore')->name('store.listStore');
     Route::resource('store', 'StoreController');

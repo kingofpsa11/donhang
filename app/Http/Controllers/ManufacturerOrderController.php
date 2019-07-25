@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 
 class ManufacturerOrderController extends Controller
 {
+    protected $manufacturerOrder;
+
+    public function __construct(ManufacturerOrder $manufacturerOrder)
+    {
+        $this->manufacturerOrder = $manufacturerOrder;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +27,7 @@ class ManufacturerOrderController extends Controller
     public function index()
     {
         $manufacturerOrderDetails = ManufacturerOrderDetail::all();
-        return view('manufacturer_order.index', compact('manufacturerOrderDetails'));
+        return view('manufacturer-order.index', compact('manufacturerOrderDetails'));
     }
 
     /**
@@ -31,7 +38,7 @@ class ManufacturerOrderController extends Controller
     public function create()
     {
         $suppliers = Supplier::all();
-        return view('manufacturer_order.create', compact('suppliers'));
+        return view('manufacturer-order.create', compact('suppliers'));
     }
 
     /**
@@ -53,7 +60,7 @@ class ManufacturerOrderController extends Controller
      */
     public function show(ManufacturerOrder $manufacturerOrder)
     {
-        return response()->view('manufacturer_order.show', compact('manufacturerOrder'));
+        return response()->view('manufacturer-order.show', compact('manufacturerOrder'));
     }
 
     /**
@@ -106,6 +113,6 @@ class ManufacturerOrderController extends Controller
             ->orderBy('id', 'desc')
             ->take(1000)
             ->get();
-        return view('manufacturer_order.index')->with('contract_details', $contract_details);
+        return view('manufacturer-order.index')->with('contract_details', $contract_details);
     }
 }

@@ -17,7 +17,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="selectCustomer">Khách hàng</label>
-                                <select class="form-control select2 customer" name="contract[customer_id]" id="selectCustomer" required>
+                                <select class="form-control select2 customer" name="customer_id" id="selectCustomer" required>
                                     @if (isset($contract))
                                         <option value="{{ $contract->customer_id }}">{{ $contract->customer->name }}</option>
                                     @endif
@@ -27,7 +27,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Số đơn hàng</label>
-                                <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="contract[number]" value="{{ $contract->number ?? ''}}" required>
+                                <input type="text" class="form-control" placeholder="Nhập số đơn hàng ..." name="number" value="{{ $contract->number ?? ''}}" required>
                                 <span class="check-number text-red"></span>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $contract->date ?? date('d/m/Y') }}" name="contract[date]" required>
+                                    <input type="text" class="form-control" value="{{ $contract->date ?? date('d/m/Y') }}" name="date" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" readonly name="contract[total_value]" value="{{ $contract->total_value ?? ''}}">
+                                <input type="text" class="form-control" readonly name="total_value" value="{{ $contract->total_value ?? ''}}">
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,8 @@
                             @endif
                         ">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('contract.create') }}" class="btn btn-danger cancel">Hủy</a>
+                        <input type="reset" value="Hủy" class="btn btn-danger">
+                        {{--<a href="{{ route('contracts.create') }}" class="btn btn-danger cancel">Hủy</a>--}}
                     </div>
                 </div>
             </div>
@@ -114,18 +115,18 @@
                 },
             });
 
-            $('tbody').on('change', '[name$="[quantity]"]', calculateTotal);
+            $('tbody').on('change', '[name*="quantity"]', calculateTotal);
 
             function calculateTotal() {
                 let rows = $('tr[data-key]');
                 let total_value = 0;
                 rows.each(function (i, el) {
-                    let selling_price = $(el).find('[name$="[selling_price]"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
-                    let quantity = $(el).find('[name$="[quantity]"]').val();
+                    let selling_price = $(el).find('[name*="selling_price"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
+                    let quantity = $(el).find('[name*="quantity"]').val();
                     total_value += selling_price * quantity;
                 });
 
-                $('[name$="[total_value]"]').val(total_value);
+                $('[name*="total_value"]').val(total_value);
             }
 
             function maskCurrency(obj) {
@@ -142,10 +143,10 @@
                 });
             }
 
-            let total_value = $('[name="contract[total_value]"]');
-            let selling_price = $('[name$="[selling_price]"]');
-            let date = $('[name="contract[date]"]');
-            let deadline = $('[name$="[deadline]"]');
+            let total_value = $('[name="total_value"]');
+            let selling_price = $('[name*="selling_price"]');
+            let date = $('[name="date"]');
+            let deadline = $('[name*="deadline"]');
 
             maskCurrency(total_value);
             maskCurrency(selling_price);
@@ -187,9 +188,9 @@
             function getPrice (el) {
                 el.on('select2:select', function (e) {
                     let data = e.params.data;
-                    $(this).parents('tr').find('input[name$="[code]"]').val(data.code);
-                    $(this).parents('tr').find('input[name$="[selling_price]"]').val(data.selling_price);
-                    $(this).parents('tr').find('input[name$="[price_id]"]').val(data.id);
+                    $(this).parents('tr').find('input[name*="code"]').val(data.code);
+                    $(this).parents('tr').find('input[name*="selling_price"]').val(data.selling_price);
+                    $(this).parents('tr').find('input[name*="price_id"]').val(data.id);
                     calculateTotal();
                 });
             }
@@ -208,13 +209,7 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'contract_details[' + (i) + '][code]');
-                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'contract_details[' + (i) + '][price_id]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (i) + '][quantity]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (i) + '][selling_price]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (i) + '][deadline]');
-                    $(row).children('[data-col-seq="6"]').find('select').attr('name', 'contract_details[' + (i) + '][supplier_id]');
-                    $(row).children('[data-col-seq="7"]').find('input').attr('name', 'contract_details[' + (i) + '][note]');
+
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -238,13 +233,6 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][code]');
-                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'contract_details[' + (numberOfProduct) + '][price_id]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][selling_price]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][deadline]');
-                newRow.children('[data-col-seq="6"]').find('select').attr('name', 'contract_details[' + (numberOfProduct) + '][supplier_id]');
-                newRow.children('[data-col-seq="7"]').find('input').attr('name', 'contract_details[' + (numberOfProduct) + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -254,8 +242,8 @@
 
                 addSelect2(select2);
                 getPrice(select2);
-                maskCurrency(newRow.find('[name$="[selling_price]"]'));
-                maskDate(newRow.find('[name$="[deadline]"]'));
+                maskCurrency(newRow.find('[name*="selling_price"]'));
+                maskDate(newRow.find('[name*="deadline"]'));
             });
 
             $('#example1').on('click', '.removeRow', function () {
@@ -268,16 +256,6 @@
             $('button.cancel').on('click', function (e) {
                 e.preventDefault();
             });
-
-            function convertDateToTimestamp(obj) {
-                obj.each(function (i, el) {
-                    let date = $(el).val();
-                    $(el).inputmask('remove');
-                    let datePart = date.split('/');
-                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                    $(el).val(newDate.getTime()/1000);
-                })
-            }
 
             function convertNumber(obj) {
                 obj.each(function (i, el) {
@@ -302,10 +280,8 @@
                         if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
                             $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');
                         } else {
-                            convertNumber($('[name$="[selling_price]"]'));
-                            convertNumber($('[name$="[total_value]"]'));
-                            convertDateToTimestamp($('[name$="[date]"]'));
-                            convertDateToTimestamp($('[name$="[deadline]"]'));
+                            convertNumber($('[name*="selling_price"]'));
+                            convertNumber($('[name*="total_value"]'));
                             form.submit();
                         }
                     },

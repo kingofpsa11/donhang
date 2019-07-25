@@ -71,7 +71,7 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="{{ route('contract.index') }}" class="logo">
+        <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>ĐH</b></span>
             <!-- logo for regular state and mobile devices -->
@@ -285,7 +285,7 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{ route('product.create') }}"><i class="fa fa-circle-o"></i>Tạo sản phẩm</a></li>
                         <li><a href="{{ route('price.create') }}"><i class="fa fa-circle-o"></i>Báo giá</a></li>
-                        <li><a href="{{ route('contract.create') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
+                        <li><a href="{{ route('contracts.create') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
                         <li><a href="{{ route('output-order.create') }}"><i class="fa fa-circle-o"></i>Lệnh xuất hàng</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>

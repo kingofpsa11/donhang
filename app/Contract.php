@@ -37,7 +37,7 @@ use Carbon\Carbon;
  */
 class Contract extends Model
 {
-    protected $fillable = ['id', 'number', 'customer_id', 'total_value', 'imprest', 'status'];
+    protected $fillable = ['id', 'number', 'customer_id', 'total_value', 'imprest', 'status', 'date'];
 
     public $timestamps = true;
 
@@ -67,7 +67,7 @@ class Contract extends Model
 
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
+        $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
     }
 
     public function getDateAttribute($value)

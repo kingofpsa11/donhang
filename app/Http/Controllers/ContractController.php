@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\DB;
 
 class ContractController extends Controller
 {
+    protected $contract;
+
+    public function __construct(Contract $contract)
+    {
+        $this->contract = $contract;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +28,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contract_details = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id', 'desc')->take(1000)->get();
-        return view('contract.index')->with('contract_details', $contract_details);
+        $contractDetails = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id', 'desc')->get();
+        return view('contract.index', compact('contractDetails'));
     }
 
     /**
@@ -46,30 +53,24 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        $contract = new Contract();
-        $contract->customer_id = $request->contract['customer_id'];
-        $contract->number = $request->contract['number'];
-        $contract->date = $request->contract['date'];
-        $contract->total_value = $request->contract['total_value'];
+        $this->contract->fill($request->all());
+        $this->contract->save();
 
-        if ($contract->save()) {
-            $contract_details = [];
-            foreach ($request->contract_details as $value) {
-                $contract_detail = new ContractDetail();
-                $contract_detail->price_id = $value['price_id'];
-                $contract_detail->quantity = $value['quantity'];
-                $contract_detail->deadline = $value['deadline'];
-                $contract_detail->selling_price = $value['selling_price'];
-                $contract_detail->supplier_id = $value['supplier_id'];
-                array_push($contract_details, $contract_detail);
-            }
-
-            if($contract->contractDetails()->saveMany($contract_details)) {
-                $user = User::find(11);
-                $user->notify(new \App\Notifications\Contract($contract->id, $contract->status, $contract->number));
-                return redirect()->route('contract.show', $contract);
-            }
+        for ($i = 0; $i < count($request->code); $i++) {
+            ContractDetail::create([
+                'contract_id' => $this->contract->id,
+                'price_id' => $request->price_id[$i],
+                'quantity' => $request->quantity[$i],
+                'deadline' => $request->deadline[$i],
+                'selling_price' => $request->selling_price[$i],
+                'supplier_id' => $request->supplier_id[$i],
+            ]);
         }
+
+        $user = User::find(11);
+        $user->notify(new \App\Notifications\Contract($this->contract->id, $this->contract->status, $this->contract->number));
+
+        return redirect()->route('contracts.show', $this->contract);
     }
 
     /**
@@ -92,10 +93,9 @@ class ContractController extends Controller
      */
     public function edit(Contract $contract)
     {
-        $customers = Customer::all();
         $suppliers = Supplier::all();
-        $contract->load('contract_details');
-        return view('contract.edit', compact('contract', 'customers', 'suppliers'));
+        $contract->load('contractDetails');
+        return view('contract.edit', compact('contract', 'suppliers'));
     }
 
     /**
@@ -118,44 +118,41 @@ class ContractController extends Controller
             }
 
             $manufacturerOrder = null;
-            foreach ($contract->contract_details as $contract_detail) {
-                $existManufacturerOrder = ManufacturerOrder::where('contract_id', $contract->id)
-                            ->where('supplier_id', $contract_detail->supplier_id)
-                            ->count();
-
-                if ($existManufacturerOrder === 0) {
-                    $manufacturerOrder = new ManufacturerOrder();
-                    $manufacturerOrder->contract_id = $contract->id;
-                    $manufacturerOrder->number = ManufacturerOrder::where('supplier_id', $contract_detail->supplier_id)->max('number') + 1;
-                    $manufacturerOrder->supplier_id = $contract_detail->supplier_id;
-                    $manufacturerOrder->save();
-
-                    $manufacturerOrderDetail = new ManufacturerOrderDetail();
-                    $manufacturerOrderDetail->manufacturer_order_id = $manufacturerOrder->id;
-                    $manufacturerOrderDetail->contract_detail_id = $contract_detail->id;
-                    $manufacturerOrderDetail->save();
-
-                } elseif ($existManufacturerOrder === 1) {
-                    $manufacturerOrder = ManufacturerOrder::where('contract_id', $contract->id)
-                        ->where('supplier_id', $contract_detail->supplier_id)
-                        ->first();
-                    $existManufacturerOrderDetail = ManufacturerOrderDetail::where('manufacturer_order_id', $manufacturerOrder->id)
-                        ->where('contract_detail_id', $contract_detail->id)
-                        ->count();
-
-                    if ( $existManufacturerOrderDetail === 0 ) {
-                        $manufacturerOrderDetail = new ManufacturerOrderDetail();
-                        $manufacturerOrderDetail->manufacturer_order_id = $manufacturerOrder->id;
-                        $manufacturerOrderDetail->contract_detail_id = $contract_detail->id;
-                        $manufacturerOrderDetail->save();
-
-                    } elseif ($existManufacturerOrderDetail === 1) {
-                        $manufacturerOrderDetail = ManufacturerOrderDetail::where('manufacturer_order_id', $manufacturerOrder->id)
-                            ->where('contract_detail_id', $contract_detail->id)
+            foreach ($contract->contractDetails as $contractDetail) {
+                $manufacturerOrder = ManufacturerOrder::where('contract_id', $contract->id)
+                            ->where('supplier_id', $contractDetail->supplier_id)
                             ->first();
-                        $manufacturerOrderDetail->manufacturer_order_id = $manufacturerOrder->id;
-                        $manufacturerOrderDetail->contract_detail_id = $contract_detail->id;
-                        $manufacturerOrderDetail->save();
+
+                if (!$manufacturerOrder) {
+                    $manufacturerOrder = ManufacturerOrder::create([
+                        'contract_id' => $contract->id,
+                        'number' => ManufacturerOrder::getNewNumber(),
+                        'supplier_id' => $contractDetail->supplier_id,
+                        'date' => $contract->date,
+                    ]);
+
+                    ManufacturerOrderDetail::create([
+                        'manufacturer_order_id' => $manufacturerOrder->id,
+                        'contract_detail_id' => $contractDetail->id,
+                    ]);
+
+                } else {
+
+                    $manufacturerOrderDetail = ManufacturerOrderDetail::where('manufacturer_order_id', $manufacturerOrder->id)
+                        ->where('contract_detail_id', $contractDetail->id)
+                        ->first();
+
+                    if (!$manufacturerOrderDetail) {
+                        ManufacturerOrderDetail::create([
+                            'manufacturer_order_id' => $manufacturerOrder->id,
+                            'contract_detail_id' => $contractDetail->id,
+                        ]);
+
+                    } else {
+                        $manufacturerOrderDetail->update([
+                            'manufacturer_order_id' => $manufacturerOrder->id,
+                            'contract_detail_id' => $contractDetail->id,
+                        ]);
                     }
                 }
             }
@@ -164,39 +161,32 @@ class ContractController extends Controller
             foreach ($users as $user) {
                 $user->notify(new \App\Notifications\ManufacturerOrder($manufacturerOrder->id, $manufacturerOrder->number));
             }
+
         } else {
-            $contract->customer_id = $request->contract['customer_id'];
-            $contract->number = $request->contract['number'];
-            $contract->total_value = $request->contract['total_value'];
-            $contract->date = $request->contract['date'];
-            $contract->status = 10;
+            $contract->update([
+                $request->all(),
+                'status' => 10,
+            ]);
 
             $contract->contractDetails()->update(['status' => 9]);
 
-            if ($contract->save()) {
-                foreach ($request->contract_details as $value) {
-                    if (isset($value['id'])) {
-                        $contract_detail = ContractDetail::find($value['id']);
-                        $contract_detail->price_id = $value['price_id'];
-                        $contract_detail->selling_price = $value['selling_price'];
-                        $contract_detail->deadline = $value['deadline'];
-                        $contract_detail->note = $value['note'];
-                        $contract_detail->quantity = $value['quantity'];
-                        $contract_detail->status = 10;
-                        $contract_detail->save();
-                    } else {
-                        $contract_detail = new ContractDetail();
-                        $contract_detail->price_id = $value['price_id'];
-                        $contract_detail->selling_price = $value['selling_price'];
-                        $contract_detail->deadline = $value['deadline'];
-                        $contract_detail->note = $value['note'];
-                        $contract_detail->quantity = $value['quantity'];
-                        $contract_detail->save();
-                    }
-                }
-
-                $contract->contractDetails()->where('status',9)->delete();
+            for ($i = 0; $i < count($request->code); $i++) {
+                ContractDetail::updateOrCreate(
+                    [
+                        'id' => $request->contract_detail_id[$i]
+                    ],
+                    [
+                        'price_id' => $request->price_id[$i],
+                        'selling_price' => $request->selling_price[$i],
+                        'deadline' => $request->deadline[$i],
+                        'note' => $request->note[$i],
+                        'quantity' => $request->quantity[$i],
+                        'status' => 10,
+                    ]
+                );
             }
+
+            $contract->contractDetails()->where('status',9)->delete();
 
             $user = User::find(11);
             $user->notify(new \App\Notifications\Contract($contract->id, $contract->status, $contract->number));

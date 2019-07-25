@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp đơn hàng</h3>
-            <a href="{{ route('contract.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
+            <a href="{{ route('contracts.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
@@ -25,22 +25,22 @@
 
                 </thead>
                 <tbody>
-                @foreach ($contract_details as $contract_detail)
+                @foreach ($contractDetails as $contractDetail)
                     <tr>
-                        <td>{{ $contract_detail->contract->customer->short_name }}</td>
-                        <td>{{ $contract_detail->contract->number }}</td>
-                        <td>{{ $contract_detail->price->product->name }}</td>
-                        <td>{{ $contract_detail->quantity }}</td>
-                        <td>{{ $contract_detail->selling_price }}</td>
-                        <td>{{ $contract_detail->contract->date }}</td>
-                        <td>{{ $contract_detail->deadline }}</td>
-                        <td>{{ $contract_detail->manufacturer_order_number }}</td>
-                        <td>{{ $contract_detail->status }}</td>
+                        <td>{{ $contractDetail->contract->customer->short_name }}</td>
+                        <td>{{ $contractDetail->contract->number }}</td>
+                        <td>{{ $contractDetail->price->product->name }}</td>
+                        <td>{{ $contractDetail->quantity }}</td>
+                        <td>{{ $contractDetail->selling_price }}</td>
+                        <td>{{ $contractDetail->contract->date }}</td>
+                        <td>{{ $contractDetail->deadline }}</td>
+                        <td>{{ $contractDetail->manufacturerOrderDetail->manufacturerOrder->number ?? '' }}</td>
+                        <td>{{ $contractDetail->status }}</td>
                         <td>
-                            <a href="{{ route('contract.show', ['contract' => $contract_detail->contract_id])}}" class="btn btn-success">
+                            <a href="{{ route('contracts.show', $contractDetail->contract)}}" class="btn btn-success">
                                 <i class="fa fa-tag" aria-hidden="true"></i> Xem
                             </a>
-                            <a href="{{ route('contract.edit', ['contract' => $contract_detail->contract_id])}}" class="btn btn-info">
+                            <a href="{{ route('contracts.edit', $contractDetail->contract)}}" class="btn btn-info">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                             </a>
                         </td>
@@ -105,7 +105,10 @@
                         "data"      : "deadline",
                         className   : 'dt-body-right'
                     },
-                    { "data" : "order" },
+                    {
+                        "data"      : "order",
+                        className   : 'dt-body-center'
+                    },
                     {
                         "data"      : "status",
                         "render"    : function (data) {

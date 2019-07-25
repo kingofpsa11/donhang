@@ -1,4 +1,4 @@
-@extends('manufacturer_order._form')
+@extends('manufacturer-order._form')
 
 @section('action', 'Sửa lệnh sản xuất')
 

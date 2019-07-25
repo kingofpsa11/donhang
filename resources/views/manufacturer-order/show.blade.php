@@ -45,17 +45,17 @@
             </div>
             <!-- /.box-header -->
 
-            <div class="box-body table-responsive">
+            <div class="box-body table-responsive no-padding">
                 <table id="example1" class="table table-bordered table-striped table-condensed">
                     <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Tiến độ</th>
-                        <th>Trạng thái</th>
-                        <th>Ghi chú</th>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã sản phẩm</th>
+                        <th class="text-center">Tên sản phẩm</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Tiến độ</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Ghi chú</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -95,7 +95,7 @@
                     <div class="col-md-12 text-right">
                         @role(4)
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        <a href="{{ route('manufacturer-note.create')}}" class="btn btn-info">
+                        <a href="{{ route('manufacturer-notes.create', $manufacturerOrder) }}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo phiếu cắt phôi
                         </a>
                         @endrole

@@ -20,6 +20,7 @@ class CreateManufacturerOrdersTable extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->string('number');
+            $table->date('date')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

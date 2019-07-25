@@ -87,14 +87,15 @@
                     <div class="col-md-12 text-right">
                         @role(3)
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        <a href="{{ route('contract.edit', ['contract' => $contract->id])}}" class="btn btn-info">
+                        <a href="{{ route('contracts.edit', ['contract' => $contract->id])}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                         @endrole
+
                         @role(6)
                             @if($contract->status === 10)
-                                <form action="{{ route('contract.update', $contract) }}" method="POST" style="display: inline-block;">
+                                <form action="{{ route('contracts.update', $contract) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('PATCH')
                                     <input type="submit" value="Phê duyệt" class="btn btn-success" name="approved">
@@ -107,7 +108,7 @@
         </div>
         <!-- /.box -->
     </section>
-    <form action="{{ route('contract.destroy', $contract) }}" method="POST">
+    <form action="{{ route('contracts.destroy', $contract) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
@@ -168,7 +169,7 @@
             });
 
             //create manufacturer order
-            // $('#manufacturer_order').on('click', function () {
+            // $('#manufacturer-order').on('click', function () {
             //
             // });
             $('#export').on('click', function () {
