@@ -10,8 +10,7 @@
 
 @section('table-body')
     @foreach ($contract->contractDetails as $contractDetail)
-        @php($i = $loop->index)
-        <tr data-key="{{ $i }}">
+        <tr data-key="{{ $loop->index }}">
             <td data-col-seq="0">
                 <span>{{ $loop->iteration }}</span>
                 <input type="hidden" name="contract_detail_id[]" value="{{ $contractDetail->id }}">
@@ -25,7 +24,7 @@
                 </select>
             </td>
             <td data-col-seq="3">
-                <input type="number" class="form-control" name="quantity[]" value="{{ $contractDetail->quantity }}" required>
+                <input type="text" class="form-control" name="quantity[]" value="{{ $contractDetail->quantity }}" required>
             </td>
             <td data-col-seq="4">
                 <input type="text" class="form-control" name="selling_price[]" value="{{ $contractDetail->selling_price }}" readonly>
@@ -56,6 +55,5 @@
                 <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>
-        @php( $i++ )
     @endforeach
 @endsection

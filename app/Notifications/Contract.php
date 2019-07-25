@@ -70,7 +70,6 @@ class Contract extends Notification implements ShouldQueue
 
     public function toBroadcast($notifiable)
     {
-
         return new BroadcastMessage([
             'id' => $this->id,
             'read_at' => null,

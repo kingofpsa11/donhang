@@ -73,7 +73,7 @@
                                 <td>{{ $contractDetails->selling_price }}</td>
                                 <td>{{ $contractDetails->deadline }}</td>
                                 <td>{!! $contractDetails->status === 10 ? '<span class="label label-primary">Chờ phê duyệt</span>' : ''!!}</td>
-                                <td>{{ $contractDetails->supplier->short_name }}</td>
+                                <td>{{ $contractDetails->supplier->name }}</td>
                                 <td>{{ $contractDetails->note }}</td>
                             </tr>
                             @php($i++)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Price;
 use App\Product;
+use App\ProfitRate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,17 +62,25 @@ class PriceController extends Controller
     {
         $term = $request->search;
         $customer = $request->customer_id;
+        $profitRate = ProfitRate::where('customer_id', $customer)->first();
 
-        $result = DB::table('prices')
-            ->join('products', 'prices.product_id', '=', 'products.id')
-            ->leftJoin('profit_rates', function ($join) use($customer) {
-                $join->on('profit_rates.category_id', '=', 'products.category_id');
-            })
-            ->select('prices.id', 'products.name', 'products.code', DB::raw('(prices.selling_price * profit_rates.rate) as sellPrice'))
-            ->where('profit_rates.customer_id', '=', $customer)
-            ->where('products.name', 'LIKE', '%' . $term . '%')
-            ->take(20)
-            ->get();
+        if ($profitRate) {
+            $result = DB::table('prices')
+                ->join('products', 'prices.product_id', '=', 'products.id')
+                ->leftJoin('profit_rates', 'profit_rates.category_id', '=', 'products.category_id')
+                ->select('prices.id', 'products.name', 'products.code', DB::raw('(prices.selling_price * profit_rates.rate) as sell_price'))
+                ->where('profit_rates.customer_id', '=', $customer)
+                ->where('products.name', 'LIKE', '%' . $term . '%')
+                ->take(20)
+                ->get();
+        } else {
+            $result = DB::table('prices')
+                ->join('products', 'prices.product_id', '=', 'products.id')
+                ->select('prices.id', 'products.name', 'products.code', DB::raw('prices.selling_price as sell_price'))
+                ->where('products.name', 'LIKE', '%' . $term . '%')
+                ->take(20)
+                ->get();
+        }
 
         return response()->json($result);
     }

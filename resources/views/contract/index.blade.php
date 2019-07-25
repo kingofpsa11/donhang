@@ -27,7 +27,7 @@
                 <tbody>
                 @foreach ($contractDetails as $contractDetail)
                     <tr>
-                        <td>{{ $contractDetail->contract->customer->short_name }}</td>
+                        <td>{{ $contractDetail->contract->customer->name }}</td>
                         <td>{{ $contractDetail->contract->number }}</td>
                         <td>{{ $contractDetail->price->product->name }}</td>
                         <td>{{ $contractDetail->quantity }}</td>

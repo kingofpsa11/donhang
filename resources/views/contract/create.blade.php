@@ -15,7 +15,7 @@
             </select>
         </td>
         <td data-col-seq="3">
-            <input type="number" class="form-control" name="quantity[]" required>
+            <input type="text" class="form-control" name="quantity[]" required>
         </td>
         <td data-col-seq="4">
             <input type="text" class="form-control" name="selling_price[]" readonly>

@@ -28,7 +28,9 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contractDetails = ContractDetail::with(['contract.customer', 'price.product'])->orderBy('id', 'desc')->get();
+        $contractDetails = ContractDetail::with(['contract.customer', 'price.product', 'manufacturerOrderDetail.manufacturerOrder'])
+            ->orderBy('id', 'desc')
+            ->get();
         return view('contract.index', compact('contractDetails'));
     }
 
@@ -81,7 +83,7 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        $contract->load('contractDetails');
+        $contract->load('contractDetails.price.product', 'contractDetails.supplier');
         return view('contract.show', compact('contract'));
     }
 
@@ -94,7 +96,7 @@ class ContractController extends Controller
     public function edit(Contract $contract)
     {
         $suppliers = Supplier::all();
-        $contract->load('contractDetails');
+        $contract->load('contractDetails.price.product', 'contractDetails.supplier');
         return view('contract.edit', compact('contract', 'suppliers'));
     }
 
@@ -176,9 +178,11 @@ class ContractController extends Controller
                         'id' => $request->contract_detail_id[$i]
                     ],
                     [
+                        'contract_id' => $contract->id,
                         'price_id' => $request->price_id[$i],
                         'selling_price' => $request->selling_price[$i],
                         'deadline' => $request->deadline[$i],
+                        'supplier_id' => $request->supplier_id[$i],
                         'note' => $request->note[$i],
                         'quantity' => $request->quantity[$i],
                         'status' => 10,

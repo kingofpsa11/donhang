@@ -80,8 +80,7 @@
                             @endif
                         ">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <input type="reset" value="Hủy" class="btn btn-danger">
-                        {{--<a href="{{ route('contracts.create') }}" class="btn btn-danger cancel">Hủy</a>--}}
+                        <a href="{{ route('contracts.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
             </div>
@@ -174,7 +173,7 @@
                                     return {
                                         text: item.name,
                                         id: item.id,
-                                        selling_price: item.sellPrice,
+                                        selling_price: item.sell_price,
                                         code: item.code
                                     }
                                 })
