@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('supplier', 'SupplierController');
 
     Route::get('price/search', 'PriceController@shows')->name('prices.shows');
-    Route::resource('price', 'PriceController');
+    Route::resource('prices', 'PriceController');
 
     Route::get('output-order/getUndoneOutputOrder', 'OutputOrderController@getUndoneOutputOrders')->name('output-order.getUndoneOutputOrder');
     Route::get('output-order/checkNumber', 'OutputOrderController@checkNumber')->name('output-order.checkNumber');
@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('product/all', 'ProductController@shows')->name('product.shows');
     Route::get('product/getProduct', 'ProductController@getProduct')->name('product.getProduct');
-    Route::resource('product', 'ProductController');
+    Route::resource('products', 'ProductController');
 
     Route::resource('roles', 'RoleController');
 

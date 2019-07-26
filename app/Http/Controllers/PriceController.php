@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class PriceController extends Controller
 {
+    protected $price;
+
+    public function __construct(Price $price)
+    {
+        $this->price = $price;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +24,8 @@ class PriceController extends Controller
      */
     public function index()
     {
-        
+        $prices = Price::with('product')->get();
+        return view('price.index', compact('prices'));
     }
 
     /**
@@ -27,7 +35,7 @@ class PriceController extends Controller
      */
     public function create()
     {
-        //
+        return view('price.create');
     }
 
     /**

@@ -3,35 +3,35 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp đơn hàng</h3>
-            <a href="{{ route('products.create') }}" class="btn btn-primary pull-right">Tạo sản phẩm mới</a>
+            <h3 class="box-title">Bảng giá</h3>
+            <a href="{{ route('prices.create') }}" class="btn btn-primary pull-right">Tạo giá mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Nhóm</th>
                     <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
+                    <th>Giá bán</th>
                     <th>Trạng thái</th>
                     <th>Action</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($products as $product)
+                @foreach ($prices as $price)
                     <tr>
-                        <td>{{ $product->category->name }}</td>
-                        <td>{{ $product->code }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->status }}</td>
+                        <td>{{ $price->product->code }}</td>
+                        <td>{{ $price->product->name }}</td>
+                        <td>{{ $price->selling_price }}</td>
+                        <td>{{ $price->status }}</td>
                         <td>
                             <div>
-                                <a href="{{ route('products.show', $product)}}" class="btn btn-success">
+                                <a href="{{ route('prices.show', $price)}}" class="btn btn-success">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('products.edit', $product)}}" class="btn btn-info">
+                                <a href="{{ route('prices.edit', $price)}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>
@@ -42,9 +42,9 @@
                 </tbody>
                 <tfoot>
                     <tr>-
-                        <th>Nhóm</th>
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
+                        <th>Giá bán</th>
                         <th>Trạng thái</th>
                         <td></td>
                     </tr>
@@ -76,7 +76,9 @@
                 },
                 columnDefs: [
                     {
-                        targets : 0,
+                        targets  : 2,
+                        render      : $.fn.dataTable.render.number( '.', ','),
+                        className   : 'dt-body-right'
                     },
                     {
                         targets : 4,

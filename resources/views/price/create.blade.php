@@ -1,7 +1,7 @@
-@extends('product._form')
+@extends('price._form')
 
 @section('route')
-    {{ route('products.store') }}
+    {{ route('prices.store') }}
 @endsection
 
 @section('action', 'Tạo sản phẩm')

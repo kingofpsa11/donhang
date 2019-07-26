@@ -283,8 +283,8 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('product.create') }}"><i class="fa fa-circle-o"></i>Tạo sản phẩm</a></li>
-                        <li><a href="{{ route('price.create') }}"><i class="fa fa-circle-o"></i>Báo giá</a></li>
+                        <li><a href="{{ route('products.create') }}"><i class="fa fa-circle-o"></i>Tạo sản phẩm</a></li>
+                        <li><a href="{{ route('prices.create') }}"><i class="fa fa-circle-o"></i>Báo giá</a></li>
                         <li><a href="{{ route('contracts.create') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
                         <li><a href="{{ route('output-order.create') }}"><i class="fa fa-circle-o"></i>Lệnh xuất hàng</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
@@ -447,10 +447,11 @@ desired effect
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+    {{--<script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>--}}
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+    {{--<script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>--}}
+    <script type="text/javascript" src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
     @yield('javascript')

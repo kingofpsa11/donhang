@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $product;
+
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,21 +45,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product();
-        $product->category_id = $request->category_id;
-        $product->code = $request->code;
-        $product->name = $request->name;
-        $product->note = $request->note;
+        $this->product->fill($request->all());
         $path = [];
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
-                $path[] = $file->store('uploads');
+                $path[] = $file->storeAs('uploads', $file->getClientOriginalName());
             }
-            $product->file = serialize($path);
+            $this->product->file = json_encode($path);
         }
-        if($product->save()) {
-            return redirect()->route('product.show', [$product]);
-        }
+        $this->product->save();
+
+        return redirect()->route('products.show', $this->product);
     }
 
     /**
@@ -87,14 +90,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->category_id = $request->category_id;
-        $product->code = $request->code;
-        $product->name = $request->name;
-//        $product->note = $request->note;
-        if ($product->save())
-        {
-            return redirect()->route('product.show', [$product]);
-        }
+        $product->fill($request->all());
+        $product->save();
+
+        return redirect()->route('product.show', $product);
     }
 
     /**
@@ -105,13 +104,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
-    }
-
-    public function shows()
-    {
-        $products = Product::take(10)->get();
-        return response()->json($products);
+        $product->delete();
+        flash('Đã xóa đơn hàng ' . $product->name)->success();
+        return redirect()->route('contract.index');
     }
 
     public function getProduct(Request $request)
@@ -123,3 +118,4 @@ class ProductController extends Controller
         return response()->json($products);
     }
 }
+

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 /**
  * App\Price
@@ -36,7 +37,11 @@ class Price extends Model
 
     public $timestamps = true;
 
-    public function contract_details()
+    protected $attributes = [
+        'status' => 10
+    ];
+
+    public function contractDetails()
     {
         return $this->hasMany('App\ContractDetail');
     }
@@ -44,5 +49,19 @@ class Price extends Model
     public function product()
     {
         return $this->belongsTo('App\Product');
+    }
+
+    public function setEffectiveDateAttribute($value)
+    {
+        $this->attributes['effective_date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
+    }
+
+    public function getEffectiveDateAttribute($value)
+    {
+        if (isset($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value, 'Asia/Bangkok')->format(config('app.date_format'));
+        }
+
+        return $value;
     }
 }
