@@ -22,6 +22,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('customer','CustomerController');
 
     //Contract
+    Route::prefix('contracts')->name('contracts.')->group(function() {
+        Route::get('checkNumber', 'ContractController@checkNumber')->name('checkNumber');
+        Route::post('allContracts', 'ContractController@allContracts')->name('all_contracts');
+    });
     Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
     Route::get('contracts/search', 'ContractController@shows')->name('contract.shows');
     Route::get('contracts/getManufacturerOrder', 'ContractController@getManufacturerOrder')->name('contract.getManufacturerOrder');
@@ -34,14 +38,16 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('supplier', 'SupplierController');
 
     Route::get('price/search', 'PriceController@shows')->name('prices.shows');
-    Route::resource('prices', 'PriceController');
+    Route::get('prices/create/{product?}', 'PriceController@create')->name('prices.create');
+    Route::resource('prices', 'PriceController')->except('create');
 
     Route::get('output-order/getUndoneOutputOrder', 'OutputOrderController@getUndoneOutputOrders')->name('output-order.getUndoneOutputOrder');
     Route::get('output-order/checkNumber', 'OutputOrderController@checkNumber')->name('output-order.checkNumber');
     Route::resource('output-order', 'OutputOrderController');
 
     Route::get('product/all', 'ProductController@shows')->name('product.shows');
-    Route::get('product/getProduct', 'ProductController@getProduct')->name('product.getProduct');
+    Route::get('product/getProduct', 'ProductController@getProduct')->name('products.get_product');
+    Route::get('products/existCode', 'ProductController@existCode')->name('products.exist_code');
     Route::resource('products', 'ProductController');
 
     Route::resource('roles', 'RoleController');

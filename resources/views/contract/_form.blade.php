@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Giá trị đơn hàng</label>
-                                <input type="text" class="form-control" readonly name="total_value" value="{{ $contract->total_value ?? ''}}">
+                                <input type="text" class="form-control currency" readonly name="total_value" value="{{ $contract->total_value ?? ''}}">
                             </div>
                         </div>
                     </div>
@@ -129,10 +129,10 @@
             }
 
             function maskCurrency(obj) {
-                obj.inputmask({
-                    alias: 'integer',
-                    autoGroup: true,
-                    groupSeparator: '.'
+                obj.inputmask("integer",{
+                    groupSeparator  : '.',
+                    autoGroup       : true,
+                    removeMaskOnSubmit  : true
                 });
             }
 
@@ -146,8 +146,14 @@
             let selling_price = $('[name*="selling_price"]');
             let date = $('[name="date"]');
             let deadline = $('[name*="deadline"]');
+    
+            $('.currency').inputmask("integer",{
+                groupSeparator  : '.',
+                autoGroup       : true,
+                removeMaskOnSubmit  : true
+            });
 
-            maskCurrency(total_value);
+            // maskCurrency(total_value);
             maskCurrency(selling_price);
             maskDate(date);
             maskDate(deadline);
@@ -263,30 +269,30 @@
                 })
             }
 
-            $('#form').on('submit', function (e) {
-                e.preventDefault();
-                let form = this;
-                let numberObj = $('[name*="number"]');
-                let number = numberObj.val();
-                let customer_id = customerSelect.val();
-                let year = $('[name*="date"]').val().split('/')[2];
-                numberObj.parent().find('span').html('');
-
-                $.get(
-                    "{{ route('contract.checkNumber') }}",
-                    { number: number, customer_id: customer_id, year: year },
-                    function (result) {
-                        if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
-                            $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');
-                        } else {
-                            convertNumber($('[name*="selling_price"]'));
-                            convertNumber($('[name*="total_value"]'));
-                            form.submit();
-                        }
-                    },
-                    "text"
-                );
-            });
+            {{--$('#form').on('submit', function (e) {--}}
+            {{--    e.preventDefault();--}}
+            {{--    let form = this;--}}
+            {{--    let numberObj = $('[name*="number"]');--}}
+            {{--    let number = numberObj.val();--}}
+            {{--    let customer_id = customerSelect.val();--}}
+            {{--    let year = $('[name*="date"]').val().split('/')[2];--}}
+            {{--    --}}
+            {{--    //remove warning--}}
+            {{--    numberObj.parent().find('span').html('');--}}
+            
+            {{--    $.get(--}}
+            {{--        "{{ route('contract.checkNumber') }}",--}}
+            {{--        { number: number, customer_id: customer_id, year: year },--}}
+            {{--        function (result) {--}}
+            {{--            if (result > 0 && window.location.pathname.indexOf('create') >= 0) {--}}
+            {{--                $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');--}}
+            {{--            } else {--}}
+            {{--                form.submit();--}}
+            {{--            }--}}
+            {{--        },--}}
+            {{--        "text"--}}
+            {{--    );--}}
+            {{--});--}}
         })
     </script>
 @stop

@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label for="" class="control-label">Nhóm</label>
                                 <select class="form-control category" style="width: 100%;" name="category_id" required>
-                                    <option value="">--Chọn nhóm sản phẩm--</option>
+                                    <option hidden>--Chọn nhóm sản phẩm--</option>
                                     @foreach($categories as $category)
                                         @if (isset($product) && $product->category_id === $category->id)
                                             <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
@@ -33,6 +33,7 @@
                             <div class="form-group">
                                 <label for="" class="control-label">Mã sản phẩm</label>
                                 <input type="text" class="form-control" name="code" value="{{ $product->code ?? '' }}">
+                                <span class="text-red check-code"></span>
                             </div>
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm</label>
@@ -40,17 +41,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm hoá đơn</label>
-                                <input type="text" class="form-control" name="name_" value="{{ $product->name ?? '' }}">
+                                <input type="text" class="form-control" name="name_bill" value="{{ $product->name_bill ?? '' }}">
                             </div>
                             <div class="form-group">
                                 <label for="" class="control-label">Ghi chú</label>
-                                <textarea id="" class="form-control" name="note">
-                                    {{ $product->note ?? '' }}
-                                </textarea>
+                                <textarea id="" class="form-control" name="note">{{ $product->note ?? '' }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">File</label>
-                                <input type="file" name="file[]" id="" class="form-control" multiple >
+                                <label for="">Bản vẽ</label>
+                                <input type="file" name="file[]" id="" class="form-control" multiple>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -68,11 +67,25 @@
 
 @section('javascript')
     <script>
-
-        //Click cancel button
-        $('button.cancel').on('click', function (e) {
+        $('#form').on('submit', function (e) {
             e.preventDefault();
+            let form = this;
+            let codeObj = $('[name*="code"]');
+            let code = codeObj.val();
+            codeObj.parent().find('span').html('');
+        
+            $.get(
+                "{{ route('products.exist_code') }}",
+                {code: code},
+                function (result) {
+                    if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
+                        codeObj.parent().find('span').html('Đã tồn tại Mã sản phẩm');
+                    } else {
+                        form.submit();
+                    }
+                },
+                "text"
+            );
         });
-
     </script>
 @stop

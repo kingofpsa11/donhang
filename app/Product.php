@@ -33,4 +33,9 @@ class Product extends Model
     protected $attributes = [
         'status' => 10
     ];
+
+    public static function existCode($code)
+    {
+        return self::where('code', $code)->count();
+    }
 }

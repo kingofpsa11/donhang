@@ -1,19 +1,9 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Đơn hàng')
+@section('title', 'Sản phẩm')
 
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Tạo sản phẩm
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('products.index') }}"><i class="fa fa-dashboard"></i> Danh mục sản phẩm</a></li>
-            <li class="active">Tạo sản phẩm</li>
-        </ol>
-    </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
         <div class="row">
@@ -37,14 +27,18 @@
                             <input type="text" class="form-control" value="{{ $product->name }}" readonly>
                         </div>
                         <div class="form-group">
+                            <label for="" class="col-md-3 control-label">Tên sản phẩm hoá đơn</label>
+                            <input type="text" class="form-control" value="{{ $product->name_bill }}" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="" class="col-md-3 control-label">Ghi chú</label>
-                            <textarea id="" class="form-control" value="{{ $product->note }}" readonly></textarea>
+                            <textarea id="" class="form-control" readonly>{{ $product->note }}</textarea>
                         </div>
                         <div class="form-group">
                             @if (isset($product->file))
                                 @foreach (json_decode($product->file) as $file)
                                     <div class="btn btn-default">
-                                        <a href="{{ asset('storage/' . $file) }}">
+                                        <a href="{{ asset('storage/' . $file) }}" download>
                                             {{ $file }}
                                         </a>
                                     </div>
@@ -52,7 +46,9 @@
                             @endif
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('products.edit', [$product]) }}" class="btn btn-danger">Sửa</a>
+                            <a href="{{ route('products.edit', $product) }}" class="btn btn-primary">Sửa</a>
+                            <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
+                            <a href="{{ route('prices.create', $product) }}" class="btn btn-warning">Tạo giá</a>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -61,36 +57,25 @@
             </div>
         </div>
     </section>
+    <form action="{{ route('products.destroy', $product) }}" method="POST">
+        @csrf()
+        @method('DELETE')
+        <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa sản phẩm</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Chắc chắn xóa sản phẩm {{ $product->name }}?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
+                        <input type="submit" class="btn btn-danger waves-effect waves-light" value="Xóa">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection
-
-@section('javascript')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
-    <script>
-        $('[data-mask]').inputmask();
-
-        let customerSelect = $('.select2.customer');
-        customerSelect.select2();
-
-        $('#contract-show').DataTable({
-            'paging'        : false,
-            'lengthChange'  : false,
-            'info'          : false,
-            searching       : false,
-            ordering        : false,
-            columnDefs: [
-                {
-                    targets: [ 2 ],
-                    render: $.fn.dataTable.render.number('.', ','),
-                    className   : 'dt-body-right'
-                },
-                {
-                    targets: [ 3 ],
-                    className   : 'dt-body-right'
-                }
-            ]
-        });
-        $('button.cancel').on('click', function (e) {
-            e.preventDefault();
-        })
-    </script>
-@stop

@@ -1,11 +1,11 @@
-@extends('product._form')
+@extends('price._form')
 
 @section('route')
-    {{ route('products.update', [$product]) }}
+    {{ route('prices.update', $price) }}
 @endsection
 
-@section('action', 'Tạo sản phẩm')
+@section('action', 'Tạo giá')
 
 @section('method')
-    PUT
+    @method('PATCH')
 @stop

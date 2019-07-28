@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->take(1000)->get();
+        $products = Product::orderBy('id', 'desc')->get();
         return view('product.index')->with('products', $products);
     }
 
@@ -66,7 +66,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show')->with('product', $product);
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -93,7 +93,7 @@ class ProductController extends Controller
         $product->fill($request->all());
         $product->save();
 
-        return redirect()->route('product.show', $product);
+        return redirect()->route('products.show', $product);
     }
 
     /**
@@ -105,17 +105,27 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        flash('Đã xóa đơn hàng ' . $product->name)->success();
-        return redirect()->route('contract.index');
+        flash('Đã xóa sản phẩm' . $product->name)->success();
+        return redirect()->route('products.index');
     }
 
     public function getProduct(Request $request)
     {
         $term = $request->term;
 
-        $products = Product::where('name', 'LIKE', '%' . $term . '%')->orderBy('id')->get();
+        $products = Product::where('name', 'LIKE', '%' . $term . '%')
+            ->select('id', 'name', 'code')
+            ->orderBy('id')
+            ->get();
 
         return response()->json($products);
+    }
+
+    public function existCode(Request $request)
+    {
+        $code = $request->code;
+
+        return Product::existCode($code);
     }
 }
 

@@ -63,10 +63,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php($i=1)
                         @foreach ($contract->contractDetails as $contractDetails)
                             <tr>
-                                <td>{{ $i }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $contractDetails->price->product->code }}</td>
                                 <td>{{ $contractDetails->price->product->name }}</td>
                                 <td>{{ $contractDetails->quantity }}</td>
@@ -76,7 +75,6 @@
                                 <td>{{ $contractDetails->supplier->name }}</td>
                                 <td>{{ $contractDetails->note }}</td>
                             </tr>
-                            @php($i++)
                         @endforeach
                     </tbody>
                 </table>
@@ -87,7 +85,7 @@
                     <div class="col-md-12 text-right">
                         @role(3)
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        <a href="{{ route('contracts.edit', ['contract' => $contract->id])}}" class="btn btn-info">
+                        <a href="{{ route('contracts.edit', $contract)}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
@@ -132,7 +130,6 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.numeric.extensions.js') }}"></script>
     <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script>
         $(function () {
@@ -149,12 +146,12 @@
                 ordering        : false,
                 columnDefs: [
                     {
-                        targets: [ 4 ],
+                        targets: 4,
                         render: $.fn.dataTable.render.number('.', ','),
                         className   : 'dt-body-right'
                     },
                     {
-                        targets: [ 5 ],
+                        targets: 5,
                         className   : 'dt-body-right'
                     },
                     {
@@ -163,15 +160,7 @@
                     }
                 ]
             });
-
-            $('button.cancel').on('click', function (e) {
-                e.preventDefault();
-            });
-
-            //create manufacturer order
-            // $('#manufacturer-order').on('click', function () {
-            //
-            // });
+            
             $('#export').on('click', function () {
                 $('#contract-show').table2excel();
             });

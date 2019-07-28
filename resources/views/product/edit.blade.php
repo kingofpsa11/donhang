@@ -1,11 +1,11 @@
 @extends('product._form')
 
 @section('route')
-    {{ route('products.update', [$product]) }}
+    {{ route('products.update', $product) }}
 @endsection
 
 @section('action', 'Tạo sản phẩm')
 
 @section('method')
-    PUT
+    @method('PATCH')
 @stop

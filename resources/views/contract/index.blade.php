@@ -10,44 +10,19 @@
         <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
-                <tr>
-                    <th>ĐVĐH</th>
-                    <th>Số đơn hàng</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Đơn giá</th>
-                    <th>Ngày lập</th>
-                    <th>Tiến độ</th>
-                    <th>LSX</th>
-                    <th>Trạng thái</th>
-                    <th>Action</th>
-                </tr>
-
-                </thead>
-                <tbody>
-                @foreach ($contractDetails as $contractDetail)
                     <tr>
-                        <td>{{ $contractDetail->contract->customer->name }}</td>
-                        <td>{{ $contractDetail->contract->number }}</td>
-                        <td>{{ $contractDetail->price->product->name }}</td>
-                        <td>{{ $contractDetail->quantity }}</td>
-                        <td>{{ $contractDetail->selling_price }}</td>
-                        <td>{{ $contractDetail->contract->date }}</td>
-                        <td>{{ $contractDetail->deadline }}</td>
-                        <td>{{ $contractDetail->manufacturerOrderDetail->manufacturerOrder->number ?? '' }}</td>
-                        <td>{{ $contractDetail->status }}</td>
-                        <td>
-                            <a href="{{ route('contracts.show', $contractDetail->contract)}}" class="btn btn-success">
-                                <i class="fa fa-tag" aria-hidden="true"></i> Xem
-                            </a>
-                            <a href="{{ route('contracts.edit', $contractDetail->contract)}}" class="btn btn-info">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                            </a>
-                        </td>
+                        <th>ĐVĐH</th>
+                        <th>Số đơn hàng</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Ngày lập</th>
+                        <th>Tiến độ</th>
+                        <th>LSX</th>
+                        <th>Trạng thái</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-
-                </tbody>
+                </thead>
                 <tfoot>
                     <tr>
                         <th>ĐVĐH</th>
@@ -59,7 +34,7 @@
                         <th>Tiến độ</th>
                         <th>LSX</th>
                         <th>Trạng thái</th>
-                        <td></td>
+                        <td>Action</td>
                     </tr>
                 </tfoot>
             </table>
@@ -77,80 +52,70 @@
             });
 
             let table = $('#example2').DataTable({
-                'paging': true,
-                'ordering': true,
-                'info': true,
-                'autoWidth' : true,
-                'searching': true,
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "language": {
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
-                "columns" : [
-                    { "data" : "customer" },
-                    { "data" : "number" },
-                    { "data" : "product" },
-                    { "data" : "quantity" },
+                searchDelay     : 300,
+                'processing'    : true,
+                'serverSide'    : true,
+                'ajax'          : {
+                    'url'           : '{{ route('contracts.all_contracts') }}',
+                    'dataType'      : 'json',
+                    'type'          : 'POST',
+                    'data'          : { _token: "{{ csrf_token() }}" }
+                },
+                'columns'       : [
+                    {data : "customer" },
                     {
-                        "data"      : "selling_price",
-                        render      : $.fn.dataTable.render.number( '.', ','),
+                        data : "number",
+                        className: 'dt-body-center'
+                    },
+                    { data : "product" },
+                    { data : "quantity" },
+                    {
+                        data        : "selling_price",
+                        render      : $.fn.dataTable.render.number('.', ','),
                         className   : 'dt-body-right'
                     },
+                    { data : "date" },
+                    { data : "deadline" },
+                    { data : "order" },
                     {
-                        "data"      : "date",
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "deadline",
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        "data"      : "order",
-                        className   : 'dt-body-center'
-                    },
-                    {
-                        "data"      : "status",
-                        "render"    : function (data) {
-                            if (data === '10') {
-                                return '<span class="label label-warning">Đang sản xuất</span>';
-                            } else if (data === '0') {
-                                return '<span class="label label-success">Xong</span>';
+                        data : "status",
+                        render    : function (data) {
+                            switch (data) {
+                                case 10:
+                                    return '<span class="label label-default">Đang trình ký</span>';
+                                case 5:
+                                    return '<span class="label label-warning">Đang sản xuất</span>';
+                                case 0:
+                                    return '<span class="label label-success">Xong</span>';
                             }
                         },
-                        className   : 'dt-body-center'
                     },
                     {
-                        "data" : "action",
-                        "className" : 'dt-body-center',
-                    }
+                        data    : "action",
+                        width   : '10%'
+                    },
                 ],
                 columnDefs: [
                     {
-                        targets: "_all",
-                        className   : 'dt-head-center',
+                        targets     : [5,6],
+                        render      : function(data) {
+                            return moment(data).format("DD/MM/YYYY");
+                        },
+                        className   : 'dt-body-right'
                     },
                     {
-                        targets : [0,1,3],
-                        width   : '5%'
-                    },
-                    {
-                        targets : 2,
-                        width   : '30%'
-                    },
-                    {
-                        targets : [4,5,6],
-                        width   : '10%'
-                    },
-                    {
-                        targets : 9,
-                        width   : '10%'
+                        targets     : '_all',
+                        className   : 'dt-head-center'
                     }
                 ]
             });
 
             table.columns().every( function () {
-                var that = this;
+                let that = this;
 
                 $( 'input', this.footer() ).on( 'keyup change', function () {
                     if ( that.search() !== this.value ) {

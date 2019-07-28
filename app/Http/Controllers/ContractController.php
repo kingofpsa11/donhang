@@ -31,7 +31,7 @@ class ContractController extends Controller
         $contractDetails = ContractDetail::with(['contract.customer', 'price.product', 'manufacturerOrderDetail.manufacturerOrder'])
             ->orderBy('id', 'desc')
             ->get();
-        return view('contract.index', compact('contractDetails'));
+        return response()->view('contract.index', compact('contractDetails'));
     }
 
     /**
@@ -109,6 +109,7 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
+        return $request;
         // Duyệt đơn hàng
         if (isset($request->approved)) {
             $contract->status = 5;
@@ -165,10 +166,8 @@ class ContractController extends Controller
             }
 
         } else {
-            $contract->update([
-                $request->all(),
-                'status' => 10,
-            ]);
+            $contract->update($request->all());
+            $contract->update(['status' => 10]);
 
             $contract->contractDetails()->update(['status' => 9]);
 
@@ -192,8 +191,10 @@ class ContractController extends Controller
 
             $contract->contractDetails()->where('status',9)->delete();
 
-            $user = User::find(11);
-            $user->notify(new \App\Notifications\Contract($contract->id, $contract->status, $contract->number));
+            if ($contract->isDirty()) {
+                $user = User::find(11);
+                $user->notify(new \App\Notifications\Contract($contract->id, $contract->status, $contract->number));
+            }
         }
 
         return view('contract.show', compact('contract'));
@@ -270,6 +271,157 @@ class ContractController extends Controller
             ->get();
 
         return response()->json($result);
+    }
+
+    public function allContracts(Request $request)
+    {
+//        return array_keys(array_filter(array_column(array_column($request->columns, 'search'), 'value')));
+
+        $columns = array(
+            0 =>'customer',
+            1 =>'number',
+            2=> 'product',
+            3=> 'quantity',
+            4=> 'selling_price',
+            5=> 'date',
+            6=> 'deadline',
+            7=> 'order',
+            8=> 'status',
+            9=> 'action',
+        );
+
+        $totalData = ContractDetail::count();
+
+        $totalFiltered = $totalData;
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        $manufacturerOrderDetails = DB::table('manufacturer_order_details')
+            ->join('manufacturer_orders', 'manufacturer_orders.id','=','manufacturer_order_details.manufacturer_order_id')
+            ->select('manufacturer_order_details.id', 'manufacturer_orders.number', 'manufacturer_order_details.contract_detail_id');
+
+        $contracts = DB::table('contracts')
+            ->leftJoin('customers', 'customers.id', '=', 'contracts.customer_id')
+            ->select('contracts.id', 'contracts.number', 'contracts.date', 'customers.name');
+
+        $prices = DB::table('prices')
+            ->leftJoin('products', 'products.id', '=', 'prices.product_id')
+            ->select('products.name', 'prices.id');
+
+        $query = DB::table('contract_details')
+            ->joinSub($contracts, 'contracts', function ($join) {
+                $join->on('contract_details.contract_id', '=', 'contracts.id');
+            })
+            ->leftJoinSub($manufacturerOrderDetails, 'manufacturerOrder', function ($join) {
+                $join->on('contract_details.id', '=', 'manufacturerOrder.contract_detail_id');
+            })
+            ->leftJoinSub($prices, 'prices', function ($join) {
+                $join->on('contract_details.price_id', '=', 'prices.id');
+            })
+            ->select(
+                'contracts.id',
+                'contracts.name AS customer',
+                'contracts.number',
+                'prices.name AS product',
+                'contract_details.quantity',
+                'contract_details.selling_price',
+                'contracts.date',
+                'contract_details.deadline',
+                'manufacturerOrder.number AS manufacturer',
+                'contract_details.status'
+            );
+
+        if (empty($request->input('search.value')) && !array_filter(array_column(array_column($request->columns, 'search'), 'value'))) {
+
+        } elseif (!empty($request->input('search.value'))) {
+
+                $search = $request->input('search.value');
+
+                $query = $query->where('contracts.name', 'LIKE', "%{$search}%")
+                    ->orWhere('contracts.number', 'LIKE', "%{$search}%")
+                    ->orWhere('prices.name', 'LIKE', "%{$search}%")
+                    ->orWhere('contract_details.quantity', 'LIKE', "%{$search}%")
+                    ->orWhere('contract_details.selling_price', 'LIKE', "%{$search}%")
+                    ->orWhere('contracts.date', 'LIKE', "%{$search}%")
+                    ->orWhere('contract_details.deadline', 'LIKE', "%{$search}%")
+                    ->orWhere('manufacturerOrder.number', 'LIKE', "%{$search}%");
+        } else {
+            if(!empty($request->input('columns.0.search.value'))) {
+                $search = $request->input('columns.0.search.value');
+                $query =  $query->orWhere('contracts.name','LIKE',"%{$search}%");
+            }
+            if(!empty($request->input('columns.1.search.value'))) {
+                $search = $request->input('columns.1.search.value');
+                $query =  $query->orWhere('contracts.number', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.2.search.value'))) {
+                $search = $request->input('columns.2.search.value');
+                $query =  $query->orWhere('prices.name', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.3.search.value'))) {
+                $search = $request->input('columns.3.search.value');
+                $query =  $query->orWhere('contract_details.quantity', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.4.search.value'))) {
+                $search = $request->input('columns.4.search.value');
+                $query =  $query->orWhere('contract_details.selling_price', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.5.search.value'))) {
+                $search = $request->input('columns.5.search.value');
+                $query =  $query->orWhere('contracts.date', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.6.search.value'))) {
+                $search = $request->input('columns.6.search.value');
+                $query =  $query->orWhere('contract_details.deadline', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.7.search.value'))) {
+                $search = $request->input('columns.7.search.value');
+                $query =  $query->orWhere('manufacturerOrder.number', 'LIKE', "%{$search}%");
+            }
+        }
+
+        $contractDetails = $query->offset($start)
+            ->limit($limit)
+            ->orderBy($order, $dir)
+            ->get();
+
+        $totalFiltered = $query->count();
+
+        $data = [];
+
+        if (!empty($contractDetails)) {
+            foreach ($contractDetails as $contractDetail) {
+                $show =  route('contracts.show',$contractDetail->id);
+                $edit =  route('contracts.edit',$contractDetail->id);
+
+                $nestedData['customer'] = $contractDetail->customer;
+                $nestedData['number'] = $contractDetail->number;
+                $nestedData['product'] = $contractDetail->product;
+                $nestedData['quantity'] = $contractDetail->quantity;
+                $nestedData['selling_price'] = $contractDetail->selling_price;
+                $nestedData['date'] = $contractDetail->date;
+                $nestedData['deadline'] = $contractDetail->deadline;
+                $nestedData['order'] = $contractDetail->manufacturer ?? '';
+                $nestedData['status'] = $contractDetail->status;
+                $nestedData['action'] = "<a href='{$show}' title='Xem' class='btn btn-success'><i class=\"fa fa-tag\" aria-hidden=\"true\"></i> Xem</a><a href='{$edit}' title='Sửa' class='btn btn-primary'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> Sửa</a>";
+                $data[] = $nestedData;
+
+            }
+        }
+
+        $json_data = [
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+        ];
+
+        echo json_encode($json_data);
+
+
     }
 
 }

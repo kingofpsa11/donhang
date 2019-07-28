@@ -33,9 +33,14 @@ class PriceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Product $product)
     {
-        return view('price.create');
+        $price = $this->price->where('product_id', $product->id)->first();
+        if ($price) {
+            return redirect()->route('prices.edit', $price);
+        } else {
+            return view('price.create', compact('product'));
+        }
     }
 
     /**
@@ -46,7 +51,8 @@ class PriceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->price->fill($request->all())->save();
+        return redirect()->route('prices.show', $this->price);
     }
 
     /**
@@ -57,7 +63,7 @@ class PriceController extends Controller
      */
     public function show(Price $price)
     {
-
+        return response()->view('price.show', compact('price'));
     }
 
     /**
@@ -101,7 +107,7 @@ class PriceController extends Controller
      */
     public function edit(Price $price)
     {
-        //
+        return response()->view('price.edit', compact('price'));
     }
 
     /**
@@ -113,7 +119,8 @@ class PriceController extends Controller
      */
     public function update(Request $request, Price $price)
     {
-        //
+        $price->update($request->all());
+        return redirect()->route('prices.show', $price);
     }
 
     /**

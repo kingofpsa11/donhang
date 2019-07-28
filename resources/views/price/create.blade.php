@@ -4,4 +4,4 @@
     {{ route('prices.store') }}
 @endsection
 
-@section('action', 'Tạo sản phẩm')
+@section('action', 'Tạo giá')
