@@ -29,10 +29,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <style>
-
-    </style>
-
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -286,7 +282,7 @@ desired effect
                         <li><a href="{{ route('products.create') }}"><i class="fa fa-circle-o"></i>Tạo sản phẩm</a></li>
                         <li><a href="{{ route('prices.create') }}"><i class="fa fa-circle-o"></i>Giá</a></li>
                         <li><a href="{{ route('contracts.create') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
-                        <li><a href="{{ route('output-order.create') }}"><i class="fa fa-circle-o"></i>Lệnh xuất hàng</a></li>
+                        <li><a href="{{ route('output-orders.create') }}"><i class="fa fa-circle-o"></i>Lệnh xuất hàng</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>
                 </li>
@@ -301,7 +297,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('output-order.getUndoneOutputOrder') }}"><i class="fa fa-circle-o"></i>Danh sách LXH</a></li>
+                        <li><a href="{{ route('output-orders.getUndoneOutputOrder') }}"><i class="fa fa-circle-o"></i>Danh sách LXH</a></li>
                         <li><a href="{{ route('good-receive.create') }}"><i class="fa fa-circle-o"></i>Phiếu nhập kho</a></li>
                         <li><a href="{{ route('good-deliveries.create') }}"><i class="fa fa-circle-o"></i>Phiếu xuất kho</a></li>
                         <li><a href="{{ route('good-transfer.showInventory') }}"><i class="fa fa-circle-o"></i>Tồn kho</a></li>
@@ -449,7 +445,9 @@ desired effect
     <script type="text/javascript" src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <script src="{{ asset('bower_components/select2/dist/js/select2.full.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
-    @yield('javascript')
+
+    {{--@yield('javascript')--}}
+
     <script>
         $(function () {
             $('button').on('click', function (e) {
@@ -466,5 +464,6 @@ desired effect
             });
         })
     </script>
+    @yield('javascript')
 </body>
 </html>

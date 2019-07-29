@@ -13,9 +13,12 @@ use Carbon\Carbon;
 
 class OutputOrderController extends Controller
 {
-    public function __construct()
+    protected $outputOrder;
+
+    public function __construct(OutputOrder $outputOrder)
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
+        $this->outputOrder = $outputOrder;
     }
 
     /**
@@ -25,8 +28,8 @@ class OutputOrderController extends Controller
      */
     public function index()
     {
-        $outputOrderDetails = OutputOrderDetail::with(['outputOrder.customer', 'contractDetail.price.product'])->take(1000)->get();
-        return view('output_order.index')->with('outputOrderDetails', $outputOrderDetails);
+        $outputOrderDetails = OutputOrderDetail::with('outputOrder.customer', 'contractDetail.price.product')->get();
+        return view('output_order.index',compact('outputOrderDetails'));
     }
 
     /**
@@ -36,8 +39,7 @@ class OutputOrderController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
-        return view('output_order.create')->with(['customers' => $customers]);
+        return view('output_order.create');
     }
 
     /**
@@ -48,34 +50,22 @@ class OutputOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $numberIsExist = OutputOrder::where('number', $request->outputOrder['number'])
-            ->where('customer_id', $request->outputOrder['customer_id'])
-            ->whereYear('date', date('Y', (int)$request->outputOrder['date']))
-            ->count();
+        $this->outputOrder->fill($request->all())->save();
 
-        if ($numberIsExist > 0) {
-            flash('Số lệnh xuất hàng đã tồn tại')->error();
-            return redirect()->back();
+        for ($i = 0; $i < count($request->code); $i++) {
+            OutputOrderDetail::create([
+                'output_order_id' => $this->outputOrder->id,
+                'contract_detail_id' => $request->contract_detail_id[$i],
+                'quantity' => $request->quantity[$i],
+            ]);
         }
 
-        $outputOrder = new OutputOrder();
-        $outputOrder->customer_id = $request->outputOrder['customer_id'];
-        $outputOrder->number = $request->outputOrder['number'];
-        $outputOrder->date = $request->outputOrder['date'];
-
-        if ($outputOrder->save()) {
-            $outputOrderDetails = [];
-            foreach ($request->outputOrderDetails as $value) {
-                $outputOrderDetail = new OutputOrderDetail();
-                $outputOrderDetail->contract_detail_id = $value['contract_detail_id'];
-                $outputOrderDetail->quantity = $value['quantity'];
-                array_push($outputOrderDetails, $outputOrderDetail);
-            }
-
-            if($outputOrder->outputOrderDetails()->saveMany($outputOrderDetails)) {
-                return redirect()->route('output-order.show', [$outputOrder]);
-            }
+        $users = User::role(7)->get();
+        foreach ($users as $user) {
+            $user->notify(new \App\Notifications\OutputOrderApproved($this->outputOrder));
         }
+
+        return redirect()->route('output-orders.show', $this->outputOrder);
     }
 
     /**
@@ -86,8 +76,8 @@ class OutputOrderController extends Controller
      */
     public function show(OutputOrder $outputOrder)
     {
-        $outputOrder->load('outputOrderDetails');
-        return view('output_order.show')->with('outputOrder', $outputOrder);
+        $outputOrder->load('outputOrderDetails.contractDetail.price.product');
+        return view('output_order.show', compact('outputOrder'));
     }
 
     /**
@@ -98,9 +88,8 @@ class OutputOrderController extends Controller
      */
     public function edit(OutputOrder $outputOrder)
     {
-        $customers = Customer::all();
-        $outputOrder->load('outputOrderDetails');
-        return view('output_order.edit')->with(['outputOrder' => $outputOrder, 'customers' => $customers]);
+        $outputOrder->load('outputOrderDetails.contractDetail.contract.customer','outputOrderDetails.contractDetail.price.product');
+        return view('output_order.edit',compact('outputOrder'));
     }
 
     /**
@@ -116,60 +105,64 @@ class OutputOrderController extends Controller
         if (isset($request->approved)) {
             $outputOrder->status = 5;
             $outputOrder->save();
-            $outputOrderId = $outputOrder->id;
 
-            $goodDelivery = new GoodDelivery();
-            $goodDelivery->output_order_id = $outputOrder->id;
-            $goodDelivery->number = $outputOrder->number;
-            $goodDelivery->customer_id = $outputOrder->customer_id;
-            $goodDelivery->customer_user = $outputOrder->customer_user;
-            $goodDelivery->date = time();
+            $goodDelivery = GoodDelivery::updateOrCreate(
+                [
+                    'output_order_id' => $outputOrder->id,
+                ],
+                [
+                    'number' => GoodDelivery::getNewNumber(),
+                    'customer_id' => $outputOrder->customer_id,
+                    'customer_user' => $outputOrder->customer_user,
+                    'date' => date('d/m/Y')
+                ]
+            );
 
-            if ($goodDelivery->save()) {
-                $goodDeliveryDetails = [];
-                foreach ($outputOrder->outputOrderDetails as $outputOrderDetail) {
-                    $goodDeliveryDetail = new GoodDeliveryDetail();
-                    $goodDeliveryDetail->output_order_detail_id = $outputOrderDetail->id;
-                    $goodDeliveryDetail->good_delivery_id = $goodDelivery->id;
-                    $goodDeliveryDetail->product_id = $outputOrderDetail->contractDetail->price->product->id;
-                    $goodDeliveryDetail->quantity = $outputOrderDetail->quantity;
-                    array_push($goodDeliveryDetails, $goodDeliveryDetail);
-                }
-
-                $goodDelivery->goodDeliveryDetails()->saveMany($goodDeliveryDetails);
+            foreach ($outputOrder->outputOrderDetails as $outputOrderDetail) {
+                GoodDeliveryDetail::updateOrCreate(
+                    [
+                        'output_order_detail_id' => $outputOrderDetail->id
+                    ],
+                    [
+                        'good_delivery_id' => $goodDelivery->id,
+                        'product_id' => $outputOrderDetail->contractDetail->price->product->id,
+                        'quantity' => $outputOrderDetail->quantity,
+                    ]
+                );
             }
 
             $users = User::role(5)->get();
+
             foreach ($users as $user) {
                 $user->notify(new \App\Notifications\OutputOrder($outputOrder->number, $goodDelivery->id));
             }
 
-            return redirect()->route('output-order.index');
+            return redirect()->route('output-orders.index');
 
         } else {
-            $outputOrder->customer_id = $request->outputOrder['customer_id'];
-            $outputOrder->number = $request->outputOrder['number'];
-            $outputOrder->date = $request->outputOrder['date'];
-
-            if ($outputOrder->save()) {
-                $outputOrder->outputOrderDetails()->delete();
-
-                $outputOrderDetails = [];
-                foreach ($request->outputOrderDetails as $value) {
-                    $outputOrderDetail = new OutputOrderDetail();
-                    $outputOrderDetail->price_id = $value['price_id'];
-                    $outputOrderDetail->selling_price = $value['selling_price'];
-                    $outputOrderDetail->deadline = $value['deadline'];
-                    $outputOrderDetail->note = $value['note'];
-                    $outputOrderDetail->quantity = $value['quantity'];
-                    $outputOrderDetail->status = 10;
-                    array_push($outputOrderDetails, $outputOrderDetail);
-                }
-
-                if($outputOrder->outputOrderDetails()->saveMany($outputOrderDetails)) {
-                    return redirect()->route('output-order.show', [$outputOrder]);
-                }
+            $outputOrder->update($request->all());
+            if ($outputOrder->isDirty()) {
+                $outputOrder->update(['status' => 10]);
             }
+            $outputOrder->outputOrderDetails()->update(['status' => 9]);
+
+            for ($i = 0; $i < count($request->code); $i++) {
+                OutputOrderDetail::updateOrCreate(
+                    [
+                        'id' => $request->output_order_detail_id[$i],
+                    ],
+                    [
+                        'output_order_id' => $outputOrder->id,
+                        'contract_detail_id' => $request->contract_detail_id[$i],
+                        'quantity' => $request->quantity[$i],
+                        'status' => 10
+                    ]
+                );
+            }
+
+            $outputOrder->outputOrderDetails()->where('status', 9)->delete();
+
+            return redirect()->route('output-orders.show', $outputOrder);
         }
     }
 
@@ -183,7 +176,7 @@ class OutputOrderController extends Controller
     {
         $outputOrder->delete();
         flash('Đã xoá lệnh xuất hàng số ' . $outputOrder->number)->success();
-        return redirect()->route('output-order.index');
+        return redirect()->route('output-orders.index');
     }
 
     public function getUndoneOutputOrders()
@@ -193,7 +186,7 @@ class OutputOrderController extends Controller
         return view('output_order.undone', compact('undoneOutputOrders'));
     }
 
-    public function checkNumber(Request $request)
+    public function existNumber(Request $request)
     {
         $number = $request->number;
         $customer_id = $request->customer_id;

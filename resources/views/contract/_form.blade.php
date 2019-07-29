@@ -79,7 +79,7 @@
                                 disabled
                             @endif
                         ">Thêm dòng</button>
-                        <input type="submit" value="Lưu" class="btn btn-success save">
+                        <input type="submit" value="Lưu" class="btn btn-success save disabled">
                         <a href="{{ route('contracts.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
@@ -257,42 +257,30 @@
                 updateNumberOfRow();
             });
 
-            //Click cancel button
-            $('button.cancel').on('click', function (e) {
-                e.preventDefault();
+            $('[name="number"]').on('focusout', function () {
+                let numberObj = $('[name="number"]');
+                let number = numberObj.val();
+                let customer_id = customerSelect.val();
+                let year = $('[name="date"]').val().split('/')[2];
+                let submitButton = $('.save');
+
+                if (number !== '') {
+                    $.get(
+                        "{{ route('contracts.exist_number') }}",
+                        {number: number, customer_id: customer_id, year: year},
+                        function (result) {
+                            if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
+                                numberObj.parent().find('span').html('Đã tồn tại số đơn hàng');
+                                submitButton.addClass('disabled');
+                            } else {
+                                numberObj.parent().find('span').html('');
+                                submitButton.removeClass('disabled');
+                            }
+                        },
+                        "text"
+                    );
+                }
             });
-
-            function convertNumber(obj) {
-                obj.each(function (i, el) {
-                    $(el).inputmask('remove');
-                    $(el).val($(el).val().replace(/(\d+).(?=\d{3})/g, "$1"));
-                })
-            }
-
-            {{--$('#form').on('submit', function (e) {--}}
-            {{--    e.preventDefault();--}}
-            {{--    let form = this;--}}
-            {{--    let numberObj = $('[name*="number"]');--}}
-            {{--    let number = numberObj.val();--}}
-            {{--    let customer_id = customerSelect.val();--}}
-            {{--    let year = $('[name*="date"]').val().split('/')[2];--}}
-            {{--    --}}
-            {{--    //remove warning--}}
-            {{--    numberObj.parent().find('span').html('');--}}
-            
-            {{--    $.get(--}}
-            {{--        "{{ route('contract.checkNumber') }}",--}}
-            {{--        { number: number, customer_id: customer_id, year: year },--}}
-            {{--        function (result) {--}}
-            {{--            if (result > 0 && window.location.pathname.indexOf('create') >= 0) {--}}
-            {{--                $('[name*="number"]').parent().find('span').html('Đã tồn tại số đơn hàng');--}}
-            {{--            } else {--}}
-            {{--                form.submit();--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        "text"--}}
-            {{--    );--}}
-            {{--});--}}
         })
     </script>
 @stop

@@ -6,7 +6,9 @@
 
 @section('table-body')
     <tr data-key="0">
-        <td data-col-seq="0">1</td>
+        <td data-col-seq="0">
+            <span>1</span>
+        </td>
         <td data-col-seq="1">
             <input type="text" class="form-control" name="code[]" readonly>
         </td>

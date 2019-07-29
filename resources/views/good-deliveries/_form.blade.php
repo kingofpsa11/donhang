@@ -134,7 +134,7 @@
                     placeholder: 'Nhập tên sản phẩm',
                     minimumInputLength: 2,
                     ajax: {
-                        url: '{{ route('product.getProduct') }}',
+                        url: '{{ route('products.get_product') }}',
                         delay: 200,
                         dataType: 'json',
                         dropdownAutoWidth : true,

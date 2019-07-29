@@ -60216,7 +60216,8 @@ var NOTIFICATION_TYPES = {
   manufacturer: 'App\\Notifications\\ManufacturerOrder',
   goodTransfer: 'App\\Notifications\\GoodTransfer',
   outputOrder: 'App\\Notifications\\OutputOrder',
-  contract: 'App\\Notifications\\Contract'
+  contract: 'App\\Notifications\\Contract',
+  outputOrderApproved: 'App\\Notifications\\OutputOrderApproved'
 };
 $(document).ready(function () {
   if (Laravel.userId) {
@@ -60267,9 +60268,11 @@ function routeNotification(notification) {
   } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
     to = 'good-transfer' + to;
   } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
-    to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
+    to = 'good-deliveries/' + notification.data.good_delivery_id + '/edit' + to;
   } else if (notification.type === NOTIFICATION_TYPES.contract) {
     to = 'contracts/' + notification.data.contract_id + to;
+  } else if (notification.type === NOTIFICATION_TYPES.outputOrderApproved) {
+    to = 'output-orders/' + notification.data.output_order_id + to;
   }
 
   return '/' + to;
@@ -60291,6 +60294,8 @@ function makeNotificationText(notification) {
     } else {
       text = 'Phòng KHKD trình đơn hàng số ' + notification.data.number;
     }
+  } else if (notification.type === NOTIFICATION_TYPES.outputOrderApproved) {
+    text = 'Lệnh xuất hàng số ' + notification.data.output_order_number;
   }
 
   return text;
@@ -60305,7 +60310,7 @@ function makeNotificationText(notification) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* WEBPACK VAR INJECTION */(function(global) {window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -60314,7 +60319,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  global.$ = global.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
   window.moment = moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"); // require('bootstrap');
 } catch (e) {}
 /**
@@ -60344,6 +60349,7 @@ if (token) {
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -60365,8 +60371,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

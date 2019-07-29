@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OutputOrderDetail extends Model
 {
-    protected $fillable = ['id', 'contract_detail_id', 'quantity', 'date', 'output_order_id'];
+    protected $fillable = ['id', 'contract_detail_id', 'quantity', 'output_order_id', 'status'];
 
     public $timestamps = true;
 

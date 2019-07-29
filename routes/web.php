@@ -25,11 +25,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('contracts')->name('contracts.')->group(function() {
         Route::get('checkNumber', 'ContractController@checkNumber')->name('checkNumber');
         Route::post('allContracts', 'ContractController@allContracts')->name('all_contracts');
+        Route::get('existNumber', 'ContractController@existNumber')->name('exist_number');
     });
     Route::get('/getlast/{customer_id}', 'ContractController@getLastContract');
     Route::get('contracts/search', 'ContractController@shows')->name('contract.shows');
     Route::get('contracts/getManufacturerOrder', 'ContractController@getManufacturerOrder')->name('contract.getManufacturerOrder');
-    Route::get('contracts/checkNumber', 'ContractController@checkNumber')->name('contract.checkNumber');
+
     Route::resource('contracts','ContractController');
 
     Route::get('newNumber/{supplier_id}', 'ManufacturerOrderController@getNewNumber')->name('manufacturer-order.as');
@@ -41,9 +42,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('prices/create/{product?}', 'PriceController@create')->name('prices.create');
     Route::resource('prices', 'PriceController')->except('create');
 
-    Route::get('output-order/getUndoneOutputOrder', 'OutputOrderController@getUndoneOutputOrders')->name('output-order.getUndoneOutputOrder');
-    Route::get('output-order/checkNumber', 'OutputOrderController@checkNumber')->name('output-order.checkNumber');
-    Route::resource('output-order', 'OutputOrderController');
+    Route::prefix('output-orders')->name('output-orders.')->group(function () {
+        Route::get('getUndoneOutputOrder', 'OutputOrderController@getUndoneOutputOrders')->name('getUndoneOutputOrder');
+        Route::get('existNumber', 'OutputOrderController@existNumber')->name('exist_number');
+    });
+    Route::resource('output-orders', 'OutputOrderController');
 
     Route::get('product/all', 'ProductController@shows')->name('product.shows');
     Route::get('product/getProduct', 'ProductController@getProduct')->name('products.get_product');

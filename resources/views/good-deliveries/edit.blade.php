@@ -7,7 +7,7 @@
 @endsection
 
 @section('method')
-    @method('PUT')
+    @method('PATCH')
 @stop
 
 @section('table-body')
@@ -38,7 +38,9 @@
             </td>
             <td data-col-seq="4">
                 <select class="form-control" style="width: 100%;" name="store_id[]" required>
-                    <option value="{{ $goodDeliveryDetail->store_id }}">{{ $goodDeliveryDetail->store->code }}</option>
+                    @if (isset($goodDeliveryDetail->store))
+                        <option value="{{ $goodDeliveryDetail->store_id }}">{{ $goodDeliveryDetail->store->code }}</option>
+                    @endif
                 </select>
             </td>
             <td data-col-seq="5">

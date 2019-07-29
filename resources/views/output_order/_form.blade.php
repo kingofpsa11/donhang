@@ -15,7 +15,10 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label>Đơn vị nhận hàng</label>
-								<select class="form-control select2 customer" name="outputOrder[customer_id]" required>
+								<select class="form-control select2 customer" name="customer_id" required>
+                                    @if (isset($outputOrder))
+                                        <option value="{{ $outputOrder->customer_id }}">{{ $outputOrder->outputOrderDetails->first()->contractDetail->contract->customer->name }}</option>
+                                    @endif
 								</select>
 							</div>
 						</div>
@@ -24,13 +27,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Người nhận hàng</label>
-                                <input type="text" class="form-control" name="outputOrder[customer_user]" value="{{ $outputOrder->customer_user ?? '' }}">
+                                <input type="text" class="form-control" name="customer_user" value="{{ $outputOrder->customer_user ?? '' }}">
                             </div>
                         </div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Số lệnh xuất hàng</label>
-								<input type="text" class="form-control" name="outputOrder[number]" required value="{{ $outputOrder->number ?? '' }}">
+								<input type="text" class="form-control" name="number" required value="{{ $outputOrder->number ?? '' }}">
                                 <span class="check-number text-red"></span>
 							</div>
 						</div>
@@ -41,7 +44,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<input type="text" class="form-control" value="@yield('output-order-date')" name="outputOrder[date]" required>
+									<input type="text" class="form-control"  name="date" value="{{ $outputOrder->date ?? date('d/m/Y') }}" required>
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -78,7 +81,7 @@
                             @endif
                         ">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ url('output-order') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ route('output-orders.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
 			</div>
@@ -89,11 +92,10 @@
 
 @section('javascript')
     <script>
-        $(function () {
-
+        $(document).ready(function () {
             let customerSelect = $('.select2.customer');
             customerSelect.select2({
-                placeholder: 'Nhập đơn vị nhận hàng',
+                placeholder: 'Nhập khách hàng',
                 minimumInputLength: 1,
                 ajax: {
                     url: '{{ route('customer.listCustomer') }}',
@@ -112,18 +114,18 @@
                     cache: true
                 },
             });
-            
+
             function maskDate(obj) {
                 obj.inputmask({
                     alias: 'date',
                     displayFormat: 'dd/mm/yyyy',
                 });
             }
-            
-            let date = $('[name="outputOrder[date]"]');
-            
+
+            let date = $('[name="date"]');
+
             maskDate(date);
-            
+
             function addSelect2(el) {
                 el.select2({
                     placeholder: 'Nhập số đơn hàng',
@@ -132,12 +134,10 @@
                         url: '{{ route('contract.shows') }}',
                         delay: 200,
                         data: function (params) {
-                            let query = {
+                            return {
                                 search: params.term,
                                 customer_id: customerSelect.val()
                             };
-
-                            return query;
                         },
                         dataType: 'json',
                         processResults: function (data) {
@@ -167,32 +167,26 @@
             function getProduct(el) {
                 el.on('select2:select', function (e) {
                     let data = e.params.data;
-                    $(this).parents('tr').find('input[name$="[code]"]').val(data.code);
-                    $(this).parents('tr').find('input[name$="[contract_id]"]').val(data.number);
-                    $(this).parents('tr').find('input[name$="[quantity]"]').val(data.remain_quantity);
+                    $(this).parents('tr').find('input[name*="code"]').val(data.code);
+                    $(this).parents('tr').find('input[name*="contract_id"]').val(data.number);
+                    $(this).parents('tr').find('input[name*="quantity"]').val(data.remain_quantity);
                 });
             }
-            
+
             let contractSelect = $('.select2.contract');
+            addSelect2(contractSelect);
+            getProduct(contractSelect);
 
             customerSelect.on('select2:select', function () {
                 $('.addRow').removeClass('disabled');
-                addSelect2(contractSelect);
-                getProduct(contractSelect);
             });
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
-                
+
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
-                    $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + i + '][contract_id]');
-                    $(row).children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + i + '][manufacturer_order_number]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + i + '][code]');
-                    $(row).children('[data-col-seq="4"]').find('select').attr('name', 'outputOrderDetails[' + i + '][contract_detail_id]');
-                    $(row).children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + i + '][quantity]');
-                    $(row).children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + i + '][note]');
+                    $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -202,9 +196,9 @@
                     }
                 });
             }
-            
+
             //Add or remove row to table
-            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
+            $('.box-footer').on('click', '.addRow:not(".disabled")', function (e) {
                 e.preventDefault();
                 let tableBody = $('tbody');
                 let numberOfProduct = tableBody.children().length;
@@ -214,12 +208,6 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_id]');
-                newRow.children('[data-col-seq="2"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][manufacturer_order_number]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][code]');
-                newRow.children('[data-col-seq="4"]').find('select').attr('name', 'outputOrderDetails[' + numberOfProduct + '][contract_detail_id]');
-                newRow.children('[data-col-seq="5"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][quantity]');
-                newRow.children('[data-col-seq="6"]').find('input').attr('name', 'outputOrderDetails[' + numberOfProduct + '][note]');
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -237,21 +225,11 @@
                 currentRow.remove();
                 updateNumberOfRow();
             });
-            
+
             //Click cancel button
             $('button.cancel').on('click', function (e) {
                 e.preventDefault();
             });
-
-            function convertDateToTimestamp(obj) {
-                obj.each(function (i, el) {
-                    let date = $(el).val();
-                    $(el).inputmask('remove');
-                    let datePart = date.split('/');
-                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                    $(el).val(newDate.getTime()/1000);
-                });
-            }
 
             $('#form').on('submit', function (e) {
                 e.preventDefault();
@@ -261,19 +239,18 @@
                 let year = $('[name*="date"]').val().split('/')[2];
 
                 $.get(
-                    "{{ route('output-order.checkNumber') }}",
-                    { number: number, customer_id: customer_id, year: year },
+                    "{{ route('output-orders.exist_number') }}",
+                    {number: number, customer_id: customer_id, year: year},
                     function (result) {
-                        if (result > 0) {
-                            $('[name*="number"]').parent().find('span').html('Đã tồn tại số lệnh');
+                        if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
+                            $('[name="number"]').parent().find('span').html('Đã tồn tại số lệnh');
                         } else {
-                            convertDateToTimestamp($('[name="outputOrder[date]"]'));
                             form.submit();
                         }
                     },
                     "text"
                 );
             });
-
-        
-@show
+        });
+    </script>
+@stop

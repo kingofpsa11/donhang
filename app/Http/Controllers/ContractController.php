@@ -43,7 +43,7 @@ class ContractController extends Controller
     {
 
         $customers = Customer::all();
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::whereIn('id', [74, 584, 994])->get();
         return view('contract.create', compact('customers', 'suppliers'));
     }
 
@@ -95,7 +95,7 @@ class ContractController extends Controller
      */
     public function edit(Contract $contract)
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::whereIn('id', [74, 584, 994])->get();
         $contract->load('contractDetails.price.product', 'contractDetails.supplier');
         return view('contract.edit', compact('contract', 'suppliers'));
     }
@@ -109,7 +109,6 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        return $request;
         // Duyệt đơn hàng
         if (isset($request->approved)) {
             $contract->status = 5;
@@ -129,7 +128,7 @@ class ContractController extends Controller
                 if (!$manufacturerOrder) {
                     $manufacturerOrder = ManufacturerOrder::create([
                         'contract_id' => $contract->id,
-                        'number' => ManufacturerOrder::getNewNumber(),
+                        'number' => ManufacturerOrder::getNewNumber($contractDetail->supplier_id),
                         'supplier_id' => $contractDetail->supplier_id,
                         'date' => $contract->date,
                     ]);
@@ -167,8 +166,9 @@ class ContractController extends Controller
 
         } else {
             $contract->update($request->all());
-            $contract->update(['status' => 10]);
-
+            if ($contract->isDirty()) {
+                $contract->update(['status' => 10]);
+            }
             $contract->contractDetails()->update(['status' => 9]);
 
             for ($i = 0; $i < count($request->code); $i++) {
@@ -222,18 +222,18 @@ class ContractController extends Controller
         return $newContract;
     }
 
-    public function checkNumber(Request $request)
+    public function existNumber(Request $request)
     {
         $number = $request->number;
         $customer_id = $request->customer_id;
         $year = $request->year;
 
-        $contract = Contract::where('customer_id', $customer_id)
+        $count = Contract::where('customer_id', $customer_id)
             ->whereYear('date', $year)
             ->where('number', $number)
             ->count();
 
-        return $contract;
+        return $count;
     }
 
     public function shows(Request $request)

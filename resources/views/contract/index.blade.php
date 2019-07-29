@@ -86,11 +86,13 @@
                         render    : function (data) {
                             switch (data) {
                                 case 10:
-                                    return '<span class="label label-default">Đang trình ký</span>';
+                                    return '<span class="label label-primary">Đang trình ký</span>';
                                 case 5:
                                     return '<span class="label label-warning">Đang sản xuất</span>';
                                 case 0:
                                     return '<span class="label label-success">Xong</span>';
+                                default:
+                                    return '<span class="label label-default">Lỗi</span>';
                             }
                         },
                     },

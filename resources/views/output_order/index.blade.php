@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp LXH</h3>
-            <a href="{{ route('output-order.create') }}" class="btn btn-primary pull-right">Tạo Lệnh xuất hàng mới</a>
+            <a href="{{ route('output-orders.create') }}" class="btn btn-primary pull-right">Tạo Lệnh xuất hàng mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
@@ -26,7 +26,7 @@
                 <tbody>
                 @foreach ($outputOrderDetails as $outputOrderDetail)
                     <tr>
-                        <td>{{ $outputOrderDetail->outputOrder->customer->short_name }}</td>
+                        <td>{{ $outputOrderDetail->outputOrder->customer->name }}</td>
                         <td>{{ $outputOrderDetail->outputOrder->date }}</td>
                         <td>{{ $outputOrderDetail->outputOrder->number }}</td>
                         <td>{{ $outputOrderDetail->contractDetail->contract->number }}</td>
@@ -35,10 +35,10 @@
                         <td>{{ $outputOrderDetail->manufacturer_order_number }}</td>
                         <td>{{ $outputOrderDetail->outputOrder->status }}</td>
                         <td>
-                                <a href="{{ route('output-order.show', [$outputOrderDetail->output_order_id])}}" class="btn btn-success">
+                                <a href="{{ route('output-orders.show', $outputOrderDetail->output_order_id)}}" class="btn btn-success">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('output-order.edit', [$outputOrderDetail->output_order_id])}}" class="btn btn-info">
+                                <a href="{{ route('output-orders.edit', $outputOrderDetail->output_order_id)}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                         </td>

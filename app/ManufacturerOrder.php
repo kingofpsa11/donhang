@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 /**
  * App\ManufacturerOrder
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ManufacturerOrder extends Model
 {
-    protected $fillable = ['id', 'number', 'status', 'supplier_id', 'contract_id'];
+    protected $fillable = ['id', 'contract_id', 'supplier_id', 'number', 'status', 'date'];
 
     public $timestamps = true;
 
@@ -54,8 +55,24 @@ class ManufacturerOrder extends Model
         'status' => 10,
     ];
 
-    public static function getNewNumber()
+    public function setDateAttribute($value)
     {
-        return (self::whereYear('date', date('Y'))->max('number') + 1) ?? 1;
+        $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
+    }
+
+    public function getDateAttribute($value)
+    {
+        if (isset($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value, 'Asia/Bangkok')->format(config('app.date_format'));
+        }
+
+        return $value;
+    }
+
+    public static function getNewNumber($supplier_id)
+    {
+        return (self::whereYear('date', date('Y'))
+                    ->where('supplier_id', $supplier_id)
+                    ->max('number') + 1) ?? 1;
     }
 }

@@ -52,6 +52,7 @@ const NOTIFICATION_TYPES = {
     goodTransfer: 'App\\Notifications\\GoodTransfer',
     outputOrder: 'App\\Notifications\\OutputOrder',
     contract: 'App\\Notifications\\Contract',
+    outputOrderApproved: 'App\\Notifications\\OutputOrderApproved',
 };
 
 $(document).ready(function () {
@@ -104,9 +105,11 @@ function routeNotification(notification) {
     } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
         to = 'good-transfer' + to;
     } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
-        to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
+        to = 'good-deliveries/' + notification.data.good_delivery_id + '/edit' + to;
     } else if (notification.type === NOTIFICATION_TYPES.contract) {
         to = 'contracts/' + notification.data.contract_id + to;
+    } else if (notification.type === NOTIFICATION_TYPES.outputOrderApproved) {
+        to = 'output-orders/' + notification.data.output_order_id + to;
     }
 
     return '/' + to;
@@ -127,7 +130,10 @@ function makeNotificationText(notification) {
         } else {
             text = 'Phòng KHKD trình đơn hàng số ' + notification.data.number;
         }
+    } else if (notification.type === NOTIFICATION_TYPES.outputOrderApproved) {
+        text = 'Lệnh xuất hàng số ' + notification.data.output_order_number;
     }
+
 
     return text;
 }
