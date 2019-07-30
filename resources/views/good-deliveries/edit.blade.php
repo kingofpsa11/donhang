@@ -33,7 +33,7 @@
                 </select>
             </td>
             <td data-col-seq="3">
-                <input type="text" class="form-control" name="unit[]" readonly>
+                <input type="text" class="form-control" name="unit[]" value="{{ $goodDeliveryDetail->product->unit ?? '' }}" readonly>
             </td>
             <td data-col-seq="4">
                 <select class="form-control" style="width: 100%;" name="store_id[]" required>
@@ -46,7 +46,7 @@
                 <input type="text" class="form-control" name="quantity[]" value="{{ $goodDeliveryDetail->quantity }}" readonly>
             </td>
             <td data-col-seq="6">
-                <input type="text" class="form-control" name="actual_quantity[]" value="{{ $goodDeliveryDetail->actual_quantity }}">
+                <input type="number" class="form-control" name="actual_quantity[]" value="{{ $goodDeliveryDetail->actual_quantity }}" required>
             </td>
             <td data-col-seq="7">
                 <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>

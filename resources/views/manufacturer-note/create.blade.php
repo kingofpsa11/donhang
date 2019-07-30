@@ -6,20 +6,14 @@
     {{ route('manufacturer-notes.store') }}
 @endsection
 
-@section('date')
-    @php
-        echo date('d/m/Y');
-    @endphp
-@stop
-
 @section('table-body')
     <tr data-key="0">
         <td data-col-seq="0">
             <span>1</span>
         </td>
         <td data-col-seq="1">
-            <select name="manufacturerNoteDetails[0][contract_detail_id]" class="form-control">
-                <option value="" hidden>--Chọn sản phẩm--</option>
+            <select name="contract_detail_id[]" class="form-control" style="width: 100%">
+                <option value="" hidden>Chọn loại phôi</option>
                 @foreach( $manufacturerOrder->contract->contractDetails as $contractDetail)
                     @foreach( $contractDetail->price->product->boms as $bom )
                         <optgroup label="{{ $contractDetail->price->product->name }}">
@@ -30,17 +24,17 @@
                     @endforeach
                 @endforeach
             </select>
-            <input type="hidden" name="manufacturerNoteDetails[0][bom_detail_id]">
+            <input type="hidden" name="bom_detail_id[]">
         </td>
         <td data-col-seq="2">
-            <select class="form-control" name="manufacturerNoteDetails[0][product_id]" required>
+            <select class="form-control" name="product_id[]" style="width: 100%" required>
             </select>
         </td>
         <td data-col-seq="3">
-            <input type="text" class="form-control" name="manufacturerNoteDetails[0][quantity]" required>
+            <input type="text" class="form-control" name="quantity[]" required>
         </td>
         <td data-col-seq="4">
-            <input type="text" class="form-control" name="manufacturerNoteDetails[0][note]">
+            <input type="text" class="form-control" name="note[]">
         </td>
         <td data-col-seq="5">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>

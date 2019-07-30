@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ManufacturerNoteDetail extends Model
 {
-    protected $fillable = ['id', 'manufacturer_note_id', 'contract_detail_id', 'product_id', 'quantity', 'note'];
+    protected $fillable = ['id', 'manufacturer_note_id', 'contract_detail_id', 'bom_detail_id', 'product_id', 'quantity', 'note', 'status'];
 
     public $timestamps = true;
 
@@ -59,4 +59,8 @@ class ManufacturerNoteDetail extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    protected $attributes = [
+        'status' => 10
+    ];
 }

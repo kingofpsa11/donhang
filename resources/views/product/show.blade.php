@@ -46,6 +46,7 @@
                             @endif
                         </div>
                         <div class="box-footer">
+                            <a href="{{ route('products.create') }}" class="btn btn-success">Tạo mới</a>
                             <a href="{{ route('products.edit', $product) }}" class="btn btn-primary">Sửa</a>
                             <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
                             <a href="{{ route('prices.create', $product) }}" class="btn btn-warning">Tạo giá</a>

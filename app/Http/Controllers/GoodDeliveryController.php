@@ -95,27 +95,38 @@ class GoodDeliveryController extends Controller
      */
     public function update(Request $request, GoodDelivery $goodDelivery)
     {
-        $goodDelivery->update([
-            'number' => $request->number,
-            'customer_id' => $request->customer_id,
-            'date' => $request->date,
-            'customer_user' => $request->customer_user,
-        ]);
+//        $goodDelivery->update([
+//            'number' => $request->number,
+//            'customer_id' => $request->customer_id,
+//            'date' => $request->date,
+//            'customer_user' => $request->customer_user,
+//        ]);
+        $goodDelivery->update($request->all());
 
         $goodDelivery->goodDeliveryDetails()->update(['status' => 9]);
 
-        for ($i = 0; $i < count($request->code); $i++) {
-            $goodDelivery->goodDeliveryDetails()->updateOrCreate(
-                [
-                    'id' => $request->good_delivery_detail_id[$i]
-                ],
-                [
-                    'product_id' => $request->product_id[$i],
+        if (isset($goodDelivery->outputOrder)) {
+            for ($i = 0; $i < count($request->code); $i++) {
+                $goodDelivery->goodDeliveryDetails()->update([
                     'store_id' => $request->store_id[$i],
                     'status' => 10,
                     'actual_quantity' => $request->actual_quantity[$i],
-                ]
-            );
+                ]);
+            }
+        } else {
+            for ($i = 0; $i < count($request->code); $i++) {
+                $goodDelivery->goodDeliveryDetails()->updateOrCreate(
+                    [
+                        'id' => $request->good_delivery_detail_id[$i]
+                    ],
+                    [
+                        'product_id' => $request->product_id[$i],
+                        'store_id' => $request->store_id[$i],
+                        'status' => 10,
+                        'actual_quantity' => $request->actual_quantity[$i],
+                    ]
+                );
+            }
         }
 
         $goodDelivery->goodDeliveryDetails()->where('status',9)->delete();

@@ -38,7 +38,7 @@ use Carbon\Carbon;
  */
 class GoodDelivery extends Model
 {
-    protected $fillable = ['id', 'output_order_id', 'good_receive_id', 'number', 'date', 'customer_id', 'status'];
+    protected $fillable = ['id', 'output_order_id', 'good_receive_id', 'number', 'date', 'customer_id', 'customer_user', 'status'];
 
 //    protected $dates = ['date'];
 

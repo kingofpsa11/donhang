@@ -54,7 +54,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <input type="submit" class="btn btn-success btn">
+                            <input type="submit" class="btn btn-success btn" value="Lưu">
                             <input type="reset" value="Hủy" class="btn btn-warning">
                         </div>
                     </div>

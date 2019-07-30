@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp định mức</h3>
-            <a href="{{ route('bom.create') }}" class="btn btn-primary pull-right">Tạo định mức mới</a>
+            <a href="{{ route('boms.create') }}" class="btn btn-primary pull-right">Tạo định mức mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -21,15 +21,15 @@
                 <tbody>
                 @foreach ($boms as $bom)
                     <tr>
-                        <td>{{ $bom->product->code }}</td>
+                        <td>{{ $bom->id }}</td>
                         <td>{{ $bom->product->name }}</td>
                         <td>{{ $bom->status }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('bom.show', [$bom])}}" class="btn btn-success">
+                                <a href="{{ route('boms.show', [$bom])}}" class="btn btn-success">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('bom.edit', [$bom])}}" class="btn btn-info">
+                                <a href="{{ route('boms.edit', [$bom])}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
                             </div>

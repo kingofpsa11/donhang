@@ -63,16 +63,16 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th class="col-md-1">Mã sản phẩm</th>
+                            <th class="col-md-2">Mã sản phẩm</th>
                             <th class="col-md-5">Tên sản phẩm</th>
                             <th class="col-md-1">Đvt</th>
                             @role(4)
                             <th class="col-md-2">Định mức</th>
                             <th class="col-md-1">Kho</th>
-                            <th class="col-md-2">Số lượng</th>
+                            <th class="col-md-1">Số lượng</th>
                             @else
                             <th class="col-md-2">Kho</th>
-                            <th class="col-md-3">Số lượng</th>
+                            <th class="col-md-2">Số lượng</th>
                             @endrole
                         </tr>
                         </thead>
@@ -88,6 +88,8 @@
                         <input type="submit" value="Lưu" class="btn btn-success" name="saveDraft">
                         @if( isset($goodReceive) )
                             <a href="{{ route('good-receive.show', $goodReceive) }}" class="btn btn-danger">Hủy</a>
+                        @else
+                            <a href="{{ route('good-receive.index') }}" class="btn btn-danger">Huỷ</a>
                         @endif
                     </div>
                 </div>
@@ -193,7 +195,7 @@
                     placeholder: 'Nhập tên sản phẩm',
                     minimumInputLength: 2,
                     ajax: {
-                        url: '{{ route('product.getProduct') }}',
+                        url: '{{ route('products.get_product') }}',
                         delay: 200,
                         dataType: 'json',
                         dropdownAutoWidth : true,

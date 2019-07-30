@@ -13,7 +13,7 @@ class CreateBomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('boms', function (Blueprint $table) {
+        Schema::create('bom', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('product_id');
@@ -31,6 +31,6 @@ class CreateBomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boms');
+        Schema::dropIfExists('bom');
     }
 }

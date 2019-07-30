@@ -67,8 +67,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('profit-rate', 'ProfitRateController');
 
-    Route::get('bom/getBom', 'BomController@getBom')->name('bom.getBom');
-    Route::resource('bom', 'BomController');
+    Route::get('boms/getBom', 'BomController@getBom')->name('boms.get_bom');
+    Route::resource('boms', 'BomController');
 
     Route::resource('manufacturer-order', 'ManufacturerOrderController');
 

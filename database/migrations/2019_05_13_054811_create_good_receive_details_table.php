@@ -20,7 +20,7 @@ class CreateGoodReceiveDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('bom_id')->nullable();
-            $table->foreign('bom_id')->references('id')->on('boms')->onDelete('cascade');
+            $table->foreign('bom_id')->references('id')->on('bom')->onDelete('cascade');
             $table->float('quantity', 8 , 3);
             $table->float('actual_quantity', 8 , 3)->default(0);
             $table->unsignedBigInteger('store_id');

@@ -1,4 +1,4 @@
-@extends('good-receives._form')
+@extends('good-receive._form')
 
 @section('action', 'Sửa phiếu nhập')
 
@@ -7,7 +7,7 @@
 @endsection
 
 @section('method')
-    @method('PUT')
+    @method('PATCH')
 @stop
 
 @section('table-body')

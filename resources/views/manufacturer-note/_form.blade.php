@@ -59,9 +59,8 @@
 				<!-- /.box-body -->
                 <div class="box-footer text-right">
                     <div>
-                        <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ url('manufacturer-notes') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ route('manufacturer-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
 			</div>
@@ -81,12 +80,17 @@
                 });
             }
             
-            let date = $('[name="manufacturerNote[date]"]');
+            let date = $('[name*="date"]');
             
             maskDate(date);
-            
-            $('tbody').on('change', '[name*="[contract_detail_id]"]', function () {
-                let idOfProductBomDetail = $(this).find(':selected').data('product-id');
+            $('[name*="contract_detail_id"]').select2({
+                placeholder: 'Chọn loại phôi'
+            });
+            $('[name*="product_id"]').select2({
+                placeholder: 'Chọn loại vật tư'
+            });
+            $('tbody').on('change', '[name*="contract_detail_id"]', function () {
+                let idOfProductBomDetail = $(this).find(':selected').data('bom-detail-id');
                 let idOfBomDetail = $(this).find(':selected').data('bom-detail-id');
                 let bomEl = $(this).parents('tr').find('[name*="product_id"]');
                 
@@ -97,18 +101,20 @@
                 bomEl.html('');
 
                 $.ajax({
-                    url: '{{ route('bom.getBom') }}',
+                    url: '{{ route('boms.get_bom') }}',
                     data: { productId: idOfProductBomDetail },
                     dataType: 'json',
                     success: function (data) {
                         if (Object.keys(data).length !== 0) {
                             bomEl.append(`<option value="" hidden>--Chọn loại phôi--</option>`);
+
                             $.each( data, function (i, el) {
-                                bomEl.append(`<optgroup  label="${el.name}"></optgroup>`);
+                                bomEl.append(`<optgroup label="${el.name}"></optgroup>`);
                                 $.each( el.bom_details, function (index, element) {
                                     bomEl.find('optgroup:last').append(`<option value="${element.product_id}">${element.product.name}</option>`);
                                 });
                             });
+
                         } else {
                             bomEl.append(`<option value="">Chưa có định mức</option>`);
                         }
@@ -121,11 +127,6 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('select').attr('name', 'manufacturerNoteDetails[' + (i) + '][contract_detail_id]');
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][bom_detail_id]');
-                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'manufacturerNoteDetails[' + (i) + '][product_id]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][quantity]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + (i) + '][note]');
 
                     if (rows.length === 1) {
                         $(row).find('button.removeRow').addClass('hidden');
@@ -147,11 +148,7 @@
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('select').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][contract_detail_id]');
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][bom_detail_id]');
-                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][product_id]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'manufacturerNoteDetails[' + (numberOfProduct) + '][note]');
+
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('input[name*="quantity"]').val('');
@@ -170,19 +167,6 @@
                 e.preventDefault();
             });
 
-            function convertDateToTimestamp(obj) {
-                obj.each(function (i, el) {
-                    let date = $(el).val();
-                    $(el).inputmask('remove');
-                    let datePart = date.split('/');
-                    let newDate = new Date(datePart[2], datePart[1] - 1, datePart[0]);
-                    $(el).val(newDate.getTime()/1000);
-                });
-            }
-            
-            $('#form').on('submit', function () {
-                convertDateToTimestamp($('[name="date"]'));
-            });
         });
     </script>
-@show
+@stop

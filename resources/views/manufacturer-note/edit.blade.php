@@ -7,20 +7,18 @@
 @endsection
 
 @section('method')
-    @method('PUT')
+    @method('PATCH')
 @stop
 
 @section('table-body')
     @foreach ($manufacturerNote->manufacturerNoteDetails as $manufacturerNoteDetail)
-        @php( $i = $loop->index )
-        <tr data-key="{{ $loop->iteration }}">
+        <tr data-key="{{ $loop->index }}">
             <td data-col-seq="0">
                 <span>{{ $loop->iteration }}</span>
-                <input type="hidden" name="manufacturerNoteDetails[{{ $i }}][id]" value="{{ $manufacturerNoteDetail->id }}">
+                <input type="hidden" name="manufacturer_note_detail_id[]" value="{{ $manufacturerNoteDetail->id }}">
             </td>
             <td data-col-seq="1">
-                <select name="manufacturerNoteDetails[{{ $i }}][contract_detail_id]" class="form-control">
-                    <option value="" hidden>--Chọn sản phẩm--</option>
+                <select name="contract_detail_id[]" class="form-control">
                     @foreach( $manufacturerNoteDetail->contractDetail->contract->contractDetails as $contractDetail)
                         @foreach( $contractDetail->price->product->boms as $bom )
                             <optgroup label="{{ $contractDetail->price->product->name }}">
@@ -35,12 +33,11 @@
                         @endforeach
                     @endforeach
                 </select>
-                <input type="hidden" name="manufacturerNoteDetails[{{ $i }}][bom_detail_id]" value="{{ $manufacturerNoteDetail->bom_detail_id }}">
+                <input type="hidden" name="bom_detail_id[]" value="{{ $manufacturerNoteDetail->bom_detail_id }}">
             </td>
             <td data-col-seq="2">
-                <select class="form-control" name="manufacturerNoteDetails[{{ $i }}][product_id]" required>
-                    <option value="" hidden>--Chọn loại phôi--</option>
-                    @foreach( $manufacturerNoteDetail->bomDetail->product->boms as $bom )
+                <select class="form-control" name="product_id[]" required>
+                    @foreach( $manufacturerNoteDetail->product->boms as $bom )
                         <optgroup label="{{ $bom->name }}">
                             @foreach( $bom->bomDetails as $bomDetail )
                                 @if ( $bomDetail->product_id === $manufacturerNoteDetail->product_id )
@@ -54,10 +51,10 @@
                 </select>
             </td>
             <td data-col-seq="3">
-                <input type="text" class="form-control" name="manufacturerNoteDetails[{{ $i }}][quantity]" value="{{ $manufacturerNoteDetail->quantity }}" required>
+                <input type="text" class="form-control" name="quantity[]" value="{{ $manufacturerNoteDetail->quantity }}" required>
             </td>
             <td data-col-seq="4">
-                <input type="text" class="form-control" name="manufacturerNoteDetails[{{ $i }}][note]" value="{{ $manufacturerNoteDetail->note }}">
+                <input type="text" class="form-control" name="note[]" value="{{ $manufacturerNoteDetail->note }}">
             </td>
             <td data-col-seq="5">
                 <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>

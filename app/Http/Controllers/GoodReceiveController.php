@@ -29,7 +29,7 @@ class GoodReceiveController extends Controller
     public function index()
     {
         $goodReceiveDetails = GoodReceiveDetail::with('goodReceive')->get();
-        return view('good-receives.index', compact('goodReceiveDetails'));
+        return view('good-receive.index', compact('goodReceiveDetails'));
     }
 
     /**
@@ -42,7 +42,7 @@ class GoodReceiveController extends Controller
         $roles = Role::find([4,5]);
         $this->goodReceive->getNewNumber();
         $newNumber = $this->goodReceive->number;
-        return view('good-receives.create', compact('roles', 'newNumber'));
+        return view('good-receive.create', compact('roles', 'newNumber'));
     }
 
     /**
@@ -111,7 +111,7 @@ class GoodReceiveController extends Controller
     public function show(GoodReceive $goodReceive)
     {
         $goodReceive->load('goodReceiveDetails.product', 'goodReceiveDetails.bom', 'goodReceiveDetails.store', 'supplier');
-        return view('good-receives.show', compact('goodReceive'));
+        return view('good-receive.show', compact('goodReceive'));
     }
 
     /**
@@ -122,8 +122,8 @@ class GoodReceiveController extends Controller
      */
     public function edit(GoodReceive $goodReceive)
     {
-        $goodReceive->load('goodReceiveDetails.product.boms', 'goodReceiveDetails.store');
-        return view('good-receives.edit', compact('goodReceive'));
+        $goodReceive->load('goodReceiveDetails.product.bom', 'goodReceiveDetails.store');
+        return view('good-receive.edit', compact('goodReceive'));
     }
 
     /**
@@ -194,7 +194,7 @@ class GoodReceiveController extends Controller
 
             $goodReceive->goodReceiveDetails()->where('status',9)->delete();
         }
-        return view('good-receives.show', compact('goodReceive'));
+        return view('good-receive.show', compact('goodReceive'));
     }
 
     /**

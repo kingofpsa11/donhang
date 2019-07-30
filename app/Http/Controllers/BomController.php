@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class BomController extends Controller
 {
+    protected $bom;
+
+    public function __construct(Bom $bom)
+    {
+        $this->bom = $bom;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +24,7 @@ class BomController extends Controller
     public function index()
     {
         $boms = Bom::all();
-        return view('boms.index',compact('boms'));
+        return view('bom.index',compact('boms'));
     }
 
     /**
@@ -27,7 +34,7 @@ class BomController extends Controller
      */
     public function create()
     {
-        return view('boms.create');
+        return view('bom.create');
     }
 
     /**
@@ -38,24 +45,16 @@ class BomController extends Controller
      */
     public function store(Request $request)
     {
-        $bom = new Bom();
-        $bom->product_id = $request->bom['product_id'];
-        $bom->stage = $request->bom['stage'];
-        $bom->name = $request->bom['name'];
-        if ($bom->save()) {
-            $bom_details = [];
-            foreach ($request->bom_details as $value) {
-                $bom_detail = new BomDetail();
-                $bom_detail->bom_id = $bom->id;
-                $bom_detail->product_id = $value['product_id'];
-                $bom_detail->quantity = $value['quantity'];
-                array_push($bom_details, $bom_detail);
-            }
-
-            if ($bom->bomDetails()->saveMany($bom_details)){
-                return view('boms.show', compact('bom'));
-            }
+        $this->bom->fill($request->all())->save();
+        for ($i = 0; $i < count($request->code); $i++) {
+            BomDetail::create([
+                'bom_id' => $this->bom->id,
+                'product_id' => $request->bom_product_id[$i],
+                'quantity' => $request->quantity[$i],
+            ]);
         }
+
+        return redirect()->route('boms.show', $this->bom);
     }
 
     /**
@@ -66,7 +65,7 @@ class BomController extends Controller
      */
     public function show(Bom $bom)
     {
-        return view('boms.show', compact('bom'));
+        return view('bom.show', compact('bom'));
     }
 
     /**
@@ -77,7 +76,7 @@ class BomController extends Controller
      */
     public function edit(Bom $bom)
     {
-        return view('boms.edit', compact('bom'));
+        return view('bom.edit', compact('bom'));
     }
 
     /**
@@ -89,7 +88,26 @@ class BomController extends Controller
      */
     public function update(Request $request, Bom $bom)
     {
-        //
+        $bom->update($request->all());
+        $bom->bomDetails()->update(['status' => 9]);
+
+        for ($i = 0; $i < count($request->code); $i++) {
+            BomDetail::updateOrCreate(
+                [
+                    'id' => $request->bom_detail_id[$i]
+                ],
+                [
+                    'bom_id' => $bom->id,
+                    'product_id' => $request->bom_product_id[$i],
+                    'quantity' => $request->quantity[$i],
+                    'status' => 10
+                ]
+            );
+
+            $bom->bomDetails()->where('status', 9)->delete();
+        }
+
+        return redirect()->route('boms.show', $bom);
     }
 
     /**
@@ -100,12 +118,15 @@ class BomController extends Controller
      */
     public function destroy(Bom $bom)
     {
-        //
+        $bom->delete();
+        flash('Đã xóa định mức sản phẩm: ' . $bom->product->name)->success();
+        return redirect()->route('boms.index');
     }
 
     public function getBom(Request $request)
     {
         $bom = Bom::where('product_id', $request->productId)->with('bomDetails.product')->get();
+
         return response()->json($bom);
     }
 }

@@ -9,7 +9,7 @@
                     <h4 class="modal-title" id="custom-width-modalLabel">{{ ucfirst($modelName) }}</h4>
                 </div>
                 <div class="modal-body">
-                    <h5>Chắc chắn xóa {{ $modelName }} {{ $modelInformation}}?</h5>
+                    <h5>Chắc chắn xóa {{ $modelName }} số {{ $modelInformation}} ?</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>

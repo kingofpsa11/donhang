@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use App\ManufacturerNote;
 use App\ManufacturerNoteDetail;
 use App\ManufacturerOrder;
+use App\ManufacturerOrderDetail;
 use Illuminate\Http\Request;
 
 class ManufacturerNoteController extends Controller
 {
+
+    protected $manufacturerNote;
+
+    public function __construct(ManufacturerNote $manufacturerNote)
+    {
+        $this->manufacturerNote = $manufacturerNote;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,22 +48,21 @@ class ManufacturerNoteController extends Controller
      */
     public function store(Request $request)
     {
-        $manufacturerNote = new ManufacturerNote();
-        $manufacturerNote->number = $request->number;
-        $manufacturerNote->date = $request->date;
+        return $request->all();
+        $this->manufacturerNote->fill($request->all())->save();
 
-        if ($manufacturerNote->save()) {
-            foreach ($request->manufacturerNoteDetails as $value) {
-                $manufacturerNoteDetail = new ManufacturerNoteDetail();
-                $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
-                $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
-                $manufacturerNoteDetail->bom_detail_id = $value['bom_detail_id'];
-                $manufacturerNoteDetail->product_id = $value['product_id'];
-                $manufacturerNoteDetail->quantity = $value['quantity'];
-                $manufacturerNoteDetail->save();
-            }
+        for ($i = 0; $i < count($request->contract_detail_id); $i++) {
+            ManufacturerNoteDetail::create([
+                'manufacturer_note_id' => $this->manufacturerNote->id,
+                'contract_detail_id' => $request->contract_detail_id[$i],
+                'bom_detail_id' => $request->bom_detail_id[$i],
+                'product_id' => $request->product_id[$i],
+                'quantity' => $request->quantity[$i],
+                'note' => $request->note[$i],
+            ]);
         }
-        return view('manufacturer-note.show', compact('manufacturerNote'));
+
+        return redirect()->route('manufacturer-notes.show', $this->manufacturerNote);
     }
 
     /**
@@ -77,7 +85,7 @@ class ManufacturerNoteController extends Controller
      */
     public function edit(ManufacturerNote $manufacturerNote)
     {
-        $manufacturerNote->load('manufacturerNoteDetails.contractDetail.contract.contractDetails', 'manufacturerNoteDetails.bomDetail.product.boms.bomDetails.product');
+        $manufacturerNote->load('manufacturerNoteDetails.contractDetail.contract.contractDetails', 'manufacturerNoteDetails.bomDetail.product.bom.bomDetails.product');
         return view('manufacturer-note.edit', compact('manufacturerNote'));
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Phiếu nhập kho')
+@section('title', 'Định mức')
 
 @section('content')
 
@@ -9,78 +9,62 @@
         <div class="box">
             <div class="box-header">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label>Đơn vị giao hàng</label>
-                            <input type="text" class="form-control" value="{{ $goodReceive->supplier->name }}" readonly="">
+                            <label for="" class="control-label">Tên sản phẩm</label>
+                            <input type="text" value="{{ $bom->product->name }}" class="form-control" readonly>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label>Người giao</label>
-                            <input type="text" class="form-control" name="goodReceive[supplier]" value="{{ $goodReceive->supplier_user }}" readonly>
+                            <label for="" class="control-label">Tên định mức</label>
+                            <input type="text" name="bom[name]" class="form-control" value="{{ $bom->name }}" readonly>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label>Ngày</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control" value="{{ $goodReceive->date }}" name="goodReceive[date]" readonly>
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Số phiếu</label>
-                            <input type="text" class="form-control" name="goodReceive[number]" value="{{ $goodReceive->number }}" readonly>
+                            <label for="" class="control-label">Công đoạn</label>
+                            <input type="text" name="bom[stage]" class="form-control" value="{{ $bom->stage }}" readonly>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive">
+            <div class="box-body table-responsive no-padding">
                 <table class="table table-bordered table-striped hover" id="contract-show">
                     <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th class="col-md-1">Mã sản phẩm</th>
-                        <th class="col-md-5">Tên sản phẩm</th>
-                        <th class="col-md-1">Đvt</th>
-                        @role(4)
-                        <th class="col-md-2">Định mức</th>
-                        @endrole
-                        <th class="col-md-2">Kho</th>
-                        <th class="col-md-1">Số lượng</th>
-                    </tr>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã vật tư</th>
+                            <th>Tên vật tư</th>
+                            <th>Đvt</th>
+                            <th>Số lượng</th>
+                            <th>Ghi chú</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach ($goodReceive->goodReceiveDetails as $goodReceiveDetail)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $goodReceiveDetail->product->code }}</td>
-                            <td>{{ $goodReceiveDetail->product->name ?? ''}}</td>
-                            <td></td>
-                            @role(4)
-                            <td>{{ $goodReceiveDetail->bom->name ?? '' }}</td>
-                            @endrole
-                            <td>{{ $goodReceiveDetail->store->code }}</td>
-                            <td>{{ $goodReceiveDetail->quantity }}</td>
-                        </tr>
-                    @endforeach
+                        @php($i=1)
+                        @foreach ($bom->bomDetails as $bomDetail)
+                            <tr>
+                                <td>{{ $i }}</td>
+                                <td>{{ $bomDetail->product->code }}</td>
+                                <td>{{ $bomDetail->product->name }}</td>
+                                <td></td>
+                                <td>{{ $bomDetail->quantity }}</td>
+                                <td></td>
+                            </tr>
+                            @php($i++)
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <a href="{{ route('good-receive.create') }}" class="btn btn-success">Tạo mới</a>
+                <div class="row text-right">
+                    <div class="col-md-3 pull-right">
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        <a href="{{ route('good-receive.edit', $goodReceive)}}" class="btn btn-info">
+                        <a href="{{ route('boms.create') }}" class="btn btn-success">Tạo mới</a>
+                        <a href="{{ route('boms.edit', [$bom])}}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
@@ -90,8 +74,7 @@
         </div>
         <!-- /.box -->
     </section>
-{{--    @role('User')--}}
-    <form action="{{ route('good-receive.destroy', $goodReceive) }}" method="POST">
+    <form action="{{ route('boms.destroy', [$bom]) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
@@ -99,10 +82,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa phiếu nhập kho</h4>
+                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa định mức</h4>
                     </div>
                     <div class="modal-body">
-                        <h5>Chắc chắn xóa phiếu {{ $goodReceive->number }}?</h5>
+                        <h5>Chắc chắn xóa định mức của {{ $bom->product->name }}?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
@@ -112,7 +95,6 @@
             </div>
         </div>
     </form>
-{{--    @endrole('User')--}}
 @endsection
 
 @section('javascript')
@@ -133,6 +115,15 @@
                 ordering        : false,
                 columnDefs: [
                     {
+                        targets: [ 3 ],
+                        render: $.fn.dataTable.render.number('.', ','),
+                        className   : 'dt-body-right'
+                    },
+                    {
+                        targets: [ 4 ],
+                        className   : 'dt-body-right'
+                    },
+                    {
                         targets: '_all',
                         className   : 'dt-head-center'
                     }
@@ -143,6 +134,10 @@
                 e.preventDefault();
             });
 
+            //create manufacturer order
+            // $('#manufacturer-order').on('click', function () {
+            //
+            // });
             $('#export').on('click', function () {
                 $('#contract-show').table2excel();
             });

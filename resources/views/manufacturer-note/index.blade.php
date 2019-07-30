@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp Phiếu sản xuất</h3>
-            <a href="{{ route('manufacturer-note.create') }}" class="btn btn-primary pull-right">Tạo mới phiếu sản xuất</a>
+            <a href="{{ route('manufacturer-order.index') }}" class="btn btn-primary pull-right">Danh mục lệnh sản xuất</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -16,27 +16,28 @@
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Ghi chú</th>
-                    <th>Action</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
                 </tr>
 
                 </thead>
                 <tbody>
                 @foreach ($manufacturerNoteDetails as $manufacturerNoteDetail)
                     <tr>
-                        <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrder->number }}</td>
+                        <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->first()->manufacturerOrder->number }}</td>
                         <td>{{ $manufacturerNoteDetail->manufacturerNote->number }}</td>
                         <td>{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</td>
                         <td>{{ $manufacturerNoteDetail->quantity }}</td>
                         <td>{{ $manufacturerNoteDetail->note }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{{ route('manufacturer-note.show', [$manufacturerNoteDetail->manufacturer_note_id])}}" class="btn btn-success btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('manufacturer-note.edit', [$manufacturerNoteDetail->manufacturer_note_id])}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                                </a>
-                            </div>
+                            <a href="{{ route('manufacturer-notes.show', [$manufacturerNoteDetail->manufacturer_note_id])}}" class="btn btn-success">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ route('manufacturer-notes.edit', [$manufacturerNoteDetail->manufacturer_note_id])}}" class="btn btn-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -49,6 +50,7 @@
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Ghi chú</th>
+                        <td></td>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -63,7 +65,6 @@
     <script>
         $(document).ready(function () {
             $('#example2 tfoot th').each( function () {
-                var title = $(this).text();
                 $(this).html( '<input type="text" style="width:100%;" placeholder="Tìm" />' );
             } );
 

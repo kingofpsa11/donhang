@@ -16,7 +16,7 @@ class CreateBomDetailsTable extends Migration
         Schema::create('bom_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('bom_id');
-            $table->foreign('bom_id')->references('id')->on('boms')->onDelete('cascade');
+            $table->foreign('bom_id')->references('id')->on('bom')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->float('quantity', 8, 3);

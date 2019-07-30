@@ -1,4 +1,4 @@
-@extends('good-receives._form')
+@extends('good-receive._form')
 
 @section('route')
     {{ route('good-receive.store') }}

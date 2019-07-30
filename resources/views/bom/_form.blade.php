@@ -18,7 +18,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm</label>
-                                <select name="bom[product_id]" class="form-control">
+                                <select name="product_id" class="form-control">
                                     @if (isset( $bom ))
                                         <option value="{{ $bom->product_id }}">{{ $bom->product->name }}</option>
                                     @endif
@@ -28,13 +28,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Tên định mức</label>
-                                <input type="text" name="bom[name]" class="form-control" value="{{ $bom->name ?? '' }}">
+                                <input type="text" name="name" class="form-control" value="{{ $bom->name ?? '' }}" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Công đoạn</label>
-                                <input type="text" name="bom[stage]" class="form-control" value="{{ $bom->stage ?? '' }}">
+                                <input type="text" name="stage" class="form-control" value="{{ $bom->stage ?? '' }}">
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                     <div>
                         <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('bom.create') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ route('boms.create') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
             </div>
@@ -73,17 +73,17 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-
-            let product = $('[name*="[product_id]"]');
+            let product = $('[name*="product_id"]');
 
             function getMaterial(el) {
                 el.select2({
                     placeholder: 'Nhập tên sản phẩm',
                     minimumInputLength: 2,
                     ajax: {
-                        url: '{{ route('product.getProduct') }}',
+                        url: '{{ route('products.get_product') }}',
                         delay: 200,
                         dataType: 'json',
+                        
                         processResults: function (data) {
                             return {
                                 results: $.map(data, function (item) {
@@ -108,6 +108,17 @@
                 })
             }
 
+            function maskNumber(el) {
+                el.inputmask('numeric', {
+                    groupSeparator  : ".",
+                    autoGroup       : true,
+                    digits          : '2',
+                    radixPoint      : ",",
+                    removeMaskOnSubmit: true,
+                    unmaskAsNumber: true,
+                });
+            }
+            maskNumber($('tr [name*="quantity"]'));
             getMaterial(product);
             getProductCode($('tr [name*=product_id]'));
 
@@ -115,11 +126,7 @@
                 let rows = $('tr[data-key]');
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
-                    $(row).children('[data-col-seq="0"]').text(i + 1);
-                    $(row).children('[data-col-seq="1"]').find('input').attr('name', 'bom_details[' + (i) + '][code]');
-                    $(row).children('[data-col-seq="2"]').find('select').attr('name', 'bom_details[' + (i) + '][product_id]');
-                    $(row).children('[data-col-seq="3"]').find('input').attr('name', 'bom_details[' + (i) + '][quantity]');
-                    $(row).children('[data-col-seq="4"]').find('input').attr('name', 'bom_details[' + (i) + '][note]');
+                    $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -140,11 +147,8 @@
                 let select2 = newRow.find('[name*=product_id]');
 
                 newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
-                newRow.children('[data-col-seq="1"]').find('input').attr('name', 'bom_details[' + (numberOfProduct) + '][code]');
-                newRow.children('[data-col-seq="2"]').find('select').attr('name', 'bom_details[' + (numberOfProduct) + '][product_id]');
-                newRow.children('[data-col-seq="3"]').find('input').attr('name', 'bom_details[' + (numberOfProduct) + '][quantity]');
-                newRow.children('[data-col-seq="4"]').find('input').attr('name', 'bom_details[' + (numberOfProduct) + '][note]');
+                newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
+
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -154,9 +158,11 @@
 
                 getMaterial(select2);
                 getProductCode(select2);
+                maskNumber(newRow.find('[name*="quantity"]'));
             });
 
             $('#table').on('click', '.removeRow', function (e) {
+                e.preventDefault();
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
                 updateNumberOfRow();

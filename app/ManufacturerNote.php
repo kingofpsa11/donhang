@@ -43,7 +43,7 @@ class ManufacturerNote extends Model
 
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = Carbon::createFromTimestamp($value, 'Asia/Bangkok')->format('Y-m-d');
+        $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
     }
 
     public function getDateAttribute($value)

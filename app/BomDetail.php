@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BomDetail extends Model
 {
-    protected $fillable = ['id', 'bom_id', 'product_id', 'quantity'];
+    protected $fillable = ['id', 'bom_id', 'product_id', 'quantity', 'status'];
 
     public $timestamps = true;
 
@@ -41,4 +41,8 @@ class BomDetail extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    protected $attributes = [
+        'status' => 10
+    ];
 }

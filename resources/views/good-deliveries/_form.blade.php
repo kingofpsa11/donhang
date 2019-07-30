@@ -20,7 +20,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Đơn vị nhận hàng</label>
-                                    <select class="form-control" name="customer_id" @if($view === 'readonly') disabled @endif style="width:100%;">
+                                    <select class="form-control" name="customer_id" @if($view === 'readonly') readonly @endif style="width:100%;">
                                         @if (isset($goodDelivery))
                                             <option value="{{ $goodDelivery->customer_id }}">{{ $goodDelivery->customer->name }}</option>
                                         @endif
@@ -198,7 +198,8 @@
             let productSelect = $('.product_id');
             addProductSelect2(productSelect);
             addStoreSelect2($('[name*="store_id"]'));
-            let customerInput = $('[name*="customer_id"]');
+            let customerInput = $('[name*="customer_id"]:not([readonly])');
+            console.log(customerInput);
             addCustomerSelect2(customerInput);
             
             function updateNumberOfRow() {
@@ -250,7 +251,6 @@
             $('button.cancel').on('click', function (e) {
                 e.preventDefault();
             });
-            
         })
     </script>
 @stop
