@@ -19,7 +19,6 @@
         }
     @endphp
     @foreach ($goodDelivery->goodDeliveryDetails as $goodDeliveryDetail)
-        @php( $i = $loop->index)
         <tr data-key="{{ $loop->index }}">
             <td class="" data-col-seq="0">
                 <span>{{ $loop->iteration }}</span>
