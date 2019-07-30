@@ -48,7 +48,6 @@ class ManufacturerNoteController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         $this->manufacturerNote->fill($request->all())->save();
 
         for ($i = 0; $i < count($request->contract_detail_id); $i++) {
@@ -73,6 +72,7 @@ class ManufacturerNoteController extends Controller
      */
     public function show(ManufacturerNote $manufacturerNote)
     {
+
         $manufacturerNote->load('manufacturerNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder');
         return view('manufacturer-note.show', compact('manufacturerNote'));
     }
@@ -85,7 +85,8 @@ class ManufacturerNoteController extends Controller
      */
     public function edit(ManufacturerNote $manufacturerNote)
     {
-        $manufacturerNote->load('manufacturerNoteDetails.contractDetail.contract.contractDetails', 'manufacturerNoteDetails.bomDetail.product.bom.bomDetails.product');
+        return $manufacturerNote->manufacturerNoteDetails->first()->bomDetail->product->boms;
+        $manufacturerNote->load('manufacturerNoteDetails.contractDetail.contract.contractDetails', 'manufacturerNoteDetails.bomDetail.product.boms.bomDetails.product');
         return view('manufacturer-note.edit', compact('manufacturerNote'));
     }
 

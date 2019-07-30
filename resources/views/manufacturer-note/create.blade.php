@@ -18,7 +18,7 @@
                     @foreach( $contractDetail->price->product->boms as $bom )
                         <optgroup label="{{ $contractDetail->price->product->name }}">
                         @foreach( $bom->bomDetails as $bomDetail )
-                            <option value="{{ $contractDetail->id }}" data-bom-detail-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
+                            <option value="{{ $contractDetail->id }}" data-bom-detail-id="{{ $bomDetail->id }}" data-product-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
                         @endforeach
                         </optgroup>
                     @endforeach

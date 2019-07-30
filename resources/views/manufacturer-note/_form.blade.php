@@ -89,8 +89,10 @@
             $('[name*="product_id"]').select2({
                 placeholder: 'Chọn loại vật tư'
             });
+            
             $('tbody').on('change', '[name*="contract_detail_id"]', function () {
-                let idOfProductBomDetail = $(this).find(':selected').data('bom-detail-id');
+                
+                let idOfProductBomDetail = $(this).find(':selected').data('product-id');
                 let idOfBomDetail = $(this).find(':selected').data('bom-detail-id');
                 let bomEl = $(this).parents('tr').find('[name*="product_id"]');
                 

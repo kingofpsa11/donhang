@@ -2,49 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/BomDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BomDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/GoodDelivery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GoodDelivery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GoodReceiveController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodTransferController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodTransferDetailsController.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerNote.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNote.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_24_025709_create_boms_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_04_24_025709_create_boms_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_13_045358_create_bom_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_13_045358_create_bom_details_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_13_054811_create_good_receive_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_13_054811_create_good_receive_details_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/boms/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bom/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/boms/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bom/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/boms/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bom/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/boms/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bom/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/boms/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bom/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receive/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receive/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receive/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receive/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-receives/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-receive/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-transfer/_form.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-transfer/create.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-transfer/edit.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-transfer/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-transfer/show.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-transfer/showInventory.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/product/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/product/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/product/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/product/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/_modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/_modal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -97,20 +57,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="70" column="45" lean-forward="true" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+            <state relative-caret-position="629">
+              <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="860">
+              <caret line="122" column="47" lean-forward="true" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="54" column="20" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
-              <folding>
-                <element signature="e#40#65#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="753">
+              <caret line="87" column="81" selection-start-line="87" selection-start-column="81" selection-end-line="87" selection-end-column="81" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Product.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="798">
+              <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -118,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/ManufacturerNoteDetail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+            <state relative-caret-position="818">
+              <caret line="54" column="49" lean-forward="true" selection-start-line="54" selection-start-column="49" selection-end-line="54" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -127,7 +102,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/bom/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="1365">
               <caret line="65" column="54" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
             </state>
           </provider>
@@ -136,11 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-44">
-              <caret line="67" selection-start-line="67" selection-end-line="67" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="1407">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
         </entry>
@@ -148,21 +120,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="92" column="91" lean-forward="true" selection-start-line="92" selection-start-column="91" selection-end-line="92" selection-end-column="91" />
+            <state relative-caret-position="419">
+              <caret line="94" column="82" selection-start-line="94" selection-start-column="82" selection-end-line="94" selection-end-column="82" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-              <folding>
-                <element signature="e#369#388#0#HTML" expanded="true" />
-                <element signature="e#1259#1278#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="546">
+              <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -170,8 +138,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="35" column="97" lean-forward="true" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
+            <state relative-caret-position="692">
+              <caret line="39" column="68" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -273,8 +241,8 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
       </list>
     </option>
@@ -390,10 +358,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -607,6 +575,7 @@
       <workItem from="1564403357835" duration="576000" />
       <workItem from="1564403947495" duration="7189000" />
       <workItem from="1564453449373" duration="21305000" />
+      <workItem from="1564524126024" duration="3319000" />
     </task>
     <servers />
   </component>
@@ -619,7 +588,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1126573000" />
+    <option name="totallyTimeSpent" value="1129892000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -631,12 +600,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16311301" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16414945" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.49920508" type="SLIDING" weight="0.2195704" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -797,13 +766,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/3dd8dfdf55eb035d3117908edb553784c2ff9462.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="280" column="187" selection-start-line="280" selection-start-column="187" selection-end-line="280" selection-end-column="187" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/3dd8dfdf55eb035d3117908edb553784c2ff9462.php" />
     <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="620">
@@ -843,13 +806,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="659">
           <caret line="127" column="27" lean-forward="true" selection-start-line="127" selection-start-column="27" selection-end-line="127" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="679">
-          <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -932,13 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="122" column="47" lean-forward="true" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ContractController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="328">
@@ -963,20 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="70" column="45" lean-forward="true" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bom/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="65" column="54" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/ManufacturerNote.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4">
@@ -984,55 +919,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/bom/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-44">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1365">
+          <caret line="65" column="54" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="54" column="20" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
-          <folding>
-            <element signature="e#40#65#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="1407">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ManufacturerNoteDetail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+        <state relative-caret-position="818">
+          <caret line="54" column="49" lean-forward="true" selection-start-line="54" selection-start-column="49" selection-end-line="54" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="92" column="91" lean-forward="true" selection-start-line="92" selection-start-column="91" selection-end-line="92" selection-end-column="91" />
+        <state relative-caret-position="629">
+          <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="35" column="97" lean-forward="true" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
+        <state relative-caret-position="860">
+          <caret line="122" column="47" lean-forward="true" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-          <folding>
-            <element signature="e#369#388#0#HTML" expanded="true" />
-            <element signature="e#1259#1278#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="546">
+          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="94" column="82" selection-start-line="94" selection-start-column="82" selection-end-line="94" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="692">
+          <caret line="39" column="68" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="753">
+          <caret line="87" column="81" selection-start-line="87" selection-start-column="81" selection-end-line="87" selection-end-column="81" />
         </state>
       </provider>
     </entry>
