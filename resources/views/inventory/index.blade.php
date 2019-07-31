@@ -3,58 +3,37 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp phiếu nhập kho</h3>
-            <a class="btn btn-primary pull-right" href="{{ route('good-receive.create') }}">Tạo phiếu nhập mới</a>
+            <h3 class="box-title">Tổng hợp tồn kho</h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Ngày lập</th>
-                    <th>Đơn vị giao hàng</th>
-                    <th>Số phiếu</th>
+                    <th>STT</th>
+                    <th >Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
-                    <th>Trạng thái</th>
-                    <th>Xem</th>
-                    <th>Sửa</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($goodReceiveDetails as $goodReceiveDetail)
+                @foreach ($inventories as $inventory)
                     <tr>
-                        <td>{{ $goodReceiveDetail->goodReceive->date }}</td>
-                        <td>{{ $goodReceiveDetail->goodReceive->supplier->name }}</td>
-                        <td>{{ $goodReceiveDetail->goodReceive->number }}</td>
-                        <td>{{ $goodReceiveDetail->product->name }}</td>
-                        <td>{{ $goodReceiveDetail->quantity }}</td>
-                        <td>{{ $goodReceiveDetail->status }}</td>
-                        <td>
-                            <a href="{{ route('good-receive.show', $goodReceiveDetail->good_receive_id)}}" class="btn btn-success">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{ route('good-receive.edit', $goodReceiveDetail->good_receive_id)}}" class="btn btn-info">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                            </a>
-                        </td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $inventory->code }}</td>
+                        <td>{{ $inventory->product_name }}</td>
+                        <td>{{ $inventory->total }}</td>
                     </tr>
                 @endforeach
 
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Ngày lập</th>
-                        <th>Đơn vị giao hàng</th>
-                        <th>Số phiếu</th>
+                        <th>STT</th>
+                        <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
-                        <th>Trạng thái</th>
-                        <td>Xem</td>
-                        <td>Sửa</td>
                     </tr>
                 </tfoot>
             </table>

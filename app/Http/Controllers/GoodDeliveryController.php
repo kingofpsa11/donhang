@@ -95,12 +95,7 @@ class GoodDeliveryController extends Controller
      */
     public function update(Request $request, GoodDelivery $goodDelivery)
     {
-//        $goodDelivery->update([
-//            'number' => $request->number,
-//            'customer_id' => $request->customer_id,
-//            'date' => $request->date,
-//            'customer_user' => $request->customer_user,
-//        ]);
+
         $goodDelivery->update($request->all());
 
         $goodDelivery->goodDeliveryDetails()->update(['status' => 9]);

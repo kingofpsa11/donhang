@@ -28,7 +28,9 @@ class GoodReceiveController extends Controller
      */
     public function index()
     {
-        $goodReceiveDetails = GoodReceiveDetail::with('goodReceive')->get();
+        $goodReceiveDetails = GoodReceiveDetail::with('goodReceive.supplier', 'product')
+            ->orderByDesc('id')
+            ->get();
         return view('good-receive.index', compact('goodReceiveDetails'));
     }
 
@@ -53,48 +55,47 @@ class GoodReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        $this->goodReceive->fill($request->all());
-        if ( $this->goodReceive->save() ) {
-            foreach ($request->code as $key => $value) {
-                $goodReceiveDetail = GoodReceiveDetail::create([
-                    'good_receive_id' => $this->goodReceive->id,
-                    'code' => $request->code[$key],
-                    'product_id' => $request->product_id[$key],
-                    'unit' => $request->unit[$key],
-                    'bom_id' => $request->bom_id[$key],
-                    'store_id' => $request->store_id[$key],
-                    'quantity' => $request->quantity[$key]
-                ]);
+        $this->goodReceive->fill($request->all())->save();
 
-                if (isset($request->bom_id[$key])) {
+        for ($i = 0; $i < count($request->code); $i++) {
 
-                    $date = Carbon::createFromFormat(config('app.date_format'), $this->goodReceive->date, 'Asia/Bangkok')->format('Y-m-d');
+            $goodReceiveDetail = GoodReceiveDetail::create([
+                'good_receive_id' => $this->goodReceive->id,
+                'product_id' => $request->product_id[$i],
+                'unit' => $request->unit[$i],
+                'bom_id' => $request->bom_id[$i],
+                'store_id' => $request->store_id[$i],
+                'quantity' => $request->quantity[$i]
+            ]);
 
-                    $goodDelivery = GoodDelivery::where('good_receive_id', $this->goodReceive->id)
-                        ->where('date', $date)
-                        ->where('customer_id', $this->goodReceive->supplier_id)
-                        ->first();
+            if (isset($request->bom_id[$i])) {
 
-                    if (!$goodDelivery) {
-                        $goodDelivery = GoodDelivery::create([
-                            'good_receive_id' => $this->goodReceive->id,
-                            'date' => $this->goodReceive->date,
-                            'customer_id' => $this->goodReceive->supplier_id,
-                            'number' => GoodDelivery::getNewNumber()
-                        ]);
-                    }
+                $date = Carbon::createFromFormat(config('app.date_format'), $this->goodReceive->date, 'Asia/Bangkok')->format('Y-m-d');
 
-                    $bom = Bom::getBomDetails($request->bom_id[$key]);
+                $goodDelivery = GoodDelivery::where('good_receive_id', $this->goodReceive->id)
+                    ->where('date', $date)
+                    ->where('customer_id', $this->goodReceive->supplier_id)
+                    ->first();
 
-                    foreach ($bom->bomDetails as $bomDetail) {
-                        GoodDeliveryDetail::firstOrCreate([
-                            'good_delivery_id' => $goodDelivery->id,
-                            'good_receive_detail_id' => $goodReceiveDetail->id,
-                            'product_id' => $bomDetail->product_id,
-                            'actual_quantity' => $goodReceiveDetail->quantity * $bomDetail->quantity,
-                            'store_id' => $goodReceiveDetail->store_id
-                        ]);
-                    }
+                if (!$goodDelivery) {
+                    $goodDelivery = GoodDelivery::create([
+                        'good_receive_id' => $this->goodReceive->id,
+                        'date' => $this->goodReceive->date,
+                        'customer_id' => $this->goodReceive->supplier_id,
+                        'number' => GoodDelivery::getNewNumber()
+                    ]);
+                }
+
+                $bom = Bom::getBomDetails($request->bom_id[$i]);
+
+                foreach ($bom->bomDetails as $bomDetail) {
+                    GoodDeliveryDetail::firstOrCreate([
+                        'good_delivery_id' => $goodDelivery->id,
+                        'good_receive_detail_id' => $goodReceiveDetail->id,
+                        'product_id' => $bomDetail->product_id,
+                        'actual_quantity' => $goodReceiveDetail->quantity * $bomDetail->quantity,
+                        'store_id' => $goodReceiveDetail->store_id
+                    ]);
                 }
             }
         }
@@ -122,7 +123,7 @@ class GoodReceiveController extends Controller
      */
     public function edit(GoodReceive $goodReceive)
     {
-        $goodReceive->load('goodReceiveDetails.product.bom', 'goodReceiveDetails.store');
+        $goodReceive->load('goodReceiveDetails.product.boms', 'goodReceiveDetails.store');
         return view('good-receive.edit', compact('goodReceive'));
     }
 
@@ -138,23 +139,23 @@ class GoodReceiveController extends Controller
         if ($goodReceive->update([$request->all()])) {
             $goodReceive->goodReceiveDetails()->update(['status' => 9]);
 
-            foreach ($request->code as $key => $value) {
+            for ($i = 0; $request->code; $i++) {
                 $goodReceiveDetail = GoodReceiveDetail::updateOrCreate([
-                    'id' => $request->good_receive_detail_id[$key] ?? ''
+                    'id' => $request->good_receive_detail_id[$i] ?? ''
                 ],
                 [
                     'good_receive_id' => $goodReceive->id,
-                    'product_id' => $request->product_id[$key],
-                    'unit' => $request->unit[$key],
-                    'bom_id' => $request->bom_id[$key],
-                    'store_id' => $request->store_id[$key],
-                    'quantity' => $request->quantity[$key],
+                    'product_id' => $request->product_id[$i],
+                    'unit' => $request->unit[$i],
+                    'bom_id' => $request->bom_id[$i],
+                    'store_id' => $request->store_id[$i],
+                    'quantity' => $request->quantity[$i],
                     'status' => 10
                 ]);
 
                 $goodReceiveDetail->goodDeliveryDetails()->update(['status' => 9]);
 
-                if (isset($request->bom_id[$key])) {
+                if (isset($request->bom_id[$i])) {
 
                     $date = Carbon::createFromFormat(config('app.date_format'), $goodReceive->date, 'Asia/Bangkok')->format('Y-m-d');
 
@@ -172,7 +173,7 @@ class GoodReceiveController extends Controller
                         ]);
                     }
 
-                    $bom = Bom::getBomDetails($request->bom_id[$key]);
+                    $bom = Bom::getBomDetails($request->bom_id[$i]);
 
                     foreach ($bom->bomDetails as $bomDetail) {
                         GoodDeliveryDetail::updateOrCreate([

@@ -18,7 +18,7 @@
                 <input type="hidden" name="manufacturer_note_detail_id[]" value="{{ $manufacturerNoteDetail->id }}">
             </td>
             <td data-col-seq="1">
-                <select name="contract_detail_id[]" class="form-control">
+                <select name="contract_detail_id[]" class="form-control" style="width: 100%;">
                     @foreach( $manufacturerNoteDetail->contractDetail->contract->contractDetails as $contractDetail)
                         @foreach( $contractDetail->price->product->boms as $bom )
                             <optgroup label="{{ $contractDetail->price->product->name }}">
@@ -36,8 +36,8 @@
                 <input type="hidden" name="bom_detail_id[]" value="{{ $manufacturerNoteDetail->bom_detail_id }}">
             </td>
             <td data-col-seq="2">
-                <select class="form-control" name="product_id[]" required>
-                    @foreach( $manufacturerNoteDetail->product->boms as $bom )
+                <select class="form-control" name="product_id[]" style="width: 100%;" required>
+                    @foreach( $manufacturerNoteDetail->bomDetail->product->boms as $bom )
                         <optgroup label="{{ $bom->name }}">
                             @foreach( $bom->bomDetails as $bomDetail )
                                 @if ( $bomDetail->product_id === $manufacturerNoteDetail->product_id )

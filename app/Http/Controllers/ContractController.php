@@ -287,12 +287,11 @@ class ContractController extends Controller
             6=> 'deadline',
             7=> 'order',
             8=> 'status',
-            9=> 'action',
+            9=> 'view',
+            10=> 'edit',
         );
 
         $totalData = ContractDetail::count();
-
-        $totalFiltered = $totalData;
 
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -348,6 +347,7 @@ class ContractController extends Controller
                     ->orWhere('contracts.date', 'LIKE', "%{$search}%")
                     ->orWhere('contract_details.deadline', 'LIKE', "%{$search}%")
                     ->orWhere('manufacturerOrder.number', 'LIKE', "%{$search}%");
+
         } else {
             if(!empty($request->input('columns.0.search.value'))) {
                 $search = $request->input('columns.0.search.value');
@@ -406,7 +406,8 @@ class ContractController extends Controller
                 $nestedData['deadline'] = $contractDetail->deadline;
                 $nestedData['order'] = $contractDetail->manufacturer ?? '';
                 $nestedData['status'] = $contractDetail->status;
-                $nestedData['action'] = "<a href='{$show}' title='Xem' class='btn btn-success'><i class=\"fa fa-tag\" aria-hidden=\"true\"></i> Xem</a><a href='{$edit}' title='Sửa' class='btn btn-primary'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> Sửa</a>";
+                $nestedData['view'] = "<a href='{$show}' title='Xem' class='btn btn-success'><i class=\"fa fa-tag\" aria-hidden=\"true\"></i> Xem</a>";
+                $nestedData['edit'] = "<a href='{$edit}' title='Sửa' class='btn btn-primary'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> Sửa</a>";
                 $data[] = $nestedData;
 
             }

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    protected $customer;
+
+    public function __construct(Customer $customer)
+    {
+        $this->customer = $customer;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +21,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
-        return $customers->toJson();
+        $customers = Customer::orderByDesc('id')->get();
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -25,7 +32,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customer.create');
     }
 
     /**
@@ -36,7 +43,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->customer->fill($request->all())->save();
+
+        return redirect()->route('customers.show', $this->customer);
     }
 
     /**
@@ -47,7 +56,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customer.show', compact('customer'));
     }
 
     /**
@@ -58,7 +67,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -91,5 +100,12 @@ class CustomerController extends Controller
         $listCustomer = Customer::where('name', 'LIKE', '%' . $term . '%')
             ->get();
         return response()->json($listCustomer);
+    }
+
+    public function existTax(Request $request)
+    {
+        $tax = $request->tax;
+
+        return Customer::where('tax_registration_number', $tax)->count();
     }
 }

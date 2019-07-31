@@ -20,7 +20,8 @@
                         <th>Tiến độ</th>
                         <th>LSX</th>
                         <th>Trạng thái</th>
-                        <th>Action</th>
+                        <th>Xem</th>
+                        <th>Sửa</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -34,7 +35,8 @@
                         <th>Tiến độ</th>
                         <th>LSX</th>
                         <th>Trạng thái</th>
-                        <td>Action</td>
+                        <td>Xem</td>
+                        <td>Sửa</td>
                     </tr>
                 </tfoot>
             </table>
@@ -92,13 +94,15 @@
                                 case 0:
                                     return '<span class="label label-success">Xong</span>';
                                 default:
-                                    return '<span class="label label-default">Lỗi</span>';
+                                    return `<span class="label label-default">${data}</span>`;
                             }
                         },
                     },
                     {
-                        data    : "action",
-                        width   : '10%'
+                        data    : "view",
+                    },
+                    {
+                        data    : "edit",
                     },
                 ],
                 columnDefs: [

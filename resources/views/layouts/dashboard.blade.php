@@ -271,6 +271,8 @@ desired effect
                 <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
                 @endcan
 
+                <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Đặt hàng</span>
@@ -300,7 +302,7 @@ desired effect
                         <li><a href="{{ route('output-orders.getUndoneOutputOrder') }}"><i class="fa fa-circle-o"></i>Danh sách LXH</a></li>
                         <li><a href="{{ route('good-receive.create') }}"><i class="fa fa-circle-o"></i>Phiếu nhập kho</a></li>
                         <li><a href="{{ route('good-deliveries.create') }}"><i class="fa fa-circle-o"></i>Phiếu xuất kho</a></li>
-                        <li><a href="{{ route('good-transfer.showInventory') }}"><i class="fa fa-circle-o"></i>Tồn kho</a></li>
+                        <li><a href="{{ route('inventories.index') }}"><i class="fa fa-circle-o"></i>Tồn kho</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -312,6 +314,7 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
+                        <li><a href="{{ route('manufacturer-notes.index') }}"><i class="fa fa-circle-o"></i>Danh sách Phiếu sản xuất</a></li>
                     </ul>
                 </li>
             </ul>

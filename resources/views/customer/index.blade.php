@@ -3,41 +3,41 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp phiếu nhập kho</h3>
-            <a class="btn btn-primary pull-right" href="{{ route('good-receive.create') }}">Tạo phiếu nhập mới</a>
+            <h3 class="box-title">Danh sách khách hàng</h3>
+            <a href="{{ route('customers.create') }}" class="btn btn-primary pull-right">Thêm khách hàng mới</a>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Ngày lập</th>
-                    <th>Đơn vị giao hàng</th>
-                    <th>Số phiếu</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Trạng thái</th>
+                    <th>STT</th>
+                    <th>Mã khách</th>
+                    <th>Tên khách hàng</th>
+                    <th>Tên rút gọn</th>
+                    <th>Địa chỉ</th>
+                    <th>Mã số thuế</th>
                     <th>Xem</th>
                     <th>Sửa</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($goodReceiveDetails as $goodReceiveDetail)
+                @foreach ($customers as $customer)
                     <tr>
-                        <td>{{ $goodReceiveDetail->goodReceive->date }}</td>
-                        <td>{{ $goodReceiveDetail->goodReceive->supplier->name }}</td>
-                        <td>{{ $goodReceiveDetail->goodReceive->number }}</td>
-                        <td>{{ $goodReceiveDetail->product->name }}</td>
-                        <td>{{ $goodReceiveDetail->quantity }}</td>
-                        <td>{{ $goodReceiveDetail->status }}</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $customer->code }}</td>
+                        <td>{{ $customer->name }}</td>
+                        <td>{{ $customer->short_name }}</td>
+                        <td>{{ $customer->address }}</td>
+                        <td>{{ $customer->tax_registration_number }}</td>
                         <td>
-                            <a href="{{ route('good-receive.show', $goodReceiveDetail->good_receive_id)}}" class="btn btn-success">
+                            <a href="{{ route('customers.show', $customer)}}" class="btn btn-success">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('good-receive.edit', $goodReceiveDetail->good_receive_id)}}" class="btn btn-info">
+                            <a href="{{ route('customers.edit', $customer)}}" class="btn btn-info">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                             </a>
                         </td>
@@ -46,13 +46,13 @@
 
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <th>Ngày lập</th>
-                        <th>Đơn vị giao hàng</th>
-                        <th>Số phiếu</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Trạng thái</th>
+                    <tr>-
+                        <th>STT</th>
+                        <th>Mã khách</th>
+                        <th>Tên khách hàng</th>
+                        <th>Tên rút gọn</th>
+                        <th>Địa chỉ</th>
+                        <th>Mã số thuế</th>
                         <td>Xem</td>
                         <td>Sửa</td>
                     </tr>
@@ -83,6 +83,13 @@
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
                 columnDefs: [
+                    {
+                        targets : 0,
+                    },
+                    {
+                        targets : 4,
+                        width   : '10%'
+                    },
                     {
                         targets: "_all",
                         className   : 'dt-head-center',

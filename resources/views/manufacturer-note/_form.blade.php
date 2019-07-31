@@ -59,6 +59,7 @@
 				<!-- /.box-body -->
                 <div class="box-footer text-right">
                     <div>
+                        <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
                         <a href="{{ route('manufacturer-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
@@ -83,6 +84,7 @@
             let date = $('[name*="date"]');
             
             maskDate(date);
+
             $('[name*="contract_detail_id"]').select2({
                 placeholder: 'Chọn loại phôi'
             });
@@ -153,8 +155,19 @@
 
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
+
+                newRow.find('.select2-container').remove();
+
                 newRow.find('input[name*="quantity"]').val('');
                 newRow.find('input[name*="note"]').val('');
+
+                newRow.find('[name*="contract_detail_id"]').select2({
+                    placeholder: 'Chọn loại phôi'
+                });
+                newRow.find('[name*="product_id"]').select2({
+                    placeholder: 'Chọn loại vật tư'
+                });
+
                 tableBody.append(newRow);
             });
     

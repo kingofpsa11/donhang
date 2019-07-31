@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Customer extends Model
 {
-    protected $fillable = ['id', 'name', 'short_name', 'address'];
+    protected $fillable = ['id', 'code', 'name', 'short_name', 'address', 'tax_registration_number'];
 
     public $timestamps = true;
 

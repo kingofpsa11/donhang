@@ -38,7 +38,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $goodReceive->date ?? date('d/m/Y') }}" name="date" required>
+                                    <input type="text" class="form-control text-right" value="{{ $goodReceive->date ?? date('d/m/Y') }}" name="date" required>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -118,7 +118,7 @@
                     placeholder: 'Nhập đơn vị giao hàng',
                     minimumInputLength: 2,
                     ajax: {
-                        url: '{{ route('supplier.listSupplier') }}',
+                        url: '{{ route('suppliers.listSupplier') }}',
                         delay: 200,
                         dataType: 'json',
                         dropdownAutoWidth : true,
@@ -174,7 +174,7 @@
                 el.html('');
 
                 $.ajax({
-                    url: '{{ route('bom.getBom') }}',
+                    url: '{{ route('boms.get_bom') }}',
                     data: {productId: productId},
                     dataType: 'json',
                     success: function (data) {

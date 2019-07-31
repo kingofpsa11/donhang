@@ -85,7 +85,6 @@ class ManufacturerNoteController extends Controller
      */
     public function edit(ManufacturerNote $manufacturerNote)
     {
-        return $manufacturerNote->manufacturerNoteDetails->first()->bomDetail->product->boms;
         $manufacturerNote->load('manufacturerNoteDetails.contractDetail.contract.contractDetails', 'manufacturerNoteDetails.bomDetail.product.boms.bomDetails.product');
         return view('manufacturer-note.edit', compact('manufacturerNote'));
     }
@@ -99,29 +98,24 @@ class ManufacturerNoteController extends Controller
      */
     public function update(Request $request, ManufacturerNote $manufacturerNote)
     {
-        $manufacturerNote->date = $request->date;
+        $manufacturerNote->update($request->all());
 
-        if ($manufacturerNote->save()) {
-            foreach ($request->manufacturerNoteDetails as $value) {
-                if (isset($value['id'])) {
-                    $manufacturerNoteDetail = ManufacturerNoteDetail::find($value['id']);
-                    $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
-                    $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
-                    $manufacturerNoteDetail->bom_detail_id = $value['bom_detail_id'];
-                    $manufacturerNoteDetail->product_id = $value['product_id'];
-                    $manufacturerNoteDetail->quantity = $value['quantity'];
-                    $manufacturerNoteDetail->save();
-                } else {
-                    $manufacturerNoteDetail = new ManufacturerNoteDetail();
-                    $manufacturerNoteDetail->manufacturer_note_id = $manufacturerNote->id;
-                    $manufacturerNoteDetail->contract_detail_id = $value['contract_detail_id'];
-                    $manufacturerNoteDetail->bom_detail_id = $value['bom_detail_id'];
-                    $manufacturerNoteDetail->product_id = $value['product_id'];
-                    $manufacturerNoteDetail->quantity = $value['quantity'];
-                    $manufacturerNoteDetail->save();
-                }
-            }
+        for ($i = 0; $i < count($request->contract_detail_id); $i++) {
+            ManufacturerNoteDetail::updateOrCreate(
+                [
+                    'id' => $request->manufacturer_note_detail_id[$i]
+                ],
+                [
+                    'manufacturer_note_id' => $manufacturerNote->id,
+                    'contract_detail_id' => $request->contract_detail_id[$i],
+                    'bom_detail_id' => $request->bom_detail_id[$i],
+                    'product_id' => $request->product_id[$i],
+                    'quantity' => $request->quantity[$i],
+                    'note' => $request->note[$i],
+                ]
+            );
         }
+
         return view('manufacturer-note.show', compact('manufacturerNote'));
     }
 
@@ -133,6 +127,8 @@ class ManufacturerNoteController extends Controller
      */
     public function destroy(ManufacturerNote $manufacturerNote)
     {
-        //
+        $manufacturerNote->delete();
+        flash('Đã xóa phiếu sản xuất' . $manufacturerNote->number);
+        return redirect()->route('manufacturer-notes.index');
     }
 }
