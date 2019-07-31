@@ -28,6 +28,7 @@ class ContractController extends Controller
      */
     public function index()
     {
+
         $contractDetails = ContractDetail::with(['contract.customer', 'price.product', 'manufacturerOrderDetail.manufacturerOrder'])
             ->orderBy('id', 'desc')
             ->get();
@@ -41,7 +42,6 @@ class ContractController extends Controller
      */
     public function create()
     {
-
         $customers = Customer::all();
         $suppliers = Supplier::whereIn('id', [74, 584, 994])->get();
         return view('contract.create', compact('customers', 'suppliers'));

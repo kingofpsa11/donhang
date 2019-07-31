@@ -13,7 +13,7 @@
                     <th>STT</th>
                     <th >Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
+                    <th>Số tồn</th>
                 </tr>
 
                 </thead>
@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $inventory->code }}</td>
-                        <td>{{ $inventory->product_name }}</td>
+                        <td>{{ $inventory->name }}</td>
                         <td>{{ $inventory->total }}</td>
                     </tr>
                 @endforeach

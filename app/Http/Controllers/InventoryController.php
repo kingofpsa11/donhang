@@ -14,27 +14,47 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = DB::table('good_delivery_details AS d')
+        $products = DB::table('good_delivery_details as d')
+            ->where('d.actual_quantity', '>', 0)
+            ->select('d.product_id')
+            ->union(
+                DB::table('good_receive_details as r')
+                    ->select('r.product_id')
+                    ->where('r.quantity', '>', 0)
+            );
+
+        $deliveries = DB::table('good_delivery_details AS d')
             ->select(
                 'd.product_id',
-                DB::raw('SUM(d.quantity) as total')
+                DB::raw('SUM(d.actual_quantity) as delivery_total')
             )
+            ->where('d.actual_quantity', '>', 0)
             ->groupBy(
                 'd.product_id'
             );
 
-        $deliveries = DB::table('good_receive_details AS r')
+        $receive = DB::table('good_receive_details AS r')
             ->select(
                 'r.product_id',
-                DB::raw('SUM(r.quantity) as total')
+                DB::raw('SUM(r.quantity) as receive_total')
             )
             ->groupBy(
                 'r.product_id'
             );
 
-        $inventories = $inventories->union($deliveries)
+        $inventories = DB::table('products as p')
+            ->joinSub($products, 'product', 'product.product_id', '=', 'p.id')
+            ->leftJoinSub($receive, 'receive', 'p.id', '=', 'receive.product_id')
+            ->leftJoinSub($deliveries, 'delivery', 'p.id', '=', 'delivery.product_id')
+            ->select(
+                'p.code',
+                'p.name',
+                DB::raw('IF(receive.receive_total IS NULL, 0, receive.receive_total) AS receive'),
+                DB::raw('IF(delivery.delivery_total IS NULL, 0, delivery.delivery_total) AS delivery'),
+                DB::raw('IF(receive.receive_total IS NULL, 0, receive.receive_total) - IF(delivery.delivery_total IS NULL, 0, delivery.delivery_total) AS total')
+            )
             ->get();
-        return $inventories;
+
         return view('inventory.index', compact('inventories'));
     }
 
