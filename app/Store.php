@@ -28,7 +28,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Store extends Model
 {
-    protected $fillable = ['id', 'code'];
+    protected $fillable = ['id', 'code', 'category', 'store_id', 'status'];
 
     public $timestamps = true;
+
+    protected $attributes = [
+        'status' => 1
+    ];
+
+    public function childrenStore()
+    {
+        return $this->hasOne('App\Store','id', 'store_id');
+    }
 }

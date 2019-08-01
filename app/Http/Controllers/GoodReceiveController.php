@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\GoodReceiveService;
 use App\GoodDelivery;
 use App\GoodReceiveDetail;
 use App\GoodReceive;
@@ -13,12 +14,11 @@ use Illuminate\Http\Request;
 
 class GoodReceiveController extends Controller
 {
-    protected $goodReceive;
-    protected $goodReceiveDetail;
+    protected $goodReceiveService;
 
-    public function __construct(GoodReceive $goodReceive)
+    public function __construct(GoodReceiveService $goodReceiveService)
     {
-        $this->goodReceive = $goodReceive;
+        $this->goodReceiveService = $goodReceiveService;
     }
 
     /**
@@ -28,9 +28,7 @@ class GoodReceiveController extends Controller
      */
     public function index()
     {
-        $goodReceiveDetails = GoodReceiveDetail::with('goodReceive.supplier', 'product')
-            ->orderByDesc('id')
-            ->get();
+        $goodReceiveDetails = $this->goodReceiveService->index();
         return view('good-receive.index', compact('goodReceiveDetails'));
     }
 
@@ -41,10 +39,9 @@ class GoodReceiveController extends Controller
      */
     public function create()
     {
+        $newNumber = $this->goodReceiveService->getNewNumber();
         $roles = Role::find([4,5]);
-        $this->goodReceive->getNewNumber();
-        $newNumber = $this->goodReceive->number;
-        return view('good-receive.create', compact('roles', 'newNumber'));
+        return view('good-receive.create', compact('newNumber', 'roles'));
     }
 
     /**
@@ -55,52 +52,9 @@ class GoodReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        $this->goodReceive->fill($request->all())->save();
+        $goodReceive = $this->goodReceiveService->create($request);
 
-        for ($i = 0; $i < count($request->code); $i++) {
-
-            $goodReceiveDetail = GoodReceiveDetail::create([
-                'good_receive_id' => $this->goodReceive->id,
-                'product_id' => $request->product_id[$i],
-                'unit' => $request->unit[$i],
-                'bom_id' => $request->bom_id[$i],
-                'store_id' => $request->store_id[$i],
-                'quantity' => $request->quantity[$i]
-            ]);
-
-            if (isset($request->bom_id[$i])) {
-
-                $date = Carbon::createFromFormat(config('app.date_format'), $this->goodReceive->date, 'Asia/Bangkok')->format('Y-m-d');
-
-                $goodDelivery = GoodDelivery::where('good_receive_id', $this->goodReceive->id)
-                    ->where('date', $date)
-                    ->where('customer_id', $this->goodReceive->supplier_id)
-                    ->first();
-
-                if (!$goodDelivery) {
-                    $goodDelivery = GoodDelivery::create([
-                        'good_receive_id' => $this->goodReceive->id,
-                        'date' => $this->goodReceive->date,
-                        'customer_id' => $this->goodReceive->supplier_id,
-                        'number' => GoodDelivery::getNewNumber()
-                    ]);
-                }
-
-                $bom = Bom::getBomDetails($request->bom_id[$i]);
-
-                foreach ($bom->bomDetails as $bomDetail) {
-                    GoodDeliveryDetail::firstOrCreate([
-                        'good_delivery_id' => $goodDelivery->id,
-                        'good_receive_detail_id' => $goodReceiveDetail->id,
-                        'product_id' => $bomDetail->product_id,
-                        'actual_quantity' => $goodReceiveDetail->quantity * $bomDetail->quantity,
-                        'store_id' => $goodReceiveDetail->store_id
-                    ]);
-                }
-            }
-        }
-
-        return redirect()->route('good-receive.show', $this->goodReceive);
+        return redirect()->route('good-receive.show', $goodReceive);
     }
 
     /**
@@ -109,9 +63,11 @@ class GoodReceiveController extends Controller
      * @param  \App\GoodReceive  $goodReceive
      * @return \Illuminate\Http\Response
      */
-    public function show(GoodReceive $goodReceive)
+    public function show($id)
     {
-        $goodReceive->load('goodReceiveDetails.product', 'goodReceiveDetails.bom', 'goodReceiveDetails.store', 'supplier');
+        $goodReceive = $this->goodReceiveService->show($id);
+        var_dump($goodReceive->supplier()->name);
+        die;
         return view('good-receive.show', compact('goodReceive'));
     }
 
@@ -213,7 +169,6 @@ class GoodReceiveController extends Controller
 
     public function getNewNumber()
     {
-        return GoodReceive::whereYear('date', date('Y',time()))
-            ->max('number') + 1 ?? 1;
+
     }
 }

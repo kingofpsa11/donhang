@@ -11,7 +11,7 @@
 @stop
 
 @section('table-body')
-    <tr data-key>
+    <tr data-key="0">
         <td data-col-seq="0">1</td>
         <td data-col-seq="1">
             <input type="text" class="form-control" readonly name="code[]">

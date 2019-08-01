@@ -87,6 +87,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('good-deliveries', 'GoodDeliveryController');
 
+    Route::prefix('inventories')->name('inventories.')->group(function () {
+        Route::get('all', 'InventoryController@all')->name('all');
+    });
     Route::resource('inventories', 'InventoryController');
 });
 

@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\InventoryRepository;
 
 class InventoryController extends Controller
 {
+    protected $inventoryRepository;
+
+    public function __construct(InventoryRepository $inventoryRepository)
+    {
+        $this->inventoryRepository = $inventoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,50 +21,15 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $products = DB::table('good_delivery_details as d')
-            ->where('d.actual_quantity', '>', 0)
-            ->select('d.product_id')
-            ->union(
-                DB::table('good_receive_details as r')
-                    ->select('r.product_id')
-                    ->where('r.quantity', '>', 0)
-            );
-
-        $deliveries = DB::table('good_delivery_details AS d')
-            ->select(
-                'd.product_id',
-                DB::raw('SUM(d.actual_quantity) as delivery_total')
-            )
-            ->where('d.actual_quantity', '>', 0)
-            ->groupBy(
-                'd.product_id'
-            );
-
-        $receive = DB::table('good_receive_details AS r')
-            ->select(
-                'r.product_id',
-                DB::raw('SUM(r.quantity) as receive_total')
-            )
-            ->groupBy(
-                'r.product_id'
-            );
-
-        $inventories = DB::table('products as p')
-            ->joinSub($products, 'product', 'product.product_id', '=', 'p.id')
-            ->leftJoinSub($receive, 'receive', 'p.id', '=', 'receive.product_id')
-            ->leftJoinSub($deliveries, 'delivery', 'p.id', '=', 'delivery.product_id')
-            ->select(
-                'p.code',
-                'p.name',
-                DB::raw('IF(receive.receive_total IS NULL, 0, receive.receive_total) AS receive'),
-                DB::raw('IF(delivery.delivery_total IS NULL, 0, delivery.delivery_total) AS delivery'),
-                DB::raw('IF(receive.receive_total IS NULL, 0, receive.receive_total) - IF(delivery.delivery_total IS NULL, 0, delivery.delivery_total) AS total')
-            )
-            ->get();
-
+        $inventories = $this->inventoryRepository->all();
         return view('inventory.index', compact('inventories'));
     }
 
+    public function all()
+    {
+        $inventories = $this->inventoryRepository->allWithStore();
+        return view('inventory.index2', compact('inventories'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -123,4 +95,5 @@ class InventoryController extends Controller
     {
         //
     }
+
 }

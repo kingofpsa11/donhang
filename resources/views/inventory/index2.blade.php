@@ -13,7 +13,10 @@
                     <th>STT</th>
                     <th >Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
+                    <th>Kho</th>
+                    <th>Số lượng nhập</th>
+                    <th>Số lượng xuất</th>
+                    <th>Tồn cuối</th>
                 </tr>
 
                 </thead>
@@ -23,7 +26,10 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $inventory->code }}</td>
                         <td>{{ $inventory->product_name }}</td>
-                        <td>{{ $inventory->total }}</td>
+                        <td>{{ $inventory->store_name }}</td>
+                        <td>{{ $inventory->receive ?? ''}}</td>
+                        <td>{{ $inventory->delivery }}</td>
+                        <td>{{ $inventory->total ?? ''}}</td>
                     </tr>
                 @endforeach
 
@@ -31,9 +37,12 @@
                 <tfoot>
                     <tr>
                         <th>STT</th>
-                        <th>Mã sản phẩm</th>
+                        <th >Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
+                        <th>Kho</th>
+                        <th>Số lượng nhập</th>
+                        <th>Số lượng xuất</th>
+                        <th>Tồn cuối</th>
                     </tr>
                 </tfoot>
             </table>

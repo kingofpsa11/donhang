@@ -303,7 +303,7 @@ desired effect
                         <li><a href="{{ route('good-receive.create') }}"><i class="fa fa-circle-o"></i>Phiếu nhập kho</a></li>
                         <li><a href="{{ route('good-deliveries.create') }}"><i class="fa fa-circle-o"></i>Phiếu xuất kho</a></li>
                         <li><a href="{{ route('inventories.index') }}"><i class="fa fa-circle-o"></i>Tồn kho</a></li>
-                        <li><a href="{{ route('inventories.index2') }}"><i class="fa fa-circle-o"></i>Tồn xuất nhập</a></li>
+                        <li><a href="{{ route('inventories.all') }}"><i class="fa fa-circle-o"></i>Tồn xuất nhập</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

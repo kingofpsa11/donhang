@@ -59,6 +59,11 @@ class GoodDelivery extends Model
         return $this->belongsTo('App\Customer');
     }
 
+    public function store()
+    {
+        return $this->belongsTo('App\Store');
+    }
+
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');

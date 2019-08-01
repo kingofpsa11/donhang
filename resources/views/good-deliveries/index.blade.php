@@ -18,7 +18,8 @@
                     <th>Số lượng</th>
                     <th>Số lượng thực xuất</th>
                     <th>Trạng thái</th>
-                    <th>Action</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
                 </tr>
                 
                 </thead>
@@ -36,6 +37,8 @@
                             <a href="{{ route('good-deliveries.show', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-success">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                             </a>
+                        </td>
+                        <td>
                             <a href="{{ route('good-deliveries.edit', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-info">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                             </a>
@@ -53,7 +56,8 @@
                     <th>Số lượng</th>
                     <th>Số lượng thực xuất</th>
                     <th>Trạng thái</th>
-                    <td>Action</td>
+                    <td>Xem</td>
+                    <td>Sửa</td>
                 </tr>
                 </tfoot>
             </table>
@@ -90,7 +94,7 @@
             });
             
             table.columns().every( function () {
-                var that = this;
+                let that = this;
                 
                 $( 'input', this.footer() ).on( 'keyup change', function () {
                     if ( that.search() !== this.value ) {
