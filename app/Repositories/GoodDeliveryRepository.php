@@ -22,7 +22,7 @@ class GoodDeliveryRepository
     {
         $date = Carbon::createFromFormat(config('app.date_format'), $model->date, 'Asia/Bangkok')->format('Y-m-d');
 
-        $goodDelivery = GoodDelivery::where('good_receive_id', $model->id)
+        $goodDelivery = $this->goodDelivery->where('good_receive_id', $model->id)
             ->where('date', $date)
             ->where('customer_id', $model->supplier_id)
             ->first();
@@ -33,6 +33,28 @@ class GoodDeliveryRepository
                 'date' => $model->date,
                 'customer_id' => $model->supplier_id,
                 'number' => GoodDelivery::getNewNumber()
+            ]);
+        }
+
+        return $goodDelivery;
+    }
+
+    public function updateOrCreate($model)
+    {
+        $goodDelivery = $this->goodDelivery->where('good_receive_id', $model->id)
+            ->first();
+
+        if (!$goodDelivery) {
+            $goodDelivery = $this->goodDelivery->create([
+                'good_receive_id' => $model->id,
+                'date' => $model->date,
+                'customer_id' => $model->supplier_id,
+                'number' => GoodDelivery::getNewNumber()
+            ]);
+        } else {
+            $goodDelivery->update([
+                'date' => $model->date,
+                'customer_id' => $model->supplier_id,
             ]);
         }
 

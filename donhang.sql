@@ -11,7 +11,7 @@
  Target Server Version : 100137
  File Encoding         : 65001
 
- Date: 31/07/2019 13:48:53
+ Date: 02/08/2019 14:02:09
 */
 
 SET NAMES utf8mb4;
@@ -2590,17 +2590,20 @@ CREATE TABLE `good_deliveries`  (
   CONSTRAINT `good_deliveries_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `good_deliveries_good_receive_id_foreign` FOREIGN KEY (`good_receive_id`) REFERENCES `good_receives` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `good_deliveries_output_order_id_foreign` FOREIGN KEY (`output_order_id`) REFERENCES `output_orders` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of good_deliveries
 -- ----------------------------
-INSERT INTO `good_deliveries` VALUES (4, 11, NULL, 1, '2019-07-29', 74, NULL, 10, '2019-07-29 09:58:56', '2019-07-29 09:58:56');
-INSERT INTO `good_deliveries` VALUES (5, 12, NULL, 3, '2019-07-29', 74, NULL, 10, '2019-07-29 10:20:09', '2019-07-29 10:21:49');
-INSERT INTO `good_deliveries` VALUES (6, 7, NULL, 4, '2019-07-29', 1394, NULL, 10, '2019-07-29 10:22:03', '2019-07-29 10:22:03');
-INSERT INTO `good_deliveries` VALUES (7, 8, NULL, 5, '2019-07-29', 1394, NULL, 10, '2019-07-29 10:22:23', '2019-07-29 10:22:23');
-INSERT INTO `good_deliveries` VALUES (8, 13, NULL, 7, '2019-07-30', 74, NULL, 10, '2019-07-30 03:27:33', '2019-07-30 07:14:02');
-INSERT INTO `good_deliveries` VALUES (9, 14, NULL, 8, '2019-07-30', 74, NULL, 10, '2019-07-30 07:32:05', '2019-07-30 07:32:05');
+INSERT INTO `good_deliveries` VALUES (45, NULL, 175, 1, '2019-08-01', 74, NULL, 10, '2019-08-01 08:53:37', '2019-08-01 08:53:37');
+INSERT INTO `good_deliveries` VALUES (46, NULL, 176, 2, '2019-08-01', 74, NULL, 10, '2019-08-01 08:54:39', '2019-08-01 08:54:39');
+INSERT INTO `good_deliveries` VALUES (47, NULL, 177, 3, '2019-08-01', 74, NULL, 10, '2019-08-01 08:55:15', '2019-08-01 08:55:15');
+INSERT INTO `good_deliveries` VALUES (48, NULL, 178, 4, '2019-08-01', 74, NULL, 10, '2019-08-01 08:55:41', '2019-08-01 08:55:41');
+INSERT INTO `good_deliveries` VALUES (49, NULL, 179, 5, '2019-08-01', 74, NULL, 10, '2019-08-01 08:55:51', '2019-08-01 08:55:51');
+INSERT INTO `good_deliveries` VALUES (50, NULL, 180, 6, '2019-08-01', 74, NULL, 10, '2019-08-01 08:56:14', '2019-08-01 08:56:14');
+INSERT INTO `good_deliveries` VALUES (51, NULL, 181, 7, '2019-08-01', 74, NULL, 10, '2019-08-01 08:56:21', '2019-08-01 08:56:21');
+INSERT INTO `good_deliveries` VALUES (52, NULL, 182, 8, '2019-08-01', 74, NULL, 10, '2019-08-01 08:57:42', '2019-08-01 08:57:42');
+INSERT INTO `good_deliveries` VALUES (53, NULL, 173, 9, '2019-08-01', 74, NULL, 10, '2019-08-02 06:16:48', '2019-08-02 06:16:48');
 
 -- ----------------------------
 -- Table structure for good_delivery_details
@@ -2629,18 +2632,15 @@ CREATE TABLE `good_delivery_details`  (
   CONSTRAINT `good_delivery_details_output_order_detail_id_foreign` FOREIGN KEY (`output_order_detail_id`) REFERENCES `output_order_details` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `good_delivery_details_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `good_delivery_details_store_id_foreign` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of good_delivery_details
 -- ----------------------------
-INSERT INTO `good_delivery_details` VALUES (4, 11, 4, NULL, 2220, 30.000, 30.000, 10, 10, '2019-07-29 09:58:56', '2019-07-31 01:57:12');
-INSERT INTO `good_delivery_details` VALUES (5, 12, 5, NULL, 2220, 20.000, 0.000, NULL, 10, '2019-07-29 10:20:09', '2019-07-29 10:20:09');
-INSERT INTO `good_delivery_details` VALUES (6, 13, 5, NULL, 2112, 30.000, 0.000, NULL, 10, '2019-07-29 10:20:09', '2019-07-29 10:20:09');
-INSERT INTO `good_delivery_details` VALUES (7, 6, 6, NULL, 2528, 98.000, 0.000, NULL, 10, '2019-07-29 10:22:03', '2019-07-29 10:22:03');
-INSERT INTO `good_delivery_details` VALUES (8, 8, 7, NULL, 2403, 5.000, 0.000, NULL, 10, '2019-07-29 10:22:23', '2019-07-29 10:22:23');
-INSERT INTO `good_delivery_details` VALUES (9, 14, 8, NULL, 2236, 20.000, 20.000, 10, 10, '2019-07-30 03:27:34', '2019-07-30 07:33:43');
-INSERT INTO `good_delivery_details` VALUES (10, 15, 9, NULL, 3403, 20.000, 0.000, NULL, 10, '2019-07-30 07:32:05', '2019-07-30 07:32:05');
+INSERT INTO `good_delivery_details` VALUES (24, NULL, 45, 184, 4109, 0.000, 20.000, NULL, 10, '2019-08-01 08:53:37', '2019-08-01 08:53:37');
+INSERT INTO `good_delivery_details` VALUES (25, NULL, 51, 190, 4109, 0.000, 20.000, 26, 10, '2019-08-01 08:56:21', '2019-08-01 08:56:21');
+INSERT INTO `good_delivery_details` VALUES (28, NULL, 46, 185, 4109, 0.000, 20.000, 26, 10, '2019-08-02 06:11:24', '2019-08-02 06:11:24');
+INSERT INTO `good_delivery_details` VALUES (29, NULL, 53, 182, 4109, 0.000, 20.000, 16, 10, '2019-08-02 06:23:23', '2019-08-02 06:32:57');
 
 -- ----------------------------
 -- Table structure for good_receive_details
@@ -2666,13 +2666,40 @@ CREATE TABLE `good_receive_details`  (
   CONSTRAINT `good_receive_details_good_receive_id_foreign` FOREIGN KEY (`good_receive_id`) REFERENCES `good_receives` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `good_receive_details_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `good_receive_details_store_id_foreign` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 126 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 194 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of good_receive_details
 -- ----------------------------
-INSERT INTO `good_receive_details` VALUES (123, 115, 2223, NULL, 50.000, 0.000, 10, 10, '2019-07-30 04:30:08', '2019-07-30 04:39:06');
-INSERT INTO `good_receive_details` VALUES (125, 115, 3026, NULL, 50.000, 0.000, 10, 10, '2019-07-30 04:39:06', '2019-07-30 04:39:06');
+INSERT INTO `good_receive_details` VALUES (162, 155, 2112, 6, 50.000, 0.000, 22, 10, '2019-08-01 08:14:53', '2019-08-01 08:14:53');
+INSERT INTO `good_receive_details` VALUES (163, 156, 2112, 6, 30.000, 0.000, 22, 10, '2019-08-01 08:30:33', '2019-08-01 08:30:33');
+INSERT INTO `good_receive_details` VALUES (164, 156, 2112, 6, 20.000, 0.000, 23, 10, '2019-08-01 08:30:33', '2019-08-01 08:30:33');
+INSERT INTO `good_receive_details` VALUES (165, 157, 4104, 2, 40.000, 0.000, 22, 10, '2019-08-01 08:32:18', '2019-08-01 08:32:18');
+INSERT INTO `good_receive_details` VALUES (166, 157, 4104, 2, 20.000, 0.000, 23, 10, '2019-08-01 08:32:18', '2019-08-01 08:32:18');
+INSERT INTO `good_receive_details` VALUES (167, 158, 4104, 2, 50.000, 0.000, 26, 10, '2019-08-01 08:37:43', '2019-08-01 08:37:43');
+INSERT INTO `good_receive_details` VALUES (168, 159, 4104, 2, 50.000, 0.000, 26, 10, '2019-08-01 08:38:06', '2019-08-01 08:38:06');
+INSERT INTO `good_receive_details` VALUES (169, 160, 4104, 2, 50.000, 0.000, 26, 10, '2019-08-01 08:39:09', '2019-08-01 08:39:09');
+INSERT INTO `good_receive_details` VALUES (170, 161, 4104, 2, 20.000, 0.000, 26, 10, '2019-08-01 08:40:26', '2019-08-01 08:40:26');
+INSERT INTO `good_receive_details` VALUES (171, 162, 4104, 2, 20.000, 0.000, 26, 10, '2019-08-01 08:42:36', '2019-08-01 08:42:36');
+INSERT INTO `good_receive_details` VALUES (172, 163, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:44:13', '2019-08-01 08:44:13');
+INSERT INTO `good_receive_details` VALUES (173, 164, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:44:30', '2019-08-01 08:44:30');
+INSERT INTO `good_receive_details` VALUES (174, 165, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:45:16', '2019-08-01 08:45:16');
+INSERT INTO `good_receive_details` VALUES (175, 166, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:45:52', '2019-08-01 08:45:52');
+INSERT INTO `good_receive_details` VALUES (177, 168, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:46:24', '2019-08-01 08:46:24');
+INSERT INTO `good_receive_details` VALUES (178, 169, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:46:39', '2019-08-01 08:46:39');
+INSERT INTO `good_receive_details` VALUES (179, 170, 4104, 2, 20.000, 0.000, 22, 10, '2019-08-01 08:47:01', '2019-08-01 08:47:01');
+INSERT INTO `good_receive_details` VALUES (180, 171, 2112, 6, 10.000, 0.000, 22, 10, '2019-08-01 08:49:31', '2019-08-01 08:49:31');
+INSERT INTO `good_receive_details` VALUES (181, 172, 2112, 6, 20.000, 0.000, 22, 10, '2019-08-01 08:50:15', '2019-08-01 08:50:15');
+INSERT INTO `good_receive_details` VALUES (182, 173, 2112, 6, 20.000, 0.000, 22, 10, '2019-08-01 08:51:43', '2019-08-02 06:32:57');
+INSERT INTO `good_receive_details` VALUES (183, 174, 2112, 6, 20.000, 0.000, 26, 10, '2019-08-01 08:52:24', '2019-08-01 08:52:24');
+INSERT INTO `good_receive_details` VALUES (184, 175, 2112, 6, 20.000, 0.000, 26, 10, '2019-08-01 08:53:36', '2019-08-01 08:53:36');
+INSERT INTO `good_receive_details` VALUES (185, 176, 2112, 6, 20.000, 0.000, 26, 9, '2019-08-01 08:54:39', '2019-08-02 06:11:24');
+INSERT INTO `good_receive_details` VALUES (186, 177, 2112, 6, 20.000, 0.000, 26, 10, '2019-08-01 08:55:15', '2019-08-01 08:55:15');
+INSERT INTO `good_receive_details` VALUES (187, 178, 2112, 6, 20.000, 0.000, 26, 10, '2019-08-01 08:55:41', '2019-08-01 08:55:41');
+INSERT INTO `good_receive_details` VALUES (189, 180, 2112, 6, 20.000, 0.000, 26, 10, '2019-08-01 08:56:14', '2019-08-01 08:56:14');
+INSERT INTO `good_receive_details` VALUES (190, 181, 2112, 6, 20.000, 0.000, 26, 10, '2019-08-01 08:56:21', '2019-08-01 08:56:21');
+INSERT INTO `good_receive_details` VALUES (192, 184, 4027, NULL, 50.000, 0.000, 27, 10, '2019-08-02 06:42:39', '2019-08-02 06:42:39');
+INSERT INTO `good_receive_details` VALUES (193, 184, 4102, NULL, 20.000, 0.000, 27, 10, '2019-08-02 06:42:39', '2019-08-02 06:42:39');
 
 -- ----------------------------
 -- Table structure for good_receives
@@ -2691,12 +2718,40 @@ CREATE TABLE `good_receives`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `good_receives_supplier_id_foreign`(`supplier_id`) USING BTREE,
   CONSTRAINT `good_receives_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 116 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of good_receives
 -- ----------------------------
-INSERT INTO `good_receives` VALUES (115, 1, NULL, 78, '2019-07-30', 10, NULL, '2019-07-30 04:30:08', '2019-07-30 04:30:08');
+INSERT INTO `good_receives` VALUES (155, 1, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:14:53', '2019-08-01 08:14:53');
+INSERT INTO `good_receives` VALUES (156, 2, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:30:33', '2019-08-01 08:30:33');
+INSERT INTO `good_receives` VALUES (157, 3, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:32:18', '2019-08-01 08:32:18');
+INSERT INTO `good_receives` VALUES (158, 4, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:37:43', '2019-08-01 08:37:43');
+INSERT INTO `good_receives` VALUES (159, 4, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:38:06', '2019-08-01 08:38:06');
+INSERT INTO `good_receives` VALUES (160, 4, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:39:09', '2019-08-01 08:39:09');
+INSERT INTO `good_receives` VALUES (161, 5, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:40:26', '2019-08-01 08:40:26');
+INSERT INTO `good_receives` VALUES (162, 5, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:42:36', '2019-08-01 08:42:36');
+INSERT INTO `good_receives` VALUES (163, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:44:13', '2019-08-01 08:44:13');
+INSERT INTO `good_receives` VALUES (164, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:44:30', '2019-08-01 08:44:30');
+INSERT INTO `good_receives` VALUES (165, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:45:16', '2019-08-01 08:45:16');
+INSERT INTO `good_receives` VALUES (166, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:45:52', '2019-08-01 08:45:52');
+INSERT INTO `good_receives` VALUES (168, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:46:24', '2019-08-01 08:46:24');
+INSERT INTO `good_receives` VALUES (169, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:46:39', '2019-08-01 08:46:39');
+INSERT INTO `good_receives` VALUES (170, 6, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:47:01', '2019-08-01 08:47:01');
+INSERT INTO `good_receives` VALUES (171, 7, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:49:31', '2019-08-01 08:49:31');
+INSERT INTO `good_receives` VALUES (172, 8, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:50:15', '2019-08-01 08:50:15');
+INSERT INTO `good_receives` VALUES (173, 9, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:51:43', '2019-08-02 06:16:48');
+INSERT INTO `good_receives` VALUES (174, 9, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:52:24', '2019-08-01 08:52:24');
+INSERT INTO `good_receives` VALUES (175, 10, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:53:36', '2019-08-01 08:53:36');
+INSERT INTO `good_receives` VALUES (176, 11, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:54:39', '2019-08-01 08:54:39');
+INSERT INTO `good_receives` VALUES (177, 11, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:55:15', '2019-08-01 08:55:15');
+INSERT INTO `good_receives` VALUES (178, 11, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:55:41', '2019-08-01 08:55:41');
+INSERT INTO `good_receives` VALUES (179, 14, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:55:51', '2019-08-02 05:41:15');
+INSERT INTO `good_receives` VALUES (180, 11, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:56:14', '2019-08-01 08:56:14');
+INSERT INTO `good_receives` VALUES (181, 11, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:56:21', '2019-08-01 08:56:21');
+INSERT INTO `good_receives` VALUES (182, 13, NULL, 74, '2019-08-01', 10, NULL, '2019-08-01 08:57:42', '2019-08-02 04:19:41');
+INSERT INTO `good_receives` VALUES (183, 15, NULL, 287, '2019-08-02', 10, NULL, '2019-08-02 06:37:50', '2019-08-02 06:37:50');
+INSERT INTO `good_receives` VALUES (184, 16, NULL, 78, '2019-08-02', 10, NULL, '2019-08-02 06:42:39', '2019-08-02 06:42:39');
 
 -- ----------------------------
 -- Table structure for good_transfer_details
@@ -5363,7 +5418,7 @@ CREATE TABLE `products`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `products_category_id_foreign`(`category_id`) USING BTREE,
   CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4111 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of products
@@ -7426,6 +7481,7 @@ INSERT INTO `products` VALUES (4107, 'Cột thép', NULL, 'BTP.001.001.005', 2, 
 INSERT INTO `products` VALUES (4108, 'Thép tấm 850x8000x4mm', NULL, 'BTP.001.001.002', 2, 10, NULL, '[\"uploads\\/107303.jpg\",\"uploads\\/dscf8452.jpg\"]', '2019-07-26 03:08:36', '2019-07-26 03:08:36');
 INSERT INTO `products` VALUES (4109, 'Phôi cột bát giác liền cần đơn 7m: BGC07 - Dn56/134mm-d3,5mm - Đế 400 (thép 12mm)', 'Phôi cột bát giác liền cần đơn 7m: BGC07 - Dn56/134mm-d3,5mm - Đế 400 (thép 12mm)', 'CKP.BGC07.008', 2, 10, NULL, NULL, '2019-07-30 04:45:22', '2019-07-30 04:45:22');
 INSERT INTO `products` VALUES (4110, 'Mạ kẽm nhúng nóng cột đèn + phụ kiện', 'Mạ kẽm nhúng nóng cột đèn + phụ kiện', 'MA.KNN.CD', 2, 10, NULL, NULL, '2019-07-30 04:48:58', '2019-07-30 04:48:58');
+INSERT INTO `products` VALUES (4111, 'Cột Pluto 2,5m D76 xanh già', 'Cột Pluto 2,5m D76 xanh già', 'TPH.COS.007.004', 1, 10, NULL, NULL, '2019-07-31 07:24:19', '2019-07-31 07:24:19');
 
 -- ----------------------------
 -- Table structure for profit_rates
@@ -7641,6 +7697,7 @@ CREATE TABLE `stores`  (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `category` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL,
+  `store_id` bigint(20) UNSIGNED NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -7649,35 +7706,35 @@ CREATE TABLE `stores`  (
 -- ----------------------------
 -- Records of stores
 -- ----------------------------
-INSERT INTO `stores` VALUES (1, '01', 'Kho vật liệu điện', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (2, '02', 'Kho dây, cáp điện, sắt thép', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (3, '03', 'Kho vật tư đèn', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (4, '04', 'Kho cột bê tông, vật tư thu hồi', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (5, '05', 'Kho bảo hộ, công cụ', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (6, '06', 'Kho thành phẩm đèn đường phố', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (7, '07', 'Kho xe chuyên dùng', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (8, '08', 'Kho hàng đại lý', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (9, '09', 'Kho bán thành phẩm', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (10, '10', 'Kho hàng hóa', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (11, '11', 'Kho sản phẩm cơ khí', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (12, '12', 'Kho khác', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (13, '14', 'Kho hàng vật liệu điện cũ, hỏng không sử dụng', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (14, '15', 'Kho vật tư nhà máy để lại Kiêu Kị', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (15, '16', 'Kho thành phẩm cột, chùm đèn sân vườn', 'CTY', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (16, 'BTP.CKKM', 'Kho bán thành phẩm cơ khí - khuôn mẫu', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (17, 'BTP.KCT', 'Kho bán thành phẩm cấu kiện thép', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (18, 'BTP.LRHT', 'Kho bán thành phẩm lắp ráp - hoàn thiện', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (19, 'BTP.XLBM', 'Kho bán thành phẩm sơn - xử lý bề mặt', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (20, 'NMCCDC', 'Kho công cụ dụng cụ', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (21, 'NMVT', 'kho vật tư nhà máy', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (22, 'TPM.CKKM', 'Kho thành phẩm cơ khí - khuôn mẫu', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (23, 'TPM.KCT', 'Kho thành phẩm cấu kiện thép', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (24, 'TPM.LRHT', 'Kho thành phẩm lắp ráp - hoàn thiện', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (25, 'TPM.XLBM', 'Kho thành phẩm sơn - xử lý bề mặt', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (26, 'VTU.CKKM', 'Kho vật tư cơ khí - khuôn mẫu', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (27, 'VTU.KCT', 'Kho vật tư Cấu kiện thép', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (28, 'VTU.LRHT', 'Kho vật tư lắp ráp - hoàn thiện', 'NM', 1, NULL, NULL);
-INSERT INTO `stores` VALUES (29, 'VTU.XLBM', 'Kho vật tư sơn - xử lý bề mặt', 'NM', 1, NULL, NULL);
+INSERT INTO `stores` VALUES (1, '01', 'Kho vật liệu điện', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (2, '02', 'Kho dây, cáp điện, sắt thép', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (3, '03', 'Kho vật tư đèn', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (4, '04', 'Kho cột bê tông, vật tư thu hồi', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (5, '05', 'Kho bảo hộ, công cụ', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (6, '06', 'Kho thành phẩm đèn đường phố', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (7, '07', 'Kho xe chuyên dùng', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (8, '08', 'Kho hàng đại lý', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (9, '09', 'Kho bán thành phẩm', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (10, '10', 'Kho hàng hóa', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (11, '11', 'Kho sản phẩm cơ khí', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (12, '12', 'Kho khác', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (13, '14', 'Kho hàng vật liệu điện cũ, hỏng không sử dụng', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (14, '15', 'Kho vật tư nhà máy để lại Kiêu Kị', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (15, '16', 'Kho thành phẩm cột, chùm đèn sân vườn', 'CTY', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (16, 'BTP.CKKM', 'Kho bán thành phẩm cơ khí - khuôn mẫu', 'NM', 1, 26, NULL, NULL);
+INSERT INTO `stores` VALUES (17, 'BTP.KCT', 'Kho bán thành phẩm cấu kiện thép', 'NM', 1, 27, NULL, NULL);
+INSERT INTO `stores` VALUES (18, 'BTP.LRHT', 'Kho bán thành phẩm lắp ráp - hoàn thiện', 'NM', 1, 28, NULL, NULL);
+INSERT INTO `stores` VALUES (19, 'BTP.XLBM', 'Kho bán thành phẩm sơn - xử lý bề mặt', 'NM', 1, 29, NULL, NULL);
+INSERT INTO `stores` VALUES (20, 'NMCCDC', 'Kho công cụ dụng cụ', 'NM', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (21, 'NMVT', 'kho vật tư nhà máy', 'NM', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (22, 'TPM.CKKM', 'Kho thành phẩm cơ khí - khuôn mẫu', 'NM', 1, 16, NULL, NULL);
+INSERT INTO `stores` VALUES (23, 'TPM.KCT', 'Kho thành phẩm cấu kiện thép', 'NM', 1, 17, NULL, NULL);
+INSERT INTO `stores` VALUES (24, 'TPM.LRHT', 'Kho thành phẩm lắp ráp - hoàn thiện', 'NM', 1, 18, NULL, NULL);
+INSERT INTO `stores` VALUES (25, 'TPM.XLBM', 'Kho thành phẩm sơn - xử lý bề mặt', 'NM', 1, 19, NULL, NULL);
+INSERT INTO `stores` VALUES (26, 'VTU.CKKM', 'Kho vật tư cơ khí - khuôn mẫu', 'NM', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (27, 'VTU.KCT', 'Kho vật tư Cấu kiện thép', 'NM', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (28, 'VTU.LRHT', 'Kho vật tư lắp ráp - hoàn thiện', 'NM', 1, NULL, NULL, NULL);
+INSERT INTO `stores` VALUES (29, 'VTU.XLBM', 'Kho vật tư sơn - xử lý bề mặt', 'NM', 1, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for suppliers

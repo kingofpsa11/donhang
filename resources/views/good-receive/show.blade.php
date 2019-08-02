@@ -47,14 +47,14 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th class="col-md-2">Mã sản phẩm</th>
-                        <th class="col-md-6">Tên sản phẩm</th>
-                        <th class="col-md-1">Đvt</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Đvt</th>
                         @role(4)
-                        <th class="col-md-2">Định mức</th>
+                        <th>Định mức</th>
                         @endrole
-                        <th class="col-md-2">Kho</th>
-                        <th class="col-md-1">Số lượng</th>
+                        <th>Kho</th>
+                        <th>Số lượng</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -119,10 +119,6 @@
                         className   : 'dt-head-center'
                     }
                 ]
-            });
-
-            $('button.cancel').on('click', function (e) {
-                e.preventDefault();
             });
 
             $('#export').on('click', function () {

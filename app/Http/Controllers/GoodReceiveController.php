@@ -66,8 +66,7 @@ class GoodReceiveController extends Controller
     public function show($id)
     {
         $goodReceive = $this->goodReceiveService->show($id);
-        var_dump($goodReceive->supplier()->name);
-        die;
+
         return view('good-receive.show', compact('goodReceive'));
     }
 
@@ -77,9 +76,10 @@ class GoodReceiveController extends Controller
      * @param  \App\GoodReceive  $goodReceive
      * @return \Illuminate\Http\Response
      */
-    public function edit(GoodReceive $goodReceive)
+    public function edit($id)
     {
-        $goodReceive->load('goodReceiveDetails.product.boms', 'goodReceiveDetails.store');
+        $goodReceive = $this->goodReceiveService->show($id);
+
         return view('good-receive.edit', compact('goodReceive'));
     }
 
@@ -90,67 +90,10 @@ class GoodReceiveController extends Controller
      * @param  \App\GoodReceive  $goodReceive
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GoodReceive $goodReceive)
+    public function update(Request $request, $id)
     {
-        if ($goodReceive->update([$request->all()])) {
-            $goodReceive->goodReceiveDetails()->update(['status' => 9]);
-
-            for ($i = 0; $request->code; $i++) {
-                $goodReceiveDetail = GoodReceiveDetail::updateOrCreate([
-                    'id' => $request->good_receive_detail_id[$i] ?? ''
-                ],
-                [
-                    'good_receive_id' => $goodReceive->id,
-                    'product_id' => $request->product_id[$i],
-                    'unit' => $request->unit[$i],
-                    'bom_id' => $request->bom_id[$i],
-                    'store_id' => $request->store_id[$i],
-                    'quantity' => $request->quantity[$i],
-                    'status' => 10
-                ]);
-
-                $goodReceiveDetail->goodDeliveryDetails()->update(['status' => 9]);
-
-                if (isset($request->bom_id[$i])) {
-
-                    $date = Carbon::createFromFormat(config('app.date_format'), $goodReceive->date, 'Asia/Bangkok')->format('Y-m-d');
-
-                    $goodDelivery = GoodDelivery::where('good_receive_id', $goodReceive->id)
-                        ->where('date', $date)
-                        ->where('customer_id', $goodReceive->supplier_id)
-                        ->first();
-
-                    if (!$goodDelivery) {
-                        $goodDelivery = GoodDelivery::create([
-                            'good_receive_id' => $goodReceive->id,
-                            'date' => $goodReceive->date,
-                            'customer_id' => $goodReceive->supplier_id,
-                            'number' => GoodDelivery::getNewNumber()
-                        ]);
-                    }
-
-                    $bom = Bom::getBomDetails($request->bom_id[$i]);
-
-                    foreach ($bom->bomDetails as $bomDetail) {
-                        GoodDeliveryDetail::updateOrCreate([
-                                'good_delivery_id' => $goodDelivery->id,
-                                'good_receive_detail_id' => $goodReceiveDetail->id,
-                                'product_id' => $bomDetail->product_id,
-                                'store_id' => $goodReceiveDetail->store_id
-                            ],
-                            [
-                                'actual_quantity' => $goodReceiveDetail->quantity * $bomDetail->quantity,
-                                'status' => 10
-                            ]
-                        );
-                    }
-                }
-
-                $goodReceiveDetail->goodDeliveryDetails()->where('status', 9)->delete();
-            }
-
-            $goodReceive->goodReceiveDetails()->where('status',9)->delete();
-        }
+        $this->goodReceiveService->update($request, $id);
+        $goodReceive = $this->goodReceiveService->find($id);
         return view('good-receive.show', compact('goodReceive'));
     }
 

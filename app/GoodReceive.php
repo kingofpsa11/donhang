@@ -40,6 +40,10 @@ class GoodReceive extends Model
 
     public $timestamps = true;
 
+    protected $attributes = [
+        'status' => 10,
+    ];
+
     public function supplier()
     {
         return $this->belongsTo('App\Supplier');
@@ -68,10 +72,6 @@ class GoodReceive extends Model
 
         return $value;
     }
-
-    protected $attributes = [
-        'status' => 10,
-    ];
 
     public function getNewNumber()
     {

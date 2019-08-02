@@ -17,12 +17,21 @@ class GoodReceiveRepository
         return $this->goodReceive->create($attributes);
     }
 
+    public function find($id)
+    {
+        return $this->goodReceive->find($id);
+    }
+
     public function show($id)
     {
         return $this->goodReceive->where('id', $id)
             ->with('goodReceiveDetails.product', 'goodReceiveDetails.bom', 'goodReceiveDetails.store', 'supplier')
-            ->get();
+            ->first();
+    }
 
+    public function update($attributes, $id)
+    {
+        return $this->goodReceive->find($id)->update($attributes);
     }
 
     public function getNewNumber()
