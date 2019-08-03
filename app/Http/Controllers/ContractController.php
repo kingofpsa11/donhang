@@ -28,11 +28,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-
-        $contractDetails = ContractDetail::with(['contract.customer', 'price.product', 'manufacturerOrderDetail.manufacturerOrder'])
-            ->orderBy('id', 'desc')
-            ->get();
-        return response()->view('contract.index', compact('contractDetails'));
+        return response()->view('contract.index');
     }
 
     /**
@@ -383,12 +379,12 @@ class ContractController extends Controller
             }
         }
 
+        $totalFiltered = $query->count();
+
         $contractDetails = $query->offset($start)
             ->limit($limit)
             ->orderBy($order, $dir)
             ->get();
-
-        $totalFiltered = $query->count();
 
         $data = [];
 

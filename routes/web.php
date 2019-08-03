@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('output-orders', 'OutputOrderController');
 
     Route::prefix('products')->name('products.')->group(function () {
-        Route::get('all', 'ProductController@shows')->name('shows');
+        Route::get('allProducts', 'ProductController@allProducts')->name('all_products');
         Route::get('getProduct', 'ProductController@getProduct')->name('get_product');
         Route::get('existCode', 'ProductController@existCode')->name('exist_code');
     });

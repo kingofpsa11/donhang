@@ -1,52 +1,30 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Sản phẩm')
+
 @section('content')
     <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Tổng hợp đơn hàng</h3>
-            <a href="{{ route('products.create') }}" class="btn btn-primary pull-right">Tạo sản phẩm mới</a>
-        </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
-                <tr>
-                    <th>Nhóm</th>
-                    <th>Mã sản phẩm</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Trạng thái</th>
-                    <th>Action</th>
-                </tr>
-
-                </thead>
-                <tbody>
-                @foreach ($products as $product)
                     <tr>
-                        <td>{{ $product->category->name }}</td>
-                        <td>{{ $product->code }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->status }}</td>
-                        <td>
-                            <div>
-                                <a href="{{ route('products.show', $product)}}" class="btn btn-success">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('products.edit', $product)}}" class="btn btn-info">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-
-                </tbody>
-                <tfoot>
-                    <tr>-
                         <th>Nhóm</th>
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Trạng thái</th>
-                        <td></td>
+                        <th>Xem</th>
+                        <th>Sửa</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Nhóm</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Trạng thái</th>
+                        <td>Xem</td>
+                        <td>Sửa</td>
                     </tr>
                 </tfoot>
             </table>
@@ -64,39 +42,63 @@
             });
 
             let table = $('#example2').DataTable({
-                'paging': true,
-                'ordering': true,
-                'info': true,
-                'autoWidth' : true,
-                'searching': true,
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "language": {
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
+                searchDelay     : 300,
+                'processing'    : true,
+                'serverSide'    : true,
+                'ajax'          : {
+                    'url'           : '{{ route('products.all_products') }}',
+                    'dataType'      : 'json',
+                    'type'          : 'GET',
+                    'data'          : { _token: "{{ csrf_token() }}" }
+                },
+                'columns'       : [
+                    {data : "category" },
+                    {
+                        data : "code",
+                    },
+                    { data : "name" },
+                    {
+                        data : "status",
+                        render    : function (data) {
+                            switch (data) {
+                                case 10:
+                                    return '<span class="label label-primary">Đang trình ký</span>';
+                                case 5:
+                                    return '<span class="label label-warning">Đang sản xuất</span>';
+                                case 0:
+                                    return '<span class="label label-success">Xong</span>';
+                                default:
+                                    return `<span class="label label-default">${data}</span>`;
+                            }
+                        },
+                    },
+                    {
+                        data    : "view",
+                    },
+                    {
+                        data    : "edit",
+                    },
+                ],
                 columnDefs: [
                     {
-                        targets : 0,
-                    },
-                    {
-                        targets : 4,
-                        width   : '10%'
-                    },
-                    {
-                        targets: "_all",
-                        className   : 'dt-head-center',
-                    },
+                        targets     : '_all',
+                        className   : 'dt-head-center'
+                    }
                 ]
             });
 
             table.columns().every( function () {
-                var that = this;
+                let that = this;
 
                 $( 'input', this.footer() ).on( 'keyup change', function () {
                     if ( that.search() !== this.value ) {
                         that
-                            .search( this.value )
-                            .draw();
+                        .search( this.value )
+                        .draw();
                     }
                 } );
             } );
