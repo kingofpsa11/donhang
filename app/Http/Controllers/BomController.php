@@ -23,7 +23,7 @@ class BomController extends Controller
      */
     public function index()
     {
-        $boms = Bom::all();
+        $boms = Bom::with('product')->get();
         return view('bom.index',compact('boms'));
     }
 

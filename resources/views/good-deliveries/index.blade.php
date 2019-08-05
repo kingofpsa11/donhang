@@ -15,6 +15,7 @@
                     <th>Đơn vị nhận hàng</th>
                     <th>Số phiếu</th>
                     <th>Tên sản phẩm</th>
+                    <th>Kho</th>
                     <th>Số lượng</th>
                     <th>Số lượng thực xuất</th>
                     <th>Trạng thái</th>
@@ -30,6 +31,7 @@
                         <td>{{ $goodDeliveryDetail->goodDelivery->customer->name }}</td>
                         <td>{{ $goodDeliveryDetail->goodDelivery->number }}</td>
                         <td>{{ $goodDeliveryDetail->product->name }}</td>
+                        <td>{{ $goodDeliveryDetail->store->code }}</td>
                         <td>{{ $goodDeliveryDetail->quantity }}</td>
                         <td>{{ $goodDeliveryDetail->actual_quantity }}</td>
                         <td>{{ $goodDeliveryDetail->status }}</td>
@@ -53,6 +55,7 @@
                     <th>Đơn vị nhận hàng</th>
                     <th>Số phiếu</th>
                     <th>Tên sản phẩm</th>
+                    <th>Kho</th>
                     <th>Số lượng</th>
                     <th>Số lượng thực xuất</th>
                     <th>Trạng thái</th>

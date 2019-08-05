@@ -14,25 +14,26 @@
                     <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
                     <th>Trạng thái</th>
-                    <th>Action</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
                 </tr>
 
                 </thead>
                 <tbody>
                 @foreach ($boms as $bom)
                     <tr>
-                        <td>{{ $bom->id }}</td>
+                        <td>{{ $bom->product->code }}</td>
                         <td>{{ $bom->product->name }}</td>
                         <td>{{ $bom->status }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="{{ route('boms.show', [$bom])}}" class="btn btn-success">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                                <a href="{{ route('boms.edit', [$bom])}}" class="btn btn-info">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                                </a>
-                            </div>
+                            <a href="{{ route('boms.show', [$bom])}}" class="btn btn-success">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ route('boms.edit', [$bom])}}" class="btn btn-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -43,7 +44,8 @@
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Trạng thái</th>
-                        <td></td>
+                        <td>Xem</td>
+                        <td>Sửa</td>
                     </tr>
                 </tfoot>
             </table>
@@ -86,8 +88,10 @@
                         className   : 'dt-body-center'
                     },
                     {
-                        "data" : "action",
-                        "className" : 'dt-body-right',
+                        data    : "view",
+                    },
+                    {
+                        data    : 'edit'
                     }
                 ],
                 columnDefs: [

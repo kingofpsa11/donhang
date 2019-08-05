@@ -22,7 +22,7 @@ class GoodDeliveryController extends Controller
      */
     public function index()
     {
-        $goodDeliveryDetails = GoodDeliveryDetail::with('goodDelivery.customer', 'product')->get();
+        $goodDeliveryDetails = GoodDeliveryDetail::with('goodDelivery.customer', 'product', 'store')->get();
         return view('good-deliveries.index', compact('goodDeliveryDetails'));
     }
 

@@ -21,7 +21,7 @@
                 <tbody>
                 @foreach ($profitRates as $profitRate)
                     <tr>
-                        <td>{{ $profitRate->customer->short_name }}</td>
+                        <td>{{ $profitRate->customer->name }}</td>
                         <td>{{ $profitRate->category->name }}</td>
                         <td>{{ $profitRate->rate }}</td>
                         <td>

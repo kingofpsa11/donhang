@@ -25,7 +25,12 @@ class ManufacturerNoteController extends Controller
      */
     public function index()
     {
-        $manufacturerNoteDetails = ManufacturerNoteDetail::all();
+        $manufacturerNoteDetails = ManufacturerNoteDetail::with(
+            'contractDetail.manufacturerOrderDetail.manufacturerOrder',
+            'contractDetail.price.product',
+            'manufacturerNote'
+            )
+            ->get();
         return view('manufacturer-note.index', compact('manufacturerNoteDetails'));
     }
 
