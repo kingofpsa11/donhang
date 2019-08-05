@@ -230,9 +230,9 @@
             //Add or remove row to table
             $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
                 e.preventDefault();
-                let tableBody = $('tbody');
+                let tableBody = $('#example1 tbody');
                 let numberOfProduct = tableBody.children().length;
-                let lastRow = $('tr:last');
+                let lastRow = tableBody.find('tr:last');
                 let newRow = lastRow.clone();
                 let select2 = newRow.find('.select2.price');
 

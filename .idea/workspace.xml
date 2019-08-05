@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/donhang.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/donhang.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/bom/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bom/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/profit-rate/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profit-rate/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/contract/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/_form.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,17 +51,7 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/good-receive/_form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret line="65" column="65" lean-forward="true" selection-start-line="65" selection-start-column="65" selection-end-line="65" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -121,7 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/contract/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/index.blade.php" />
         <option value="$PROJECT_DIR$/app/ManufacturerOrder.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php" />
@@ -172,6 +150,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" />
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/contract/_form.blade.php" />
       </list>
     </option>
   </component>
@@ -287,10 +266,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -298,7 +277,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -363,17 +341,11 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="good-receive" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -505,6 +477,7 @@
       <workItem from="1564403947495" duration="7189000" />
       <workItem from="1564453449373" duration="21820000" />
       <workItem from="1564967440260" duration="6566000" />
+      <workItem from="1565006326096" duration="3224000" />
     </task>
     <servers />
   </component>
@@ -517,7 +490,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1133654000" />
+    <option name="totallyTimeSpent" value="1136878000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -529,12 +502,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16471216" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16613673" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.49920508" type="SLIDING" weight="0.21962096" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -621,13 +593,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/3dd8dfdf55eb035d3117908edb553784c2ff9462.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="280" column="187" selection-start-line="280" selection-start-column="187" selection-end-line="280" selection-end-column="187" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/3dd8dfdf55eb035d3117908edb553784c2ff9462.php" />
     <entry file="file://$PROJECT_DIR$/resources/views/good-deliveries/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="620">
@@ -705,13 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="203" column="12" lean-forward="true" selection-start-line="203" selection-start-column="12" selection-end-line="203" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/_form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="244" column="45" lean-forward="true" selection-start-line="244" selection-start-column="45" selection-end-line="244" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -905,8 +864,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/good-receive/_form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="65" column="65" lean-forward="true" selection-start-line="65" selection-start-column="65" selection-end-line="65" selection-end-column="65" />
+        <state relative-caret-position="720">
+          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="245" column="41" lean-forward="true" selection-start-line="245" selection-start-column="41" selection-end-line="245" selection-end-column="41" />
         </state>
       </provider>
     </entry>
