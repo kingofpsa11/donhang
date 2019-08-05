@@ -20,7 +20,7 @@ class GoodDeliveryDetailRepository
 
     public function create($goodDeliveryId , $attributes, $bomDetail)
     {
-        $store = $attributes->store->childrenStore ? $attributes->store->childrenStore : $attributes->store_id;
+        $store = $attributes->store->childrenStore ? $attributes->store->childrenStore->id : $attributes->store_id;
 
         return GoodDeliveryDetail::create([
             'good_delivery_id' => $goodDeliveryId,

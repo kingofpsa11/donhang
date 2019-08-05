@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    Danh mục lệnh sản xuất
+@stop
+
 @section('content')
     <div class="box">
         <div class="box-header">
@@ -23,14 +27,28 @@
                 </thead>
                 <tbody>
                 @foreach ($manufacturerOrderDetails as $manufacturerOrderDetail)
-                    <tr class="danger">
+                    <tr
+                        @php
+                            $deadline = Carbon\Carbon::createFromFormat(config('app.date_format'), $manufacturerOrderDetail->contractDetail->deadline)->format('Y-m-d');
+                            $secs = strtotime($deadline) - time();
+                            $days = $secs/86400;
+                            if ($manufacturerOrderDetail->contractDetail->deadline === '') {
+                                echo "class='warning'";
+                            } elseif ($days <= 5 && $manufacturerOrderDetail->manufacturerOrder->status===10) {
+                                echo "class='danger' ";
+                            } else {
+                                echo "class='success'";
+                            }
+                        @endphp
+
+                    >
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->contract->date }}</td>
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->number }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->price->product->name }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->quantity }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->deadline }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->status }}</td>
+                        <td>{{ ($manufacturerOrderDetail->contractDetail->deadline) }}</td>
+                        <td>{{ $manufacturerOrderDetail->manufacturerOrder->status }}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('manufacturer-order.show', $manufacturerOrderDetail->manufacturerOrder)}}" class="btn btn-info">
@@ -83,21 +101,19 @@
                     {
                         targets     : [0,5],
                         className   : 'dt-body-right',
-                        width       : '8%'
+                        width       : '7%',
                     },
                     {
                         targets     : 1,
-                        width       : '5%',
-                        className   : 'dt-body-center'
+                        className   : 'dt-body-center',
+                        width       : '5%'
                     },
                     {
                         targets     : 2,
                         className   : 'dt-body-center',
-                        width       : '10%',
                     },
                     {
                         targets     : 3,
-                        width       : '40%',
                     },
                     {
                         targets     : 4,
@@ -107,12 +123,20 @@
                     {
                         targets     : 6,
                         className   : 'dt-body-center',
-                        width       : '10%',
+                        render      : function (data) {
+                            switch (data) {
+                                case '10':
+                                    return '<span class="label label-default">Đang chờ</span>';
+                                case '9':
+                                    return '<span class="label label-primary">Đã tiếp nhận</span>';
+                                default:
+                                    return data;
+                            }
+                        },
                     },
                     {
                         targets     : 7,
                         className   : 'dt-body-center',
-                        width       : '5%',
                     },
                     {
                         targets: "_all",

@@ -60,8 +60,7 @@
                     </thead>
                     <tbody>
                     @foreach ($manufacturerOrder->manufacturerOrderDetails as $manufacturerOrderDetail )
-                        @php( $i = $loop->index )
-                        <tr data-key="{{ $i }}">
+                        <tr data-key="{{ $loop->index }}">
                             <td class="" data-col-seq="0">{{ $loop->iteration }}</td>
                             <td data-col-seq="1">
                                 {{ $manufacturerOrderDetail->contractDetail->price->product->code }}
@@ -95,9 +94,11 @@
                     <div class="col-md-12 text-right">
                         @role(4)
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
+                        @if($manufacturerOrderDetail->manufacturerOrder->status === 10)
                         <a href="{{ route('manufacturer-notes.create', $manufacturerOrder) }}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo phiếu cắt phôi
                         </a>
+                        @endif
                         @endrole
                     </div>
                 </div>
@@ -108,12 +109,10 @@
 
 @section('javascript')
     <script>
-        {{--//Click cancel button--}}
-        {{--$('button.cancel').on('click', function (e) {--}}
-            {{--e.preventDefault();--}}
-        {{--});--}}
-        $('#export').on('click', function () {
-            $('#contract-show').table2excel();
+        $(function () {
+            $('#export').on('click', function () {
+                $('#example1').table2excel();
+            });
         });
     </script>
 @stop

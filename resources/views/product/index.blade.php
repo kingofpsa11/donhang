@@ -4,6 +4,9 @@
 
 @section('content')
     <div class="box">
+        <div class="box-header">
+            <a href="{{ route('products.create') }}" class="btn btn-primary pull-right">Tạo mới sản phẩm</a>
+        </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
@@ -57,16 +60,14 @@
                 },
                 'columns'       : [
                     {data : "category" },
-                    {
-                        data : "code",
-                    },
-                    { data : "name" },
+                    {data : "code"},
+                    {data : "name"},
                     {
                         data : "status",
                         render    : function (data) {
                             switch (data) {
                                 case 10:
-                                    return '<span class="label label-primary">Đang trình ký</span>';
+                                    return '<span class="label label-primary">Đang sử dụng</span>';
                                 case 5:
                                     return '<span class="label label-warning">Đang sản xuất</span>';
                                 case 0:
@@ -76,12 +77,8 @@
                             }
                         },
                     },
-                    {
-                        data    : "view",
-                    },
-                    {
-                        data    : "edit",
-                    },
+                    {data    : "view",},
+                    {data    : "edit",},
                 ],
                 columnDefs: [
                     {
@@ -94,14 +91,30 @@
             table.columns().every( function () {
                 let that = this;
 
-                $( 'input', this.footer() ).on( 'keyup change', function () {
-                    if ( that.search() !== this.value ) {
+                $( 'input', this.footer() ).on( 'keyup change', function (e) {
+                    if ( that.search() !== this.value && e.keyCode === 13) {
                         that
                         .search( this.value )
                         .draw();
                     }
                 } );
             } );
+
+            let search = $("#example2").dataTable().api();
+
+// Grab the datatables input box and alter how it is bound to events
+            $("#example2_filter input")
+            .off() // Unbind previous default bindings
+            .on("keyup", function(e) {
+                if(e.keyCode === 13) {
+                    // Call the API search function
+                    search.search(this.value).draw();
+                }
+
+                // if(this.value === "") {
+                //     search.search("").draw();
+                // }
+            });
         });
     </script>
 @stop
