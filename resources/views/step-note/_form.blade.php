@@ -76,7 +76,7 @@
                             @endif
                         ">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('output-orders.index') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ route('step-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
 			</div>
@@ -106,7 +106,6 @@
                     placeholder: 'Nhập số lệnh sản xuất',
                     ajax: {
                         url: '{{ route('manufacturer-notes.get_by_step') }}',
-                        delay: 200,
                         data: function (params) {
                             return {
                                 search: params.term,
@@ -150,7 +149,6 @@
             }
 
             let product_id = $('#product_id');
-
             $('#step_id').on('change', function () {
                 $('.addRow').removeClass('disabled');
                 addSelect2(product_id);
@@ -163,15 +161,14 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
-                    if (i === 0) {
-                        if (rows.length === 1) {
-                            $(row).find('button.removeRow').addClass('hidden');
-                        } else {
-                            $(row).find('button.removeRow').removeClass('hidden');
-                        }
+                    if (rows.length === 1) {
+                        $(row).find('button.removeRow').addClass('hidden');
+                    } else {
+                        $(row).find('button.removeRow').removeClass('hidden');
                     }
                 });
             }
+            updateNumberOfRow();
 
             //Add or remove row to table
             $('.box-footer').on('click', '.addRow:not(".disabled")', function (e) {

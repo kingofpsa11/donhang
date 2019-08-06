@@ -145,20 +145,33 @@ class ManufacturerNoteController extends Controller
         $query = DB::table('contract_details')
             ->join('manufacturer_order_details','contract_details.id','manufacturer_order_details.contract_detail_id')
             ->join('manufacturer_orders', 'manufacturer_orders.id', 'manufacturer_order_details.manufacturer_order_id')
-            ->select('contract_details.id', 'manufacturer_orders.number', 'contract_details.price_id');
+            ->select('contract_details.id', 'manufacturer_orders.number');
+
+        $queryStep = DB::table('step_note_details')
+            ->join('step_notes', 'step_notes.id', 'step_note_details.step_note_id')
+            ->join('manufacturer_note_details', 'manufacturer_note_details.contract_detail_id', 'step_note_details.contract_detail_id')
+            ->join('bom_details','bom_details.id', 'manufacturer_note_details.bom_detail_id')
+            ->select('bom_details.product_id', 'step_notes.id', 'step_note_details.contract_detail_id');
+
         if ($request->stepId == 1) {
             $results = DB::table('manufacturer_note_details')
                 ->joinSub($query,'manufacturer','manufacturer.id','=','manufacturer_note_details.contract_detail_id')
                 ->join('products', 'products.id','manufacturer_note_details.product_id')
                 ->select('manufacturer_note_details.contract_detail_id', 'manufacturer_note_details.quantity', 'products.name', 'products.code', 'manufacturer.number', 'products.id')
                 ->get();
+        } elseif ($request->stepId == 2) {
+            $results = DB::table('manufacturer_note_details')
+                ->joinSub($query,'manufacturer','manufacturer.id','=','manufacturer_note_details.contract_detail_id')
+                ->joinSub($queryStep, 'stepDetail', 'stepDetail.contract_detail_id', 'manufacturer_note_details.contract_detail_id')
+                ->join('products', 'products.id','stepDetail.product_id')
+                ->select('manufacturer_note_details.contract_detail_id', 'manufacturer_note_details.quantity', 'products.name', 'products.code', 'manufacturer.number', 'stepDetail.product_id as id')
+                ->get();
         } else {
             $stepBefore = Step::where('id', $request->stepId)->first()->step_id;
             $results = DB::table('step_note_details')
                 ->joinSub($query,'manufacturer','manufacturer.id','=','step_note_details.contract_detail_id')
                 ->join('step_notes', 'step_notes.id','step_note_details.step_note_id')
-                ->join('prices','manufacturer.price_id','=','prices.id')
-                ->join('products','products.id','prices.product_id')
+                ->join('products','products.id','step_note_details.product_id')
                 ->where('step_notes.step_id',$stepBefore)
                 ->select('step_note_details.contract_detail_id', 'step_note_details.quantity', 'products.name', 'products.code', 'manufacturer.number', 'products.id')
                 ->get();

@@ -30,4 +30,9 @@ class StepNoteDetail extends Model
     {
         return $this->belongsTo('App\ContractDetail');
     }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

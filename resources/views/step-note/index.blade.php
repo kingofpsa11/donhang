@@ -4,59 +4,60 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp LXH</h3>
-            <a href="{{ route('output-orders.create') }}" class="btn btn-primary pull-right">Tạo Lệnh xuất hàng mới</a>
+            <a href="{{ route('step-notes.create') }}" class="btn btn-primary pull-right">Tạo mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
                 <tr>
-                    <th>ĐVXH</th>
-                    <th>Ngày xuất</th>
-                    <th>Số LXH</th>
-                    <th>Số đơn hàng</th>
+                    <th>Số LSX</th>
+                    <th>Ngày</th>
+                    <th>Công đoạn</th>
                     <th>Tên sản phẩm</th>
-                    <th>Số lượng xuất</th>
-                    <th>LSX</th>
+                    <th>Đơn vị</th>
+                    <th>Số lượng</th>
                     <th>Trạng thái</th>
-                    <th>Action</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($outputOrderDetails as $outputOrderDetail)
-                    <tr>
-                        <td>{{ $outputOrderDetail->outputOrder->customer->name }}</td>
-                        <td>{{ $outputOrderDetail->outputOrder->date }}</td>
-                        <td>{{ $outputOrderDetail->outputOrder->number }}</td>
-                        <td>{{ $outputOrderDetail->contractDetail->contract->number }}</td>
-                        <td>{{ $outputOrderDetail->contractDetail->price->product->name }}</td>
-                        <td>{{ $outputOrderDetail->quantity }}</td>
-                        <td>{{ $outputOrderDetail->manufacturer_order_number }}</td>
-                        <td>{{ $outputOrderDetail->outputOrder->status }}</td>
-                        <td>
-                                <a href="{{ route('output-orders.show', $outputOrderDetail->output_order_id)}}" class="btn btn-success">
+                    @foreach ($stepNoteDetails as $stepNoteDetail)
+                        <tr>
+                            <td>{{ $stepNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
+                            <td>{{ $stepNoteDetail->stepNote->first()->date }}</td>
+                            <td>{{ $stepNoteDetail->stepNote->first()->step->name }}</td>
+                            <td>{{ $stepNoteDetail->product->code }}</td>
+                            <td>{{ $stepNoteDetail->product->name }}</td>
+                            <td>{{ $stepNoteDetail->contractDetail->price->product->unit }}</td>
+                            <td>{{ $stepNoteDetail->quantity }}</td>
+
+                            <td>
+                                <a href="{{ route('step-notes.show', $stepNoteDetail->step_note_id)}}" class="btn btn-success">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
                                 </a>
-                                <a href="{{ route('output-orders.edit', $outputOrderDetail->output_order_id)}}" class="btn btn-info">
+                            </td>
+                            <td>
+                                <a href="{{ route('step-notes.edit', $stepNoteDetail->step_note_id)}}" class="btn btn-info">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                                 </a>
-                        </td>
-                    </tr>
-                @endforeach
-
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>ĐVXH</th>
-                        <th>Ngày xuất</th>
-                        <th>Số LXH</th>
-                        <th>Số đơn hàng</th>
+                        <th>Số LSX</th>
+                        <th>Ngày</th>
+                        <th>Công đoạn</th>
                         <th>Tên sản phẩm</th>
-                        <th>Số lượng xuất</th>
-                        <th>LSX</th>
+                        <th>Đơn vị</th>
+                        <th>Số lượng</th>
                         <th>Trạng thái</th>
-                        <td></td>
+                        <td>Xem</td>
+                        <td>Sửa</td>
                     </tr>
                 </tfoot>
             </table>
@@ -70,7 +71,6 @@
     <script>
         $(document).ready(function () {
             $('#example2 tfoot th').each( function () {
-                var title = $(this).text();
                 $(this).html( '<input type="text" style="width:100%;" placeholder="Tìm" />' );
             } );
 
@@ -88,34 +88,6 @@
 
                 },
                 columnDefs: [
-                    {
-                        targets     : 1,
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        targets     : [0,2,3,5,6],
-                        className   : 'dt-body-center'
-                    },
-                    {
-                        targets     : 4,
-                        width       : '40%',
-                    },
-                    {
-                        targets     : 7,
-                        render      : function ( data, type, row) {
-                            if (data == 5) {
-                                return '<span class="label label-primary">Đã duyệt<span>';
-                            } else if ( data == 10) {
-                                return '<span class="label label-default">Đang chờ duyệt<span>';
-                            }
-                        },
-                        className   : 'dt-body-center'
-                    },
-                    {
-                        targets     : 8,
-                        width       : '10%',
-                        className   : 'dt-body-center'
-                    },
                     {
                         targets     : '_all',
                         className   : 'dt-head-center'

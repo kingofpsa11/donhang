@@ -24,7 +24,13 @@ class StepNoteController extends Controller
      */
     public function index()
     {
-
+        $stepNoteDetails = StepNoteDetail::with(
+            'contractDetail.manufacturerOrderDetail.manufacturerOrder',
+            'contractDetail.price.product',
+            'stepNote.step'
+            )
+            ->get();
+        return view('step-note.index', compact('stepNoteDetails'));
     }
 
     /**
@@ -84,7 +90,13 @@ class StepNoteController extends Controller
      */
     public function edit(StepNote $stepNote)
     {
-        //
+        $steps = Step::all();
+        $stepNote->load(
+            'stepNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder',
+            'stepNoteDetails.contractDetail.price.product',
+            'step'
+        );
+        return view('step-note.edit', compact('stepNote', 'steps'));
     }
 
     /**
@@ -96,7 +108,7 @@ class StepNoteController extends Controller
      */
     public function update(Request $request, StepNote $stepNote)
     {
-        //
+
     }
 
     /**
