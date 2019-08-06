@@ -78,7 +78,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('manufacturer-order', 'ManufacturerOrderController');
 
     Route::get('manufacturer-notes/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-notes.create');
+    Route::get('manufacturer-notes/get-by-step', 'ManufacturerNoteController@getByStep')->name('manufacturer-notes.get_by_step');
     Route::resource('manufacturer-notes', 'ManufacturerNoteController')->except(['create']);
+
+    Route::resource('step-notes', 'StepNoteController');
 
     Route::get('store/listStore', 'StoreController@listStore')->name('store.listStore');
     Route::resource('store', 'StoreController');

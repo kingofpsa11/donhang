@@ -9,6 +9,7 @@ use App\ManufacturerOrderDetail;
 use App\Supplier;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManufacturerOrderController extends Controller
 {
