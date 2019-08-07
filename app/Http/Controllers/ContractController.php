@@ -206,7 +206,7 @@ class ContractController extends Controller
     {
         $contract->delete();
         flash('Đã xóa đơn hàng ' . $contract->number)->success();
-        return redirect()->route('contract.index');
+        return redirect()->route('contracts.index');
     }
 
     public function  getLastContract($customer_id)
