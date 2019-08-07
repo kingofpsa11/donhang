@@ -24,7 +24,7 @@
                 <input type="text" class="form-control" name="code[]" readonly value="{{ $stepNoteDetail->product->code }}">
             </td>
             <td data-col-seq="3">
-                <input type="hidden" name="contract_detail_id[]">
+                <input type="hidden" name="contract_detail_id[]" value="{{ $stepNoteDetail->contract_detail_id }}">
                 <select type="text" class="form-control select2" name="product_id[]" style="width:100%" id="product_id" required>
                     <option value="{{ $stepNoteDetail->product_id }}">{{ $stepNoteDetail->product->name }}</option>
                 </select>

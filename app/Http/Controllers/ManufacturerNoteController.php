@@ -142,38 +142,129 @@ class ManufacturerNoteController extends Controller
 
     public function getByStep(Request $request)
     {
-        $query = DB::table('contract_details')
-            ->join('manufacturer_order_details','contract_details.id','manufacturer_order_details.contract_detail_id')
-            ->join('manufacturer_orders', 'manufacturer_orders.id', 'manufacturer_order_details.manufacturer_order_id')
-            ->select('contract_details.id', 'manufacturer_orders.number');
-
-        $queryStep = DB::table('step_note_details')
-            ->join('step_notes', 'step_notes.id', 'step_note_details.step_note_id')
-            ->join('manufacturer_note_details', 'manufacturer_note_details.contract_detail_id', 'step_note_details.contract_detail_id')
-            ->join('bom_details','bom_details.id', 'manufacturer_note_details.bom_detail_id')
-            ->select('bom_details.product_id', 'step_notes.id', 'step_note_details.contract_detail_id');
+        $contractDetails = DB::table('contract_details AS c')
+            ->join('manufacturer_order_details AS md','md.contract_detail_id','c.id')
+            ->join('manufacturer_orders AS m', 'm.id','md.manufacturer_order_id')
+            ->select('c.id', 'm.number');
 
         if ($request->stepId == 1) {
+
             $results = DB::table('manufacturer_note_details')
-                ->joinSub($query,'manufacturer','manufacturer.id','=','manufacturer_note_details.contract_detail_id')
+                ->joinSub($contractDetails,'manufacturer','manufacturer.id','=','manufacturer_note_details.contract_detail_id')
                 ->join('products', 'products.id','manufacturer_note_details.product_id')
-                ->select('manufacturer_note_details.contract_detail_id', 'manufacturer_note_details.quantity', 'products.name', 'products.code', 'manufacturer.number', 'products.id')
+                ->select('manufacturer_note_details.contract_detail_id', 'manufacturer_note_details.quantity as remain_quantity', 'products.name', 'products.code', 'manufacturer.number', 'manufacturer_note_details.product_id')
                 ->get();
+
         } elseif ($request->stepId == 2) {
+
+            $queryStepAfter = DB::table('step_notes')
+                ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
+                ->select('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', DB::raw('SUM(step_note_details.quantity) AS total_quantity'))
+                ->groupBy('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id');
+
+            $queryStepBefore = DB::table('step_notes')
+                ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
+                ->select('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', 'step_note_details.quantity');
+
+            $bomDetails = DB::table('bom_details')
+                ->join('products', 'products.id', 'bom_details.product_id')
+                ->select('bom_details.id', 'products.code', 'products.name', 'products.id as product_id');
+
             $results = DB::table('manufacturer_note_details')
-                ->joinSub($query,'manufacturer','manufacturer.id','=','manufacturer_note_details.contract_detail_id')
-                ->joinSub($queryStep, 'stepDetail', 'stepDetail.contract_detail_id', 'manufacturer_note_details.contract_detail_id')
-                ->join('products', 'products.id','stepDetail.product_id')
-                ->select('manufacturer_note_details.contract_detail_id', 'manufacturer_note_details.quantity', 'products.name', 'products.code', 'manufacturer.number', 'stepDetail.product_id as id')
+                ->join('manufacturer_order_details', 'manufacturer_note_details.contract_detail_id', 'manufacturer_order_details.contract_detail_id')
+                ->join('manufacturer_orders', 'manufacturer_orders.id', 'manufacturer_order_details.manufacturer_order_id')
+                ->leftJoinSub($queryStepAfter, 'stepDetailAfter', function ($join) use ($request) {
+                    $join->on('stepDetailAfter.contract_detail_id', '=', 'manufacturer_note_details.contract_detail_id')
+                        ->where('stepDetailAfter.step_id', $request->stepId);
+                })
+                ->joinSub($queryStepBefore, 'stepDetailBefore', function ($join) use ($request) {
+                    $join->on('stepDetailBefore.contract_detail_id', '=', 'manufacturer_note_details.contract_detail_id')
+                        ->where('stepDetailBefore.step_id', 1);
+                })
+                ->joinSub($bomDetails, 'bomDetails', 'bomDetails.id','=', 'manufacturer_note_details.bom_detail_id')
+                ->select(
+                    'manufacturer_note_details.contract_detail_id',
+                    'bomDetails.name', 'bomDetails.code',
+                    'manufacturer_orders.number',
+                    'bomDetails.product_id',
+                    DB::raw('(manufacturer_note_details.quantity - stepDetailAfter.total_quantity) AS remain_quantity')
+                )
+                ->having('remain_quantity', '>', 0)
                 ->get();
-        } else {
-            $stepBefore = Step::where('id', $request->stepId)->first()->step_id;
-            $results = DB::table('step_note_details')
-                ->joinSub($query,'manufacturer','manufacturer.id','=','step_note_details.contract_detail_id')
-                ->join('step_notes', 'step_notes.id','step_note_details.step_note_id')
-                ->join('products','products.id','step_note_details.product_id')
-                ->where('step_notes.step_id',$stepBefore)
-                ->select('step_note_details.contract_detail_id', 'step_note_details.quantity', 'products.name', 'products.code', 'manufacturer.number', 'products.id')
+
+        } elseif ($request->stepId == 3) {
+
+            $queryStepAfter = DB::table('step_notes')
+                ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
+                ->where('step_notes.step_id', $request->stepId)
+                ->select('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', DB::raw('SUM(step_note_details.quantity) AS total_quantity'))
+                ->groupBy('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id');
+
+            $results = DB::table('step_notes')
+                ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
+                ->where('step_notes.step_id', $request->stepId - 1)
+                ->select(
+                    'step_note_details.product_id',
+                    'step_note_details.contract_detail_id',
+                    'step_notes.step_id',
+                    'p.name', 'p.code',
+                    'c.number',
+                    DB::raw('(SUM(step_note_details.quantity) - IFNULL(sa.total_quantity, 0)) AS remain_quantity'))
+                ->groupBy(
+                    'step_note_details.product_id',
+                    'step_note_details.contract_detail_id',
+                    'step_notes.step_id',
+                    'p.name', 'p.code',
+                    'c.number',
+                    'sa.total_quantity'
+                    )
+                ->leftJoinSub($queryStepAfter, 'sa', function ($join) {
+                    $join->on('sa.contract_detail_id', '=', 'step_note_details.contract_detail_id')
+                        ->on('sa.product_id', '=', 'step_note_details.product_id');
+                })
+                ->joinSub($contractDetails, 'c', function ($join) {
+                    $join->on('c.id', '=', 'step_note_details.contract_detail_id');
+                })
+                ->join('products as p', 'p.id', 'step_note_details.product_id')
+                ->get();
+
+        } elseif ($request->stepId == 4) {
+
+            $queryStepAfter = DB::table('step_notes')
+                ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
+                ->join('contract_details', 'contract_details.id', 'step_note_details.contract_detail_id')
+                ->join('prices', 'prices.id','contract_details.price_id')
+                ->where('step_notes.step_id', $request->stepId)
+                ->select('prices.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', DB::raw('SUM(step_note_details.quantity) AS total_quantity'))
+                ->groupBy('prices.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id');
+
+            $results = DB::table('step_notes')
+                ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
+                ->join('contract_details', 'contract_details.id', 'step_note_details.contract_detail_id')
+                ->join('prices', 'prices.id','contract_details.price_id')
+                ->where('step_notes.step_id', $request->stepId - 1)
+                ->select(
+                    'prices.product_id',
+                    'step_note_details.contract_detail_id',
+                    'step_notes.step_id',
+                    'p.name', 'p.code',
+                    'c.number',
+                    DB::raw('(SUM(step_note_details.quantity) - IFNULL(sa.total_quantity, 0)) AS remain_quantity'))
+                ->groupBy(
+                    'prices.product_id',
+                    'step_note_details.contract_detail_id',
+                    'step_notes.step_id',
+                    'p.name', 'p.code',
+                    'c.number',
+                    'sa.total_quantity'
+                )
+                ->leftJoinSub($queryStepAfter, 'sa', function ($join) {
+                    $join->on('sa.contract_detail_id', '=', 'step_note_details.contract_detail_id');
+                })
+                ->joinSub($contractDetails, 'c', function ($join) {
+                    $join->on('c.id', '=', 'step_note_details.contract_detail_id');
+                })
+                ->join('products as p', 'p.id', 'prices.product_id')
                 ->get();
         }
 

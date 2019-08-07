@@ -118,10 +118,10 @@
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.name,
-                                        id: item.id,
+                                        id: item.product_id,
                                         number: item.number,
                                         code: item.code,
-                                        quantity: item.quantity,
+                                        quantity: item.remain_quantity,
                                         contract_detail_id: item.contract_detail_id
                                     }
                                 })

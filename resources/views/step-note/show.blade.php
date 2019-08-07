@@ -77,7 +77,7 @@
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-default print">In</button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal">Xoá</button>
+                        {{--<button class="btn btn-danger" data-toggle="modal" data-target="#modal">Xoá</button>--}}
 
                         <form action="{{ route('step-notes.update', $stepNote) }}" method="POST" style="display: inline-block;">
                             @csrf
@@ -90,12 +90,12 @@
         </div>
         <!-- /.box -->
     </section>
-    @include('shared._modal', [
-        'model' => $stepNote,
-        'modelName' => 'Phiếu công đoạn',
-        'modelInformation' => $stepNote->number,
-        'routeName' => 'step-notes'
-    ])
+    {{--@include('shared._modal', [--}}
+        {{--'model' => $stepNote,--}}
+        {{--'modelName' => 'Phiếu công đoạn',--}}
+        {{--'modelInformation' => $stepNote->number,--}}
+        {{--'routeName' => 'step-notes'--}}
+    {{--])--}}
 @endsection
 
 @section('javascript')

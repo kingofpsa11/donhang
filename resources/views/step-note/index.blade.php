@@ -14,10 +14,10 @@
                     <th>Số LSX</th>
                     <th>Ngày</th>
                     <th>Công đoạn</th>
+                    <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
                     <th>Đơn vị</th>
                     <th>Số lượng</th>
-                    <th>Trạng thái</th>
                     <th>Xem</th>
                     <th>Sửa</th>
                 </tr>
@@ -27,8 +27,8 @@
                     @foreach ($stepNoteDetails as $stepNoteDetail)
                         <tr>
                             <td>{{ $stepNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
-                            <td>{{ $stepNoteDetail->stepNote->first()->date }}</td>
-                            <td>{{ $stepNoteDetail->stepNote->first()->step->name }}</td>
+                            <td>{{ $stepNoteDetail->stepNote->date }}</td>
+                            <td>{{ $stepNoteDetail->stepNote->step->name }}</td>
                             <td>{{ $stepNoteDetail->product->code }}</td>
                             <td>{{ $stepNoteDetail->product->name }}</td>
                             <td>{{ $stepNoteDetail->contractDetail->price->product->unit }}</td>

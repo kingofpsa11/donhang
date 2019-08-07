@@ -108,7 +108,25 @@ class StepNoteController extends Controller
      */
     public function update(Request $request, StepNote $stepNote)
     {
+        $stepNote->fill($request->all())->save();
+        $stepNote->stepNoteDetails()->update(['status' => 9]);
+        for ($i = 0; $i < count($request->code); $i++) {
+            StepNoteDetail::updateOrCreate(
+                [
+                    'id' => $request->step_note_detail_id[$i]
+                ],
+                [
+                    'step_note_id' => $stepNote->id,
+                    'contract_detail_id' => $request->contract_detail_id[$i],
+                    'product_id' => $request->product_id[$i],
+                    'quantity' => $request->quantity[$i],
+                    'status' => 10
+                ]);
+        }
 
+        $stepNote->stepNoteDetails()->where('status', 9)->delete();
+
+        return redirect()->route('step-notes.show', $this->stepNote);
     }
 
     /**
@@ -119,6 +137,8 @@ class StepNoteController extends Controller
      */
     public function destroy(StepNote $stepNote)
     {
-        //
+        $stepNote->delete();
+        flash('Đã xóa phiếu ' . $stepNote->number)->success();
+        return redirect()->route('step-notes.index');
     }
 }
