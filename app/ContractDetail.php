@@ -81,6 +81,11 @@ class ContractDetail extends Model
         return $this->belongsTo('App\Supplier');
     }
 
+    public function stepNoteDetails()
+    {
+        return $this->hasMany('App\StepNoteDetail');
+    }
+
     public function setDeadlineAttribute($value)
     {
         $this->attributes['deadline'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');

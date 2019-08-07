@@ -73,6 +73,7 @@
                 </div>
                 <div class="control-button text-right">
                     <div>
+                        <a href="{{ route('step-notes.create') }}" class="btn btn-success">Tạo mới</a>
                         <a href="{{ route('step-notes.edit', $stepNote) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>

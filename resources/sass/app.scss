@@ -14,14 +14,24 @@
 @import '~admin-lte/dist/css/AdminLTE.css';
 //@import '~admin-lte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css';
 
+@media (max-width: 720px) {
+  .navbar-nav > .notifications-menu > .dropdown-menu {
+    max-width: 100%;
+  }
+}
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .navbar-nav > .notifications-menu > .dropdown-menu {
-  width: 500px;
+  width: 500px!important;
+  right: 0!important;
   a {
+    white-space: normal!important;
+  }
+
+  li.footer a{
     display: inline-block;
   }
 }

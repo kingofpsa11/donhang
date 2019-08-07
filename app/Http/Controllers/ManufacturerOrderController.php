@@ -27,7 +27,8 @@ class ManufacturerOrderController extends Controller
      */
     public function index()
     {
-        $manufacturerOrderDetails = ManufacturerOrderDetail::with('manufacturerOrder', 'contractDetail.price.product')->get();
+        $manufacturerOrderDetails = ManufacturerOrderDetail::with('manufacturerOrder', 'contractDetail.price.product', 'contractDetail.stepNoteDetails.stepNote')
+            ->get();
         return view('manufacturer-order.index', compact('manufacturerOrderDetails'));
     }
 

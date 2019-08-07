@@ -11,9 +11,14 @@ class StepNote extends Model
         'number',
         'date',
         'step_id',
+        'status'
     ];
 
     public $timestamps = true;
+
+    protected $attributes = [
+        'status' => 10
+    ];
 
     public function stepNoteDetails()
     {

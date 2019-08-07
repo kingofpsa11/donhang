@@ -60248,7 +60248,7 @@ function showNotifications(notifications, target) {
     dropdownMenu.find('.menu').html(htmlElements.join(''));
   } else {
     dropdownMenu.find('span.label').addClass('hidden');
-    dropdownMenu.find('.header').html("B\u1EA1n kh\xF4ng c\xF3 th\xF4ng b\xE1o m\u1EDBi");
+    dropdownMenu.find('.header').html("<span>B\u1EA1n kh\xF4ng c\xF3 th\xF4ng b\xE1o m\u1EDBi</span>");
     dropdownMenu.find('.menu').html('');
     dropdownMenu.find('.markAllRead').html('');
   }
@@ -60257,7 +60257,7 @@ function showNotifications(notifications, target) {
 function makeNotification(notification) {
   var to = routeNotification(notification);
   var notificationText = makeNotificationText(notification);
-  return '<li><a href="' + to + '"><i class="fa fa-users text-aqua"></i>' + notificationText + '</a></li>';
+  return '<li><a href="' + to + '"><i class="fa fa-users text-aqua"></i><span>' + notificationText + '</span></a></li>';
 }
 
 function routeNotification(notification) {
@@ -60371,8 +60371,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -20,6 +20,10 @@
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Tiến độ</th>
+                    <th>Cắt tấm</th>
+                    <th>Cắt phôi</th>
+                    <th>Đi mạ</th>
+                    <th>Hoàn thiện</th>
                     <th>Trạng thái</th>
                     <th>Action</th>
                 </tr>
@@ -47,7 +51,59 @@
                         <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->price->product->name }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->quantity }}</td>
-                        <td>{{ ($manufacturerOrderDetail->contractDetail->deadline) }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->deadline }}</td>
+                        <td>
+                            @php
+                                $quantity = 0;
+                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
+                                    if ($stepNoteDetail->stepNote()->where('step_id', 1)->count() > 0) {
+                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
+                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
+                                            ->sum('quantity');
+                                    }
+                                }
+                                echo $quantity;
+                            @endphp
+                        </td>
+                        <td>
+                            @php
+                                $quantity = 0;
+                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
+                                    if ($stepNoteDetail->stepNote()->where('step_id', 2)->count() > 0) {
+                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
+                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
+                                            ->sum('quantity');
+                                    }
+                                }
+                                echo $quantity;
+                            @endphp
+                        </td>
+                        <td>
+                            @php
+                                $quantity = 0;
+                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
+                                    if ($stepNoteDetail->stepNote()->where('step_id', 3)->count() > 0) {
+                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
+                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
+                                            ->sum('quantity');
+                                    }
+                                }
+                                echo $quantity;
+                            @endphp
+                        </td>
+                        <td>
+                            @php
+                                $quantity = 0;
+                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
+                                    if ($stepNoteDetail->stepNote()->where('step_id', 4)->count() > 0) {
+                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
+                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
+                                            ->sum('quantity');
+                                    }
+                                }
+                                echo $quantity;
+                            @endphp
+                        </td>
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->status }}</td>
                         <td>
                             <div class="btn-group">
@@ -68,6 +124,10 @@
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Tiến độ</th>
+                        <th>Cắt tấm</th>
+                        <th>Cắt phôi</th>
+                        <th>Đi mạ</th>
+                        <th>Hoàn thiện</th>
                         <th>Trạng thái</th>
                         <td>Action</td>
                     </tr>
@@ -121,7 +181,11 @@
                         width       : '5%',
                     },
                     {
-                        targets     : 6,
+                        targets     : [6,7,8,9],
+                        className   : 'dt-body-center'
+                    },
+                    {
+                        targets     : 10,
                         className   : 'dt-body-center',
                         render      : function (data) {
                             switch (data) {
@@ -133,10 +197,6 @@
                                     return data;
                             }
                         },
-                    },
-                    {
-                        targets     : 7,
-                        className   : 'dt-body-center',
                     },
                     {
                         targets: "_all",

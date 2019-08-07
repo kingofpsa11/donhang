@@ -86,7 +86,7 @@ function showNotifications(notifications, target) {
         dropdownMenu.find('.menu').html(htmlElements.join(''));
     } else {
         dropdownMenu.find('span.label').addClass('hidden');
-        dropdownMenu.find('.header').html(`Bạn không có thông báo mới`);
+        dropdownMenu.find('.header').html(`<span>Bạn không có thông báo mới</span>`);
         dropdownMenu.find('.menu').html('');
         dropdownMenu.find('.markAllRead').html('');
     }
@@ -95,7 +95,7 @@ function showNotifications(notifications, target) {
 function makeNotification(notification) {
     let to = routeNotification(notification);
     let notificationText = makeNotificationText(notification);
-    return '<li><a href="' + to + '"><i class="fa fa-users text-aqua"></i>' + notificationText + '</a></li>';
+    return '<li><a href="' + to + '"><i class="fa fa-users text-aqua"></i><span>' + notificationText + '</span></a></li>';
 }
 
 function routeNotification(notification) {

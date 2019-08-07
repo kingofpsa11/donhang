@@ -160,11 +160,14 @@ class ManufacturerNoteController extends Controller
             $queryStepAfter = DB::table('step_notes')
                 ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
                 ->select('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', DB::raw('SUM(step_note_details.quantity) AS total_quantity'))
-                ->groupBy('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id');
+                ->groupBy('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id')
+                ->having('step_notes.step_id', '=', $request->stepId);
 
             $queryStepBefore = DB::table('step_notes')
                 ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
-                ->select('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', 'step_note_details.quantity');
+                ->select('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id', DB::raw('SUM(step_note_details.quantity) AS total_quantity'))
+                ->groupBy('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id')
+                ->having('step_notes.step_id', '=', $request->stepId - 1);
 
             $bomDetails = DB::table('bom_details')
                 ->join('products', 'products.id', 'bom_details.product_id')
@@ -173,9 +176,8 @@ class ManufacturerNoteController extends Controller
             $results = DB::table('manufacturer_note_details')
                 ->join('manufacturer_order_details', 'manufacturer_note_details.contract_detail_id', 'manufacturer_order_details.contract_detail_id')
                 ->join('manufacturer_orders', 'manufacturer_orders.id', 'manufacturer_order_details.manufacturer_order_id')
-                ->leftJoinSub($queryStepAfter, 'stepDetailAfter', function ($join) use ($request) {
-                    $join->on('stepDetailAfter.contract_detail_id', '=', 'manufacturer_note_details.contract_detail_id')
-                        ->where('stepDetailAfter.step_id', $request->stepId);
+                ->leftJoinSub($queryStepAfter, 'stepDetailAfter', function ($join) {
+                    $join->on('stepDetailAfter.contract_detail_id', '=', 'manufacturer_note_details.contract_detail_id');
                 })
                 ->joinSub($queryStepBefore, 'stepDetailBefore', function ($join) use ($request) {
                     $join->on('stepDetailBefore.contract_detail_id', '=', 'manufacturer_note_details.contract_detail_id')
@@ -187,8 +189,11 @@ class ManufacturerNoteController extends Controller
                     'bomDetails.name', 'bomDetails.code',
                     'manufacturer_orders.number',
                     'bomDetails.product_id',
-                    DB::raw('(manufacturer_note_details.quantity - stepDetailAfter.total_quantity) AS remain_quantity')
-                )
+                    DB::raw('
+                    IF(manufacturer_note_details.quantity > stepDetailBefore.total_quantity,
+                        stepDetailBefore.total_quantity - IFNULL(stepDetailAfter.total_quantity, 0),
+                        manufacturer_note_details.quantity - IFNULL(stepDetailAfter.total_quantity, 0))
+                    AS remain_quantity'))
                 ->having('remain_quantity', '>', 0)
                 ->get();
 
