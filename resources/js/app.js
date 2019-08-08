@@ -56,7 +56,7 @@ const NOTIFICATION_TYPES = {
 };
 
 $(document).ready(function () {
-    if (Laravel.userId) {
+    if (typeof Laravel !== 'undefined' && Laravel.userId) {
         $.get('/notifications', function (data) {
             addNotifications(data, '.notifications-menu');
         });

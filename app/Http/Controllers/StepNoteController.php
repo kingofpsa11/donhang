@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ManufacturerOrder;
-use App\StepNote;
+use App\Services\StepNoteService;
 use App\Step;
 use App\StepNoteDetail;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class StepNoteController extends Controller
 {
     protected $stepNote;
 
-    public function __construct(StepNote $stepNote)
+    public function __construct(StepNoteService $stepNote)
     {
         $this->stepNote = $stepNote;
     }

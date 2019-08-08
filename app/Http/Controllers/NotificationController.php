@@ -8,7 +8,9 @@ use Pusher\Pusher;
 class NotificationController extends Controller
 {
     public function index(){
-        return view('send_message');
+        $notifications = auth()->user()->notifications;
+
+        return view('notification.index', compact('notifications'));
     }
     public function sendNotification(Request $request)
     {

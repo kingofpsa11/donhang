@@ -3,23 +3,37 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp đơn hàng</h3>
-            <a href="{{ route('contracts.create') }}" class="btn btn-primary pull-right">Tạo đơn hàng</a>
+            <h3 class="box-title">Danh mục thông báo</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
                     <tbody>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                        <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                        <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                        </td>
-                        <td class="mailbox-attachment"></td>
-                        <td class="mailbox-date">5 mins ago</td>
-                    </tr>
+                        @foreach ($notifications as $notification)
+                            @php
+                                $url = '';
+                                $read = '?read=' . $notification->id;
+                                if ($notification->type === 'App\\Notifications\\ManufacturerOrder') {
+                                    $url =  '<a href="' . route('manufacturer-notes.show',$notification->data['manufacturer_order_id']). $read . '"><strong>Phòng Kế hoạch</strong> gửi LSX số ' . $notification->data['number'] . '</a>';
+                                } elseif ($notification->type === 'App\\Notifications\\OutputOrder') {
+                                    $url = '<a href="' . route('output-orders.show',$notification->data['good_delivery_id']) . $read .'">Phòng KHKD đã gửi LXH số ' . $notification->data['output_order_number'] . '</a>';
+                                } elseif ($notification->type === 'App\\Notifications\\Contract') {
+                                    $text = '';
+                                    if ($notification->data['status'] === 5) {
+                                        $text = 'Lãnh đạo đã phê duyệt đơn hàng số ' . $notification->data['number'];
+                                    } else {
+                                        $text = 'Phòng KHKD trình đơn hàng số ' . $notification->data['number'];
+                                    }
+                                    $url = '<a href="' . route('contracts.show', $notification->data['contract_id']) . $read .'">' . $text . '</a>';
+                                } elseif ($notification->type === 'App\\Notifications\\OutputOrderApproved') {
+                                    $url = '<a href="./output-orders/'. $notification->data['output_order_id'] . $read .'">Lệnh xuất hàng số ' . $notification->data['output_order_number'] . '</a>';
+                                }
+                            @endphp
+                            <tr class="@if(!$notification->read_at) info @endif">
+                                <td>{!! $url !!}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <!-- /.table -->
@@ -33,88 +47,7 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-            $('#example2 tfoot th').each( function () {
-                $(this).html('<input type="text" style="width:100%;" placeholder="Tìm" />');
-            });
 
-            let table = $('#example2').DataTable({
-                "language": {
-                    "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
-                    "lengthMenu" : "Hiện _MENU_ dòng"
-                },
-                searchDelay     : 300,
-                'processing'    : true,
-                'serverSide'    : true,
-                'ajax'          : {
-                    'url'           : '{{ route('contracts.all_contracts') }}',
-                    'dataType'      : 'json',
-                    'type'          : 'POST',
-                    'data'          : { _token: "{{ csrf_token() }}" }
-                },
-                'columns'       : [
-                    {data : "customer" },
-                    {
-                        data : "number",
-                        className: 'dt-body-center'
-                    },
-                    { data : "product" },
-                    { data : "quantity" },
-                    {
-                        data        : "selling_price",
-                        render      : $.fn.dataTable.render.number('.', ','),
-                        className   : 'dt-body-right'
-                    },
-                    { data : "date" },
-                    { data : "deadline" },
-                    { data : "order" },
-                    {
-                        data : "status",
-                        render    : function (data) {
-                            switch (data) {
-                                case 10:
-                                    return '<span class="label label-primary">Đang trình ký</span>';
-                                case 5:
-                                    return '<span class="label label-warning">Đang sản xuất</span>';
-                                case 0:
-                                    return '<span class="label label-success">Xong</span>';
-                                default:
-                                    return `<span class="label label-default">${data}</span>`;
-                            }
-                        },
-                    },
-                    {
-                        data    : "view",
-                    },
-                    {
-                        data    : "edit",
-                    },
-                ],
-                columnDefs: [
-                    {
-                        targets     : [5,6],
-                        render      : function(data) {
-                            return moment(data).format("DD/MM/YYYY");
-                        },
-                        className   : 'dt-body-right'
-                    },
-                    {
-                        targets     : '_all',
-                        className   : 'dt-head-center'
-                    }
-                ]
-            });
-
-            table.columns().every( function () {
-                let that = this;
-
-                $( 'input', this.footer() ).on( 'keyup change', function () {
-                    if ( that.search() !== this.value ) {
-                        that
-                            .search( this.value )
-                            .draw();
-                    }
-                } );
-            } );
         });
     </script>
 @stop

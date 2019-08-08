@@ -94,9 +94,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('all', 'InventoryController@all')->name('all');
     });
     Route::resource('inventories', 'InventoryController');
+
+    Route::get('notifications/all', 'NotificationController@index')->name('notifications.index');
 });
 
 Auth::routes();
-
-Route::get('/send', 'NotificationController@index')->name('send');
-Route::post('/postMessage', 'NotificationController@sendNotification')->name('postMessage');
