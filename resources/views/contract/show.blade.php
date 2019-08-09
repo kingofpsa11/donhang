@@ -66,8 +66,8 @@
                         @foreach ($contract->contractDetails as $contractDetails)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $contractDetails->price->product->code }}</td>
-                                <td>{{ $contractDetails->price->product->name }}</td>
+                                <td>{{ $contractDetails->price->product->code ?? ''}}</td>
+                                <td>{{ $contractDetails->price->product->name ?? ''}}</td>
                                 <td>{{ $contractDetails->quantity }}</td>
                                 <td>{{ $contractDetails->selling_price }}</td>
                                 <td>{{ $contractDetails->deadline }}</td>

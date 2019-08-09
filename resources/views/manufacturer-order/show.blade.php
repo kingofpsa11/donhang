@@ -63,10 +63,10 @@
                         <tr data-key="{{ $loop->index }}">
                             <td class="" data-col-seq="0">{{ $loop->iteration }}</td>
                             <td data-col-seq="1">
-                                {{ $manufacturerOrderDetail->contractDetail->price->product->code }}
+                                {{ $manufacturerOrderDetail->contractDetail->price->product->code ?? ''}}
                             </td>
                             <td data-col-seq="2">
-                                {{ $manufacturerOrderDetail->contractDetail->price->product->name }}
+                                {{ $manufacturerOrderDetail->contractDetail->price->product->name ?? ''}}
                             </td>
                             <td data-col-seq="3">
                                 {{ $manufacturerOrderDetail->contractDetail->quantity }}

@@ -33,6 +33,7 @@
                 @foreach ($manufacturerOrderDetails as $manufacturerOrderDetail)
                     <tr
                         @php
+                        if($manufacturerOrderDetail->contractDetail->deadline) {
                             $deadline = Carbon\Carbon::createFromFormat(config('app.date_format'), $manufacturerOrderDetail->contractDetail->deadline)->format('Y-m-d');
                             $secs = strtotime($deadline) - time();
                             $days = $secs/86400;
@@ -43,13 +44,14 @@
                             } else {
                                 echo "class='success'";
                             }
+                        }
                         @endphp
 
                     >
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->contract->date }}</td>
                         <td>{{ $manufacturerOrderDetail->manufacturerOrder->number }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->name }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code ?? '' }}</td>
+                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->name ?? ''}}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->quantity }}</td>
                         <td>{{ $manufacturerOrderDetail->contractDetail->deadline }}</td>
                         <td>

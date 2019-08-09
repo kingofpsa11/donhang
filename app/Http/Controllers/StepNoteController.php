@@ -48,18 +48,9 @@ class StepNoteController extends Controller
      */
     public function store(Request $request)
     {
-        $this->stepNote->fill($request->all())->save();
+        $stepNote = $this->stepNoteService->create($request);
 
-        for ($i = 0; $i < count($request->code); $i++) {
-            StepNoteDetail::create([
-                'step_note_id' => $this->stepNote->id,
-                'contract_detail_id' => $request->contract_detail_id[$i],
-                'product_id' => $request->product_id[$i],
-                'quantity' => $request->quantity[$i]
-            ]);
-        }
-
-        return redirect()->route('step-notes.show', $this->stepNote);
+        return redirect()->route('step-notes.show', $stepNote);
     }
 
     /**
@@ -68,13 +59,9 @@ class StepNoteController extends Controller
      * @param  \App\StepNote  $stepNote
      * @return \Illuminate\Http\Response
      */
-    public function show(StepNote $stepNote)
+    public function show($id)
     {
-        $stepNote->load(
-            'stepNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder',
-            'stepNoteDetails.contractDetail.price.product',
-            'step'
-            );
+        $stepNote = $this->stepNoteService->find($id);
         return view('step-note.show', compact('stepNote'));
     }
 

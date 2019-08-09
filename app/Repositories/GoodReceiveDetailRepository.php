@@ -22,7 +22,7 @@ class GoodReceiveDetailRepository
 
     public function create($attributes , $i, $goodReceiveId)
     {
-        return GoodReceiveDetail::firstOrCreate([
+        return $this->goodReceiveDetail->firstOrCreate([
             'good_receive_id' => $goodReceiveId,
             'product_id' => $attributes->product_id[$i],
             'bom_id' => $attributes->bom_id[$i],

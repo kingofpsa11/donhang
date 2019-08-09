@@ -17,4 +17,20 @@ class StepNoteRepository
     {
         return $this->stepNote->all();
     }
+
+    public function find($id, array $with = array())
+    {
+        $query = $this->stepNote->make($with);
+        return $query->find($id);
+    }
+
+    public function make(array $with = array())
+    {
+        return $this->stepNote->with($with);
+    }
+
+    public function create(array $attributes)
+    {
+        return $this->stepNote->create($attributes);
+    }
 }
