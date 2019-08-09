@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class StepNoteController extends Controller
 {
-    protected $stepNote;
+    protected $stepNoteService;
 
-    public function __construct(StepNoteService $stepNote)
+    public function __construct(StepNoteService $stepNoteService)
     {
-        $this->stepNote = $stepNote;
+        $this->stepNoteService = $stepNoteService;
     }
 
     /**
@@ -24,12 +24,8 @@ class StepNoteController extends Controller
      */
     public function index()
     {
-        $stepNoteDetails = StepNoteDetail::with(
-            'contractDetail.manufacturerOrderDetail.manufacturerOrder',
-            'contractDetail.price.product',
-            'stepNote.step'
-            )
-            ->get();
+        $stepNoteDetails = $this->stepNoteService->allWithDetails();
+
         return view('step-note.index', compact('stepNoteDetails'));
     }
 

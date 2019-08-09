@@ -13,5 +13,8 @@ class StepNoteRepository
         $this->stepNote = $stepNote;
     }
 
-
+    public function all()
+    {
+        return $this->stepNote->all();
+    }
 }
