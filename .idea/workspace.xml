@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/GoodReceiveDetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/GoodReceiveDetailRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/StepNoteRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/StepNoteRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/StepNoteService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/StepNoteService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/contract/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,23 +75,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="69" column="82" selection-start-line="69" selection-start-column="82" selection-end-line="69" selection-end-column="82" />
+            <state relative-caret-position="400">
+              <caret line="90" column="120" lean-forward="true" selection-start-line="90" selection-start-column="120" selection-end-line="90" selection-end-column="120" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="51" column="98" selection-start-line="51" selection-start-column="98" selection-end-line="51" selection-end-column="98" />
+            <state relative-caret-position="500">
+              <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/show.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="98" column="103" lean-forward="true" selection-start-line="98" selection-start-column="103" selection-end-line="98" selection-end-column="103" />
             </state>
           </provider>
         </entry>
@@ -108,6 +110,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="500">
               <caret line="25" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-120">
+              <caret line="269" column="23" selection-start-line="269" selection-start-column="22" selection-end-line="269" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -182,7 +193,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/product/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/product/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/good-deliveries/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/bom/create.blade.php" />
@@ -222,7 +232,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/NotificationController.php" />
         <option value="$PROJECT_DIR$/resources/views/notification/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Providers/StepNoteRepository.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
@@ -233,6 +242,8 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-order/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
       </list>
     </option>
   </component>
@@ -384,21 +395,6 @@
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Repositories" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -406,11 +402,6 @@
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
@@ -433,14 +424,14 @@
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="manufacturer-order" type="462c0819:PsiDirectoryNode" />
+              <item name="contract" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="notification" type="462c0819:PsiDirectoryNode" />
+              <item name="manufacturer-order" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -583,7 +574,7 @@
       <workItem from="1565123346021" duration="7313000" />
       <workItem from="1565136417282" duration="22796000" />
       <workItem from="1565177062402" duration="13841000" />
-      <workItem from="1565315503644" duration="5757000" />
+      <workItem from="1565315503644" duration="7571000" />
     </task>
     <servers />
   </component>
@@ -596,7 +587,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1225305000" />
+    <option name="totallyTimeSpent" value="1227119000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -617,7 +608,7 @@
       <window_info id="Structure" order="3" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
       <window_info anchor="bottom" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.49920508" weight="0.23522854" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5007949" side_tool="true" visible="true" weight="0.28762543" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5007949" side_tool="true" weight="0.28762543" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32856005" />
       <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="5" />
@@ -683,13 +674,6 @@
     <select />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="60" lean-forward="true" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Notifications/RoutesNotifications.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-244">
@@ -836,13 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="443" column="4" selection-start-line="443" selection-start-column="4" selection-end-line="443" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/jquery/dist/jquery.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -947,19 +924,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteRepository.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/contract/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+        <state relative-caret-position="-1200">
           <folding>
-            <element signature="e#40#66#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -974,29 +953,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/contract/index.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1200">
+        <state relative-caret-position="460">
+          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
           <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="e#40#66#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="98" column="103" lean-forward="true" selection-start-line="98" selection-start-column="103" selection-end-line="98" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="269" column="23" selection-start-line="269" selection-start-column="22" selection-end-line="269" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/contract/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="69" column="82" selection-start-line="69" selection-start-column="82" selection-end-line="69" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="51" column="98" selection-start-line="51" selection-start-column="98" selection-end-line="51" selection-end-column="98" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="400">
+          <caret line="90" column="120" lean-forward="true" selection-start-line="90" selection-start-column="120" selection-end-line="90" selection-end-column="120" />
         </state>
       </provider>
     </entry>

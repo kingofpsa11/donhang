@@ -267,7 +267,7 @@ desired effect
                 @endcan
 
                 <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
-
+                @role(3)
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Đặt hàng</span>
@@ -283,7 +283,7 @@ desired effect
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>
                 </li>
-
+                @endrole
                 <li><a href="{{ route('boms.index') }}"><i class="fa fa-link"></i> <span>Định mức</span></a></li>
                 <li><a href="{{ route('profit-rate.create') }}"><i class="fa fa-link"></i><span>Tỉ lệ giá</span></a></li>
                 <li class="treeview">
