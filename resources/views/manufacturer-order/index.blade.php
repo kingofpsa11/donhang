@@ -25,98 +25,25 @@
                     <th>Đi mạ</th>
                     <th>Hoàn thiện</th>
                     <th>Trạng thái</th>
-                    <th>Action</th>
+                    <th>Xem</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                @foreach ($manufacturerOrderDetails as $manufacturerOrderDetail)
-                    <tr
-                        @php
-                        if($manufacturerOrderDetail->contractDetail->deadline) {
-                            $deadline = Carbon\Carbon::createFromFormat(config('app.date_format'), $manufacturerOrderDetail->contractDetail->deadline)->format('Y-m-d');
-                            $secs = strtotime($deadline) - time();
-                            $days = $secs/86400;
-                            if ($manufacturerOrderDetail->contractDetail->deadline === '') {
-                                echo "class='warning'";
-                            } elseif ($days <= 5 && $manufacturerOrderDetail->manufacturerOrder->status===10) {
-                                echo "class='danger' ";
-                            } else {
-                                echo "class='success'";
-                            }
-                        }
-                        @endphp
-
-                    >
-                        <td>{{ $manufacturerOrderDetail->manufacturerOrder->contract->date }}</td>
-                        <td>{{ $manufacturerOrderDetail->manufacturerOrder->number }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->code ?? '' }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->price->product->name ?? ''}}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->quantity }}</td>
-                        <td>{{ $manufacturerOrderDetail->contractDetail->deadline }}</td>
-                        <td>
-                            @php
-                                $quantity = 0;
-                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
-                                    if ($stepNoteDetail->stepNote()->where('step_id', 1)->count() > 0) {
-                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
-                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
-                                            ->sum('quantity');
-                                    }
-                                }
-                                echo $quantity;
-                            @endphp
-                        </td>
-                        <td>
-                            @php
-                                $quantity = 0;
-                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
-                                    if ($stepNoteDetail->stepNote()->where('step_id', 2)->count() > 0) {
-                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
-                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
-                                            ->sum('quantity');
-                                    }
-                                }
-                                echo $quantity;
-                            @endphp
-                        </td>
-                        <td>
-                            @php
-                                $quantity = 0;
-                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
-                                    if ($stepNoteDetail->stepNote()->where('step_id', 3)->count() > 0) {
-                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
-                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
-                                            ->sum('quantity');
-                                    }
-                                }
-                                echo $quantity;
-                            @endphp
-                        </td>
-                        <td>
-                            @php
-                                $quantity = 0;
-                                foreach ($manufacturerOrderDetail->contractDetail->stepNoteDetails as $stepNoteDetail) {
-                                    if ($stepNoteDetail->stepNote()->where('step_id', 4)->count() > 0) {
-                                        $quantity += $stepNoteDetail->stepNote->stepNoteDetails()
-                                            ->where('contract_detail_id', $manufacturerOrderDetail->contract_detail_id)
-                                            ->sum('quantity');
-                                    }
-                                }
-                                echo $quantity;
-                            @endphp
-                        </td>
-                        <td>{{ $manufacturerOrderDetail->manufacturerOrder->status }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('manufacturer-order.show', $manufacturerOrderDetail->manufacturerOrder)}}" class="btn btn-info">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-
+{{--                        @php--}}
+{{--                        if($manufacturerOrderDetail->contractDetail->deadline) {--}}
+{{--                            $deadline = Carbon\Carbon::createFromFormat(config('app.date_format'), $manufacturerOrderDetail->contractDetail->deadline)->format('Y-m-d');--}}
+{{--                            $secs = strtotime($deadline) - time();--}}
+{{--                            $days = $secs/86400;--}}
+{{--                            if ($manufacturerOrderDetail->contractDetail->deadline === '') {--}}
+{{--                                echo "class='warning'";--}}
+{{--                            } elseif ($days <= 5 && $manufacturerOrderDetail->manufacturerOrder->status===10) {--}}
+{{--                                echo "class='danger' ";--}}
+{{--                            } else {--}}
+{{--                                echo "class='success'";--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                        @endphp--}}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -131,7 +58,7 @@
                         <th>Đi mạ</th>
                         <th>Hoàn thiện</th>
                         <th>Trạng thái</th>
-                        <td>Action</td>
+                        <td>Xem</td>
                     </tr>
                 </tfoot>
             </table>
@@ -149,8 +76,6 @@
             });
 
             let table = $('#example2').DataTable({
-                'paging': true,
-                'ordering': true,
                 'info': true,
                 'autoWidth' : true,
                 'searching': true,
@@ -159,9 +84,69 @@
                     "info": "Từ _START_ đến _END_ trong _TOTAL_ dòng",
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
-                columnDefs: [
+                'processing'    : true,
+                'serverSide'    : true,
+                'ajax'          : {
+                    'url'           : '{{ route('manufacturer-orders.get_all_manufacturers') }}',
+                    'dataType'      : 'json',
+                    'type'          : 'GET',
+                    'data'          : { _token: "{{ csrf_token() }}" }
+                },
+                createdRow      : function (row, data, index) {
+                    let now = new Date().getTime();
+                    let deadline = new Date(data['deadline']).getTime();
+                    let time = (deadline - now)/86400000;
+
+                    if (time > 5) {
+                        $(row).addClass('info');
+                    } else if( time <= 5 && data['status'] === 10) {
+                        $(row).addClass('danger');
+                    }
+                },
+                columns         : [
+                    {
+                        data: 'date'
+                    },
+                    {
+                        data: 'number'
+                    },
+                    {
+                        data: 'code'
+                    },
+                    {
+                        data: 'product'
+                    },
+                    {
+                        data: 'quantity'
+                    },
+                    {
+                        data: 'deadline'
+                    },
+                    {
+                        data: 'first'
+                    },
+                    {
+                        data: 'second'
+                    },
+                    {
+                        data: 'third'
+                    },
+                    {
+                        data: 'fourth'
+                    },
+                    {
+                        data: 'status'
+                    },
+                    {
+                        data: 'view'
+                    },
+                ],
+                columnDefs      : [
                     {
                         targets     : [0,5],
+                        render      : function(data) {
+                            return moment(data).format("DD/MM/YYYY");
+                        },
                         className   : 'dt-body-right',
                         width       : '7%',
                     },
@@ -191,9 +176,9 @@
                         className   : 'dt-body-center',
                         render      : function (data) {
                             switch (data) {
-                                case '10':
+                                case 10:
                                     return '<span class="label label-default">Đang chờ</span>';
-                                case '9':
+                                case 9:
                                     return '<span class="label label-primary">Đã tiếp nhận</span>';
                                 default:
                                     return data;

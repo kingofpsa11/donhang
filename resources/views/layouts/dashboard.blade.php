@@ -266,8 +266,8 @@ desired effect
                 <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
                 @endcan
 
-                <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
                 @role(3)
+                <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Đặt hàng</span>
@@ -283,9 +283,10 @@ desired effect
                         <li><a href=""><i class="fa fa-circle-o"></i> Bảng kê</a></li>
                     </ul>
                 </li>
-                @endrole
-                <li><a href="{{ route('boms.index') }}"><i class="fa fa-link"></i> <span>Định mức</span></a></li>
                 <li><a href="{{ route('profit-rate.create') }}"><i class="fa fa-link"></i><span>Tỉ lệ giá</span></a></li>
+                @endrole
+
+                <li><a href="{{ route('boms.index') }}"><i class="fa fa-link"></i> <span>Định mức</span></a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Quản lý kho</span>
@@ -309,7 +310,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('manufacturer-order.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
+                        <li><a href="{{ route('manufacturer-orders.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
                         <li><a href="{{ route('manufacturer-notes.index') }}"><i class="fa fa-circle-o"></i>Danh sách Phiếu sản xuất</a></li>
                         <li><a href="{{ route('step-notes.index') }}"><i class="fa fa-circle-o"></i>Phiếu công đoạn</a></li>
                     </ul>

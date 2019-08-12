@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp Phiếu sản xuất</h3>
-            <a href="{{ route('manufacturer-order.index') }}" class="btn btn-primary pull-right">Danh mục lệnh sản xuất</a>
+            <a href="{{ route('manufacturer-orders.index') }}" class="btn btn-primary pull-right">Danh mục lệnh sản xuất</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

@@ -49,6 +49,43 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Bản vẽ</label>
+                                 @if ($product->file)
+                                     <table class="table table-striped table-bordered table-hover">
+                                         <tbody>
+                                         @foreach(json_decode($product->file) as $file)
+                                             <tr>
+                                                 <td>
+                                                    <a href="{{ asset('storage/' & $file) }}">{{ $file }}</a>
+                                                 </td>
+                                                 <td>
+                                                     <button class="btn btn-danger" data-toggle="modal" data-target="#{{ $file }}">Xoá</button>
+                                                     <form action="{{ route('products.delete_file', $file) }}" method="POST">
+                                                         @csrf()
+                                                         @method('DELETE')
+                                                         <div id="{{ $file }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+                                                             <div class="modal-dialog modal-md">
+                                                                 <div class="modal-content">
+                                                                     <div class="modal-header">
+                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                         <h4 class="modal-title" id="custom-width-modalLabel">Xóa sản phẩm</h4>
+                                                                     </div>
+                                                                     <div class="modal-body">
+                                                                         <h5>Chắc chắn xóa file {{ $file }}?</h5>
+                                                                     </div>
+                                                                     <div class="modal-footer">
+                                                                         <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
+                                                                         <input type="submit" class="btn btn-danger waves-effect waves-light" value="Xóa">
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     </form>
+                                                 </td>
+                                             </tr>
+                                         @endforeach
+                                         </tbody>
+                                     </table>
+                                 @endif
                                 <input type="file" name="file[]" id="" class="form-control" multiple>
                             </div>
                         </div>
@@ -63,6 +100,7 @@
             </div>
         </div>
     </section>
+
 @endsection
 
 @section('javascript')

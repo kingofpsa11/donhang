@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('allProducts', 'ProductController@allProducts')->name('all_products');
         Route::get('getProduct', 'ProductController@getProduct')->name('get_product');
         Route::get('existCode', 'ProductController@existCode')->name('exist_code');
+        Route::post('deleteFile', 'ProductController@deleteFile')->name('delete_file');
     });
     Route::resource('products', 'ProductController');
 
@@ -75,7 +76,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('boms/getBom', 'BomController@getBom')->name('boms.get_bom');
     Route::resource('boms', 'BomController');
 
-    Route::resource('manufacturer-order', 'ManufacturerOrderController');
+    Route::get('manufacturer-orders/get-all-manufacturers', 'ManufacturerOrderController@getAllManufacturers')->name('manufacturer-orders.get_all_manufacturers');
+    Route::resource('manufacturer-orders', 'ManufacturerOrderController');
 
     Route::get('manufacturer-notes/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-notes.create');
     Route::get('manufacturer-notes/get-by-step', 'ManufacturerNoteController@getByStep')->name('manufacturer-notes.get_by_step');

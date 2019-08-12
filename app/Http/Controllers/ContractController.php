@@ -273,6 +273,7 @@ class ContractController extends Controller
     {
 //        return array_keys(array_filter(array_column(array_column($request->columns, 'search'), 'value')));
 
+
         $columns = array(
             0 =>'customer',
             1 =>'number',
@@ -286,7 +287,6 @@ class ContractController extends Controller
             9=> 'view',
             10=> 'edit',
         );
-
         $totalData = ContractDetail::count();
 
         $limit = $request->input('length');

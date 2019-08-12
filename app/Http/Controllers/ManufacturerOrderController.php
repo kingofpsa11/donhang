@@ -117,4 +117,185 @@ class ManufacturerOrderController extends Controller
             ->get();
         return view('manufacturer-order.index')->with('contract_details', $contract_details);
     }
+
+    public function getAllManufacturers(Request $request)
+    {
+        $columns = array(
+            0 =>'date',
+            1 =>'number',
+            2=> 'code',
+            3=> 'product',
+            4=> 'quantity',
+            5=> 'deadline',
+            6=> 'first',
+            7=> 'second',
+            8=> 'third',
+            9=> 'fourth',
+            10=> 'status',
+            11=> 'view',
+        );
+
+        $totalData = ManufacturerOrderDetail::count();
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        $contractDetails = DB::table('contract_details AS cd')
+            ->join('prices', 'prices.id', '=', 'cd.price_id')
+            ->join('products', 'products.id', '=', 'prices.product_id')
+            ->select('cd.id', 'products.code', 'products.name', 'cd.deadline', 'cd.status', 'cd.quantity');
+
+//        return $contractDetails->get();
+
+        $stepNoteDetails = DB::table('step_note_details AS sd')
+            ->join('step_notes as s', 's.id', 'sd.step_note_id')
+            ->groupBy('sd.contract_detail_id', 's.step_id')
+            ->select('sd.contract_detail_id', DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS first'), DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS second'), DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS third'), DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS fourth'))
+            ->having('first', '>', '0')
+            ->having('second', '>', '0')
+            ->having('third', '>', '0')
+            ->having('fourth', '>', '0');
+
+        $query = DB::table('manufacturer_order_details as md')
+            ->joinSub($contractDetails, 'cd', function ($join) {
+                $join->on('cd.id', '=', 'md.contract_detail_id');
+            })
+            ->join('manufacturer_orders as m', 'm.id', 'md.manufacturer_order_id')
+            ->leftJoinSub($stepNoteDetails, 'sd', function ($join) {
+                $join->on('md.contract_detail_id', '=', 'sd.contract_detail_id');
+            })
+            ->select(
+                'm.id',
+                'm.date',
+                'm.number',
+                'cd.code',
+                'cd.name as product',
+                'cd.quantity',
+                'cd.deadline',
+                'sd.first',
+                'sd.second',
+                'sd.third',
+                'sd.fourth',
+                'md.status'
+            );
+
+
+        if (empty($request->input('search.value')) && !array_filter(array_column(array_column($request->columns, 'search'), 'value'))) {
+
+        } elseif (!empty($request->input('search.value'))) {
+
+            $search = $request->input('search.value');
+
+            $query = $query->where('m.date', 'LIKE', "%{$search}%")
+                ->orWhere('m.number', 'LIKE', "%{$search}%")
+                ->orWhere('cd.code', 'LIKE', "%{$search}%")
+                ->orWhere('cd.name', 'LIKE', "%{$search}%")
+                ->orWhere('md.quantity', 'LIKE', "%{$search}%")
+                ->orWhere('md.deadline', 'LIKE', "%{$search}%")
+                ->orWhere('sd.first', 'LIKE', "%{$search}%")
+                ->orWhere('sd.second', 'LIKE', "%{$search}%")
+                ->orWhere('sd.third', 'LIKE', "%{$search}%")
+                ->orWhere('sd.fourth', 'LIKE', "%{$search}%")
+                ->orWhere('md.status', 'LIKE', "%{$search}%");
+
+        } else {
+            if(!empty($request->input('columns.0.search.value'))) {
+                $search = $request->input('columns.0.search.value');
+                $query =  $query
+                    ->orWhere('m.date', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.1.search.value'))) {
+                $search = $request->input('columns.1.search.value');
+                $query =  $query
+                    ->orWhere('m.number', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.2.search.value'))) {
+                $search = $request->input('columns.2.search.value');
+                $query =  $query
+                    ->orWhere('cd.code', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.3.search.value'))) {
+                $search = $request->input('columns.3.search.value');
+                $query =  $query
+                    ->orWhere('cd.name', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.4.search.value'))) {
+                $search = $request->input('columns.4.search.value');
+                $query =  $query
+                    ->orWhere('cd.quantity', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.5.search.value'))) {
+                $search = $request->input('columns.5.search.value');
+                $query =  $query
+                    ->orWhere('md.deadline', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.6.search.value'))) {
+                $search = $request->input('columns.6.search.value');
+                $query =  $query
+                    ->orWhere('sd.first', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.7.search.value'))) {
+                $search = $request->input('columns.7.search.value');
+                $query =  $query
+                    ->orWhere('sd.second', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.8.search.value'))) {
+                $search = $request->input('columns.8.search.value');
+                $query =  $query
+                    ->orWhere('sd.third', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.9.search.value'))) {
+                $search = $request->input('columns.9.search.value');
+                $query =  $query
+                    ->orWhere('sd.fourth', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.10.search.value'))) {
+                $search = $request->input('columns.10.search.value');
+                $query =  $query
+                    ->orWhere('md.status', 'LIKE', "%{$search}%");
+            }
+        }
+
+        $totalFiltered = $query->count();
+
+        $manufacturerOrderDetails = $query->offset($start)
+            ->limit($limit)
+            ->orderBy($order, $dir)
+            ->get();
+
+        $data = [];
+
+        if (!empty($manufacturerOrderDetails)) {
+            foreach ($manufacturerOrderDetails as $manufacturerOrderDetail) {
+                $show =  route('manufacturer-orders.show',$manufacturerOrderDetail->id);
+
+                $nestedData['date'] = $manufacturerOrderDetail->date;
+                $nestedData['number'] = $manufacturerOrderDetail->number;
+                $nestedData['code'] = $manufacturerOrderDetail->code;
+                $nestedData['product'] = $manufacturerOrderDetail->product;
+                $nestedData['quantity'] = $manufacturerOrderDetail->quantity;
+                $nestedData['deadline'] = $manufacturerOrderDetail->deadline;
+                $nestedData['first'] = $manufacturerOrderDetail->first ?? 0;
+                $nestedData['second'] = $manufacturerOrderDetail->second ?? 0;
+                $nestedData['third'] = $manufacturerOrderDetail->third ?? 0;
+                $nestedData['fourth'] = $manufacturerOrderDetail->fourth ?? 0;
+                $nestedData['status'] = $manufacturerOrderDetail->status;
+                $nestedData['view'] = "<a href='{$show}' title='Xem' class='btn btn-success'><i class=\"fa fa-tag\" aria-hidden=\"true\"></i> Xem</a>";
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = [
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+        ];
+
+        return $json_data;
+
+        echo json_encode($json_data);
+    }
 }

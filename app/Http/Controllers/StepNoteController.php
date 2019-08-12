@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\ManufacturerOrder;
 use App\Services\StepNoteService;
 use App\Step;
-use App\StepNoteDetail;
 use Illuminate\Http\Request;
 
 class StepNoteController extends Controller
@@ -61,7 +59,7 @@ class StepNoteController extends Controller
      */
     public function show($id)
     {
-        $stepNote = $this->stepNoteService->find($id);
+        $stepNote = $this->stepNoteService->findWithDetails($id);
         return view('step-note.show', compact('stepNote'));
     }
 
@@ -71,14 +69,10 @@ class StepNoteController extends Controller
      * @param  \App\StepNote  $stepNote
      * @return \Illuminate\Http\Response
      */
-    public function edit(StepNote $stepNote)
+    public function edit($id)
     {
         $steps = Step::all();
-        $stepNote->load(
-            'stepNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder',
-            'stepNoteDetails.contractDetail.price.product',
-            'step'
-        );
+        $stepNote = $this->stepNoteService->findWithDetails($id);
         return view('step-note.edit', compact('stepNote', 'steps'));
     }
 
@@ -89,27 +83,11 @@ class StepNoteController extends Controller
      * @param  \App\StepNote  $stepNote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StepNote $stepNote)
+    public function update(Request $request, $id)
     {
-        $stepNote->fill($request->all())->save();
-        $stepNote->stepNoteDetails()->update(['status' => 9]);
-        for ($i = 0; $i < count($request->code); $i++) {
-            StepNoteDetail::updateOrCreate(
-                [
-                    'id' => $request->step_note_detail_id[$i]
-                ],
-                [
-                    'step_note_id' => $stepNote->id,
-                    'contract_detail_id' => $request->contract_detail_id[$i],
-                    'product_id' => $request->product_id[$i],
-                    'quantity' => $request->quantity[$i],
-                    'status' => 10
-                ]);
-        }
+        $this->stepNoteService->update($request, $id);
 
-        $stepNote->stepNoteDetails()->where('status', 9)->delete();
-
-        return redirect()->route('step-notes.show', $this->stepNote);
+        return redirect()->route('step-notes.show', $id);
     }
 
     /**
@@ -118,9 +96,9 @@ class StepNoteController extends Controller
      * @param  \App\StepNote  $stepNote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StepNote $stepNote)
+    public function destroy($id)
     {
-        $stepNote->delete();
+        $this->stepNoteService->delete();
         flash('Đã xóa phiếu ' . $stepNote->number)->success();
         return redirect()->route('step-notes.index');
     }

@@ -33,4 +33,19 @@ class StepNoteDetailRepository
             'quantity' => $request->quantity[$i]
         ]);
     }
+
+    public function update($attributes, $id)
+    {
+        return $this->stepNoteDetail->where('step_note_id', $id)->update($attributes);
+    }
+
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->stepNoteDetail->updateOrCreate($attributes, $values);
+    }
+
+    public function deleteWhere(array $where)
+    {
+        return $this->stepNoteDetail->where($where)->delete();
+    }
 }

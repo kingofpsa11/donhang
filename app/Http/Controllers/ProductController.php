@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -78,7 +79,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('product.edit')->with(['product' => $product, 'categories' => $categories]);
+        return view('product.edit',compact('product', 'categories'));
     }
 
     /**
@@ -91,6 +92,15 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->fill($request->all());
+
+        $path = [];
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $file) {
+                $path[] = $file->storeAs('uploads', $file->getClientOriginalName());
+            }
+            $product->file = json_encode($path);
+        }
+
         $product->save();
 
         return redirect()->route('products.show', $product);
@@ -107,6 +117,11 @@ class ProductController extends Controller
         $product->delete();
         flash('Đã xóa sản phẩm' . $product->name)->success();
         return redirect()->route('products.index');
+    }
+
+    public function deleteFile($file)
+    {
+        return Storage::delete($file);
     }
 
     public function getProduct(Request $request)
@@ -193,8 +208,8 @@ class ProductController extends Controller
 
         if (!empty($products)) {
             foreach ($products as $product) {
-                $show =  route('contracts.show',$product->id);
-                $edit =  route('contracts.edit',$product->id);
+                $show =  route('products.show',$product->id);
+                $edit =  route('products.edit',$product->id);
 
                 $nestedData['category'] = $product->category;
                 $nestedData['code'] = $product->code;

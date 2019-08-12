@@ -20,7 +20,7 @@ class StepNoteRepository
 
     public function find($id, array $with = array())
     {
-        $query = $this->stepNote->make($with);
+        $query = $this->make($with);
         return $query->find($id);
     }
 
@@ -32,5 +32,15 @@ class StepNoteRepository
     public function create(array $attributes)
     {
         return $this->stepNote->create($attributes);
+    }
+
+    public function update($id, array $attributes)
+    {
+        return $this->stepNote->find($id)->update($attributes);
+    }
+
+    public function delete($id)
+    {
+        return $this->stepNote->find($id)->delete();
     }
 }

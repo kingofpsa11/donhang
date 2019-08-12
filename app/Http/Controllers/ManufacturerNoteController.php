@@ -208,6 +208,14 @@ class ManufacturerNoteController extends Controller
             $results = DB::table('step_notes')
                 ->join('step_note_details', 'step_notes.id', 'step_note_details.step_note_id')
                 ->where('step_notes.step_id', $request->stepId - 1)
+                ->leftJoinSub($queryStepAfter, 'sa', function ($join) {
+                    $join->on('sa.contract_detail_id', '=', 'step_note_details.contract_detail_id')
+                        ->on('sa.product_id', '=', 'step_note_details.product_id');
+                })
+                ->joinSub($contractDetails, 'c', function ($join) {
+                    $join->on('c.id', '=', 'step_note_details.contract_detail_id');
+                })
+                ->join('products as p', 'p.id', 'step_note_details.product_id')
                 ->select(
                     'step_note_details.product_id',
                     'step_note_details.contract_detail_id',
@@ -222,15 +230,8 @@ class ManufacturerNoteController extends Controller
                     'p.name', 'p.code',
                     'c.number',
                     'sa.total_quantity'
-                    )
-                ->leftJoinSub($queryStepAfter, 'sa', function ($join) {
-                    $join->on('sa.contract_detail_id', '=', 'step_note_details.contract_detail_id')
-                        ->on('sa.product_id', '=', 'step_note_details.product_id');
-                })
-                ->joinSub($contractDetails, 'c', function ($join) {
-                    $join->on('c.id', '=', 'step_note_details.contract_detail_id');
-                })
-                ->join('products as p', 'p.id', 'step_note_details.product_id')
+                )
+                ->having('remain_quantity', '>', 0)
                 ->get();
 
         } elseif ($request->stepId == 4) {
@@ -248,6 +249,13 @@ class ManufacturerNoteController extends Controller
                 ->join('contract_details', 'contract_details.id', 'step_note_details.contract_detail_id')
                 ->join('prices', 'prices.id','contract_details.price_id')
                 ->where('step_notes.step_id', $request->stepId - 1)
+                ->leftJoinSub($queryStepAfter, 'sa', function ($join) {
+                    $join->on('sa.contract_detail_id', '=', 'step_note_details.contract_detail_id');
+                })
+                ->joinSub($contractDetails, 'c', function ($join) {
+                    $join->on('c.id', '=', 'step_note_details.contract_detail_id');
+                })
+                ->join('products as p', 'p.id', 'prices.product_id')
                 ->select(
                     'prices.product_id',
                     'step_note_details.contract_detail_id',
@@ -263,13 +271,7 @@ class ManufacturerNoteController extends Controller
                     'c.number',
                     'sa.total_quantity'
                 )
-                ->leftJoinSub($queryStepAfter, 'sa', function ($join) {
-                    $join->on('sa.contract_detail_id', '=', 'step_note_details.contract_detail_id');
-                })
-                ->joinSub($contractDetails, 'c', function ($join) {
-                    $join->on('c.id', '=', 'step_note_details.contract_detail_id');
-                })
-                ->join('products as p', 'p.id', 'prices.product_id')
+                ->having('remain_quantity', '>', 0)
                 ->get();
         }
 
