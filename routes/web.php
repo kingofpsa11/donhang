@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('allProducts', 'ProductController@allProducts')->name('all_products');
         Route::get('getProduct', 'ProductController@getProduct')->name('get_product');
         Route::get('existCode', 'ProductController@existCode')->name('exist_code');
-        Route::post('deleteFile', 'ProductController@deleteFile')->name('delete_file');
+        Route::delete('deleteImage', 'ProductController@deleteImage')->name('delete_image');
     });
     Route::resource('products', 'ProductController');
 

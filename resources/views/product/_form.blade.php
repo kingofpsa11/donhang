@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="control-label">Mã sản phẩm</label>
-                                <input type="text" class="form-control" name="code" value="{{ $product->code ?? '' }}">
+                                <input type="text" class="form-control" name="code" id="code" value="{{ $product->code ?? '' }}">
                                 <span class="text-red check-code"></span>
                             </div>
                             <div class="form-group">
@@ -44,42 +44,25 @@
                                 <input type="text" class="form-control" name="name_bill" value="{{ $product->name_bill ?? '' }}">
                             </div>
                             <div class="form-group">
+                                <label for="" class="control-label">Đơn vị tính</label>
+                                <input type="text" class="form-control" name="unit" value="{{ $product->unit ?? '' }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="" class="control-label">Ghi chú</label>
                                 <textarea id="" class="form-control" name="note">{{ $product->note ?? '' }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Bản vẽ</label>
-                                 @if ($product->file)
+                                 @if (isset($product->images))
                                      <table class="table table-striped table-bordered table-hover">
                                          <tbody>
-                                         @foreach(json_decode($product->file) as $file)
-                                             <tr>
+                                         @foreach($product->images as $image)
+                                             <tr id="{{ $image->id }}">
                                                  <td>
-                                                    <a href="{{ asset('storage/' & $file) }}">{{ $file }}</a>
+                                                    <a href="{{ asset('storage/' & $image->link) }}">{{ $image->name }}</a>
                                                  </td>
                                                  <td>
-                                                     <button class="btn btn-danger" data-toggle="modal" data-target="#{{ $file }}">Xoá</button>
-                                                     <form action="{{ route('products.delete_file', $file) }}" method="POST">
-                                                         @csrf()
-                                                         @method('DELETE')
-                                                         <div id="{{ $file }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
-                                                             <div class="modal-dialog modal-md">
-                                                                 <div class="modal-content">
-                                                                     <div class="modal-header">
-                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                         <h4 class="modal-title" id="custom-width-modalLabel">Xóa sản phẩm</h4>
-                                                                     </div>
-                                                                     <div class="modal-body">
-                                                                         <h5>Chắc chắn xóa file {{ $file }}?</h5>
-                                                                     </div>
-                                                                     <div class="modal-footer">
-                                                                         <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
-                                                                         <input type="submit" class="btn btn-danger waves-effect waves-light" value="Xóa">
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                     </form>
+                                                     <button class="btn btn-danger delete-image" data-toggle="modal" data-target="#modal" data-id="{{ $image->id }}" data-name="{{ $image->name }}">Xoá</button>
                                                  </td>
                                              </tr>
                                          @endforeach
@@ -91,7 +74,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <input type="submit" class="btn btn-success btn" value="Lưu">
+                            <input type="submit" class="btn btn-success btn" id="save" value="Lưu" @if(Request::is('*create')) disabled @endif>
                             <input type="reset" value="Hủy" class="btn btn-warning">
                         </div>
                     </div>
@@ -100,30 +83,76 @@
             </div>
         </div>
     </section>
-
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="custom-width-modalLabel">Xoá file</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Chắc chắn xóa file {{ $image->name }}?</h5>
+                    <input type="hidden" name="id" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light modal-delete-image">Xoá</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
     <script>
-        $('#form').on('submit', function (e) {
-            e.preventDefault();
-            let form = this;
-            let codeObj = $('[name*="code"]');
-            let code = codeObj.val();
-            codeObj.parent().find('span').html('');
-        
-            $.get(
-                "{{ route('products.exist_code') }}",
-                {code: code},
-                function (result) {
-                    if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
-                        codeObj.parent().find('span').html('Đã tồn tại Mã sản phẩm');
-                    } else {
-                        form.submit();
-                    }
-                },
-                "text"
-            );
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let code = $('#code')
+            code.on('focusout', function () {
+                let codeValue = code.val();
+                let saveBtn = $('#save');
+                $.get(
+                    "{{ route('products.exist_code') }}",
+                    {code: codeValue},
+                    function (result) {
+                        if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
+                            code.parent().find('span').html('Đã tồn tại Mã sản phẩm');
+                        } else {
+                            code.parent().find('span').html('');
+                            saveBtn.prop('disabled', false);
+                        }
+                    },
+                    "text"
+                );
+            });
+
+            $('.delete-image').on('click', function () {
+                let name = $(this).data('name');
+                let id = $(this).data('id');
+                let modalBody = $('#modal').find('.modal-body');
+
+                modalBody.find('h5').text(`Chắc chắn xóa file ${name}?`);
+                modalBody.find('input').val(id);
+            });
+
+            $('.modal-delete-image').on('click' ,function (e) {
+                e.preventDefault();
+                let id = $(this).parents('#modal').find('input').val();
+                $.post(
+                    "{{ route('products.delete_image') }}",
+                    { id: id, _method: 'DELETE' },
+                    function () {
+                        $('#modal').modal('hide');
+                        $('table').find('tr#' + id).remove();
+                    },
+                    "text"
+                );
+            });
         });
     </script>
 @stop

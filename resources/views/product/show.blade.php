@@ -35,11 +35,11 @@
                             <textarea id="" class="form-control" readonly>{{ $product->note }}</textarea>
                         </div>
                         <div class="form-group">
-                            @if (isset($product->file))
-                                @foreach (json_decode($product->file) as $file)
+                            @if (isset($product->images))
+                                @foreach (($product->images) as $image)
                                     <div class="btn btn-default">
-                                        <a href="{{ asset('storage/' . $file) }}" download>
-                                            {{ $file }}
+                                        <a href="{{ asset('storage/' . $image->link) }}" download>
+                                            <span class="glyphicon glyphicon-download"></span> {{ $image->name }}
                                         </a>
                                     </div>
                                 @endforeach

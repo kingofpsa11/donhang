@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['id', 'name', 'name_bill', 'code', 'category_id', 'status', 'note', 'file'];
+    protected $fillable = ['id', 'name', 'name_bill', 'code', 'unit', 'category_id', 'status', 'note', 'file'];
 
     public $timestamps = true;
+
+    protected $attributes = [
+        'status' => 10
+    ];
 
     public function prices()
     {
@@ -30,9 +34,10 @@ class Product extends Model
         return $this->hasMany('App\GoodTransferDetail');
     }
 
-    protected $attributes = [
-        'status' => 10
-    ];
+    public function images()
+    {
+        return $this->hasMany('App\Image');
+    }
 
     public static function existCode($code)
     {

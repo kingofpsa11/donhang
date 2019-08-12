@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use App\Services\ProductService;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    protected $product;
+    protected $productService;
 
-    public function __construct(Product $product)
+    public function __construct(ProductService $productService)
     {
-        $this->product = $product;
+        $this->productService = $productService;
     }
 
     /**
@@ -35,7 +37,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('product.create')->with('categories', $categories);
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -46,17 +48,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->product->fill($request->all());
-        $path = [];
-        if ($request->hasFile('file')) {
-            foreach ($request->file('file') as $file) {
-                $path[] = $file->storeAs('uploads', $file->getClientOriginalName());
-            }
-            $this->product->file = json_encode($path);
-        }
-        $this->product->save();
+        $product = $this->productService->create($request);
 
-        return redirect()->route('products.show', $this->product);
+        return redirect()->route('products.show', $product);
     }
 
     /**
@@ -65,8 +59,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = $this->productService->find($id);
+        \Debugbar::info('Error');
         return view('product.show', compact('product'));
     }
 
@@ -89,21 +85,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $product->fill($request->all());
+        $this->productService->update($request, $id);
 
-        $path = [];
-        if ($request->hasFile('file')) {
-            foreach ($request->file('file') as $file) {
-                $path[] = $file->storeAs('uploads', $file->getClientOriginalName());
-            }
-            $product->file = json_encode($path);
-        }
-
-        $product->save();
-
-        return redirect()->route('products.show', $product);
+        return redirect()->route('products.show', $id);
     }
 
     /**
@@ -119,9 +105,9 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function deleteFile($file)
+    public function deleteImage(Request $request)
     {
-        return Storage::delete($file);
+        $this->productService->deleteImage($request->id);
     }
 
     public function getProduct(Request $request)
@@ -140,7 +126,7 @@ class ProductController extends Controller
     {
         $code = $request->code;
 
-        return Product::existCode($code);
+        return $this->productService->existCode($code);
     }
 
     public function allProducts(Request $request)
