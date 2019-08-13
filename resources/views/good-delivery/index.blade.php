@@ -19,6 +19,7 @@
                     <th>Số lượng</th>
                     <th>Số lượng thực xuất</th>
                     <th>Trạng thái</th>
+                    <th>Ghi chú</th>
                     <th>Xem</th>
                     <th>Sửa</th>
                 </tr>
@@ -31,10 +32,11 @@
                         <td>{{ $goodDeliveryDetail->goodDelivery->customer->name }}</td>
                         <td>{{ $goodDeliveryDetail->goodDelivery->number }}</td>
                         <td>{{ $goodDeliveryDetail->product->name }}</td>
-                        <td>{{ $goodDeliveryDetail->store->code }}</td>
+                        <td>{{ $goodDeliveryDetail->store->code ?? ''}}</td>
                         <td>{{ $goodDeliveryDetail->quantity }}</td>
                         <td>{{ $goodDeliveryDetail->actual_quantity }}</td>
                         <td>{{ $goodDeliveryDetail->status }}</td>
+                        <td>{{ $goodDeliveryDetail->note ?? '' }}</td>
                         <td>
                             <a href="{{ route('good-deliveries.show', $goodDeliveryDetail->good_delivery_id)}}" class="btn btn-success">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Xem
@@ -59,6 +61,7 @@
                     <th>Số lượng</th>
                     <th>Số lượng thực xuất</th>
                     <th>Trạng thái</th>
+                    <th>Ghi chú</th>
                     <td>Xem</td>
                     <td>Sửa</td>
                 </tr>

@@ -49,9 +49,9 @@ class GoodDeliveryDetail extends Model
         return $this->belongsTo('App\GoodDelivery');
     }
 
-    public function outputOrderDetail()
+    public function deliverable()
     {
-        return $this->belongsTo('App\OutputOrderDetail');
+        return $this->morphTo();
     }
 
     public function product()

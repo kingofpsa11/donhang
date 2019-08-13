@@ -1,4 +1,4 @@
-@extends('good-deliveries._form', ['view' => $view])
+@extends('good-delivery._form', ['view' => $view])
 
 @section('action', 'Sửa phiếu xuất')
 

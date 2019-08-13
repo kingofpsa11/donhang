@@ -17,7 +17,7 @@
                                 if ($notification->type === 'App\\Notifications\\ManufacturerOrder') {
                                     $url =  '<a href="' . route('manufacturer-notes.show',$notification->data['manufacturer_order_id']). $read . '"><strong>Phòng Kế hoạch</strong> gửi LSX số ' . $notification->data['number'] . '</a>';
                                 } elseif ($notification->type === 'App\\Notifications\\OutputOrder') {
-                                    $url = '<a href="' . route('output-orders.show',$notification->data['good_delivery_id']) . $read .'">Phòng KHKD đã gửi LXH số ' . $notification->data['output_order_number'] . '</a>';
+                                    $url = '<a href="' . route('good-deliveries.edit',$notification->data['good_delivery_id']) . $read .'">Phòng KHKD đã gửi LXH số ' . $notification->data['output_order_number'] . '</a>';
                                 } elseif ($notification->type === 'App\\Notifications\\Contract') {
                                     $text = '';
                                     if ($notification->data['status'] === 5) {

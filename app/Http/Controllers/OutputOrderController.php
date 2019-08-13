@@ -17,7 +17,6 @@ class OutputOrderController extends Controller
 
     public function __construct(OutputOrder $outputOrder)
     {
-//        $this->middleware('auth');
         $this->outputOrder = $outputOrder;
     }
 
@@ -106,9 +105,9 @@ class OutputOrderController extends Controller
             $outputOrder->status = 5;
             $outputOrder->save();
 
-            $goodDelivery = GoodDelivery::updateOrCreate(
+            $goodDelivery = $outputOrder->delivery()->updateOrCreate(
                 [
-                    'output_order_id' => $outputOrder->id,
+                    'deliverable_id' => $outputOrder->id,
                 ],
                 [
                     'number' => GoodDelivery::getNewNumber(),
@@ -119,10 +118,7 @@ class OutputOrderController extends Controller
             );
 
             foreach ($outputOrder->outputOrderDetails as $outputOrderDetail) {
-                GoodDeliveryDetail::updateOrCreate(
-                    [
-                        'output_order_detail_id' => $outputOrderDetail->id
-                    ],
+                $outputOrderDetail->delivery()->updateOrCreate(
                     [
                         'good_delivery_id' => $goodDelivery->id,
                         'product_id' => $outputOrderDetail->contractDetail->price->product->id,

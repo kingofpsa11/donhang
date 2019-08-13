@@ -18,7 +18,12 @@ class GoodDeliveryRepository
         return $this->goodDelivery->create($attributes);
     }
 
-    public function firstOrCreate($model)
+    public function firstOrCreate(array $attributes)
+    {
+        return $this->goodDelivery->firstOrCreate($attributes);
+    }
+
+    public function firstOrCreateByReceive($model)
     {
         $date = Carbon::createFromFormat(config('app.date_format'), $model->date, 'Asia/Bangkok')->format('Y-m-d');
 

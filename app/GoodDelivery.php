@@ -44,9 +44,9 @@ class GoodDelivery extends Model
 
     public $timestamps = true;
 
-    public function outputOrder()
+    public function deliverable()
     {
-        return $this->belongsTo('App\OutputOrder');
+        return $this->morphTo();
     }
 
     public function goodDeliveryDetails()

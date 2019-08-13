@@ -35,4 +35,14 @@ class StepNoteDetail extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    public function deliveries()
+    {
+        return $this->morphMany('App\GoodDeliveryDetail', 'deliverable');
+    }
+
+    public function receive()
+    {
+        return $this->morphOne('App\GoodReceiveDetail', 'receivable');
+    }
 }

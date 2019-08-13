@@ -52,7 +52,7 @@ class GoodReceiveService
 
             $bom_id = $request->bom_id[$i];
             if (isset($bom_id)) {
-                $goodDelivery = $this->goodDeliveryRepository->firstOrCreate($goodReceive);
+                $goodDelivery = $this->goodDeliveryRepository->firstOrCreateByReceive($goodReceive);
 
                 $bom = $this->bomRepository->getBomDetails($bom_id);
                 foreach ($bom->bomDetails as $bomDetail) {

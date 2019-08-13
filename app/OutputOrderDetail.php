@@ -43,9 +43,9 @@ class OutputOrderDetail extends Model
         return $this->belongsTo('App\ContractDetail');
     }
 
-    public function goodDeliveryDetails()
+    public function delivery()
     {
-        return $this->hasMany('App\GoodDeliveryDetail');
+        return $this->morphOne('App\GoodDeliveryDetail', 'deliverable');
     }
 
     protected $attributes = [

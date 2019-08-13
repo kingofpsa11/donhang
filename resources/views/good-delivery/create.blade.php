@@ -1,4 +1,4 @@
-@extends('good-deliveries._form')
+@extends('good-delivery._form')
 
 @section('route')
     {{ route('good-deliveries.store') }}

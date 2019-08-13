@@ -100,7 +100,6 @@
             maskDate(date);
 
             function addSelect2(el) {
-                console.log(123);
                 let step_id = $('#step_id').val();
                 el.select2({
                     placeholder: 'Nhập số lệnh sản xuất',
@@ -155,6 +154,8 @@
                 getProduct(product_id);
             });
 
+            addSelect2(product_id);
+
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
 
@@ -177,10 +178,10 @@
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = tableBody.find('tr:last');
                 let newRow = lastRow.clone();
-                let select2 = newRow.find('[name*=contract_detail_id]');
+                let select2 = newRow.find('[name*=product_id]');
 
                 newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').text(numberOfProduct + 1);
+                newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -203,26 +204,6 @@
             $('button.cancel').on('click', function (e) {
                 e.preventDefault();
             });
-
-            {{--$('#form').on('submit', function (e) {--}}
-                {{--e.preventDefault();--}}
-                {{--let form = this;--}}
-                {{--let number = $('[name*="number"]').val();--}}
-                {{--let year = $('[name*="date"]').val().split('/')[2];--}}
-
-                {{--$.get(--}}
-                    {{--"{{ route('step-notes.exist_number') }}",--}}
-                    {{--{number: number, year: year},--}}
-                    {{--function (result) {--}}
-                        {{--if (result > 0 && window.location.pathname.indexOf('create') >= 0) {--}}
-                            {{--$('[name="number"]').parent().find('span').html('Đã tồn tại số phiếu');--}}
-                        {{--} else {--}}
-                            {{--form.submit();--}}
-                        {{--}--}}
-                    {{--},--}}
-                    {{--"text"--}}
-                {{--);--}}
-            {{--});--}}
         });
     </script>
 @stop

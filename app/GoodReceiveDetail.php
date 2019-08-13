@@ -76,6 +76,11 @@ class GoodReceiveDetail extends Model
         return $this->belongsTo('App\Store');
     }
 
+    public function receive()
+    {
+        return $this->morphTo('App\StepNoteDetail');
+    }
+
     protected $attributes = [
         'status' => 10
     ];

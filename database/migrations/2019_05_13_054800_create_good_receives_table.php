@@ -18,6 +18,7 @@ class CreateGoodReceivesTable extends Migration
             $table->integer('number');
             $table->string('supplier_user', 100)->nullable();
             $table->unsignedBigInteger('supplier_id');
+            $table->morphs('receivable');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->date('date');
             $table->integer('status');

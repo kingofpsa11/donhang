@@ -15,10 +15,7 @@ class CreateGoodDeliveriesTable extends Migration
     {
         Schema::create('good_deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('output_order_id')->nullable();
-            $table->foreign('output_order_id')->references('id')->on('output_orders')->onDelete('cascade');
-            $table->unsignedBigInteger('good_receive_id')->nullable();
-            $table->foreign('good_receive_id')->references('id')->on('good_receives')->onDelete('cascade');
+            $table->morphs('deliverable');
             $table->integer('number');
             $table->date('date');
             $table->unsignedBigInteger('customer_id');

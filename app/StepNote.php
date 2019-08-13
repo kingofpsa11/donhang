@@ -25,6 +25,16 @@ class StepNote extends Model
         return $this->hasMany('App\StepNoteDetail');
     }
 
+    public function delivery()
+    {
+        return $this->morphOne('App\GoodDelivery', 'deliverable');
+    }
+
+    public function receive()
+    {
+        return $this->morphOne('App\GoodReceive', 'receivable');
+    }
+
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');

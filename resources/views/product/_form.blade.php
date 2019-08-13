@@ -91,7 +91,7 @@
                     <h4 class="modal-title" id="custom-width-modalLabel">Xoá file</h4>
                 </div>
                 <div class="modal-body">
-                    <h5>Chắc chắn xóa file {{ $image->name }}?</h5>
+                    <h5></h5>
                     <input type="hidden" name="id" value="">
                 </div>
                 <div class="modal-footer">

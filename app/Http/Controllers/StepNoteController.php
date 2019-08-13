@@ -98,8 +98,8 @@ class StepNoteController extends Controller
      */
     public function destroy($id)
     {
-        $this->stepNoteService->delete();
-        flash('Đã xóa phiếu ' . $stepNote->number)->success();
+        $this->stepNoteService->delete($id);
+        flash('Đã xóa phiếu')->success();
         return redirect()->route('step-notes.index');
     }
 }

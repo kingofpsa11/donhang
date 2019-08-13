@@ -48,9 +48,9 @@ class OutputOrder extends Model
         return $this->belongsTo('App\Customer');
     }
 
-    public function goodDelivery()
+    public function delivery()
     {
-        return $this->hasOne('App\GoodDelivery');
+        return $this->morphOne('App\GoodDelivery', 'deliverable');
     }
 
     public function setDateAttribute($value)

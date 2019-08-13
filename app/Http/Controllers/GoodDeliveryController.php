@@ -23,7 +23,7 @@ class GoodDeliveryController extends Controller
     public function index()
     {
         $goodDeliveryDetails = GoodDeliveryDetail::with('goodDelivery.customer', 'product', 'store')->get();
-        return view('good-deliveries.index', compact('goodDeliveryDetails'));
+        return view('good-delivery.index', compact('goodDeliveryDetails'));
     }
 
     /**
@@ -34,7 +34,7 @@ class GoodDeliveryController extends Controller
     public function create()
     {
         $newNumber = $this->goodDelivery->getNewNumber();
-        return view('good-deliveries.create', compact('newNumber'));
+        return view('good-delivery.create', compact('newNumber'));
     }
 
     /**
@@ -47,18 +47,17 @@ class GoodDeliveryController extends Controller
     {
         $this->goodDelivery->fill(
             $request->all()
-        );
+        )->save();
 
-        if ($this->goodDelivery->save()) {
-            foreach ($request->code as $key => $value) {
-                GoodDeliveryDetail::create([
-                    'good_delivery_id' => $this->goodDelivery->id,
-                    'product_id' => $request->product_id[$key],
-                    'actual_quantity' => $request->actual_quantity[$key],
-                    'store_id' => $request->store_id[$key]
-                ]);
-            }
+        foreach ($request->code as $key => $value) {
+            GoodDeliveryDetail::create([
+                'good_delivery_id' => $this->goodDelivery->id,
+                'product_id' => $request->product_id[$key],
+                'actual_quantity' => $request->actual_quantity[$key],
+                'store_id' => $request->store_id[$key],
+            ]);
         }
+
         return redirect()->route('good-deliveries.show', $this->goodDelivery);
     }
 
@@ -71,7 +70,7 @@ class GoodDeliveryController extends Controller
     public function show(GoodDelivery $goodDelivery)
     {
         $goodDelivery->load('goodDeliveryDetails.product', 'goodDeliveryDetails.store');
-        return view('good-deliveries.show', compact('goodDelivery'));
+        return view('good-delivery.show', compact('goodDelivery'));
     }
 
     /**
@@ -83,7 +82,7 @@ class GoodDeliveryController extends Controller
     public function edit(GoodDelivery $goodDelivery)
     {
         $goodDelivery->load('goodDeliveryDetails.product', 'goodDeliveryDetails.store');
-        return view('good-deliveries.edit', compact('goodDelivery'));
+        return redirect()->route('good-delivery.show', $goodDelivery);
     }
 
     /**

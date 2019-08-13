@@ -15,12 +15,9 @@ class CreateGoodDeliveryDetailsTable extends Migration
     {
         Schema::create('good_delivery_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('output_order_detail_id')->nullable();
-            $table->foreign('output_order_detail_id')->references('id')->on('output_order_details')->onDelete('cascade');
             $table->unsignedBigInteger('good_delivery_id');
             $table->foreign('good_delivery_id')->references('id')->on('good_deliveries')->onDelete('cascade');
-            $table->unsignedBigInteger('good_receive_detail_id')->nullable();
-            $table->foreign('good_receive_detail_id')->references('id')->on('good_receives')->onDelete('cascade');
+            $table->morphs('deliverable');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->float('quantity', 8 ,3);

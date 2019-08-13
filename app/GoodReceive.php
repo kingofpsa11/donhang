@@ -59,6 +59,11 @@ class GoodReceive extends Model
         return $this->hasOne('App\GoodDelivery');
     }
 
+    public function receive()
+    {
+        return $this->morphTo('App\StepNote');
+    }
+
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = Carbon::createFromFormat(config('app.date_format'), $value, 'Asia/Bangkok')->format('Y-m-d');
@@ -73,8 +78,8 @@ class GoodReceive extends Model
         return $value;
     }
 
-    public function getNewNumber()
+    public static function getNewNumber()
     {
-        $this->number = ($this->whereYear('date', date('Y'))->max('number') + 1) ?? 1;
+        return (self::whereYear('date', date('Y'))->max('number') + 1) ?? 1;
     }
 }
