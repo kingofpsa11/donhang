@@ -88,7 +88,7 @@
             function addSelect2(el) {
                 el.select2({
                     placeholder: 'Nhập LSX',
-                    minimumInputLength: 1,
+                    minimumInputLength: 0,
                     ajax: {
                         url: '{{ route('manufacturer-orders.get_manufacturers_by_status') }}',
                         delay: 200,

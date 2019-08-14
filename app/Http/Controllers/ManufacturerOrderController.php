@@ -27,7 +27,11 @@ class ManufacturerOrderController extends Controller
      */
     public function index()
     {
-        $manufacturerOrderDetails = ManufacturerOrderDetail::with('manufacturerOrder', 'contractDetail.price.product', 'contractDetail.stepNoteDetails.stepNote')
+        $manufacturerOrderDetails = ManufacturerOrderDetail::with(
+            'manufacturerOrder',
+            'contractDetail.price.product',
+            'contractDetail.stepNoteDetails.stepNote'
+        )
             ->get();
         return view('manufacturer-order.index', compact('manufacturerOrderDetails'));
     }
@@ -122,21 +126,30 @@ class ManufacturerOrderController extends Controller
     {
         $search = $request->search;
 
+        $query = DB::table('manufacturer_note_details AS mnd')
+            ->groupBy('mnd.contract_detail_id')
+            ->select('mnd.contract_detail_id', DB::raw('SUM(mnd.quantity) AS total_quantity'));
+
         $result = DB::table('manufacturer_orders AS m')
             ->where('m.number', 'LIKE', '%' . $search . '%')
             ->where('md.status', 10)
+            ->orderBy('m.id','desc')
             ->join('manufacturer_order_details AS md', 'm.id', 'md.manufacturer_order_id')
             ->join('contract_details AS c', 'c.id', 'md.contract_detail_id')
             ->join('prices', 'prices.id', 'c.price_id')
             ->join('products AS p', 'p.id', 'prices.product_id')
+            ->leftJoinSub($query, 'mnd', function($join) {
+                $join->on('mnd.contract_detail_id', '=', 'md.contract_detail_id');
+            })
             ->select(
                 'c.id',
                 'm.number',
-                'c.quantity',
                 'p.name',
                 'p.code',
-                'p.id AS product'
+                'p.id AS product',
+                DB::raw('(c.quantity - IFNULL(mnd.total_quantity, 0)) AS quantity')
             )
+            ->having('quantity', '>', 0)
             ->get();
 
         return response()->json($result);
@@ -319,7 +332,5 @@ class ManufacturerOrderController extends Controller
         ];
 
         return $json_data;
-
-        echo json_encode($json_data);
     }
 }

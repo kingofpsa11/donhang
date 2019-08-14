@@ -32,7 +32,6 @@
         <td data-col-seq="3">
             <input type="text" class="form-control" name="bottom_perimeter[]" required>
         </td>
-        </td>
         <td data-col-seq="3">
             <input type="text" class="form-control" name="quantity[]" required>
         </td>

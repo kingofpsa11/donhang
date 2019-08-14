@@ -14,7 +14,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Số lệnh sản xuất</label>
-                            <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->manufacturerNoteDetails()->first()->contractDetail->manufacturerOrderDetail->manufacturerOrder->number ?? '' }}" readonly>
+                            <input type="text" class="form-control" name="manufacturerNote[number]" value="{{ $manufacturerNote->number }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -84,14 +84,14 @@
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-default print">In</button>
-                        <button class="btn btn-danger">Xoá</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal">Xoá</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.box -->
     </section>
-    <form action="{{ route('manufacturer-notes.destroy', [$manufacturerNote]) }}" method="POST">
+    <form action="{{ route('manufacturer-notes.destroy', $manufacturerNote) }}" method="POST">
         @csrf()
         @method('DELETE')
         <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
@@ -99,10 +99,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa đơn hàng</h4>
+                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa phiếu</h4>
                     </div>
                     <div class="modal-body">
-                        <h5>Chắc chắn xóa{{ $manufacturerNote->number }}?</h5>
+                        <h5>Chắc chắn xóa phiếu số {{ $manufacturerNote->number }}?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>

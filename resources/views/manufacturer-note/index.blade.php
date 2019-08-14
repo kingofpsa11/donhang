@@ -4,7 +4,7 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Tổng hợp Phiếu sản xuất</h3>
-            <a href="{{ route('manufacturer-orders.index') }}" class="btn btn-primary pull-right">Danh mục lệnh sản xuất</a>
+            <a href="{{ route('manufacturer-notes.create') }}" class="btn btn-primary pull-right">Tạo mới</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -12,6 +12,7 @@
                 <thead>
                 <tr>
                     <th>Lệnh sản xuất</th>
+                    <th>Ngày</th>
                     <th>Số phiếu</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
@@ -24,7 +25,8 @@
                 <tbody>
                 @foreach ($manufacturerNoteDetails as $manufacturerNoteDetail)
                     <tr>
-                        <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->first()->manufacturerOrder->number }}</td>
+                        <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
+                        <td>{{ $manufacturerNoteDetail->manufacturerNote->date }}</td>
                         <td>{{ $manufacturerNoteDetail->manufacturerNote->number }}</td>
                         <td>{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</td>
                         <td>{{ $manufacturerNoteDetail->quantity }}</td>
@@ -41,11 +43,11 @@
                         </td>
                     </tr>
                 @endforeach
-
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>Lệnh sản xuất</th>
+                        <th>Ngày</th>
                         <th>Số phiếu</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>

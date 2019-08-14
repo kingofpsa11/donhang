@@ -1,6 +1,6 @@
 @extends('manufacturer-note._form')
 
-@section('action', 'Sửa lênh xuất hàng')
+@section('action', 'Sửa phiếu')
 
 @section('route')
     {{ route('manufacturer-notes.update', $manufacturerNote) }}
@@ -18,37 +18,27 @@
                 <input type="hidden" name="manufacturer_note_detail_id[]" value="{{ $manufacturerNoteDetail->id }}">
             </td>
             <td data-col-seq="1">
-                <select name="contract_detail_id[]" class="form-control" style="width: 100%;">
-                    @foreach( $manufacturerNoteDetail->contractDetail->contract->contractDetails as $contractDetail)
-                        @foreach( $contractDetail->price->product->boms as $bom )
-                            <optgroup label="{{ $contractDetail->price->product->name }}">
-                                @foreach( $bom->bomDetails as $bomDetail )
-                                    @if ( $manufacturerNoteDetail->bom_detail_id === $bomDetail->id )
-                                        <option value="{{ $contractDetail->id }}" data-bom-detail-id="{{ $bomDetail->id }}" data-product-id="{{ $bomDetail->product_id }}" selected>{{ $bomDetail->product->name }}</option>
-                                    @else
-                                        <option value="{{ $contractDetail->id }}" data-bom-detail-id="{{ $bomDetail->id }}" data-product-id="{{ $bomDetail->product_id }}">{{ $bomDetail->product->name }}</option>
-                                    @endif
-                                @endforeach
-                            </optgroup>
-                        @endforeach
-                    @endforeach
-                </select>
-                <input type="hidden" name="bom_detail_id[]" value="{{ $manufacturerNoteDetail->bom_detail_id }}">
+                <p class="manufacturer-order-number">{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</p>
             </td>
             <td data-col-seq="2">
-                <select class="form-control" name="product_id[]" style="width: 100%;" required>
-                    @foreach( $manufacturerNoteDetail->bomDetail->product->boms as $bom )
-                        <optgroup label="{{ $bom->name }}">
-                            @foreach( $bom->bomDetails as $bomDetail )
-                                @if ( $bomDetail->product_id === $manufacturerNoteDetail->product_id )
-                                    <option value="{{ $bomDetail->product_id }}" selected>{{ $bomDetail->product->name }}</option>
-                                @else
-                                    <option value="{{ $bomDetail->product_id }}">{{ $bomDetail->product->name }}</option>
-                                @endif
-                            @endforeach
-                        </optgroup>
-                    @endforeach
+                <select name="contract_detail_id[]" class="form-control" style="width: 100%">
+                    <option value="{{ $manufacturerNoteDetail->contract_detail_id }}">{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</option>
                 </select>
+                <select class="form-control" name="product_id[]" style="width: 100%" required>
+                    <option value="{{ $manufacturerNoteDetail->product_id }}">{{ $manufacturerNoteDetail->product->name }}</option>
+                </select>
+            </td>
+            <td data-col-seq="3">
+                <input type="text" class="form-control" name="length[]" value="{{ $manufacturerNoteDetail->length }}" required>
+            </td>
+            <td data-col-seq="3">
+                <input type="text" class="form-control" name="thickness[]" value="{{ $manufacturerNoteDetail->thickness }}" required>
+            </td>
+            <td data-col-seq="3">
+                <input type="text" class="form-control" name="top_perimeter[]" value="{{ $manufacturerNoteDetail->top_perimeter }}" required>
+            </td>
+            <td data-col-seq="3">
+                <input type="text" class="form-control" name="bottom_perimeter[]" value="{{ $manufacturerNoteDetail->bottom_perimeter }}" required>
             </td>
             <td data-col-seq="3">
                 <input type="text" class="form-control" name="quantity[]" value="{{ $manufacturerNoteDetail->quantity }}" required>

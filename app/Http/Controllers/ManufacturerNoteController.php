@@ -139,7 +139,7 @@ class ManufacturerNoteController extends Controller
     public function destroy(ManufacturerNote $manufacturerNote)
     {
         $manufacturerNote->delete();
-        flash('Đã xóa phiếu sản xuất' . $manufacturerNote->number);
+        flash('Đã xóa phiếu cắt phôi số ' . $manufacturerNote->number);
         return redirect()->route('manufacturer-notes.index');
     }
 

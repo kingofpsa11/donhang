@@ -83,7 +83,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('manufacturer-orders', 'ManufacturerOrderController');
 
-    Route::get('manufacturer-notes/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-notes.create');
     Route::get('manufacturer-notes/get-by-step', 'ManufacturerNoteController@getByStep')->name('manufacturer-notes.get_by_step');
     Route::resource('manufacturer-notes', 'ManufacturerNoteController');
 
