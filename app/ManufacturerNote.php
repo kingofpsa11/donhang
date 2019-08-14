@@ -54,4 +54,9 @@ class ManufacturerNote extends Model
 
         return $value;
     }
+
+    public static function getNewNumber()
+    {
+        return self::whereYear('date',date('Y'))->max('number') + 1 ?? 1;
+    }
 }

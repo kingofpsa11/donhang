@@ -1,6 +1,6 @@
 @extends('manufacturer-note._form')
 
-@section('action', 'Tạo phiếu cắt phôi')
+@section('action', 'Tạo phiếu sản xuất')
 
 @section('route')
     {{ route('manufacturer-notes.store') }}
@@ -12,26 +12,23 @@
             <span>1</span>
         </td>
         <td data-col-seq="1">
-            <p class="manufacturer-order-number"></p>
+            <select name="contract_detail_id[]" class="form-control" style="width: 100%">
+                <option value="" hidden>Chọn loại phôi</option>
+                @foreach( $manufacturerOrder->contract->contractDetails as $contractDetail)
+                    @foreach( $contractDetail->price->product->boms as $bom )
+                        <optgroup label="{{ $contractDetail->price->product->name }}">
+                        @foreach( $bom->bomDetails as $bomDetail )
+                            <option value="{{ $contractDetail->id }}" data-bom-detail-id="{{ $bomDetail->id }}" data-product-id="{{ $bomDetail->product->id }}">{{ $bomDetail->product->name }}</option>
+                        @endforeach
+                        </optgroup>
+                    @endforeach
+                @endforeach
+            </select>
+            <input type="hidden" name="bom_detail_id[]">
         </td>
         <td data-col-seq="2">
-            <select name="contract_detail_id[]" class="form-control" style="width: 100%">
-            </select>
             <select class="form-control" name="product_id[]" style="width: 100%" required>
             </select>
-        </td>
-        <td data-col-seq="3">
-            <input type="text" class="form-control" name="length[]" required>
-        </td>
-        <td data-col-seq="3">
-            <input type="text" class="form-control" name="thickness[]" required>
-        </td>
-        <td data-col-seq="3">
-            <input type="text" class="form-control" name="top_perimeter[]" required>
-        </td>
-        <td data-col-seq="3">
-            <input type="text" class="form-control" name="bottom_perimeter[]" required>
-        </td>
         </td>
         <td data-col-seq="3">
             <input type="text" class="form-control" name="quantity[]" required>

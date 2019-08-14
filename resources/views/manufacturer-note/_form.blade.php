@@ -1,22 +1,21 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Phiếu sản xuất')
+@section('title', 'Phiếu cắt phôi')
 
 @section('content')
 	
 	<!-- Main content -->
 	<section class="content container-fluid">
 		<form action=@yield('route') method="POST" id="form">
-			@csrf
-			@yield('method')
-			<div class="box box-default">
-				<div class="box-header with-border">
-					<h3 class="box-title">Phiếu sản xuất</h3>
+            @csrf
+            @yield('method')
+            <div class="box box-default">
+                <div class="box-header with-border">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Số lệnh sản xuất</label>
-                                <input type="text" class="form-control" name="number" value="{{ $manufacturerOrder->number ?? $manufacturerNote->manufacturerNoteDetails()->first()->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}" readonly>
+                                <label>Số phiếu</label>
+                                <input type="text" class="form-control" name="number" value="{{ $manufacturerNote->number ?? $newNumber }}" required>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -31,32 +30,30 @@
                                 <!-- /.input group -->
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Đơn vị</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
                     </div>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body table-responsive">
-					<table id="example1" class="table table-bordered table-striped table-condensed">
-						<thead>
-						<tr>
-							<th>STT</th>
-							<th class="col-md-4 text-center">Tên sản phẩm</th>
-                            <th class="col-md-4 text-center">Phôi</th>
-							<th class="col-md-1 text-center">Số lượng</th>
-							<th class="col-md-3 text-center">Ghi chú</th>
-						</tr>
-						</thead>
-						<tbody>
-						    @yield('table-body')
-						</tbody>
-					</table>
-				</div>
-				<!-- /.box-body -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <table id="example1" class="table table-bordered table-striped table-condensed">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>LSX</th>
+                            <th class="col-md-5 text-center">Tên sản phẩm</th>
+                            <th>Dài</th>
+                            <th>Dày</th>
+                            <th>Chi vi trên</th>
+                            <th>Chi vi dưới</th>
+                            <th class="text-center">Số lượng</th>
+                            <th class="col-md-2 text-center">Ghi chú</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @yield('table-body')
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
                 <div class="box-footer text-right">
                     <div>
                         <button class="btn btn-primary addRow">Thêm dòng</button>
@@ -64,10 +61,10 @@
                         <a href="{{ route('manufacturer-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
-			</div>
-			<!-- /.box -->
-		</form>
-	</section>
+            </div>
+            <!-- /.box -->
+        </form>
+    </section>
 @endsection
 
 @section('javascript')
@@ -85,47 +82,85 @@
             
             maskDate(date);
 
-            $('[name*="contract_detail_id"]').select2({
-                placeholder: 'Chọn loại phôi'
-            });
-            $('[name*="product_id"]').select2({
-                placeholder: 'Chọn loại vật tư'
-            });
-            
-            $('tbody').on('change', '[name*="contract_detail_id"]', function () {
-                
-                let idOfProductBomDetail = $(this).find(':selected').data('product-id');
-                let idOfBomDetail = $(this).find(':selected').data('bom-detail-id');
-                let bomEl = $(this).parents('tr').find('[name*="product_id"]');
-                
-                //gán bom-detail-id cho input bom-detail-id
-                $(this).parent().find('input').val(idOfBomDetail);
-                
-                //Xoá các option của select product-id
-                bomEl.html('');
+            let contract = $('[name*="contract_detail_id"]');
+            addSelect2(contract);
 
-                $.ajax({
-                    url: '{{ route('boms.get_bom') }}',
-                    data: { productId: idOfProductBomDetail },
-                    dataType: 'json',
-                    success: function (data) {
-                        if (Object.keys(data).length !== 0) {
-                            bomEl.append(`<option value="" hidden>--Chọn loại phôi--</option>`);
-
-                            $.each( data, function (i, el) {
-                                bomEl.append(`<optgroup label="${el.name}"></optgroup>`);
-                                $.each( el.bom_details, function (index, element) {
-                                    bomEl.find('optgroup:last').append(`<option value="${element.product_id}">${element.product.name}</option>`);
-                                });
-                            });
-
-                        } else {
-                            bomEl.append(`<option value="">Chưa có định mức</option>`);
+            function addSelect2(el) {
+                el.select2({
+                    placeholder: 'Nhập LSX',
+                    minimumInputLength: 1,
+                    ajax: {
+                        url: '{{ route('manufacturer-orders.get_manufacturers_by_status') }}',
+                        delay: 200,
+                        data: function (params) {
+                            return {
+                                search: params.term,
+                            };
+                        },
+                        dataType: 'json',
+                        dropdownAutoWidth: true,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+                                        quantity: item.quantity,
+                                        code: item.code,
+                                        number: item.number,
+                                        product: item.product
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    templateResult: function (repo) {
+                        if (repo.loading) {
+                            return 'Đang tìm kiếm';
                         }
-                    }
+                        return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.quantity}</div></div></div> `);
+                    },
                 });
-            });
-    
+
+
+
+                //
+
+                el.on('select2:select', function (e) {
+                    let data = e.params.data;
+                    let row = el.parents('tr');
+                    let bomEl = row.find('[name*="product_id"]');
+                    row.find('[name*="quantity"]').val(data.quantity);
+                    row.find('.manufacturer-order-number').text(data.number);
+
+                    //Xoá các option của select product-id
+                    bomEl.html('');
+
+                    $.ajax({
+                        url: '{{ route('boms.get_bom') }}',
+                        data: {productId: data.product},
+                        dataType: 'json',
+                        success: function (data) {
+                            if (Object.keys(data).length !== 0) {
+                                $.each(data, function (i, el) {
+                                    bomEl.append(`<optgroup label="${el.name}"></optgroup>`);
+                                    $.each(el.bom_details, function (index, element) {
+                                        bomEl.find('optgroup:last').append(`<option value="${element.product_id}">${element.product.name}</option>`);
+                                    });
+                                });
+
+                                bomEl.select2({
+                                    placeholder: 'Chọn loại phôi'
+                                });
+
+                            } else {
+                                bomEl.append(`<option value="">Chưa có định mức</option>`);
+                            }
+                        }
+                    });
+                });
+            }
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
                 rows.each(function (i, row) {
@@ -149,6 +184,7 @@
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = tableBody.find('tr:last');
                 let newRow = lastRow.clone();
+                let select2 = newRow.find('[name*=contract_detail_id]');
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
@@ -157,16 +193,12 @@
                 newRow.find('button.removeRow').removeClass('hidden');
 
                 newRow.find('.select2-container').remove();
+                newRow.find('select').html('');
 
                 newRow.find('input[name*="quantity"]').val('');
                 newRow.find('input[name*="note"]').val('');
 
-                newRow.find('[name*="contract_detail_id"]').select2({
-                    placeholder: 'Chọn loại phôi'
-                });
-                newRow.find('[name*="product_id"]').select2({
-                    placeholder: 'Chọn loại vật tư'
-                });
+                addSelect2(select2);
 
                 tableBody.append(newRow);
             });
@@ -176,12 +208,6 @@
                 currentRow.remove();
                 updateNumberOfRow();
             });
-            
-            //Click cancel button
-            $('button.cancel').on('click', function (e) {
-                e.preventDefault();
-            });
-
         });
     </script>
 @stop

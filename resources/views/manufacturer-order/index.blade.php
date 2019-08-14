@@ -13,38 +13,21 @@
         <div class="box-body">
             <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
-                <tr>
-                    <th>Ngày lập</th>
-                    <th>LSX</th>
-                    <th>Mã sản phẩm</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Tiến độ</th>
-                    <th>Cắt tấm</th>
-                    <th>Cắt phôi</th>
-                    <th>Đi mạ</th>
-                    <th>Hoàn thiện</th>
-                    <th>Trạng thái</th>
-                    <th>Xem</th>
-                </tr>
-
+                    <tr>
+                        <th>Ngày lập</th>
+                        <th>LSX</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Tiến độ</th>
+                        <th>Cắt tấm</th>
+                        <th>Cắt phôi</th>
+                        <th>Đi mạ</th>
+                        <th>Hoàn thiện</th>
+                        <th>Trạng thái</th>
+                        <th>Xem</th>
+                    </tr>
                 </thead>
-                <tbody>
-{{--                        @php--}}
-{{--                        if($manufacturerOrderDetail->contractDetail->deadline) {--}}
-{{--                            $deadline = Carbon\Carbon::createFromFormat(config('app.date_format'), $manufacturerOrderDetail->contractDetail->deadline)->format('Y-m-d');--}}
-{{--                            $secs = strtotime($deadline) - time();--}}
-{{--                            $days = $secs/86400;--}}
-{{--                            if ($manufacturerOrderDetail->contractDetail->deadline === '') {--}}
-{{--                                echo "class='warning'";--}}
-{{--                            } elseif ($days <= 5 && $manufacturerOrderDetail->manufacturerOrder->status===10) {--}}
-{{--                                echo "class='danger' ";--}}
-{{--                            } else {--}}
-{{--                                echo "class='success'";--}}
-{{--                            }--}}
-{{--                        }--}}
-{{--                        @endphp--}}
-                </tbody>
                 <tfoot>
                     <tr>
                         <th>Ngày lập</th>
@@ -186,7 +169,7 @@
                         },
                     },
                     {
-                        targets: "_all",
+                        targets     : "_all",
                         className   : 'dt-head-center',
                     },
                 ]

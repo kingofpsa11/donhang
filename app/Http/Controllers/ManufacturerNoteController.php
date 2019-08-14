@@ -41,11 +41,10 @@ class ManufacturerNoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ManufacturerOrder $manufacturerOrder)
+    public function create()
     {
-        $manufacturerOrder->update(['status' => 9]);
-        $manufacturerOrder->load('manufacturerOrderDetails.contractDetail.price.product','contract.contractDetails');
-        return view('manufacturer-note.create', compact('manufacturerOrder'));
+        $newNumber = ManufacturerNote::getNewNumber();
+        return view('manufacturer-note.create', compact('newNumber'));
     }
 
     /**
@@ -59,14 +58,19 @@ class ManufacturerNoteController extends Controller
         $this->manufacturerNote->fill($request->all())->save();
 
         for ($i = 0; $i < count($request->contract_detail_id); $i++) {
-            ManufacturerNoteDetail::create([
+            $manufacturerNoteDetail = ManufacturerNoteDetail::create([
                 'manufacturer_note_id' => $this->manufacturerNote->id,
                 'contract_detail_id' => $request->contract_detail_id[$i],
-                'bom_detail_id' => $request->bom_detail_id[$i],
                 'product_id' => $request->product_id[$i],
+                'length' => $request->length[$i],
+                'thickness' => $request->thickness[$i],
+                'top_perimeter' => $request->top_perimeter[$i],
+                'bottom_perimeter' => $request->bottom_perimeter[$i],
                 'quantity' => $request->quantity[$i],
                 'note' => $request->note[$i],
             ]);
+
+            $manufacturerNoteDetail->contractDetail->update(['status' => 9]);
         }
 
         return redirect()->route('manufacturer-notes.show', $this->manufacturerNote);
@@ -80,7 +84,6 @@ class ManufacturerNoteController extends Controller
      */
     public function show(ManufacturerNote $manufacturerNote)
     {
-
         $manufacturerNote->load('manufacturerNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder');
         return view('manufacturer-note.show', compact('manufacturerNote'));
     }

@@ -311,7 +311,7 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ route('manufacturer-orders.index') }}"><i class="fa fa-circle-o"></i>Danh sách LSX</a></li>
-                        <li><a href="{{ route('manufacturer-notes.index') }}"><i class="fa fa-circle-o"></i>Danh sách Phiếu sản xuất</a></li>
+                        <li><a href="{{ route('manufacturer-notes.create') }}"><i class="fa fa-circle-o"></i>Danh sách Phiếu sản xuất</a></li>
                         <li><a href="{{ route('step-notes.index') }}"><i class="fa fa-circle-o"></i>Phiếu công đoạn</a></li>
                     </ul>
                 </li>

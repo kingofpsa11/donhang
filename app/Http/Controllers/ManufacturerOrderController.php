@@ -118,6 +118,30 @@ class ManufacturerOrderController extends Controller
         return view('manufacturer-order.index')->with('contract_details', $contract_details);
     }
 
+    public function getManufacturerByStatus(Request $request)
+    {
+        $search = $request->search;
+
+        $result = DB::table('manufacturer_orders AS m')
+            ->where('m.number', 'LIKE', '%' . $search . '%')
+            ->where('md.status', 10)
+            ->join('manufacturer_order_details AS md', 'm.id', 'md.manufacturer_order_id')
+            ->join('contract_details AS c', 'c.id', 'md.contract_detail_id')
+            ->join('prices', 'prices.id', 'c.price_id')
+            ->join('products AS p', 'p.id', 'prices.product_id')
+            ->select(
+                'c.id',
+                'm.number',
+                'c.quantity',
+                'p.name',
+                'p.code',
+                'p.id AS product'
+            )
+            ->get();
+
+        return response()->json($result);
+    }
+
     public function getAllManufacturers(Request $request)
     {
         $columns = array(
@@ -178,7 +202,7 @@ class ManufacturerOrderController extends Controller
                 'sd.second',
                 'sd.third',
                 'sd.fourth',
-                'md.status'
+                'm.status'
             );
 
 
@@ -204,57 +228,57 @@ class ManufacturerOrderController extends Controller
             if(!empty($request->input('columns.0.search.value'))) {
                 $search = $request->input('columns.0.search.value');
                 $query =  $query
-                    ->orWhere('m.date', 'LIKE', "%{$search}%");
+                    ->where('m.date', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.1.search.value'))) {
                 $search = $request->input('columns.1.search.value');
                 $query =  $query
-                    ->orWhere('m.number', 'LIKE', "%{$search}%");
+                    ->where('m.number', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.2.search.value'))) {
                 $search = $request->input('columns.2.search.value');
                 $query =  $query
-                    ->orWhere('cd.code', 'LIKE', "%{$search}%");
+                    ->where('cd.code', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.3.search.value'))) {
                 $search = $request->input('columns.3.search.value');
                 $query =  $query
-                    ->orWhere('cd.name', 'LIKE', "%{$search}%");
+                    ->where('cd.name', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.4.search.value'))) {
                 $search = $request->input('columns.4.search.value');
                 $query =  $query
-                    ->orWhere('cd.quantity', 'LIKE', "%{$search}%");
+                    ->where('cd.quantity', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.5.search.value'))) {
                 $search = $request->input('columns.5.search.value');
                 $query =  $query
-                    ->orWhere('md.deadline', 'LIKE', "%{$search}%");
+                    ->where('md.deadline', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.6.search.value'))) {
                 $search = $request->input('columns.6.search.value');
                 $query =  $query
-                    ->orWhere('sd.first', 'LIKE', "%{$search}%");
+                    ->where('sd.first', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.7.search.value'))) {
                 $search = $request->input('columns.7.search.value');
                 $query =  $query
-                    ->orWhere('sd.second', 'LIKE', "%{$search}%");
+                    ->where('sd.second', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.8.search.value'))) {
                 $search = $request->input('columns.8.search.value');
                 $query =  $query
-                    ->orWhere('sd.third', 'LIKE', "%{$search}%");
+                    ->where('sd.third', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.9.search.value'))) {
                 $search = $request->input('columns.9.search.value');
                 $query =  $query
-                    ->orWhere('sd.fourth', 'LIKE', "%{$search}%");
+                    ->where('sd.fourth', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.10.search.value'))) {
                 $search = $request->input('columns.10.search.value');
                 $query =  $query
-                    ->orWhere('md.status', 'LIKE', "%{$search}%");
+                    ->where('md.status', 'LIKE', "%{$search}%");
             }
         }
 

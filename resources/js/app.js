@@ -49,7 +49,6 @@ var notifications = [];
 
 const NOTIFICATION_TYPES = {
     manufacturer: 'App\\Notifications\\ManufacturerOrder',
-    goodTransfer: 'App\\Notifications\\GoodTransfer',
     outputOrder: 'App\\Notifications\\OutputOrder',
     contract: 'App\\Notifications\\Contract',
     outputOrderApproved: 'App\\Notifications\\OutputOrderApproved',
@@ -101,11 +100,9 @@ function makeNotification(notification) {
 function routeNotification(notification) {
     let to = '?read=' + notification.id;
     if (notification.type === NOTIFICATION_TYPES.manufacturer) {
-        to = 'manufacturer-order/' + notification.data.manufacturer_order_id + to;
-    } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
-        to = 'good-transfer' + to;
+        to = 'manufacturer-orders/' + notification.data.manufacturer_order_id + to;
     } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
-        to = 'good-delivery/' + notification.data.good_delivery_id + '/edit' + to;
+        to = 'good-deliveries/' + notification.data.good_delivery_id + '/edit' + to;
     } else if (notification.type === NOTIFICATION_TYPES.contract) {
         to = 'contracts/' + notification.data.contract_id + to;
     } else if (notification.type === NOTIFICATION_TYPES.outputOrderApproved) {
@@ -120,8 +117,6 @@ function makeNotificationText(notification) {
     if (notification.type === NOTIFICATION_TYPES.manufacturer) {
         // const name = notification.data.manufacturer_id;
         text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.number;
-    } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
-        text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
     } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
         text = 'Phòng KHKD đã gửi LXH số ' + notification.data.output_order_number;
     } else if (notification.type === NOTIFICATION_TYPES.contract) {

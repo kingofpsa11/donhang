@@ -94,11 +94,9 @@
                     <div class="col-md-12 text-right">
                         @role(4)
                         <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        @if($manufacturerOrderDetail->manufacturerOrder->status === 10)
                         <a href="{{ route('manufacturer-notes.create', $manufacturerOrder) }}" class="btn btn-info">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo phiếu cắt phôi
                         </a>
-                        @endif
                         @endrole
                     </div>
                 </div>

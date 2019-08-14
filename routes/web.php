@@ -76,12 +76,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('boms/getBom', 'BomController@getBom')->name('boms.get_bom');
     Route::resource('boms', 'BomController');
 
-    Route::get('manufacturer-orders/get-all-manufacturers', 'ManufacturerOrderController@getAllManufacturers')->name('manufacturer-orders.get_all_manufacturers');
+    Route::prefix('manufacturer-orders')->name('manufacturer-orders.')->group(function() {
+        Route::get('get-all-manufacturers', 'ManufacturerOrderController@getAllManufacturers')->name('get_all_manufacturers');
+        Route::get('/get-manufacturers-by-status', 'ManufacturerOrderController@getManufacturerByStatus')->name('get_manufacturers_by_status');
+    });
+
     Route::resource('manufacturer-orders', 'ManufacturerOrderController');
 
     Route::get('manufacturer-notes/{manufacturerOrder}/create', 'ManufacturerNoteController@create')->name('manufacturer-notes.create');
     Route::get('manufacturer-notes/get-by-step', 'ManufacturerNoteController@getByStep')->name('manufacturer-notes.get_by_step');
-    Route::resource('manufacturer-notes', 'ManufacturerNoteController')->except(['create']);
+    Route::resource('manufacturer-notes', 'ManufacturerNoteController');
 
     Route::resource('step-notes', 'StepNoteController');
 

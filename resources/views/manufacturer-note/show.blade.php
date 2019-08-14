@@ -29,12 +29,6 @@
                             <!-- /.input group -->
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Đơn vị</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -44,18 +38,28 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th class="col-md-4">Tên sản phẩm</th>
-                        <th class="col-md-5">Phôi</th>
-                        <th class="col-md-1">Số lượng</th>
-                        <th class="col-md-2">Ghi chú</th>
+                        <th>LSX</th>
+                        <th class="text-center">Tên sản phẩm</th>
+                        <th>Loại phôi</th>
+                        <th>Dài</th>
+                        <th>Dày</th>
+                        <th>Chi vi trên</th>
+                        <th>Chi vi dưới</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Ghi chú</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($manufacturerNote->manufacturerNoteDetails as $manufacturerNoteDetail)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
                             <td>{{ $manufacturerNoteDetail->contractDetail->price->product->name }}</td>
                             <td>{{ $manufacturerNoteDetail->product->name }}</td>
+                            <td>{{ $manufacturerNoteDetail->length }}</td>
+                            <td>{{ $manufacturerNoteDetail->thickness }}</td>
+                            <td>{{ $manufacturerNoteDetail->top_perimeter }}</td>
+                            <td>{{ $manufacturerNoteDetail->bottom_perimeter }}</td>
                             <td>{{ $manufacturerNoteDetail->quantity }}</td>
                             <td>{{ $manufacturerNoteDetail->note }}</td>
                         </tr>
@@ -75,6 +79,7 @@
                 </div>
                 <div class="control-button">
                     <div class="text-right">
+                        <a href="{{ route('manufacturer-notes.create') }}" class="btn btn-success">Tạo mới</a>
                         <a href="{{ route('manufacturer-notes.edit', $manufacturerNote) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>

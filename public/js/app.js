@@ -60214,7 +60214,6 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 var notifications = [];
 var NOTIFICATION_TYPES = {
   manufacturer: 'App\\Notifications\\ManufacturerOrder',
-  goodTransfer: 'App\\Notifications\\GoodTransfer',
   outputOrder: 'App\\Notifications\\OutputOrder',
   contract: 'App\\Notifications\\Contract',
   outputOrderApproved: 'App\\Notifications\\OutputOrderApproved'
@@ -60264,9 +60263,7 @@ function routeNotification(notification) {
   var to = '?read=' + notification.id;
 
   if (notification.type === NOTIFICATION_TYPES.manufacturer) {
-    to = 'manufacturer-order/' + notification.data.manufacturer_order_id + to;
-  } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
-    to = 'good-transfer' + to;
+    to = 'manufacturer-orders/' + notification.data.manufacturer_order_id + to;
   } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
     to = 'good-deliveries/' + notification.data.good_delivery_id + '/edit' + to;
   } else if (notification.type === NOTIFICATION_TYPES.contract) {
@@ -60284,8 +60281,6 @@ function makeNotificationText(notification) {
   if (notification.type === NOTIFICATION_TYPES.manufacturer) {
     // const name = notification.data.manufacturer_id;
     text = '<strong>Phòng Kế hoạch</strong> gửi LSX số ' + notification.data.number;
-  } else if (notification.type === NOTIFICATION_TYPES.goodTransfer) {
-    text = 'Giám đốc đã phê duyệt phiếu xuất số ' + notification.data.good_transfer_id;
   } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
     text = 'Phòng KHKD đã gửi LXH số ' + notification.data.output_order_number;
   } else if (notification.type === NOTIFICATION_TYPES.contract) {
@@ -60371,8 +60366,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

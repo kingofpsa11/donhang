@@ -36,7 +36,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ManufacturerNoteDetail extends Model
 {
-    protected $fillable = ['id', 'manufacturer_note_id', 'contract_detail_id', 'bom_detail_id', 'product_id', 'quantity', 'note', 'status'];
+    protected $fillable = [
+        'id',
+        'manufacturer_note_id',
+        'contract_detail_id',
+        'product_id',
+        'length',
+        'thickness',
+        'top_perimeter',
+        'bottom_perimeter',
+        'quantity',
+        'note',
+        'status'];
 
     public $timestamps = true;
 
