@@ -6,6 +6,7 @@ use App\Bom;
 use App\BomDetail;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BomController extends Controller
 {
@@ -125,7 +126,13 @@ class BomController extends Controller
 
     public function getBom(Request $request)
     {
-        $bom = Bom::where('product_id', $request->productId)->with('bomDetails.product')->get();
+        $bom = DB::table('boms')
+            ->join('bom_details AS bd', 'boms.id', '=', 'bd.bom_id')
+            ->join('products AS p', 'p.id','=', 'bd.product_id')
+            ->where('boms.product_id', $request->productId)
+            ->select('bd.product_id', 'p.name AS product_name', 'p.code', 'bd.quantity', 'boms.name')
+            ->get();
+//        $bom = Bom::where('product_id', $request->productId)->with('bomDetails.product')->get();
 
         return response()->json($bom);
     }

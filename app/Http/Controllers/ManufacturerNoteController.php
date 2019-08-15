@@ -143,6 +143,22 @@ class ManufacturerNoteController extends Controller
         return redirect()->route('manufacturer-notes.index');
     }
 
+    public function getManufacturerNote(Request $request)
+    {
+        $search = $request->search;
+
+        $result = DB::table('manufacturer_note_details AS mnd')
+            ->join('products AS p', 'p.id', '=', 'mnd.product_id')
+            ->join('manufacturer_order_details AS mod', 'mod.contract_detail_id', '=', 'mnd.contract_detail_id')
+            ->join('manufacturer_orders AS mo', 'mo.id', '=', 'mod.manufacturer_order_id')
+            ->where('mo.number', 'LIKE', '%' . $search . '%')
+            ->orWhere('p.name', 'LIKE', '%' . $search . '%')
+            ->select('mo.number', 'p.name', 'mnd.quantity', 'mnd.contract_detail_id', 'mnd.product_id')
+            ->get();
+
+        return response()->json($result);
+    }
+
     public function getByStep(Request $request)
     {
         $contractDetails = DB::table('contract_details AS c')

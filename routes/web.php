@@ -83,10 +83,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('manufacturer-orders', 'ManufacturerOrderController');
 
-    Route::get('manufacturer-notes/get-by-step', 'ManufacturerNoteController@getByStep')->name('manufacturer-notes.get_by_step');
+    Route::prefix('manufacturer-notes')->name('manufacturer-notes.')->group(function () {
+        Route::get('get-by-step', 'ManufacturerNoteController@getByStep')->name('get_by_step');
+        Route::get('get-manufacturer-note', 'ManufacturerNoteController@getManufacturerNote')->name('get-manufacturer-note');
+    });
     Route::resource('manufacturer-notes', 'ManufacturerNoteController');
 
     Route::resource('step-notes', 'StepNoteController');
+
+    Route::resource('shape-notes', 'ShapeNoteController');
 
     Route::get('store/listStore', 'StoreController@listStore')->name('store.listStore');
     Route::resource('store', 'StoreController');

@@ -337,16 +337,16 @@ desired effect
             <div id="flash-msg">
                 @include('flash::message')
             </div>
-            <div class="row hidden">
-                <div class="icon col-xs-4">
-                    <img src="{{ asset('storage/icon.png') }}" alt="">
-                </div>
-                <div class="col-xs-8">
-                    <p><strong>CÔNG TY TNHH MỘT THÀNH VIÊN CHIẾU SÁNG & THIẾT BỊ ĐÔ THỊ</strong></p>
-                    <p>Trụ sở chính: Số 1 - phố Vũ Đức Thận - phường Việt Hưng - quận Long Biên - thành phố Hà Nội</p>
-                    <p>Điện thoại: +84-24-38253300;  Fax: +84-24-38262772;  Web: www.hapulico.com; Email: info@hapulico.com</p>
-                </div>
-            </div>
+            {{--<div class="row hidden">--}}
+                {{--<div class="icon col-xs-4">--}}
+                    {{--<img src="{{ asset('storage/icon.png') }}" alt="">--}}
+                {{--</div>--}}
+                {{--<div class="col-xs-8">--}}
+                    {{--<p><strong>CÔNG TY TNHH MỘT THÀNH VIÊN CHIẾU SÁNG & THIẾT BỊ ĐÔ THỊ</strong></p>--}}
+                    {{--<p>Trụ sở chính: Số 1 - phố Vũ Đức Thận - phường Việt Hưng - quận Long Biên - thành phố Hà Nội</p>--}}
+                    {{--<p>Điện thoại: +84-24-38253300;  Fax: +84-24-38262772;  Web: www.hapulico.com; Email: info@hapulico.com</p>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             @yield('content')
         </section>
     </div>
