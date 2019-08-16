@@ -9,23 +9,24 @@
 @section('table-body')
     <tr data-key="0">
         <td data-col-seq="0">1</td>
-        <td class="col-md-1" data-col-seq="1">
-            <input class="form-control" name="contract_id[]" readonly>
+        <td data-col-seq="1">
+            <p class="contract-number"></p>
         </td>
-        <td class="col-md-1" data-col-seq="2">
-            <input type="text" class="form-control" name="manufacturer_order_number[]" readonly>
+        <td data-col-seq="2">
+            <p class="manufacturer-order-number"></p>
         </td>
-        <td class="col-md-2" data-col-seq="3">
-            <input type="text" class="form-control" name="code[]" readonly>
+        <td data-col-seq="3">
+            <p class="code"></p>
+            <input type="hidden" name="code[]" readonly>
         </td>
-        <td class="col-md-5" data-col-seq="4">
+        <td data-col-seq="4">
             <select type="text" class="form-control select2 contract" name="contract_detail_id[]" style="width:100%" required>
             </select>
         </td>
-        <td class="col-md-1" data-col-seq="5">
-            <input type="number" class="form-control" name="quantity[]">
+        <td data-col-seq="5">
+            <input type="text" class="form-control" name="quantity[]">
         </td>
-        <td class="col-md-2" data-col-seq="6">
+        <td data-col-seq="6">
             <input type="text" class="form-control" name="note[]">
         </td>
         <td data-col-seq="7">

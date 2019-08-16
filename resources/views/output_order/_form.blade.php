@@ -11,17 +11,13 @@
 			@yield('method')
 			<div class="box box-default">
 				<div class="box-header with-border">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Đơn vị nhận hàng</label>
-								<select class="form-control select2 customer" name="customer_id" required>
-                                    @if (isset($outputOrder))
-                                        <option value="{{ $outputOrder->customer_id }}">{{ $outputOrder->outputOrderDetails->first()->contractDetail->contract->customer->name }}</option>
-                                    @endif
-								</select>
-							</div>
-						</div>
+                    <div class="form-group">
+                        <label for="">Đơn vị nhận hàng</label>
+                        <select class="form-control select2 customer" name="customer_id" style="width: 100%;" required>
+                            @if (isset($outputOrder))
+                                <option value="{{ $outputOrder->customer_id }}">{{ $outputOrder->outputOrderDetails->first()->contractDetail->contract->customer->name }}</option>
+                            @endif
+                        </select>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -62,9 +58,9 @@
 							<th>Số đơn hàng</th>
 							<th>Số LSX</th>
 							<th>Mã sản phẩm</th>
-							<th>Tên sản phẩm</th>
-							<th>Số lượng</th>
-							<th>Ghi chú</th>
+							<th class="col-md-6">Tên sản phẩm</th>
+							<th class="col-md-1">Số lượng</th>
+							<th class="col-md-2">Ghi chú</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -148,7 +144,8 @@
                                         id: item.id,
                                         number: item.number,
                                         code: item.code,
-                                        remain_quantity: item.remain_quantity
+                                        remain_quantity: item.remain_quantity,
+                                        manufacturer_number: item.manufacturer_number
                                     }
                                 })
                             };
@@ -168,7 +165,9 @@
                 el.on('select2:select', function (e) {
                     let data = e.params.data;
                     $(this).parents('tr').find('input[name*="code"]').val(data.code);
-                    $(this).parents('tr').find('input[name*="contract_id"]').val(data.number);
+                    $(this).parents('tr').find('.code').text(data.code);
+                    $(this).parents('tr').find('.manufacturer-order-number').text(data.manufacturer_number);
+                    $(this).parents('tr').find('.contract-number').text(data.number);
                     $(this).parents('tr').find('input[name*="quantity"]').val(data.remain_quantity);
                 });
             }
