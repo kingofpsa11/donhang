@@ -168,10 +168,11 @@ class ManufacturerNoteController extends Controller
 
         if ($request->stepId == 1) {
 
-            $results = DB::table('manufacturer_note_details')
-                ->joinSub($contractDetails,'manufacturer','manufacturer.id','=','manufacturer_note_details.contract_detail_id')
-                ->join('products', 'products.id','manufacturer_note_details.product_id')
-                ->select('manufacturer_note_details.contract_detail_id', 'manufacturer_note_details.quantity as remain_quantity', 'products.name', 'products.code', 'manufacturer.number', 'manufacturer_note_details.product_id')
+            $results = DB::table('shape_note_details AS snd')
+                ->join('shape_notes AS sn', 'sn.id', '=', 'snd.shape_note_id')
+                ->joinSub($contractDetails,'manufacturer','manufacturer.id','=','snd.contract_detail_id')
+                ->join('products', 'products.id','snd.product_id')
+                ->select('manufacturer.number', 'snd.quantity as remain_quantity', 'products.name', 'products.code', 'snd.product_id', 'manufacturer.id AS contract_detail_id')
                 ->get();
 
         } elseif ($request->stepId == 2) {
@@ -188,10 +189,6 @@ class ManufacturerNoteController extends Controller
                 ->groupBy('step_note_details.product_id', 'step_note_details.contract_detail_id', 'step_notes.step_id')
                 ->having('step_notes.step_id', '=', $request->stepId - 1);
 
-            $bomDetails = DB::table('bom_details')
-                ->join('products', 'products.id', 'bom_details.product_id')
-                ->select('bom_details.id', 'products.code', 'products.name', 'products.id as product_id');
-
             $results = DB::table('manufacturer_note_details')
                 ->join('manufacturer_order_details', 'manufacturer_note_details.contract_detail_id', 'manufacturer_order_details.contract_detail_id')
                 ->join('manufacturer_orders', 'manufacturer_orders.id', 'manufacturer_order_details.manufacturer_order_id')
@@ -202,17 +199,17 @@ class ManufacturerNoteController extends Controller
                     $join->on('stepDetailBefore.contract_detail_id', '=', 'manufacturer_note_details.contract_detail_id')
                         ->where('stepDetailBefore.step_id', 1);
                 })
-                ->joinSub($bomDetails, 'bomDetails', 'bomDetails.id','=', 'manufacturer_note_details.bom_detail_id')
+                ->join('products', 'products.id', 'manufacturer_note_details.product_id')
                 ->select(
                     'manufacturer_note_details.contract_detail_id',
-                    'bomDetails.name', 'bomDetails.code',
+                    'products.name', 'products.code',
                     'manufacturer_orders.number',
-                    'bomDetails.product_id',
+                    'manufacturer_note_details.product_id',
                     DB::raw('
-                    IF(manufacturer_note_details.quantity > stepDetailBefore.total_quantity,
-                        stepDetailBefore.total_quantity - IFNULL(stepDetailAfter.total_quantity, 0),
-                        manufacturer_note_details.quantity - IFNULL(stepDetailAfter.total_quantity, 0))
-                    AS remain_quantity'))
+                        IF(manufacturer_note_details.quantity > stepDetailBefore.total_quantity,
+                            stepDetailBefore.total_quantity - IFNULL(stepDetailAfter.total_quantity, 0),
+                            manufacturer_note_details.quantity - IFNULL(stepDetailAfter.total_quantity, 0))
+                        AS remain_quantity'))
                 ->having('remain_quantity', '>', 0)
                 ->get();
 

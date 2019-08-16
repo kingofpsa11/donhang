@@ -15,7 +15,14 @@ class ShapeNoteController extends Controller
      */
     public function index()
     {
-        //
+        $shapeNoteDetails = ShapeNoteDetail::with(
+            'shapeNote',
+            'contractDetail.price.product',
+            'manufacturerNoteDetail.product'
+        )
+        ->get();
+
+        return view('shape-note.index', compact('shapeNoteDetails'));
     }
 
     /**
@@ -76,7 +83,13 @@ class ShapeNoteController extends Controller
      */
     public function edit(ShapeNote $shapeNote)
     {
-        //
+        $shapeNote->load(
+            'shapeNoteDetails',
+            'shapeNoteDetails.contractDetail.price.product',
+            'shapeNoteDetails.manufacturerNoteDetail.product'
+        );
+
+        return view('shape-note.edit', compact('shapeNote'));
     }
 
     /**
@@ -88,7 +101,23 @@ class ShapeNoteController extends Controller
      */
     public function update(Request $request, ShapeNote $shapeNote)
     {
-        //
+        $shapeNote->update($request->all());
+        for ($i = 0; $i < count($request->code); $i++) {
+            ShapeNoteDetail::updateOrCreate(
+                [
+                    'manufacturer_note_detail_id' => $request->manufacturer_note_detail_id[$i],
+                ],
+                [
+                    'shape_note_id' => $shapeNote->id,
+                    'contract_detail_id' => $request->contract_detail_id[$i],
+                    'product_id' => $request->product_id[$i],
+                    'quantity' => $request->quantity[$i],
+                    'note' => $request->note[$i]
+                ]
+            );
+        }
+
+        return redirect()->route('shape-notes.show', $shapeNote);
     }
 
     /**
@@ -99,6 +128,9 @@ class ShapeNoteController extends Controller
      */
     public function destroy(ShapeNote $shapeNote)
     {
-        //
+        $shapeNote->delete();
+        flash('Đã xoá phiếu cắt tấm số' . $shapeNote->number, 'warning');
+
+        return redirect()->route('shape-notes.index');
     }
 }

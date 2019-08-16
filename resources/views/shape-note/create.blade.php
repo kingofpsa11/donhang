@@ -14,7 +14,7 @@
             <input type="hidden" name="contract_detail_id[]">
         </td>
         <td data-col-seq="3">
-            <select type="text" class="form-control contract_detail_id" name="manufacturer_note_detail_id[]" style="width:100%" required>
+            <select type="text" class="form-control manufacturer_note_detail_id" name="manufacturer_note_detail_id[]" style="width:100%" required>
             </select>
             <div class="col-md-2 no-padding">
                 <input type="text" class="form-control" name="code[]" readonly>
@@ -25,7 +25,7 @@
             </div>
         </td>
         <td data-col-seq="4">
-            <input type="number" class="form-control" name="quantity[]">
+            <input type="number" class="form-control" name="quantity[]" required>
         </td>
         <td data-col-seq="5">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>

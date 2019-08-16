@@ -1,9 +1,9 @@
-@extends('step-note._form')
+@extends('shape-note._form')
 
 @section('action', 'Sửa phiếu')
 
 @section('route')
-    {{ route('step-notes.update', $stepNote) }}
+    {{ route('shape-notes.update', $shapeNote) }}
 @endsection
 
 @section('method')
@@ -11,29 +11,34 @@
 @stop
 
 @section('table-body')
-    @foreach ($stepNote->stepNoteDetails as $stepNoteDetail)
+    @foreach ($shapeNote->shapeNoteDetails as $shapeNoteDetail)
         <tr data-key="{{ $loop->index }}">
             <td data-col-seq="0">
                 <span>{{ $loop->iteration }}</span>
-                <input type="hidden" name="step_note_detail_id[]" value="{{ $stepNoteDetail->id }}">
+                <input type="hidden" name="shape_note_detail_id[]" value="{{ $shapeNoteDetail->id }}">
             </td>
             <td data-col-seq="1">
-                <input class="form-control" name="manufacturer_order_number[]" readonly value="{{ $stepNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}">
-            </td>
-            <td data-col-seq="2">
-                <input type="text" class="form-control" name="code[]" readonly value="{{ $stepNoteDetail->product->code }}">
+                <p class="manufacturer-order-number">{{ $shapeNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</p>
+                <input type="hidden" name="contract_detail_id[]" value="{{ $shapeNoteDetail->contract_detail_id }}">
             </td>
             <td data-col-seq="3">
-                <input type="hidden" name="contract_detail_id[]" value="{{ $stepNoteDetail->contract_detail_id }}">
-                <select type="text" class="form-control select2" name="product_id[]" style="width:100%" id="product_id" required>
-                    <option value="{{ $stepNoteDetail->product_id }}">{{ $stepNoteDetail->product->name }}</option>
+                <select type="text" class="form-control manufacturer_note_detail_id" name="manufacturer_note_detail_id[]" style="width:100%" required>
+                    <option value="{{ $shapeNoteDetail->manufacturer_note_detail_id }}">{{ $shapeNoteDetail->manufacturerNoteDetail->product->name }}</option>
                 </select>
+                <div class="col-md-2 no-padding">
+                    <input type="text" class="form-control" name="code[]" value="{{ $shapeNoteDetail->product->code }}" readonly>
+                </div>
+                <div class="col-md-10 no-padding">
+                    <select type="text" class="form-control" name="product_id[]" style="width:100%" id="product_id" required>
+                        <option value="{{ $shapeNoteDetail->product_id }}">{{ $shapeNoteDetail->product->name }}</option>
+                    </select>
+                </div>
+            </td>
+            <td data-col-seq="4">
+                <input type="number" class="form-control" name="quantity[]" value="{{ $shapeNoteDetail->quantity }}" required>
             </td>
             <td data-col-seq="5">
-                <input type="number" class="form-control" name="quantity[]" value="{{ $stepNoteDetail->quantity }}">
-            </td>
-            <td data-col-seq="7">
-                <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>
     @endforeach

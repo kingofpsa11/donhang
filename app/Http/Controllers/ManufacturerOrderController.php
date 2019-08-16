@@ -184,24 +184,34 @@ class ManufacturerOrderController extends Controller
             ->join('products', 'products.id', '=', 'prices.product_id')
             ->select('cd.id', 'products.code', 'products.name', 'cd.deadline', 'cd.status', 'cd.quantity');
 
-//        return $contractDetails->get();
-
-        $stepNoteDetails = DB::table('step_note_details AS sd')
+        $step = DB::table('step_note_details AS sd')
             ->join('step_notes as s', 's.id', 'sd.step_note_id')
             ->groupBy('sd.contract_detail_id', 's.step_id')
-            ->select('sd.contract_detail_id', DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS first'), DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS second'), DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS third'), DB::raw('IF(s.step_id = 1, SUM(sd.quantity), 0) AS fourth'))
-            ->having('first', '>', '0')
-            ->having('second', '>', '0')
-            ->having('third', '>', '0')
-            ->having('fourth', '>', '0');
+            ->select(
+                'sd.contract_detail_id',
+                's.step_id',
+                DB::raw('IFNULL(SUM(sd.quantity),0) AS total_quantity'));
 
         $query = DB::table('manufacturer_order_details as md')
             ->joinSub($contractDetails, 'cd', function ($join) {
                 $join->on('cd.id', '=', 'md.contract_detail_id');
             })
             ->join('manufacturer_orders as m', 'm.id', 'md.manufacturer_order_id')
-            ->leftJoinSub($stepNoteDetails, 'sd', function ($join) {
-                $join->on('md.contract_detail_id', '=', 'sd.contract_detail_id');
+            ->leftJoinSub($step, 'first', function ($join) {
+                $join->on('first.contract_detail_id', '=', 'md.contract_detail_id')
+                    ->where('first.step_id', '=', 1);
+            })
+            ->leftJoinSub($step, 'second', function ($join) {
+                $join->on('second.contract_detail_id', '=', 'md.contract_detail_id')
+                    ->where('second.step_id', '=', 2);
+            })
+            ->leftJoinSub($step, 'third', function ($join) {
+                $join->on('third.contract_detail_id', '=', 'md.contract_detail_id')
+                    ->where('third.step_id', '=', 3);
+            })
+            ->leftJoinSub($step, 'fourth', function ($join) {
+                $join->on('fourth.contract_detail_id', '=', 'md.contract_detail_id')
+                    ->where('fourth.step_id', '=', 4);
             })
             ->select(
                 'm.id',
@@ -211,13 +221,12 @@ class ManufacturerOrderController extends Controller
                 'cd.name as product',
                 'cd.quantity',
                 'cd.deadline',
-                'sd.first',
-                'sd.second',
-                'sd.third',
-                'sd.fourth',
+                DB::raw('IFNULL(first.total_quantity,0) AS first'),
+                DB::raw('IFNULL(second.total_quantity,0) AS second'),
+                DB::raw('IFNULL(third.total_quantity,0) AS third'),
+                DB::raw('IFNULL(fourth.total_quantity,0) AS fourth'),
                 'm.status'
             );
-
 
         if (empty($request->input('search.value')) && !array_filter(array_column(array_column($request->columns, 'search'), 'value'))) {
 
@@ -229,12 +238,12 @@ class ManufacturerOrderController extends Controller
                 ->orWhere('m.number', 'LIKE', "%{$search}%")
                 ->orWhere('cd.code', 'LIKE', "%{$search}%")
                 ->orWhere('cd.name', 'LIKE', "%{$search}%")
-                ->orWhere('md.quantity', 'LIKE', "%{$search}%")
-                ->orWhere('md.deadline', 'LIKE', "%{$search}%")
-                ->orWhere('sd.first', 'LIKE', "%{$search}%")
-                ->orWhere('sd.second', 'LIKE', "%{$search}%")
-                ->orWhere('sd.third', 'LIKE', "%{$search}%")
-                ->orWhere('sd.fourth', 'LIKE', "%{$search}%")
+                ->orWhere('cd.quantity', 'LIKE', "%{$search}%")
+                ->orWhere('cd.deadline', 'LIKE', "%{$search}%")
+                ->orWhere('first.total_quantity', 'LIKE', "%{$search}%")
+                ->orWhere('second.total_quantity', 'LIKE', "%{$search}%")
+                ->orWhere('third.total_quantity' , 'LIKE', "%{$search}%")
+                ->orWhere('fourth.total_quantity', 'LIKE', "%{$search}%")
                 ->orWhere('md.status', 'LIKE', "%{$search}%");
 
         } else {
@@ -266,27 +275,27 @@ class ManufacturerOrderController extends Controller
             if(!empty($request->input('columns.5.search.value'))) {
                 $search = $request->input('columns.5.search.value');
                 $query =  $query
-                    ->where('md.deadline', 'LIKE', "%{$search}%");
+                    ->where('cd.deadline', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.6.search.value'))) {
                 $search = $request->input('columns.6.search.value');
                 $query =  $query
-                    ->where('sd.first', 'LIKE', "%{$search}%");
+                    ->where('first.total_quantity', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.7.search.value'))) {
                 $search = $request->input('columns.7.search.value');
                 $query =  $query
-                    ->where('sd.second', 'LIKE', "%{$search}%");
+                    ->where('second.total_quantity', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.8.search.value'))) {
                 $search = $request->input('columns.8.search.value');
                 $query =  $query
-                    ->where('sd.third', 'LIKE', "%{$search}%");
+                    ->where('third.total_quantity', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.9.search.value'))) {
                 $search = $request->input('columns.9.search.value');
                 $query =  $query
-                    ->where('sd.fourth', 'LIKE', "%{$search}%");
+                    ->where('fourth.total_quantity', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.10.search.value'))) {
                 $search = $request->input('columns.10.search.value');

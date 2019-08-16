@@ -19,6 +19,12 @@
     max-width: 100%;
   }
 }
+
+@media (orientation: landscape) and (max-width: 768px) {
+  .hide-on-landscape {
+    display: none!important;
+  }
+}
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Phiếu công đoạn')
+@section('title', 'Phiếu cắt tấm')
 
 @section('content')
     
@@ -49,8 +49,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $shapeNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
                             <td>{{ $shapeNoteDetail->manufacturerNoteDetail->product->name }}</td>
-                            <td>{{ $shapeNoteDetail->contractDetail->price->product->code }}</td>
-                            <td>{{ $shapeNoteDetail->contractDetail->price->product->name }}</td>
+                            <td>{{ $shapeNoteDetail->product->code }}</td>
+                            <td>{{ $shapeNoteDetail->product->name }}</td>
                             <td>{{ $shapeNoteDetail->quantity }}</td>
                         </tr>
                     @endforeach
@@ -61,17 +61,23 @@
             <div class="box-footer">
                 <div class="control-button text-right">
                     <div>
-                        <a href="{{ route('step-notes.create') }}" class="btn btn-success">Tạo mới</a>
-                        <a href="{{ route('step-notes.edit', $shapeNote) }}" class="btn btn-primary">
+                        <a href="{{ route('shape-notes.create') }}" class="btn btn-success">Tạo mới</a>
+                        <a href="{{ route('shape-notes.edit', $shapeNote) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
-                        <button class="btn btn-default print">In</button>
-                        {{--<button class="btn btn-danger" data-toggle="modal" data-target="#modal">Xoá</button>--}}
+                        <button class="btn btn-default print">
+                            <i class="fa fa-print"></i> In
+                        </button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal">
+                            <i class="fa fa-remove" aria-hidden="true"></i> Xoá
+                        </button>
 
-                        <form action="{{ route('step-notes.update', $shapeNote) }}" method="POST" style="display: inline-block;">
+                        <form action="{{ route('shape-notes.update', $shapeNote) }}" method="POST" style="display: inline-block;">
                             @csrf
                             @method('PATCH')
-                            <input type="submit" value="Duyệt" class="btn btn-success" name="approved">
+                            <button type="submit" class="btn btn-success" name="approved">
+                                <i class="fa fa-check"></i> Duyệt
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -79,12 +85,12 @@
         </div>
         <!-- /.box -->
     </section>
-    {{--@include('shared._modal', [--}}
-        {{--'model' => $shapeNote,--}}
-        {{--'modelName' => 'Phiếu công đoạn',--}}
-        {{--'modelInformation' => $shapeNote->number,--}}
-        {{--'routeName' => 'step-notes'--}}
-    {{--])--}}
+    @include('shared._modal', [
+        'model' => $shapeNote,
+        'modelName' => 'Phiếu cắt tấm',
+        'modelInformation' => $shapeNote->number,
+        'routeName' => 'shape-notes'
+    ])
 @endsection
 
 @section('javascript')

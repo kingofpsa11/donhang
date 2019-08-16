@@ -4,7 +4,6 @@
 
 
 @section('content')
-
     <!-- Main content -->
     <div class="row">
         <h3 class="text-right visible-print-block col-xs-6">ĐƠN HÀNG</h3>
@@ -62,20 +61,20 @@
             <!-- /.row -->
         </div>
         <!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
+        <div class="box-body table-responsive">
             <table class="table table-bordered table-striped hover" id="contract-show">
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th class="col-md-1 hidden-print">Mã sản phẩm</th>
-                        <th class="col-md-4">Tên sản phẩm</th>
+                        <th class="hidden-print">Mã sản phẩm</th>
+                        <th class="">Tên sản phẩm</th>
                         <th>ĐV</th>
-                        <th class="col-md-1">Số lượng</th>
-                        <th class="col-md-1">Đơn giá</th>
-                        <th class="col-md-1">Tiến độ</th>
-                        <th class="col-md-1 hidden-print">Trạng thái</th>
-                        <th class="col-md-1 hidden-print">ĐVSX</th>
-                        <th class="col-md-2">Ghi chú</th>
+                        <th class="">Số lượng</th>
+                        <th class="">Đơn giá</th>
+                        <th class="">Tiến độ</th>
+                        <th class="hidden-print">Trạng thái</th>
+                        <th class="hidden-print">ĐVSX</th>
+                        <th class="">Ghi chú</th>
                     </tr>
                 </thead>
                 <tbody>

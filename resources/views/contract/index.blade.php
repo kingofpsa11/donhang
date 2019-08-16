@@ -8,7 +8,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
-            <table id="example2" class="table table-bordered table-striped compact hover row-border" style="width:100%">
+            <table id="example2" class="table table-bordered table-striped compact hover ">
                 <thead>
                     <tr>
                         <th>ĐVĐH</th>
@@ -59,6 +59,7 @@
                     "lengthMenu" : "Hiện _MENU_ dòng"
                 },
                 searchDelay     : 300,
+                'lengthChange'  : false,
                 'processing'    : true,
                 'serverSide'    : true,
                 'ajax'          : {
@@ -68,7 +69,9 @@
                     'data'          : { _token: "{{ csrf_token() }}" }
                 },
                 'columns'       : [
-                    {data : "customer" },
+                    {
+                        data : "customer",
+                    },
                     {
                         data : "number",
                         className: 'dt-body-center'

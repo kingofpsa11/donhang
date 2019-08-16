@@ -115,7 +115,7 @@
                     let data = e.params.data;
                     let product_id = data.product_id;
                     let bomEl = $(this).parents('tr').find('[name*="product_id"]');
-                    $(this).parents('tr').find('.manufacturer_order_number').text(data.number);
+                    $(this).parents('tr').find('.manufacturer-order-number').text(data.number);
                     $(this).parents('tr').find('input[name*="quantity"]').val(data.quantity);
                     $(this).parents('tr').find('input[name*="contract_detail_id"]').val(data.contract_detail_id);
 
@@ -155,8 +155,8 @@
                 });
             }
 
-            let contract_detail_id = $('.contract_detail_id');
-            addSelect2(contract_detail_id);
+            let manufacturer_note_detail_id = $('.manufacturer_note_detail_id');
+            addSelect2(manufacturer_note_detail_id);
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
