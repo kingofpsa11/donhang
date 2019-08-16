@@ -40,6 +40,7 @@ class ShapeNoteController extends Controller
         $shapeNote = ShapeNote::create($request->all());
         for ($i = 0; $i < count($request->code); $i++) {
             ShapeNoteDetail::create([
+                'manufacturer_note_detail_id' => $request->manufacturer_note_detail_id[$i],
                 'shape_note_id' => $shapeNote->id,
                 'contract_detail_id' => $request->contract_detail_id[$i],
                 'product_id' => $request->product_id[$i],
@@ -61,7 +62,8 @@ class ShapeNoteController extends Controller
     {
         $shapeNote->load(
             'shapeNoteDetails',
-            'shapeNoteDetails.contractDetail.price.product'
+            'shapeNoteDetails.contractDetail.price.product',
+            'shapeNoteDetails.manufacturerNoteDetail.product'
         );
         return view('shape-note.show', compact('shapeNote'));
     }

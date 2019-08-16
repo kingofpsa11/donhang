@@ -44,10 +44,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($shapeNote->shapeNoteDetail as $shapeNoteDetail)
+                    @foreach ($shapeNote->shapeNoteDetails as $shapeNoteDetail)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $shapeNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
+                            <td>{{ $shapeNoteDetail->manufacturerNoteDetail->product->name }}</td>
                             <td>{{ $shapeNoteDetail->contractDetail->price->product->code }}</td>
                             <td>{{ $shapeNoteDetail->contractDetail->price->product->name }}</td>
                             <td>{{ $shapeNoteDetail->quantity }}</td>
@@ -58,14 +59,6 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <div class="row hidden">
-                    <div class="col-xs-6 sign-name" style="text-align: center">
-                        <p>PHÒNG KẾ HOẠCH KINH DOANH</p>
-                    </div>
-                    <div class="col-xs-6 sign-name" style="text-align: center">
-                        <p>NGƯỜI LẬP</p>
-                    </div>
-                </div>
                 <div class="control-button text-right">
                     <div>
                         <a href="{{ route('step-notes.create') }}" class="btn btn-success">Tạo mới</a>

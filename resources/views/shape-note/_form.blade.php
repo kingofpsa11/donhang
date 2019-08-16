@@ -92,10 +92,11 @@
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.name,
-                                        id: item.contract_detail_id,
+                                        id: item.id,
                                         number: item.number,
                                         quantity: item.quantity,
-                                        product_id: item.product_id
+                                        product_id: item.product_id,
+                                        contract_detail_id: item.contract_detail_id
                                     }
                                 })
                             };
@@ -116,6 +117,7 @@
                     let bomEl = $(this).parents('tr').find('[name*="product_id"]');
                     $(this).parents('tr').find('.manufacturer_order_number').text(data.number);
                     $(this).parents('tr').find('input[name*="quantity"]').val(data.quantity);
+                    $(this).parents('tr').find('input[name*="contract_detail_id"]').val(data.contract_detail_id);
 
                     bomEl.select2({
                         placeholder: 'Chọn phôi',
@@ -145,6 +147,11 @@
                             return $(`<div class="container-fluid"><div class="row"><div class="col-md-2">${repo.code}</div><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.name}</div></div></div> `);
                         },
                     });
+
+                    bomEl.on('select2:select', function (e) {
+                        let data = e.params.data;
+                        $(this).parents('tr').find('[name*="code"]').val(data.code);
+                    })
                 });
             }
 

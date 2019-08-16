@@ -11,9 +11,10 @@
         <td data-col-seq="0">1</td>
         <td data-col-seq="1">
             <p class="manufacturer-order-number"></p>
+            <input type="hidden" name="contract_detail_id[]">
         </td>
         <td data-col-seq="3">
-            <select type="text" class="form-control contract_detail_id" name="contract_detail_id[]" style="width:100%" required>
+            <select type="text" class="form-control contract_detail_id" name="manufacturer_note_detail_id[]" style="width:100%" required>
             </select>
             <div class="col-md-2 no-padding">
                 <input type="text" class="form-control" name="code[]" readonly>

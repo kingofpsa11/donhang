@@ -9,6 +9,7 @@ class ShapeNoteDetail extends Model
     protected $fillable = [
         'shape_note_id',
         'contract_detail_id',
+        'manufacturer_note_detail_id',
         'product_id',
         'quantity',
         'status',
@@ -34,5 +35,10 @@ class ShapeNoteDetail extends Model
     public function contractDetail()
     {
         return $this->belongsTo('App\ContractDetail');
+    }
+
+    public function manufacturerNoteDetail()
+    {
+        return $this->belongsTo('App\ManufacturerNoteDetail');
     }
 }

@@ -153,7 +153,7 @@ class ManufacturerNoteController extends Controller
             ->join('manufacturer_orders AS mo', 'mo.id', '=', 'mod.manufacturer_order_id')
             ->where('mo.number', 'LIKE', '%' . $search . '%')
             ->orWhere('p.name', 'LIKE', '%' . $search . '%')
-            ->select('mo.number', 'p.name', 'mnd.quantity', 'mnd.contract_detail_id', 'mnd.product_id')
+            ->select('mo.number', 'p.name', 'mnd.quantity', 'mnd.contract_detail_id', 'mnd.product_id', 'mnd.id')
             ->get();
 
         return response()->json($result);
