@@ -5,84 +5,82 @@
 @section('content')
 	
 	<!-- Main content -->
-	<section class="content container-fluid">
-		<form action=@yield('route') method="POST" id="form">
-			@csrf
-			@yield('method')
-			<div class="box box-default">
-				<div class="box-header with-border">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Số phiếu</label>
-                                <input type="text" class="form-control" name="number" value="{{ $stepNote->number ?? '' }}" required>
-                            </div>
+    <form action=@yield('route') method="POST" id="form">
+        @csrf
+        @yield('method')
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Số phiếu</label>
+                            <input type="text" class="form-control" name="number" value="{{ $stepNote->number ?? $newNumber }}" required>
                         </div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Ngày</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<input type="text" class="form-control"  name="date" value="{{ $stepNote->date ?? date('d/m/Y') }}" required>
-								</div>
-								<!-- /.input group -->
-							</div>
-						</div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Công đoạn</label>
-                                <select name="step_id" class="form-control" id="step_id">
-                                    <option value="" hidden="">Chọn công đoạn</option>
-                                    @foreach($steps as $step)
-                                        @if (isset($stepNote) && $stepNote->step_id === $step->id)
-                                            <option value="{{ $stepNote->step_id }}" selected>{{ $stepNote->step->name }}</option>
-                                        @else
-                                            <option value="{{ $step->id }}">{{ $step->name }}</option>
-                                        @endif
-                                    @endforeach
-
-                                </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Ngày</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control"  name="date" value="{{ $stepNote->date ?? date('d/m/Y') }}" required>
                             </div>
+                            <!-- /.input group -->
                         </div>
-					</div>
-					<!-- /.row -->
-                </div>
-                <!-- /.box-header -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Công đoạn</label>
+                            <select name="step_id" class="form-control" id="step_id">
+                                <option value="" hidden="">Chọn công đoạn</option>
+                                @foreach($steps as $step)
+                                    @if (isset($stepNote) && $stepNote->step_id === $step->id)
+                                        <option value="{{ $stepNote->step_id }}" selected>{{ $stepNote->step->name }}</option>
+                                    @else
+                                        <option value="{{ $step->id }}">{{ $step->name }}</option>
+                                    @endif
+                                @endforeach
 
-				<div class="box-body table-responsive">
-					<table id="example1" class="table table-bordered table-striped table-condensed">
-						<thead>
-						<tr>
-							<th>STT</th>
-							<th class="col-md-1">Số LSX</th>
-							<th class="col-md-2">Mã sản phẩm</th>
-							<th class="col-md-6">Tên sản phẩm</th>
-							<th class="col-md-3">Số lượng</th>
-						</tr>
-						</thead>
-						<tbody>
-						@yield('table-body')
-						</tbody>
-					</table>
-				</div>
-				<!-- /.box-body -->
-                <div class="box-footer text-right">
-                    <div>
-                        <button class="btn btn-primary addRow
-                            @if (Request::is('*/create'))
-                                disabled
-                            @endif
-                        ">Thêm dòng</button>
-                        <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('step-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
+                            </select>
+                        </div>
                     </div>
                 </div>
-			</div>
-			<!-- /.box -->
-		</form>
-	</section>
+                <!-- /.row -->
+            </div>
+            <!-- /.box-header -->
+
+            <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-striped table-condensed">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th class="col-md-1">Số LSX</th>
+                        <th class="col-md-2">Mã sản phẩm</th>
+                        <th class="col-md-6">Tên sản phẩm</th>
+                        <th class="col-md-3">Số lượng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @yield('table-body')
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-right">
+                <div>
+                    <button class="btn btn-primary addRow
+                        @if (Request::is('*/create'))
+                            disabled
+                        @endif
+                    ">Thêm dòng</button>
+                    <input type="submit" value="Lưu" class="btn btn-success save">
+                    <a href="{{ route('step-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </form>
 @endsection
 
 @section('javascript')

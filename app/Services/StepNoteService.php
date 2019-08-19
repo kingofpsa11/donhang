@@ -48,9 +48,31 @@ class StepNoteService
         return $this->stepNoteDetailRepository->all();
     }
 
+    public function find($id)
+    {
+        return $this->stepNoteRepository->find($id);
+    }
+
+    public function findWithDetails($id)
+    {
+        return $this->stepNoteRepository->find($id,
+            [
+                'stepNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder',
+                'stepNoteDetails.contractDetail.price.product',
+                'step'
+            ]);
+    }
+
+    public function getNewNumber()
+    {
+        return $this->stepNoteRepository->getNewNumber();
+    }
+
     public function create(Request $request)
     {
         $stepNote = $this->stepNoteRepository->create($request->all());
+//        $beforeStepNote = $this->stepNoteRepository
+//            ->where('step_id', $request->step_id - 1)->get();
 //        $goodDelivery = $stepNote->delivery()->firstOrCreate(
 //            [
 //                'deliverable_id' => $stepNote->id,
@@ -74,6 +96,15 @@ class StepNoteService
 
         for ($i = 0; $i < count($request->code); $i++) {
             $stepNoteDetail = $this->stepNoteDetailRepository->create($request, $stepNote->id, $i);
+//            $array = [];
+//            foreach ($beforeStepNote as $beforeStep) {
+//                $result = $beforeStep->stepNoteDetails()->where('contract_detail_id', $request->contract_detail_id[$i])
+//                    ->groupBy('contract_detail_id')
+//                    ->sum('quantity');
+//                array_push($array, $result);
+//            }
+//
+//            return $array;
 //            $stepNoteDetail->deliveries()->firstOrCreate(
 //                [
 //                    'deliverable_id' => $stepNoteDetail->id,
@@ -101,39 +132,44 @@ class StepNoteService
         return $stepNote;
     }
 
-    public function find($id)
-    {
-        return $this->stepNoteRepository->find($id);
-    }
-
-    public function findWithDetails($id)
-    {
-        return $this->stepNoteRepository->find($id,
-            [
-                'stepNoteDetails.contractDetail.manufacturerOrderDetail.manufacturerOrder',
-                'stepNoteDetails.contractDetail.price.product',
-                'step'
-            ]);
-    }
-
     public function update(Request $request, $id)
     {
         $this->stepNoteRepository->update($id, $request->all());
         $stepNote = $this->stepNoteRepository->find($id);
+        $beforeStepNote = $this->stepNoteRepository
+            ->where('step_id', $request->step_id - 1);
 
         $this->stepNoteDetailRepository->update(['status' => 9], $id);
-        $goodDelivery = $stepNote->delivery()->firstOrCreate(
+//        $goodDelivery = $stepNote->delivery()->firstOrCreate(
+//            [
+//                'deliverable_id' => $stepNote->id,
+//            ],
+//            [
+//                'number' => GoodDelivery::getNewNumber(),
+//                'customer_id' => 941,
+//                'date' => $stepNote->date,
+//            ]);
+//        $goodDelivery->goodDeliveryDetails()->update(['status' => 9]);
+
+        $goodReceive = $stepNote->receive()->updateOrCreate(
             [
-                'deliverable_id' => $stepNote->id,
+                'receivable_id' => $stepNote->id,
             ],
             [
-                'number' => GoodDelivery::getNewNumber(),
-                'customer_id' => 941,
-                'date' => date('d/m/Y')
-            ]);
-        $goodDelivery->goodDeliveryDetails()->update(['status' => 9]);
+                'number' => GoodReceive::getNewNumber(),
+                'supplier_id' => 941,
+                'date' => $stepNote->date,
+            ]
+        );
+        $goodReceive->goodReceiveDetails()->update(['status' => 9]);
 
         for ($i = 0; $i < count($request->code); $i++) {
+            $beforeStepNote->stepNoteDetails()->where('contract_detail_id', $request->contract_detail_id[$i])
+                ->groupBy('contract_detail_id')
+                ->sum('quantity')
+                ->get();
+            var_dump($beforeStepNote);
+            die;
             $stepNoteDetail = $this->stepNoteDetailRepository->updateOrCreate(
                 [
                     'id' => $request->step_note_detail_id[$i]
@@ -146,20 +182,33 @@ class StepNoteService
                     'status' => 10
                 ]);
 
-            $stepNoteDetail->delivery()->updateOrCreate(
+//            $stepNoteDetail->delivery()->updateOrCreate(
+//                [
+//                    'deliverable_id' => $stepNoteDetail->id,
+//                ],
+//                [
+//                    'good_delivery_id' => $goodDelivery->id,
+//                    'product_id' => $stepNoteDetail->contractDetail->price->product->id,
+//                    'quantity' => $stepNoteDetail->quantity,
+//                    'status' => 10,
+//                ]
+//            );
+
+            $stepNoteDetail->receive()->updateOrCreate(
                 [
-                    'deliverable_id' => $stepNoteDetail->id,
+                    'receivable_id' => $stepNoteDetail->id,
                 ],
                 [
-                    'good_delivery_id' => $goodDelivery->id,
-                    'product_id' => $stepNoteDetail->contractDetail->price->product->id,
+                    'good_receive_id' => $goodReceive->id,
+                    'product_id' => $stepNoteDetail->contractDetail->price->product_id,
                     'quantity' => $stepNoteDetail->quantity,
+                    'store_id' => 27,
                     'status' => 10,
                 ]
             );
         }
 
-        $goodDelivery->goodDeliveryDetails()->where('status', 9)->delete();
+        $goodReceive->goodReceiveDetails()->where('status', 9)->delete();
         $this->stepNoteDetailRepository->deleteWhere(['status' => 9]);
 
         return $stepNote;
@@ -167,6 +216,8 @@ class StepNoteService
 
     public function delete($id)
     {
+        $goodReceive = $this->stepNoteRepository->find($id)->receive();
         $this->stepNoteRepository->delete($id);
+        $goodReceive->delete();
     }
 }

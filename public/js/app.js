@@ -60147,6 +60147,22 @@ var NOTIFICATION_TYPES = {
   outputOrderApproved: 'App\\Notifications\\OutputOrderApproved'
 };
 $(document).ready(function () {
+  window.onscroll = function () {
+    myFunction();
+  };
+
+  var navbar = $(".navbar.navbar-static-top");
+  var sticky = navbar.offset().top;
+  console.log(sticky);
+
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.addClass("sticky");
+    } else {
+      navbar.removeClass("sticky");
+    }
+  }
+
   if (typeof Laravel !== 'undefined' && Laravel.userId) {
     $.get('/notifications', function (data) {
       addNotifications(data, '.notifications-menu');
@@ -60294,8 +60310,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\donhang\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\donhang\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

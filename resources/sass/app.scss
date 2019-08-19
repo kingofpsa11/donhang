@@ -13,10 +13,23 @@
 //@import '~admin-lte/bower_components/ionicons/css/ionicons.css';
 @import '~admin-lte/dist/css/AdminLTE.css';
 //@import '~admin-lte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css';
+@media print {
+  @page {
+    margin: 1cm 1cm 0 2cm;
+  }
+}
 
-@media (max-width: 720px) {
+@media (max-width: 767px) {
   .navbar-nav > .notifications-menu > .dropdown-menu {
     max-width: 100%;
+  }
+
+  table input {
+    width: auto;
+  }
+
+  .table-responsive .table > tbody > tr > td {
+    white-space: nowrap;
   }
 }
 
@@ -25,6 +38,13 @@
     display: none!important;
   }
 }
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -44,4 +64,10 @@
 
 .bigdrop {
   width: 300px !important;
+}
+.select2-selection.select2-selection--single {
+  height: auto!important;
+  .select2-selection__rendered {
+    white-space: normal !important;
+  }
 }

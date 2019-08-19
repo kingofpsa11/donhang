@@ -12165,9 +12165,23 @@ hr {
     white-space: normal !important;
   }
 }
-@media (max-width: 720px) {
+@media print {
+@page {
+    margin: 1cm 1cm 0 2cm;
+}
+}
+
+@media (max-width: 767px) {
   .navbar-nav > .notifications-menu > .dropdown-menu {
     max-width: 100%;
+  }
+
+  table input {
+    width: auto;
+  }
+
+  .table-responsive .table > tbody > tr > td {
+    white-space: nowrap;
   }
 }
 
@@ -12175,6 +12189,12 @@ hr {
   .hide-on-landscape {
     display: none !important;
   }
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .navbar-laravel {
@@ -12197,5 +12217,13 @@ hr {
 
 .bigdrop {
   width: 300px !important;
+}
+
+.select2-selection.select2-selection--single {
+  height: auto !important;
+}
+
+.select2-selection.select2-selection--single .select2-selection__rendered {
+  white-space: normal !important;
 }
 

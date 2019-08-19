@@ -34,8 +34,9 @@ class StepNoteController extends Controller
      */
     public function create()
     {
+        $newNumber = $this->stepNoteService->getNewNumber();
         $steps = Step::all();
-        return view('step-note.create', compact('steps'));
+        return view('step-note.create', compact('steps', 'newNumber'));
     }
 
     /**
@@ -47,7 +48,7 @@ class StepNoteController extends Controller
     public function store(Request $request)
     {
         $stepNote = $this->stepNoteService->create($request);
-
+        return $stepNote;
         return redirect()->route('step-notes.show', $stepNote);
     }
 

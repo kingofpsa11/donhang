@@ -29,6 +29,16 @@ class StepNoteRepository
         return $this->stepNote->with($with);
     }
 
+    public function getNewNumber()
+    {
+        return $this->stepNote->whereYear('date', date('Y'))->max('number') + 1 ?? 1;
+    }
+
+    public function where($column, $operator = null, $value = null, $boolean = 'and')
+    {
+        return $this->stepNote->where($column, $operator, $value, $boolean);
+    }
+
     public function create(array $attributes)
     {
         return $this->stepNote->create($attributes);

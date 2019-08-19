@@ -55,6 +55,22 @@ const NOTIFICATION_TYPES = {
 };
 
 $(document).ready(function () {
+    window.onscroll = function() {myFunction()};
+    
+    let navbar = $(".navbar.navbar-static-top");
+    
+    
+    let sticky = navbar.offset().top;
+    console.log(sticky);
+    
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.addClass("sticky")
+        } else {
+            navbar.removeClass("sticky");
+        }
+    }
+    
     if (typeof Laravel !== 'undefined' && Laravel.userId) {
         $.get('/notifications', function (data) {
             addNotifications(data, '.notifications-menu');

@@ -10,9 +10,10 @@
             <span>1</span>
         </td>
         <td data-col-seq="1">
-            <input type="text" class="form-control" name="code[]" readonly>
+            <p class="code"></p>
+            <input type="hidden" class="form-control" name="code[]" readonly>
         </td>
-        <td data-col-seq="2">
+        <td data-col-seq="2" class="col-5">
             <select class="form-control select2 price" style="width: 100%;" name="price_id[]" required>
             </select>
         </td>
