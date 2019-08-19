@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\StepNoteService;
 use App\Step;
+use App\StepNote;
+use App\StepNoteDetail;
 use Illuminate\Http\Request;
 
 class StepNoteController extends Controller
@@ -47,9 +49,13 @@ class StepNoteController extends Controller
      */
     public function store(Request $request)
     {
-        $stepNote = $this->stepNoteService->create($request);
-        if(! $stepNote) {
-            return back()->withInput();
+//        $stepNote = $this->stepNoteService->create($request);
+//        if(! $stepNote) {
+//            return back()->withInput();
+//        }
+        $stepNote = StepNote::create($request->all());
+        foreach ($request->details as $stepNoteDetail) {
+            $stepNote->stepNoteDetails()->create($stepNoteDetail);
         }
         return redirect()->route('step-notes.show', $stepNote);
     }

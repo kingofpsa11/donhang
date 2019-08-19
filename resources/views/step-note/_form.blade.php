@@ -92,14 +92,19 @@
             }
 
             let date = $('[name="date"]');
-
+            let step_id_obj = $('#step_id');
             maskDate(date);
 
             function addSelect2(el) {
-                let step_id = $('#step_id').val();
-                console.log(step_id);
+                let step_id = step_id_obj.val();
                 el.select2({
                     placeholder: 'Nhập số lệnh sản xuất',
+                    minimumResultsForSearch: -1,
+                    language: {
+                        inputTooShort: function () {
+                            return "Bạn phải nhập nhiều hơn"
+                        }
+                    },
                     ajax: {
                         url: '{{ route('manufacturer-notes.get_by_step') }}',
                         data: function (params) {
@@ -129,7 +134,7 @@
                         if (repo.loading) {
                             return 'Đang tìm kiếm';
                         }
-                        return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.quantity}</div></div></div> `);
+                        return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.quantity}</div></div></div>`);
                     },
                 })
                 .on('select2:select', function (e) {
@@ -142,7 +147,7 @@
             }
 
             let product_id = $('.product_id');
-            $('#step_id').on('change', function () {
+            step_id_obj.on('change', function () {
                 addSelect2(product_id);
             });
 
@@ -154,6 +159,12 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
+                    $(row).find('[name]').each(function (index, el) {
+                        let oldName = $(el).attr('name');
+                        let pos = oldName.indexOf('[');
+                        let newName = oldName.substr(0, pos + 1) + i + oldName.substr(pos + 2);
+                        $(el).attr('name', newName);
+                    });
                     if (rows.length === 1) {
                         $(row).find('button.removeRow').addClass('hidden');
                     } else {
@@ -182,6 +193,7 @@
                 tableBody.append(newRow);
 
                 addSelect2(select2);
+                updateNumberOfRow();
             });
 
             $('#example1').on('click', '.removeRow', function (e) {
