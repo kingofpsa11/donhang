@@ -146,11 +146,14 @@
                             }
                             return $(`<div class="container-fluid"><div class="row"><div class="col-md-2">${repo.code}</div><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.name}</div></div></div> `);
                         },
-                    });
-
-                    bomEl.on('select2:select', function (e) {
+                    })
+                    .on('select2:select', function (e) {
                         let data = e.params.data;
-                        $(this).parents('tr').find('[name*="code"]').val(data.code);
+                        let row = $(this).parents('tr');
+                        let quantityObj = row.find('[name*="quantity"]');
+                        let quantity = quantityObj.val();
+                        row.find('[name*="code"]').val(data.code);
+                        quantityObj.val(Math.ceil(quantity * data.quantity));
                     })
                 });
             }

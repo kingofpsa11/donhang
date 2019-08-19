@@ -3,7 +3,7 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp LXH</h3>
+            <h3 class="box-title">Tổng hợp Lệnh sản xuất</h3>
             <a href="{{ route('step-notes.create') }}" class="btn btn-primary pull-right">Tạo mới</a>
         </div>
         <!-- /.box-header -->

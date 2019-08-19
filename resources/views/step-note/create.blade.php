@@ -17,11 +17,11 @@
         </td>
         <td data-col-seq="3">
             <input type="hidden" name="contract_detail_id[]">
-            <select type="text" class="form-control select2" name="product_id[]" style="width:100%" id="product_id" required>
+            <select type="text" class="form-control select2 product_id" name="product_id[]" style="width:100%" required>
             </select>
         </td>
         <td data-col-seq="4">
-            <input type="number" class="form-control" name="quantity[]">
+            <input type="number" class="form-control" name="quantity[]" value="{{ old('quantity')[0] }}">
         </td>
         <td data-col-seq="5">
             <button class="btn btn-primary removeRow hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>

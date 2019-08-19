@@ -14,7 +14,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Số phiếu</label>
-                            <input type="text" class="form-control" name="number" value="{{ $stepNote->number ?? $newNumber }}" required>
+                            <input type="text" class="form-control" name="number" value="{{ old('number') ?? $stepNote->number ?? $newNumber }}" required>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -24,7 +24,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control"  name="date" value="{{ $stepNote->date ?? date('d/m/Y') }}" required>
+                                <input type="text" class="form-control"  name="date" value="{{ old('date') ?? $stepNote->date ?? date('d/m/Y') }}" required>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -36,7 +36,9 @@
                                 <option value="" hidden="">Chọn công đoạn</option>
                                 @foreach($steps as $step)
                                     @if (isset($stepNote) && $stepNote->step_id === $step->id)
-                                        <option value="{{ $stepNote->step_id }}" selected>{{ $stepNote->step->name }}</option>
+                                        <option value="{{ $step->id }}" selected>{{ $step->name }}</option>
+                                    @elseif(old('step_id') == $step->id)
+                                        <option value="{{ $step->id }}" selected>{{ $step->name }}</option>
                                     @else
                                         <option value="{{ $step->id }}">{{ $step->name }}</option>
                                     @endif
@@ -69,11 +71,7 @@
             <!-- /.box-body -->
             <div class="box-footer text-right">
                 <div>
-                    <button class="btn btn-primary addRow
-                        @if (Request::is('*/create'))
-                            disabled
-                        @endif
-                    ">Thêm dòng</button>
+                    <button class="btn btn-primary addRow">Thêm dòng</button>
                     <input type="submit" value="Lưu" class="btn btn-success save">
                     <a href="{{ route('step-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
                 </div>
@@ -99,6 +97,7 @@
 
             function addSelect2(el) {
                 let step_id = $('#step_id').val();
+                console.log(step_id);
                 el.select2({
                     placeholder: 'Nhập số lệnh sản xuất',
                     ajax: {
@@ -132,11 +131,8 @@
                         }
                         return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.quantity}</div></div></div> `);
                     },
-                });
-            }
-
-            function getProduct(el) {
-                el.on('select2:select', function (e) {
+                })
+                .on('select2:select', function (e) {
                     let data = e.params.data;
                     $(this).parents('tr').find('input[name*="code"]').val(data.code);
                     $(this).parents('tr').find('input[name*="manufacturer_order_number"]').val(data.number);
@@ -145,11 +141,9 @@
                 });
             }
 
-            let product_id = $('#product_id');
+            let product_id = $('.product_id');
             $('#step_id').on('change', function () {
-                $('.addRow').removeClass('disabled');
                 addSelect2(product_id);
-                getProduct(product_id);
             });
 
             addSelect2(product_id);
@@ -188,7 +182,6 @@
                 tableBody.append(newRow);
 
                 addSelect2(select2);
-                getProduct(select2);
             });
 
             $('#example1').on('click', '.removeRow', function (e) {

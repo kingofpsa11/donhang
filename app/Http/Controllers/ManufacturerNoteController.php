@@ -172,6 +172,7 @@ class ManufacturerNoteController extends Controller
                 ->join('shape_notes AS sn', 'sn.id', '=', 'snd.shape_note_id')
                 ->joinSub($contractDetails,'manufacturer','manufacturer.id','=','snd.contract_detail_id')
                 ->join('products', 'products.id','snd.product_id')
+                ->where('snd.status', 10)
                 ->select('manufacturer.number', 'snd.quantity as remain_quantity', 'products.name', 'products.code', 'snd.product_id', 'manufacturer.id AS contract_detail_id')
                 ->get();
 

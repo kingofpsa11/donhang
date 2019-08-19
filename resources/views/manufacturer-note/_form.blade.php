@@ -121,44 +121,45 @@
                         }
                         return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.quantity}</div></div></div> `);
                     },
-                });
-
-
-
-                //
-
-                el.on('select2:select', function (e) {
+                })
+                .on('select2:select', function (e) {
                     let data = e.params.data;
                     let row = el.parents('tr');
                     let bomEl = row.find('[name*="product_id"]');
                     row.find('[name*="quantity"]').val(data.quantity);
                     row.find('.manufacturer-order-number').text(data.number);
 
-                    //Xoá các option của select product-id
-                    bomEl.html('');
-
-                    $.ajax({
-                        url: '{{ route('boms.get_bom') }}',
-                        data: {productId: data.product},
-                        dataType: 'json',
-                        success: function (data) {
-                            if (Object.keys(data).length !== 0) {
-                                $.each(data, function (i, el) {
-                                    bomEl.append(`<optgroup label="${el.name}"></optgroup>`);
-                                    $.each(el.bom_details, function (index, element) {
-                                        bomEl.find('optgroup:last').append(`<option value="${element.product_id}">${element.product.name}</option>`);
-                                    });
-                                });
-
-                                bomEl.select2({
-                                    placeholder: 'Chọn loại phôi'
-                                });
-
-                            } else {
-                                bomEl.append(`<option value="">Chưa có định mức</option>`);
+                    bomEl.select2({
+                        placeholder: 'Chọn loại phôi',
+                        minimumResultsForSearch: -1,
+                        ajax: {
+                            url: '{{ route('boms.get_bom') }}',
+                            data: {productId: data.product},
+                            dataType: 'json',
+                            processResults: function (data) {
+                                return {
+                                    results: $.map(data, function (item) {
+                                        return {
+                                            text: item.product_name,
+                                            id: item.product_id,
+                                            quantity: item.quantity,
+                                            code: item.code,
+                                            name: item.name,
+                                        }
+                                    })
+                                };
+                            },
+                            cache: true,
+                        },
+                        templateResult: function (repo) {
+                            if (repo.loading) {
+                                return 'Đang tìm kiếm';
                             }
-                        }
+                            return $(`<div class="container-fluid"><div class="row"><div class="col-md-4">${repo.name}</div><div class="col-md-8">${repo.text}</div></div></div> `);
+                        },
                     });
+
+
                 });
             }
             function updateNumberOfRow() {

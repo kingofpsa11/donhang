@@ -5,19 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PriceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PriceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/StepNoteRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/StepNoteRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Services/StepNoteService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/StepNoteService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/bootstrap/dist/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/bootstrap/dist/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/contract/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/contract/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contract/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shape-note/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shape-note/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/step-note/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/step-note/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="671">
-              <caret line="38" column="71" lean-forward="true" selection-start-line="38" selection-start-column="71" selection-end-line="38" selection-end-column="71" />
+            <state relative-caret-position="394">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
             </state>
           </provider>
         </entry>
@@ -64,44 +63,35 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+            <state relative-caret-position="474">
+              <caret line="97" column="85" lean-forward="true" selection-start-line="97" selection-start-column="85" selection-end-line="97" selection-end-column="85" />
+              <folding>
+                <element signature="e#32#53#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/StepNote.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="35" />
+            <state relative-caret-position="320">
+              <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+              <folding>
+                <element signature="e#40#58#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteRepository.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/step-note/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="23" selection-start-column="23" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/step-note/_form.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+            <state relative-caret-position="299">
+              <caret line="175" column="48" selection-start-line="175" selection-start-column="48" selection-end-line="175" selection-end-column="48" />
+              <folding>
+                <element signature="e#40#65#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -155,10 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/OutputOrderController.php" />
-        <option value="$PROJECT_DIR$/resources/views/notification/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/GoodDeliveryRepository.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/GoodDeliveryController.php" />
         <option value="$PROJECT_DIR$/resources/views/good-delivery/index.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_13_054800_create_good_receives_table.php" />
@@ -174,7 +160,6 @@
         <option value="$PROJECT_DIR$/app/ManufacturerNote.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_08_15_033835_create_shape_notes_table.php" />
@@ -185,13 +170,9 @@
         <option value="$PROJECT_DIR$/app/ShapeNoteDetail.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/shape-note/edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/shape-note/_form.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php" />
         <option value="$PROJECT_DIR$/resources/views/shape-note/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/shape-note/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/contract/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
-        <option value="$PROJECT_DIR$/resources/views/step-note/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/shape-note/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
@@ -202,10 +183,19 @@
         <option value="$PROJECT_DIR$/resources/views/contract/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/sass/app.scss" />
-        <option value="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/app/Repositories/StepNoteRepository.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/step-note/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" />
+        <option value="$PROJECT_DIR$/resources/views/step-note/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" />
         <option value="$PROJECT_DIR$/app/Services/StepNoteService.php" />
+        <option value="$PROJECT_DIR$/resources/views/step-note/show.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PriceController.php" />
+        <option value="$PROJECT_DIR$/resources/views/shape-note/_form.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
       </list>
     </option>
   </component>
@@ -320,7 +310,7 @@
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1487" />
     <option name="y" value="315" />
     <option name="width" value="1936" />
@@ -386,6 +376,20 @@
               <item name="donhang" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="manufacturer-note" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="donhang" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="shape-note" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="donhang" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="step-note" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -410,19 +414,19 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\xampp\htdocs\donhang\resources\views" />
-      <recent name="C:\xampp\htdocs\donhang\resources\views\manufacturer-note" />
-      <recent name="E:\xampp\htdocs\donhang\resources\views\notification" />
-      <recent name="C:\xampp\htdocs\donhang\resources\views" />
-      <recent name="E:\xampp\htdocs\donhang\resources\views\good-transfer" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\xampp\htdocs\donhang\app\Repositories" />
       <recent name="E:\xampp\htdocs\donhang\app" />
       <recent name="C:\xampp\htdocs\donhang\resources\views\contract" />
       <recent name="E:\xampp\htdocs\donhang\resources\views\layouts" />
       <recent name="E:\xampp\htdocs\donhang\resources\views\layout" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\xampp\htdocs\donhang\resources\views" />
+      <recent name="C:\xampp\htdocs\donhang\resources\views\manufacturer-note" />
+      <recent name="E:\xampp\htdocs\donhang\resources\views\notification" />
+      <recent name="C:\xampp\htdocs\donhang\resources\views" />
+      <recent name="E:\xampp\htdocs\donhang\resources\views\good-transfer" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -542,6 +546,7 @@
       <workItem from="1565886301078" duration="4292000" />
       <workItem from="1565918401976" duration="18098000" />
       <workItem from="1566006557584" duration="16598000" />
+      <workItem from="1566179594989" duration="17374000" />
     </task>
     <servers />
   </component>
@@ -554,7 +559,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1379068000" />
+    <option name="totallyTimeSpent" value="1396442000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -566,12 +571,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="7" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
       <window_info id="npm" order="1" sideWeight="0.5005574" side_tool="true" weight="0.16791044" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49881518" visible="true" weight="0.21224165" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49881518" visible="true" weight="0.21428572" />
       <window_info id="Structure" order="3" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
       <window_info anchor="bottom" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.4989339" weight="0.23389022" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -581,7 +586,7 @@
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.3277592" />
       <window_info anchor="bottom" id="Run" order="7" weight="0.32998884" />
-      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49920508" weight="0.28762543" />
+      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49920508" weight="0.54960984" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.3293556" />
@@ -637,112 +642,20 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="index.php">
+        <watch expression="$_SERVER" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
-          <folding>
-            <element signature="e#36#59#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create2.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_035657_create_manufacturer_notes_table.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PriceController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="74" column="43" lean-forward="true" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="595" column="20" selection-start-line="595" selection-start-column="20" selection-end-line="595" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="55" column="126" lean-forward="true" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="126" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="105" selection-start-line="6" selection-start-column="105" selection-end-line="6" selection-end-column="105" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="35" column="13" selection-start-line="32" selection-start-column="86" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_15_033835_create_shape_notes_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_06_005109_create_step_notes_table.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="160" column="23" lean-forward="true" selection-start-line="139" selection-start-column="20" selection-end-line="160" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="130" column="45" selection-start-line="130" selection-start-column="45" selection-end-line="130" selection-end-column="45" />
-          <folding>
-            <element signature="e#40#52#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Contract.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -803,13 +716,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/shape-note/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -837,16 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="208" column="27" selection-start-line="208" selection-start-column="27" selection-end-line="208" selection-end-column="27" />
-          <folding>
-            <element signature="e#40#65#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1000">
@@ -856,38 +752,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/step-note/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="92" column="35" selection-start-line="92" selection-start-column="35" selection-end-line="92" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/shape-note/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="79" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/shape-note/_form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="122" column="49" selection-start-line="122" selection-start-column="49" selection-end-line="122" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerOrderController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="282" column="15" lean-forward="true" selection-start-line="282" selection-start-column="15" selection-end-line="282" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -967,45 +835,200 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/step-note/_form.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+        <state relative-caret-position="661">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/step-note/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
+        <state relative-caret-position="286">
+          <caret line="75" column="38" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteRepository.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        <state relative-caret-position="479">
+          <caret line="126" column="20" selection-start-line="126" selection-start-column="20" selection-end-line="126" selection-end-column="20" />
+          <folding>
+            <element signature="e#40#52#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/StepNote.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
+        <state relative-caret-position="420">
           <caret line="22" column="35" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/step-note/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-200">
+          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/StepNoteRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/helpers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="1125" selection-start-line="1125" selection-end-line="1125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="142" selection-start-line="142" selection-end-line="142" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/http-foundation/Response.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="485" selection-start-line="485" selection-end-line="485" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="165" selection-start-line="165" selection-end-line="165" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/shape-note/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="719" selection-start-line="719" selection-end-line="719" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/step-note/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="110" selection-start-line="19" selection-start-column="110" selection-end-line="19" selection-end-column="110" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="38" column="71" lean-forward="true" selection-start-line="38" selection-start-column="71" selection-end-line="38" selection-end-column="71" />
+        <state relative-caret-position="394">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PriceController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="84" column="131" selection-start-line="84" selection-start-column="131" selection-end-line="84" selection-end-column="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/shape-note/_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="155" column="77" lean-forward="true" selection-start-line="155" selection-start-column="77" selection-end-line="155" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/step-note/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="72" column="98" lean-forward="true" selection-start-line="72" selection-start-column="98" selection-end-line="72" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/step-note/_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="148" column="35" selection-start-line="148" selection-start-column="35" selection-end-line="148" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="175" column="48" selection-start-line="175" selection-start-column="48" selection-end-line="175" selection-end-column="48" />
+          <folding>
+            <element signature="e#40#65#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+          <folding>
+            <element signature="e#40#58#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+        <state relative-caret-position="474">
+          <caret line="97" column="85" lean-forward="true" selection-start-line="97" selection-start-column="85" selection-end-line="97" selection-end-column="85" />
+          <folding>
+            <element signature="e#32#53#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

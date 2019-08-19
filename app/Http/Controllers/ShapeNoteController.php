@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\BomDetail;
+use App\ManufacturerNoteDetail;
 use App\ShapeNote;
 use App\ShapeNoteDetail;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ShapeNoteController extends Controller
 {
@@ -45,6 +48,7 @@ class ShapeNoteController extends Controller
     public function store(Request $request)
     {
         $shapeNote = ShapeNote::create($request->all());
+
         for ($i = 0; $i < count($request->code); $i++) {
             ShapeNoteDetail::create([
                 'manufacturer_note_detail_id' => $request->manufacturer_note_detail_id[$i],
@@ -54,6 +58,22 @@ class ShapeNoteController extends Controller
                 'quantity' => $request->quantity[$i],
                 'note' => $request->note[$i]
             ]);
+
+
+            $manufacturerNoteDetail = ManufacturerNoteDetail::find($request->manufacturer_note_detail_id[$i]);
+
+            $bomProductId = $manufacturerNoteDetail->product_id;
+            $quantity = $manufacturerNoteDetail->quantity;
+
+            $bomQuantity = BomDetail::where('product_id', $request->product_id[$i])
+                ->whereHas('bom', function (Builder $query) use ($bomProductId) {
+                    $query->where('product_id', '=', $bomProductId);
+                })
+                ->first()->quantity;
+
+            if (ceil($quantity * $bomQuantity) == $request->quantity[$i]) {
+                $manufacturerNoteDetail->update(['status' => 9]);
+            }
         }
 
         return redirect()->route('shape-notes.show', $shapeNote);

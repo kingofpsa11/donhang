@@ -10,6 +10,7 @@ use App\Repositories\GoodReceiveDetailRepository;
 use App\Repositories\GoodReceiveRepository;
 use App\Repositories\StepNoteDetailRepository;
 use App\Repositories\StepNoteRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class StepNoteService
@@ -70,9 +71,39 @@ class StepNoteService
 
     public function create(Request $request)
     {
+
+        for ($i = 0; $i < count($request->code); $i++) {
+            $quantity = $this->stepNoteDetailRepository
+                ->where('contract_detail_id', $request->contract_detail_id[$i])
+                ->whereHas('stepNote', function (Builder $query) use ($request) {
+                    $query->where('step_id', '=', $request->step_id - 1);
+                })
+                ->sum('quantity');
+
+            $doneQuantity = $this->stepNoteDetailRepository
+                ->where('contract_detail_id', $request->contract_detail_id[$i])
+                ->whereHas('stepNote', function (Builder $query) use ($request) {
+                    $query->where('step_id', '=', $request->step_id);
+                })
+                ->sum('quantity');
+
+            $remainQuantity = $quantity - $doneQuantity;
+
+            if ($remainQuantity < $request->quantity[$i] && $remainQuantity > 0) {
+                flash('Số lượng nhiều hơn', 'warning');
+                return false;
+            } elseif ($remainQuantity == $request->quantity[$i]) {
+                $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $request->contract_detail_id[$i])
+                    ->whereHas('stepNote', function (Builder $query) use ($request) {
+                        $query->where('step_id', '=', $request->step_id - 1);
+                    })
+                    ->update(['status' => 9]);
+            }
+        }
+
         $stepNote = $this->stepNoteRepository->create($request->all());
-//        $beforeStepNote = $this->stepNoteRepository
-//            ->where('step_id', $request->step_id - 1)->get();
+
 //        $goodDelivery = $stepNote->delivery()->firstOrCreate(
 //            [
 //                'deliverable_id' => $stepNote->id,
@@ -96,15 +127,7 @@ class StepNoteService
 
         for ($i = 0; $i < count($request->code); $i++) {
             $stepNoteDetail = $this->stepNoteDetailRepository->create($request, $stepNote->id, $i);
-//            $array = [];
-//            foreach ($beforeStepNote as $beforeStep) {
-//                $result = $beforeStep->stepNoteDetails()->where('contract_detail_id', $request->contract_detail_id[$i])
-//                    ->groupBy('contract_detail_id')
-//                    ->sum('quantity');
-//                array_push($array, $result);
-//            }
-//
-//            return $array;
+
 //            $stepNoteDetail->deliveries()->firstOrCreate(
 //                [
 //                    'deliverable_id' => $stepNoteDetail->id,

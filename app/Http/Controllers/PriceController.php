@@ -82,7 +82,7 @@ class PriceController extends Controller
             $result = DB::table('prices')
                 ->join('products', 'prices.product_id', '=', 'products.id')
                 ->leftJoin('profit_rates', 'profit_rates.category_id', '=', 'products.category_id')
-                ->select('prices.id', 'products.name', 'products.code', DB::raw('(prices.selling_price * profit_rates.rate) as sell_price'))
+                ->select('prices.id', 'products.name', 'products.code', DB::raw('ROUND(prices.selling_price * profit_rates.rate, -3) as sell_price'))
                 ->where('profit_rates.customer_id', '=', $customer)
                 ->where('products.name', 'LIKE', '%' . $term . '%')
                 ->take(20)

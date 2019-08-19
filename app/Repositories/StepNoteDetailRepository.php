@@ -37,6 +37,11 @@ class StepNoteDetailRepository
         );
     }
 
+    public function where($column, $operator = null, $value = null, $boolean = 'and')
+    {
+        return $this->stepNoteDetail->where($column, $operator, $value, $boolean);
+    }
+
     public function update($attributes, $id)
     {
         return $this->stepNoteDetail->where('step_note_id', $id)->update($attributes);
