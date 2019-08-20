@@ -167,7 +167,12 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
-
+                    $(row).find('[name]').each(function (index, el) {
+                        let oldName = $(el).attr('name');
+                        let pos = oldName.indexOf('[');
+                        let newName = oldName.substr(0, pos + 1) + i + oldName.substr(pos + 2);
+                        $(el).attr('name', newName);
+                    });
                     if (rows.length === 1) {
                         $(row).find('button.removeRow').addClass('hidden');
                     } else {
@@ -196,12 +201,12 @@
                 newRow.find('.select2-container').remove();
                 newRow.find('select').html('');
 
-                newRow.find('input[name*="quantity"]').val('');
-                newRow.find('input[name*="note"]').val('');
+                newRow.find('input').val('');
 
                 addSelect2(select2);
 
                 tableBody.append(newRow);
+                updateNumberOfRow();
             });
     
             $('#example1').on('click', '.removeRow', function () {

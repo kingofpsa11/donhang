@@ -80,10 +80,10 @@
                 <div class="control-button">
                     <div class="text-right">
                         <a href="{{ route('manufacturer-notes.create') }}" class="btn btn-success">Tạo mới</a>
+                        <button class="btn btn-default print">In</button>
                         <a href="{{ route('manufacturer-notes.edit', $manufacturerNote) }}" class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                         </a>
-                        <button class="btn btn-default print">In</button>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#modal">Xoá</button>
                     </div>
                 </div>

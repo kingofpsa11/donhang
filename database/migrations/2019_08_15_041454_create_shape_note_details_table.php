@@ -23,6 +23,8 @@ class CreateShapeNoteDetailsTable extends Migration
             $table->foreign('manufacturer_note_detail_id')->references('id')->on('manufacturer_note_details')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('bom_id');
+            $table->foreign('bom_id')->references('id')->on('boms')->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('status');
             $table->text('note')->nullable();

@@ -71,6 +71,11 @@ class ManufacturerNoteDetail extends Model
         return $this->belongsTo('App\Product');
     }
 
+    public function stepables()
+    {
+        return $this->morphMany('App\StepNoteDetail', 'stepable');
+    }
+
     protected $attributes = [
         'status' => 10
     ];

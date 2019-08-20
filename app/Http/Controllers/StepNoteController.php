@@ -49,14 +49,11 @@ class StepNoteController extends Controller
      */
     public function store(Request $request)
     {
-//        $stepNote = $this->stepNoteService->create($request);
-//        if(! $stepNote) {
-//            return back()->withInput();
-//        }
-        $stepNote = StepNote::create($request->all());
-        foreach ($request->details as $stepNoteDetail) {
-            $stepNote->stepNoteDetails()->create($stepNoteDetail);
+        $stepNote = $this->stepNoteService->create($request);
+        if(! $stepNote) {
+            return back()->withInput();
         }
+
         return redirect()->route('step-notes.show', $stepNote);
     }
 

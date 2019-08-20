@@ -28,7 +28,7 @@ use Carbon\Carbon;
  */
 class ManufacturerNote extends Model
 {
-    protected $fillable = ['id', 'number', 'date', 'status'];
+    protected $fillable = ['number', 'date', 'status'];
 
     public $timestamps = true;
 

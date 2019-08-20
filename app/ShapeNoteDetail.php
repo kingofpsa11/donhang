@@ -11,6 +11,7 @@ class ShapeNoteDetail extends Model
         'contract_detail_id',
         'manufacturer_note_detail_id',
         'product_id',
+        'bom_id',
         'quantity',
         'status',
         'note'

@@ -3,7 +3,6 @@
 @section('title', 'Phiếu công đoạn')
 
 @section('content')
-	
 	<!-- Main content -->
     <form action=@yield('route') method="POST" id="form">
         @csrf
@@ -119,11 +118,12 @@
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.name,
-                                        id: item.product_id,
+                                        id: item.note_detail_id,
                                         number: item.number,
                                         code: item.code,
                                         quantity: item.remain_quantity,
-                                        contract_detail_id: item.contract_detail_id
+                                        contract_detail_id: item.contract_detail_id,
+                                        product_id: item.product_id,
                                     }
                                 })
                             };
@@ -142,16 +142,18 @@
                     $(this).parents('tr').find('input[name*="code"]').val(data.code);
                     $(this).parents('tr').find('input[name*="manufacturer_order_number"]').val(data.number);
                     $(this).parents('tr').find('input[name*="contract_detail_id"]').val(data.contract_detail_id);
+                    $(this).parents('tr').find('input[name*="product_id"]').val(data.product_id);
                     $(this).parents('tr').find('input[name*="quantity"]').val(data.quantity);
                 });
             }
 
-            let product_id = $('.product_id');
+            let manufacturer_note_detail_id = $('.manufacturer_note_detail_id');
+
             step_id_obj.on('change', function () {
-                addSelect2(product_id);
+                addSelect2(manufacturer_note_detail_id);
             });
 
-            addSelect2(product_id);
+            addSelect2(manufacturer_note_detail_id);
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');

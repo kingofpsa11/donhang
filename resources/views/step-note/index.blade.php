@@ -3,7 +3,7 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp Lệnh sản xuất</h3>
+            <h3 class="box-title">Tổng hợp Phiếu công đoạn</h3>
             <a href="{{ route('step-notes.create') }}" class="btn btn-primary pull-right">Tạo mới</a>
         </div>
         <!-- /.box-header -->
@@ -31,7 +31,7 @@
                             <td>{{ $stepNoteDetail->stepNote->step->name }}</td>
                             <td>{{ $stepNoteDetail->product->code }}</td>
                             <td>{{ $stepNoteDetail->product->name }}</td>
-                            <td>{{ $stepNoteDetail->contractDetail->price->product->unit }}</td>
+                            <td>{{ $stepNoteDetail->product->unit }}</td>
                             <td>{{ $stepNoteDetail->quantity }}</td>
 
                             <td>

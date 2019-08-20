@@ -16,6 +16,9 @@ class CreateStepNoteDetailsTable extends Migration
         Schema::create('step_note_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('step_note_id');
+            $table->morphs('stepable');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('step_note_id')->references('id')->on('step_notes')->onDelete('cascade');
             $table->unsignedBigInteger('contract_detail_id');
             $table->foreign('contract_detail_id')->references('id')->on('contract_details')->onDelete('cascade');

@@ -71,39 +71,39 @@ class StepNoteService
 
     public function create(Request $request)
     {
-
-        for ($i = 0; $i < count($request->code); $i++) {
-            $quantity = $this->stepNoteDetailRepository
-                ->where('contract_detail_id', $request->contract_detail_id[$i])
-                ->whereHas('stepNote', function (Builder $query) use ($request) {
-                    $query->where('step_id', '=', $request->step_id - 1);
-                })
-                ->sum('quantity');
-
-            $doneQuantity = $this->stepNoteDetailRepository
-                ->where('contract_detail_id', $request->contract_detail_id[$i])
-                ->whereHas('stepNote', function (Builder $query) use ($request) {
-                    $query->where('step_id', '=', $request->step_id);
-                })
-                ->sum('quantity');
-
-            $remainQuantity = $quantity - $doneQuantity;
-
-            if ($remainQuantity < $request->quantity[$i] && $remainQuantity > 0) {
-                flash('Số lượng nhiều hơn', 'warning');
-                return false;
-            } elseif ($remainQuantity == $request->quantity[$i]) {
-                $this->stepNoteDetailRepository
-                    ->where('contract_detail_id', $request->contract_detail_id[$i])
+        if ($request->step_id > 1) {
+            foreach ($request->details as $detail) {
+                $quantity = $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $detail['contract_detail_id'])
                     ->whereHas('stepNote', function (Builder $query) use ($request) {
-                        $query->where('step_id', '=', $request->step_id - 1);
+                        $query->where('step_id', '=', $request->step_id);
                     })
-                    ->update(['status' => 9]);
+                    ->sum('quantity');
+
+                $doneQuantity = $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $detail['contract_detail_id'])
+                    ->whereHas('stepNote', function (Builder $query) use ($request) {
+                        $query->where('step_id', '=', $request->step_id);
+                    })
+                    ->sum('quantity');
+
+                $remainQuantity = $quantity - $doneQuantity;
+
+                if ($remainQuantity < $detail['quantity'] && $remainQuantity > 0) {
+                    flash('Số lượng nhiều hơn', 'warning');
+                    return false;
+                } elseif ($remainQuantity == $detail['quantity']) {
+                    $this->stepNoteDetailRepository
+                        ->where('contract_detail_id', $detail['contract_detail_id'])
+                        ->whereHas('stepNote', function (Builder $query) use ($request) {
+                            $query->where('step_id', '=', $request->step_id - 1);
+                        })
+                        ->update(['status' => 9]);
+                }
             }
         }
 
         $stepNote = $this->stepNoteRepository->create($request->all());
-
 //        $goodDelivery = $stepNote->delivery()->firstOrCreate(
 //            [
 //                'deliverable_id' => $stepNote->id,
@@ -125,8 +125,8 @@ class StepNoteService
             ]
         );
 
-        for ($i = 0; $i < count($request->code); $i++) {
-            $stepNoteDetail = $this->stepNoteDetailRepository->create($request, $stepNote->id, $i);
+        foreach ($request->details as $detail) {
+            $stepNoteDetail = $stepNote->stepNoteDetails()->create($detail);
 
 //            $stepNoteDetail->deliveries()->firstOrCreate(
 //                [
@@ -139,13 +139,10 @@ class StepNoteService
 //                ]
 //            );
 
-            $stepNoteDetail->receive()->firstOrCreate(
-                [
-                    'receivable_id' => $stepNoteDetail->id,
-                ],
+            $stepNoteDetail->receive()->create(
                 [
                     'good_receive_id' => $goodReceive->id,
-                    'product_id' => $stepNoteDetail->contractDetail->price->product_id,
+                    'product_id' => $detail['product_id'],
                     'quantity' => $stepNoteDetail->quantity,
                     'store_id' => 27,
                 ]

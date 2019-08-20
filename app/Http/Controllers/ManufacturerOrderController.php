@@ -138,7 +138,7 @@ class ManufacturerOrderController extends Controller
             ->join('contract_details AS c', 'c.id', 'md.contract_detail_id')
             ->join('prices', 'prices.id', 'c.price_id')
             ->join('products AS p', 'p.id', 'prices.product_id')
-            ->leftJoinSub($query, 'mnd', function($join) {
+            ->leftJoinSub($query, 'mnd', function ($join) {
                 $join->on('mnd.contract_detail_id', '=', 'md.contract_detail_id');
             })
             ->select(

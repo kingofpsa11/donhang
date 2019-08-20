@@ -347,40 +347,45 @@ class ContractController extends Controller
                     ->orWhere('contract_details.selling_price', 'LIKE', "%{$search}%")
                     ->orWhere('contracts.date', 'LIKE', "%{$search}%")
                     ->orWhere('contract_details.deadline', 'LIKE', "%{$search}%")
-                    ->orWhere('manufacturerOrder.number', 'LIKE', "%{$search}%");
+                    ->orWhere('manufacturerOrder.number', 'LIKE', "%{$search}%")
+                    ->orWhere('contract_details.status', 'LIKE', "%{$search}%");
 
         } else {
             if(!empty($request->input('columns.0.search.value'))) {
                 $search = $request->input('columns.0.search.value');
-                $query =  $query->orWhere('contracts.name','LIKE',"%{$search}%");
+                $query =  $query->where('contracts.name','LIKE',"%{$search}%");
             }
             if(!empty($request->input('columns.1.search.value'))) {
                 $search = $request->input('columns.1.search.value');
-                $query =  $query->orWhere('contracts.number', 'LIKE', "%{$search}%");
+                $query =  $query->where('contracts.number', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.2.search.value'))) {
                 $search = $request->input('columns.2.search.value');
-                $query =  $query->orWhere('prices.name', 'LIKE', "%{$search}%");
+                $query =  $query->where('prices.name', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.3.search.value'))) {
                 $search = $request->input('columns.3.search.value');
-                $query =  $query->orWhere('contract_details.quantity', 'LIKE', "%{$search}%");
+                $query =  $query->where('contract_details.quantity', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.4.search.value'))) {
                 $search = $request->input('columns.4.search.value');
-                $query =  $query->orWhere('contract_details.selling_price', 'LIKE', "%{$search}%");
+                $query =  $query->where('contract_details.selling_price', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.5.search.value'))) {
                 $search = $request->input('columns.5.search.value');
-                $query =  $query->orWhere('contracts.date', 'LIKE', "%{$search}%");
+                $query =  $query->where('contracts.date', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.6.search.value'))) {
                 $search = $request->input('columns.6.search.value');
-                $query =  $query->orWhere('contract_details.deadline', 'LIKE', "%{$search}%");
+                $query =  $query->where('contract_details.deadline', 'LIKE', "%{$search}%");
             }
             if(!empty($request->input('columns.7.search.value'))) {
                 $search = $request->input('columns.7.search.value');
-                $query =  $query->orWhere('manufacturerOrder.number', 'LIKE', "%{$search}%");
+                $query =  $query->where('manufacturerOrder.number', 'LIKE', "%{$search}%");
+            }
+            if(!empty($request->input('columns.8.search.value'))) {
+                $search = $request->input('columns.8.search.value');
+                $query =  $query->where('contract_details.status', 'LIKE', "%{$search}%");
             }
         }
 

@@ -49,31 +49,23 @@ class ShapeNoteController extends Controller
     {
         $shapeNote = ShapeNote::create($request->all());
 
-        for ($i = 0; $i < count($request->code); $i++) {
-            ShapeNoteDetail::create([
-                'manufacturer_note_detail_id' => $request->manufacturer_note_detail_id[$i],
-                'shape_note_id' => $shapeNote->id,
-                'contract_detail_id' => $request->contract_detail_id[$i],
-                'product_id' => $request->product_id[$i],
-                'quantity' => $request->quantity[$i],
-                'note' => $request->note[$i]
-            ]);
+        foreach ($request->details as $detail) {
+            $shapeNote->shapeNoteDetails()->create($detail);
 
-
-            $manufacturerNoteDetail = ManufacturerNoteDetail::find($request->manufacturer_note_detail_id[$i]);
-
-            $bomProductId = $manufacturerNoteDetail->product_id;
-            $quantity = $manufacturerNoteDetail->quantity;
-
-            $bomQuantity = BomDetail::where('product_id', $request->product_id[$i])
-                ->whereHas('bom', function (Builder $query) use ($bomProductId) {
-                    $query->where('product_id', '=', $bomProductId);
-                })
-                ->first()->quantity;
-
-            if (ceil($quantity * $bomQuantity) == $request->quantity[$i]) {
-                $manufacturerNoteDetail->update(['status' => 9]);
-            }
+//            $manufacturerNoteDetail = ManufacturerNoteDetail::find($detail['manufacturer_note_detail_id']);
+//
+//            $bomProductId = $manufacturerNoteDetail->product_id;
+//            $quantity = $manufacturerNoteDetail->quantity;
+//
+//            $bomQuantity = BomDetail::where('product_id', $request->product_id[$i])
+//                ->whereHas('bom', function (Builder $query) use ($bomProductId) {
+//                    $query->where('product_id', '=', $bomProductId);
+//                })
+//                ->first()->quantity;
+//
+//            if (ceil($quantity * $bomQuantity) == $request->quantity[$i]) {
+//                $manufacturerNoteDetail->update(['status' => 9]);
+//            }
         }
 
         return redirect()->route('shape-notes.show', $shapeNote);
@@ -122,20 +114,16 @@ class ShapeNoteController extends Controller
     public function update(Request $request, ShapeNote $shapeNote)
     {
         $shapeNote->update($request->all());
-        for ($i = 0; $i < count($request->code); $i++) {
-            ShapeNoteDetail::updateOrCreate(
-                [
-                    'manufacturer_note_detail_id' => $request->manufacturer_note_detail_id[$i],
-                ],
-                [
-                    'shape_note_id' => $shapeNote->id,
-                    'contract_detail_id' => $request->contract_detail_id[$i],
-                    'product_id' => $request->product_id[$i],
-                    'quantity' => $request->quantity[$i],
-                    'note' => $request->note[$i]
-                ]
-            );
+        $shapeNote->shapeNoteDetails()->update(['status' => 9]);
+
+        foreach ($request->details as $detail) {
+            $id = $detail['id'];
+            unset($detail['id']);
+            $detail['status'] = 10;
+            $shapeNote->shapeNoteDetails()->updateOrCreate(['id' => $id], $detail);
         }
+
+        $shapeNote->shapeNoteDetails()->where(['status' => 9])->delete();
 
         return redirect()->route('shape-notes.show', $shapeNote);
     }

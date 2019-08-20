@@ -78,7 +78,7 @@
 
             function addSelect2(el) {
                 el.select2({
-                    placeholder: 'Nhập số lệnh sản xuất',
+                    placeholder: 'Chọn sản phẩm',
                     ajax: {
                         url: '{{ route('manufacturer-notes.get-manufacturer-note') }}',
                         data: function (params) {
@@ -109,52 +109,56 @@
                         }
                         return $(`<div class="container-fluid"><div class="row"><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.number}</div><div class="col-md-2">${repo.quantity}</div></div></div> `);
                     },
-                });
-
-                el.on('select2:select', function (e) {
+                })
+                .on('select2:select', function (e) {
                     let data = e.params.data;
                     let product_id = data.product_id;
-                    let bomEl = $(this).parents('tr').find('[name*="product_id"]');
-                    $(this).parents('tr').find('.manufacturer-order-number').text(data.number);
-                    $(this).parents('tr').find('input[name*="quantity"]').val(data.quantity);
-                    $(this).parents('tr').find('input[name*="contract_detail_id"]').val(data.contract_detail_id);
+                    let row = $(this).parents('tr');
+                    let bomEl = row.find('[name*="bom_id"]');
+                    row.find('.manufacturer-order-number').text(data.number);
+                    row.find('input[name*="quantity"]').val(data.quantity);
+                    row.find('input[name*="contract_detail_id"]').val(data.contract_detail_id);
 
-                    bomEl.select2({
-                        placeholder: 'Chọn phôi',
-                        ajax: {
-                            url: '{{ route('boms.get_bom') }}',
-                            data: {productId: product_id},
-                            dataType: 'json',
-                            processResults: function (data) {
-                                return {
-                                    results: $.map(data, function (item) {
-                                        return {
-                                            text: item.product_name,
-                                            id: item.product_id,
-                                            code: item.code,
-                                            quantity: item.quantity,
-                                            name: item.name,
-                                        }
-                                    }),
-                                };
+                    bomEl
+                        .val(null)
+                        .trigger('change')
+                        .select2({
+                            placeholder: 'Chọn phôi',
+                            ajax: {
+                                url: '{{ route('boms.get_bom') }}',
+                                data: {productId: product_id},
+                                dataType: 'json',
+                                processResults: function (data) {
+                                    return {
+                                        results: $.map(data, function (item) {
+                                            return {
+                                                text: item.product_name,
+                                                id: item.bom_id,
+                                                code: item.code,
+                                                quantity: item.quantity,
+                                                name: item.name,
+                                                product_id: item.product_id
+                                            }
+                                        }),
+                                    };
+                                },
                             },
-                            cache: true
-                        },
-                        templateResult: function (repo) {
-                            if (repo.loading) {
-                                return 'Đang tìm kiếm';
-                            }
-                            return $(`<div class="container-fluid"><div class="row"><div class="col-md-2">${repo.code}</div><div class="col-md-8">${repo.text}</div><div class="col-md-2">${repo.name}</div></div></div> `);
-                        },
-                    })
-                    .on('select2:select', function (e) {
-                        let data = e.params.data;
-                        let row = $(this).parents('tr');
-                        let quantityObj = row.find('[name*="quantity"]');
-                        let quantity = quantityObj.val();
-                        row.find('[name*="code"]').val(data.code);
-                        quantityObj.val(Math.ceil(quantity * data.quantity));
-                    })
+                            templateResult: function (repo) {
+                                if (repo.loading) {
+                                    return 'Đang tìm kiếm';
+                                }
+                                return $(`<div class="container-fluid"><div class="row"><div class="col-md-2">${repo.name}</div><div class="col-md-2">${repo.code}</div><div class="col-md-8">${repo.text}</div></div></div> `);
+                            },
+                        })
+                        .one('select2:select', function (e) {
+                            let data = e.params.data;
+                            let row = $(this).parents('tr');
+                            let quantityObj = row.find('[name*="quantity"]');
+                            let quantity = quantityObj.val();
+                            row.find('[name*="code"]').val(data.code);
+                            row.find('[name*="product_id"]').val(data.product_id);
+                            quantityObj.val(Math.ceil(quantity * data.quantity));
+                        })
                 });
             }
 
@@ -167,6 +171,12 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
+                    $(row).find('[name]').each(function (index, el) {
+                        let oldName = $(el).attr('name');
+                        let pos = oldName.indexOf('[');
+                        let newName = oldName.substr(0, pos + 1) + i + oldName.substr(pos + 2);
+                        $(el).attr('name', newName);
+                    });
                     if (rows.length === 1) {
                         $(row).find('button.removeRow').addClass('hidden');
                     } else {
@@ -174,19 +184,17 @@
                     }
                 });
             }
+
             updateNumberOfRow();
 
             //Add or remove row to table
             $('.box-footer').on('click', '.addRow:not(".disabled")', function (e) {
                 e.preventDefault();
                 let tableBody = $('#example1 tbody');
-                let numberOfProduct = tableBody.children().length;
                 let lastRow = tableBody.find('tr:last');
                 let newRow = lastRow.clone();
-                let select2 = newRow.find('.contract_detail_id');
+                let select2 = newRow.find('.manufacturer_note_detail_id');
 
-                newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
                 lastRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('button.removeRow').removeClass('hidden');
                 newRow.find('.select2-container').remove();
@@ -195,6 +203,7 @@
                 tableBody.append(newRow);
 
                 addSelect2(select2);
+                updateNumberOfRow();
             });
 
             $('#example1').on('click', '.removeRow', function (e) {

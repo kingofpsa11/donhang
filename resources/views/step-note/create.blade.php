@@ -11,23 +11,6 @@
         <td data-col-seq="0">
             <span>1</span>
         </td>
-{{--        <td data-col-seq="1">--}}
-{{--            <input type="text" class="form-control manufacturer" name="manufacturer_order_number[]" readonly>--}}
-{{--        </td>--}}
-{{--        <td data-col-seq="2">--}}
-{{--            <input type="text" class="form-control" name="code[]" readonly>--}}
-{{--        </td>--}}
-{{--        <td data-col-seq="3">--}}
-{{--            <input type="hidden" name="contract_detail_id[]">--}}
-{{--            <select type="text" class="form-control select2 product_id" name="product_id[]" style="width:100%" required>--}}
-{{--            </select>--}}
-{{--        </td>--}}
-{{--        <td data-col-seq="4">--}}
-{{--            <div class="form-group has-warning">--}}
-{{--                <input type="number" class="form-control" name="quantity[]" value="{{ old('quantity')[0] }}">--}}
-{{--                <span id="helpBlock" class="help-block"></span>--}}
-{{--            </div>--}}
-{{--        </td>--}}
         <td data-col-seq="1">
             <input type="text" class="form-control manufacturer" name="details[0][manufacturer_order_number]" readonly>
         </td>
@@ -36,11 +19,12 @@
         </td>
         <td data-col-seq="3">
             <input type="hidden" name="details[0][contract_detail_id]">
-            <select type="text" class="form-control select2 product_id" name="details[0][product_id]" style="width:100%" required>
+            <input type="hidden" name="details[0][product_id]">
+            <select type="text" class="form-control manufacturer_note_detail_id" name="details[0][note_detail_id]" style="width:100%" required>
             </select>
         </td>
         <td data-col-seq="4">
-            <div class="form-group has-warning">
+            <div class="form-group">
                 <input type="number" class="form-control" name="details[0][quantity]">
                 <span id="helpBlock" class="help-block"></span>
             </div>

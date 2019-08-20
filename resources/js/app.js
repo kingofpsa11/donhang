@@ -58,11 +58,9 @@ $(document).ready(function () {
     window.onscroll = function() {myFunction()};
     
     let navbar = $(".navbar.navbar-static-top");
-    
-    
+
     let sticky = navbar.offset().top;
-    console.log(sticky);
-    
+
     function myFunction() {
         if (window.pageYOffset >= sticky) {
             navbar.addClass("sticky")
