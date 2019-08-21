@@ -8,8 +8,6 @@ class StepNoteDetail extends Model
 {
     protected $fillable = [
         'id',
-        'stepable_type',
-        'stepable_id',
         'step_note_id',
         'contract_detail_id',
         'product_id',
@@ -48,13 +46,4 @@ class StepNoteDetail extends Model
         return $this->morphOne('App\GoodReceiveDetail', 'receivable');
     }
 
-    public function stepables()
-    {
-        return $this->morphMany('App\StepNoteDetail', 'stepable');
-    }
-
-    public function stepable()
-    {
-        return $this->morphTo();
-    }
 }

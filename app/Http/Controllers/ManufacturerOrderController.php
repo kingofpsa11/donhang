@@ -225,7 +225,7 @@ class ManufacturerOrderController extends Controller
                 DB::raw('IFNULL(second.total_quantity,0) AS second'),
                 DB::raw('IFNULL(third.total_quantity,0) AS third'),
                 DB::raw('IFNULL(fourth.total_quantity,0) AS fourth'),
-                'm.status'
+                'md.status'
             );
 
         if (empty($request->input('search.value')) && !array_filter(array_column(array_column($request->columns, 'search'), 'value'))) {
@@ -244,7 +244,7 @@ class ManufacturerOrderController extends Controller
                 ->orWhere('second.total_quantity', 'LIKE', "%{$search}%")
                 ->orWhere('third.total_quantity' , 'LIKE', "%{$search}%")
                 ->orWhere('fourth.total_quantity', 'LIKE', "%{$search}%")
-                ->orWhere('md.status', 'LIKE', "%{$search}%");
+                ->orWhere('md.status', '=', "$search");
 
         } else {
             if(!empty($request->input('columns.0.search.value'))) {

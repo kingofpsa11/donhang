@@ -128,11 +128,7 @@ class StepNoteService
         );
 
         foreach ($request->details as $detail) {
-            if ($request->step_id == 1) {
-                $detail['step_note_id'] = $stepNote->id;
-                $stepNoteDetail = ShapeNoteDetail::find($detail['note_detail_id'])->stepables()->create($detail);
-            }
-//            $stepNoteDetail = $stepNote->stepNoteDetails()->create($detail);
+            $stepNoteDetail = $stepNote->stepNoteDetails()->create($detail);
 
 //            $stepNoteDetail->deliveries()->firstOrCreate(
 //                [

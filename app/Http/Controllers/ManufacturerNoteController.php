@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\BomDetail;
+use App\ContractDetail;
 use App\ManufacturerNote;
 use App\ManufacturerNoteDetail;
 use App\ManufacturerOrder;
@@ -277,54 +279,144 @@ class ManufacturerNoteController extends Controller
 //        }
 //
 //        return response()->json($results);
+
         $results = null;
+        $manufacturerNote = null;
+        $after = StepNoteDetail::whereHas('stepNote', function (Builder $query) use ($request) {
+                $query->where('step_id', '=', $request->stepId);
+            })
+            ->groupBy('contract_detail_id', 'product_id')
+            ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
+            ->get();
         $newResult = [];
+
         switch ($request->stepId) {
             case 1:
                 //
                 $results = ShapeNoteDetail::where('status', 10)
-                    ->select('id', 'contract_detail_id', 'product_id', 'quantity')
+                    ->selectRaw('contract_detail_id, product_id, sum(quantity) AS total')
+                    ->groupBy('contract_detail_id', 'product_id')
                     ->with(
                         'contractDetail:id',
                         'contractDetail.manufacturerOrderDetail.manufacturerOrder:id,number',
                         'product:id,name,code')
                     ->get();
+
+                foreach ($results as $result) {
+                    $singleResult = [
+                        'name' => $result->product->name,
+                        'code' => $result->product->code,
+                        'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
+                        'remain_quantity' => $result->total - ($after->where('contract_detail_id', $result->contract_detail_id)->where('product_id', $result->product_id)->first()->total ?? 0),
+                        'product_id' => $result->product_id,
+                        'contract_detail_id' => $result->contract_detail_id,
+                    ];
+
+                    if ($singleResult['remain_quantity'] > 0) {
+                        $newResult[] = $singleResult;
+                    }
+                }
                 break;
             case 2:
                 $results = StepNoteDetail::where('status', 10)
-                    ->whereHas('stepNote', function ($query) {
-                            $query->where('step_id', '=', 1);
-                        })
-                    ->with([
-                        'product:id,name,code',
-                        'contractDetail.manufacturerOrderDetail.manufacturerOrder:id,number',
-                    ])
-                    ->groupBy('contract_detail_id', 'product_id', 'id')
-                    ->selectRaw('contract_detail_id, product_id, id, sum(quantity) as total')
+                    ->whereHas('stepNote', function ($query) use ($request) {
+                        $query->where('step_id', '=', $request->stepId - 1);
+                    })
+                    ->groupBy('contract_detail_id', 'product_id')
+                    ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
                     ->get();
 
-                $after = StepNoteDetail::whereHas('stepNote', function (Builder $query) {
-                        $query->where('step_id', '=', 2);
+                foreach ($results as $result) {
+                    $manufacturerNote = ManufacturerNoteDetail::groupBy('contract_detail_id', 'product_id')
+                        ->selectRaw('contract_detail_id, product_id, sum(quantity) AS total')
+                        ->where('contract_detail_id', $result->contract_detail_id)
+                        ->with('product:id,name,code')
+                        ->first();
+
+                    $bomQuantity = BomDetail::whereHas('bom', function (Builder $query) use ($manufacturerNote) {
+                            $query->where('product_id', $manufacturerNote->product_id);
+                        })
+                        ->where('product_id', $result->product_id)
+                        ->first()
+                        ->quantity;
+
+                        $singleResult = [
+                            'name' => $manufacturerNote->product->name,
+                            'code' => $manufacturerNote->product->code,
+                            'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
+                            'remain_quantity' => $result->total/$bomQuantity - ($after->where('contract_detail_id', $manufacturerNote->contract_detail_id)->where('product_id', $manufacturerNote->product_id)->first()->total ?? 0),
+                            'product_id' => $manufacturerNote->product_id,
+                            'contract_detail_id' => $result->contract_detail_id,
+                        ];
+
+                        if ($singleResult['remain_quantity'] > 0) {
+                            $newResult[] = $singleResult;
+                        }
+                    }
+                break;
+            case 3:
+                $results = StepNoteDetail::where('status', 10)
+                    ->whereHas('stepNote', function ($query) use ($request) {
+                        $query->where('step_id', '=', $request->stepId - 1);
                     })
-                    ->groupBy('contract_detail_id')
-                    ->selectRaw('contract_detail_id, sum(quantity) as total')
+                    ->groupBy('contract_detail_id', 'product_id')
+                    ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
+                    ->with('product', 'contractDetail.manufacturerOrderDetail.manufacturerOrder')
                     ->get();
+
+                foreach ($results as $result) {
+                    $singleResult = [
+                        'name' => $result->product->name,
+                        'code' => $result->product->code,
+                        'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
+                        'remain_quantity' => $result->total - ($after->where('contract_detail_id', $result->contract_detail_id)->where('product_id', $result->product_id)->first()->total ?? 0),
+                        'product_id' => $result->product_id,
+                        'contract_detail_id' => $result->contract_detail_id,
+                    ];
+
+                    if ($singleResult['remain_quantity'] > 0) {
+                        $newResult[] = $singleResult;
+                    }
+                }
+                break;
+            case 4:
+                $results = StepNoteDetail::where('status', 10)
+                    ->whereHas('stepNote', function ($query) use ($request) {
+                        $query->where('step_id', '=', $request->stepId - 1);
+                    })
+                    ->groupBy('contract_detail_id', 'product_id')
+                    ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
+                    ->get();
+
+                foreach ($results as $result) {
+                    $contractDetail = ContractDetail::with('price.product:id,name,code')
+                    ->find($result->contract_detail_id);
+
+                    $bomQuantity = BomDetail::whereHas('bom', function (Builder $query) use ($contractDetail) {
+                        $query->where('product_id', $contractDetail->price->product_id);
+                    })
+                        ->where('product_id', $result->product_id)
+                        ->first()
+                        ->quantity;
+
+                    $singleResult = [
+                        'name' => $contractDetail->price->product->name,
+                        'code' => $contractDetail->price->product->code,
+                        'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
+                        'remain_quantity' => $result->total/$bomQuantity - ($after->where('contract_detail_id', $contractDetail->contract_detail_id)->where('product_id', $contractDetail->product_id)->first()->total ?? 0),
+                        'product_id' => $contractDetail->price->product_id,
+                        'contract_detail_id' => $result->contract_detail_id,
+                    ];
+
+                    if ($singleResult['remain_quantity'] > 0) {
+                        $newResult[] = $singleResult;
+                    }
+                }
                 break;
             default:
                 break;
         }
 
-        foreach ($results as $result) {
-            $newResult[] = [
-                'name' => $result->product->name,
-                'code' => $result->product->code,
-                'note_detail_id' => $result->id,
-                'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
-                'remain_quantity' => $result->total - ($after->where('contract_detail_id', $result->contract_detail_id)->first()->total ?? 0),
-                'product_id' => $result->product_id,
-                'contract_detail_id' => $result->contract_detail_id,
-            ];
-        }
         return response()->json($newResult);
     }
 }

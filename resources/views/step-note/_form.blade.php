@@ -98,7 +98,7 @@
                 let step_id = step_id_obj.val();
                 el.select2({
                     placeholder: 'Nhập số lệnh sản xuất',
-                    minimumResultsForSearch: -1,
+                    minimumResultsForSearch: Infinity,
                     language: {
                         inputTooShort: function () {
                             return "Bạn phải nhập nhiều hơn"
@@ -118,11 +118,11 @@
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.name,
-                                        id: item.note_detail_id,
+                                        id: item.contract_detail_id + '-' + item.product_id,
+                                        contract_detail_id: item.contract_detail_id,
                                         number: item.number,
                                         code: item.code,
                                         quantity: item.remain_quantity,
-                                        contract_detail_id: item.contract_detail_id,
                                         product_id: item.product_id,
                                     }
                                 })
@@ -147,13 +147,13 @@
                 });
             }
 
-            let manufacturer_note_detail_id = $('.manufacturer_note_detail_id');
+            let contract_product = $('.contract_product');
 
             step_id_obj.on('change', function () {
-                addSelect2(manufacturer_note_detail_id);
+                addSelect2(contract_product);
             });
 
-            addSelect2(manufacturer_note_detail_id);
+            addSelect2(contract_product);
 
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
@@ -183,7 +183,7 @@
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = tableBody.find('tr:last');
                 let newRow = lastRow.clone();
-                let select2 = newRow.find('[name*=product_id]');
+                let select2 = newRow.find('[name*=note_detail_id]');
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);

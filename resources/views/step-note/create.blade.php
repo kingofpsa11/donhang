@@ -20,7 +20,7 @@
         <td data-col-seq="3">
             <input type="hidden" name="details[0][contract_detail_id]">
             <input type="hidden" name="details[0][product_id]">
-            <select type="text" class="form-control manufacturer_note_detail_id" name="details[0][note_detail_id]" style="width:100%" required>
+            <select type="text" class="form-control contract_product" name="details[0][contract_product]" style="width:100%" required>
             </select>
         </td>
         <td data-col-seq="4">
