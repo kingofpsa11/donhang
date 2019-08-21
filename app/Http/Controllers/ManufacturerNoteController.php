@@ -9,6 +9,7 @@ use App\ManufacturerOrderDetail;
 use App\ShapeNoteDetail;
 use App\Step;
 use App\StepNoteDetail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -283,17 +284,30 @@ class ManufacturerNoteController extends Controller
                 //
                 $results = ShapeNoteDetail::where('status', 10)
                     ->select('id', 'contract_detail_id', 'product_id', 'quantity')
-                    ->with('contractDetail:id', 'contractDetail.manufacturerOrderDetail.manufacturerOrder:id,number', 'product:id,name,code')
+                    ->with(
+                        'contractDetail:id',
+                        'contractDetail.manufacturerOrderDetail.manufacturerOrder:id,number',
+                        'product:id,name,code')
                     ->get();
                 break;
             case 2:
-                $results = StepNoteDetail::with([
-                        'stepNote' => function ($query) use ($request) {
+                $results = StepNoteDetail::where('status', 10)
+                    ->whereHas('stepNote', function ($query) {
                             $query->where('step_id', '=', 1);
-                        },
+                        })
+                    ->with([
                         'product:id,name,code',
                         'contractDetail.manufacturerOrderDetail.manufacturerOrder:id,number',
                     ])
+                    ->groupBy('contract_detail_id', 'product_id', 'id')
+                    ->selectRaw('contract_detail_id, product_id, id, sum(quantity) as total')
+                    ->get();
+
+                $after = StepNoteDetail::whereHas('stepNote', function (Builder $query) {
+                        $query->where('step_id', '=', 2);
+                    })
+                    ->groupBy('contract_detail_id')
+                    ->selectRaw('contract_detail_id, sum(quantity) as total')
                     ->get();
                 break;
             default:
@@ -306,11 +320,11 @@ class ManufacturerNoteController extends Controller
                 'code' => $result->product->code,
                 'note_detail_id' => $result->id,
                 'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
-                'remain_quantity' => $result->quantity,
+                'remain_quantity' => $result->total - ($after->where('contract_detail_id', $result->contract_detail_id)->first()->total ?? 0),
                 'product_id' => $result->product_id,
                 'contract_detail_id' => $result->contract_detail_id,
             ];
         }
-        return response()->json($results);
+        return response()->json($newResult);
     }
 }

@@ -42,4 +42,9 @@ class ShapeNoteDetail extends Model
     {
         return $this->belongsTo('App\ManufacturerNoteDetail');
     }
+
+    public function stepables()
+    {
+        return $this->morphMany('App\StepNoteDetail', 'stepable');
+    }
 }

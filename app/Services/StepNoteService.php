@@ -4,12 +4,14 @@ namespace App\Services;
 
 use App\GoodDelivery;
 use App\GoodReceive;
+use App\ManufacturerNoteDetail;
 use App\Repositories\GoodDeliveryDetailRepository;
 use App\Repositories\GoodDeliveryRepository;
 use App\Repositories\GoodReceiveDetailRepository;
 use App\Repositories\GoodReceiveRepository;
 use App\Repositories\StepNoteDetailRepository;
 use App\Repositories\StepNoteRepository;
+use App\ShapeNoteDetail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -126,7 +128,11 @@ class StepNoteService
         );
 
         foreach ($request->details as $detail) {
-            $stepNoteDetail = $stepNote->stepNoteDetails()->create($detail);
+            if ($request->step_id == 1) {
+                $detail['step_note_id'] = $stepNote->id;
+                $stepNoteDetail = ShapeNoteDetail::find($detail['note_detail_id'])->stepables()->create($detail);
+            }
+//            $stepNoteDetail = $stepNote->stepNoteDetails()->create($detail);
 
 //            $stepNoteDetail->deliveries()->firstOrCreate(
 //                [
