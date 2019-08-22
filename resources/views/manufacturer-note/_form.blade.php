@@ -5,66 +5,64 @@
 @section('content')
 	
 	<!-- Main content -->
-	<section class="content container-fluid">
-		<form action=@yield('route') method="POST" id="form">
-            @csrf
-            @yield('method')
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Số phiếu</label>
-                                <input type="text" class="form-control" name="number" value="{{ $manufacturerNote->number ?? $newNumber }}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Ngày</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? date('d/m/Y') }}" name="date" required>
-                                </div>
-                                <!-- /.input group -->
-                            </div>
+    <form action=@yield('route') method="POST" id="form">
+        @csrf
+        @yield('method')
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Số phiếu</label>
+                            <input type="text" class="form-control" name="number" value="{{ $manufacturerNote->number ?? $newNumber }}" required>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body table-responsive">
-                    <table id="example1" class="table table-bordered table-striped table-condensed">
-                        <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>LSX</th>
-                            <th class="col-md-5 text-center">Tên sản phẩm</th>
-                            <th>Dài</th>
-                            <th>Dày</th>
-                            <th>Chi vi trên</th>
-                            <th>Chi vi dưới</th>
-                            <th class="text-center">Số lượng</th>
-                            <th class="col-md-2 text-center">Ghi chú</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @yield('table-body')
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-right">
-                    <div>
-                        <button class="btn btn-primary addRow">Thêm dòng</button>
-                        <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('manufacturer-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Ngày</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" value="{{ $manufacturerNote->date ?? date('d/m/Y') }}" name="date" required>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /.box -->
-        </form>
-    </section>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-striped table-condensed">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>LSX</th>
+                        <th class="col-md-5 text-center">Tên sản phẩm</th>
+                        <th>Dài</th>
+                        <th>Dày</th>
+                        <th>Chi vi trên</th>
+                        <th>Chi vi dưới</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="col-md-2 text-center">Ghi chú</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @yield('table-body')
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-right">
+                <div>
+                    <button class="btn btn-primary addRow">Thêm dòng</button>
+                    <input type="submit" value="Lưu" class="btn btn-success save">
+                    <a href="{{ route('manufacturer-notes.index') }}" class="btn btn-danger cancel">Hủy</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </form>
 @endsection
 
 @section('javascript')

@@ -128,10 +128,10 @@ class BomController extends Controller
     {
         $bom = DB::table('boms')
             ->join('bom_details AS bd', 'boms.id', '=', 'bd.bom_id')
-            ->join('boms as b', 'b.product_id', '=', 'bd.product_id')
+//            ->join('boms as b', 'b.product_id', '=', 'bd.product_id')
             ->join('products AS p', 'p.id','=', 'bd.product_id')
             ->where('boms.product_id', $request->productId)
-            ->select('bd.product_id', 'p.name AS product_name', 'p.code', 'bd.quantity', 'b.name', 'b.id as bom_id')
+            ->select('bd.product_id', 'p.name AS product_name', 'p.code', 'bd.quantity', 'boms.name', 'boms.id as bom_id')
             ->get();
 
         return response()->json($bom);

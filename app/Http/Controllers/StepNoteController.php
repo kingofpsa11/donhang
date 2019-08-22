@@ -49,13 +49,9 @@ class StepNoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StepNoteRequest $request)
     {
         $stepNote = $this->stepNoteService->create($request);
-        if(! $stepNote) {
-            return back()->withInput();
-        }
-
         return redirect()->route('step-notes.show', $stepNote);
     }
 
@@ -91,10 +87,10 @@ class StepNoteController extends Controller
      * @param  \App\StepNote  $stepNote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StepNoteRequest $request, $id)
     {
-        $this->stepNoteService->update($request, $id);
-
+        $model = $this->stepNoteService->update($request, $id);
+        return $model;
         return redirect()->route('step-notes.show', $id);
     }
 

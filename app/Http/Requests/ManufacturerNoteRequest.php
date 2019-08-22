@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StepNoteRequest extends FormRequest
+class ManufacturerNoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,21 +23,18 @@ class StepNoteRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'number' => 'required|integer',
-            'date' => 'required|date_format:d/m/Y|',
-            'step_id' => 'required|integer'
+            'date' => 'required|date_format:d/m/Y'
         ];
-
-        return $rules;
     }
 
     public function messages()
     {
         return [
-            'number.integer' => 'Số phiếu phải là dạng số',
-            'date.date_format' => 'Không đúng định dạng ngày',
-            'step_id.required' => 'Chưa chọn công đoạn'
+            'number.required' => 'Số phiếu phải là dạng số',
+            'date.required' => 'Phải điền ngày',
+            'date.date_format' => 'Định dạng ngày không đúng'
         ];
     }
 }

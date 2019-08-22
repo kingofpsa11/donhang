@@ -12,7 +12,7 @@ use App\ShapeNoteDetail;
 use App\Step;
 use App\StepNoteDetail;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use App\Http\Requests\ManufacturerNoteRequest;
 use Illuminate\Support\Facades\DB;
 
 class ManufacturerNoteController extends Controller
@@ -58,7 +58,7 @@ class ManufacturerNoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ManufacturerNoteRequest $request)
     {
         $manufacturerNote = $this->manufacturerNote->fill($request->all());
         $manufacturerNote->save();
@@ -102,7 +102,7 @@ class ManufacturerNoteController extends Controller
      * @param  \App\ManufacturerNote  $manufacturerNote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ManufacturerNote $manufacturerNote)
+    public function update(ManufacturerNoteRequest $request, ManufacturerNote $manufacturerNote)
     {
         $manufacturerNote->update($request->all());
 
@@ -125,7 +125,7 @@ class ManufacturerNoteController extends Controller
     public function destroy(ManufacturerNote $manufacturerNote)
     {
         $manufacturerNote->delete();
-        flash('Đã xóa phiếu cắt phôi số ' . $manufacturerNote->number);
+        flash('Đã xóa phiếu cắt phôi số ' . $manufacturerNote->number, 'success');
         return redirect()->route('manufacturer-notes.index');
     }
 

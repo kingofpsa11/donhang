@@ -8,7 +8,6 @@
 
 @section('table-body')
     @php($count = old('details') ? count(old('details')) : 1)
-{{--    @php($count = 1)--}}
     @for ($i = 0; $i < $count; $i++)
         <tr data-key="0">
             <td data-col-seq="0">
@@ -31,7 +30,7 @@
             </td>
             <td data-col-seq="4">
                 <div class="form-group @error('details.' . $i . '.quantity') has-error @enderror">
-                    <input type="number" class="form-control" name="details[{{ $i }}][quantity]" required>
+                    <input type="number" class="form-control" name="details[{{ $i }}][quantity]" value="{{ old('details')[$i]['quantity'] }}" required>
                     @error('details.' . $i . '.quantity')
                     <span id="helpBlock" class="help-block">{{ $message }}</span>
                     @enderror

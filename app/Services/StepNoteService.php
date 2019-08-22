@@ -13,7 +13,8 @@ use App\Repositories\StepNoteDetailRepository;
 use App\Repositories\StepNoteRepository;
 use App\ShapeNoteDetail;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use App\Http\Requests\StepNoteRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StepNoteService
 {
@@ -71,77 +72,35 @@ class StepNoteService
         return $this->stepNoteRepository->getNewNumber();
     }
 
-    public function create(Request $request)
+    public function create(StepNoteRequest $request)
     {
-        $request->validate([
-            'number' => 'required|integer',
-            'date' => 'required|date_format:d/m/Y',
-            'step_id' => 'required',
-            'details.*.quantity' => [
-                'required',
-                function ($attribute, $value, $fail) use ($request) {
-                    if ($request->step_id > 1) {
-                        $quantity = $this->stepNoteDetailRepository
-                            ->where('contract_detail_id', $detail['contract_detail_id'])
-                            ->whereHas('stepNote', function (Builder $query) use ($request) {
-                                $query->where('step_id', '=', $request->step_id);
-                            })
-                            ->sum('quantity');
+        $rules = [];
+        $messages = [];
 
-                        $doneQuantity = $this->stepNoteDetailRepository
-                            ->where('contract_detail_id', $detail['contract_detail_id'])
-                            ->whereHas('stepNote', function (Builder $query) use ($request) {
-                                $query->where('step_id', '=', $request->step_id);
-                            })
-                            ->sum('quantity');
-
-                        $remainQuantity = $quantity - $doneQuantity;
-
-                        if ($remainQuantity < $detail['quantity'] && $remainQuantity > 0) {
-                            $fail('Số lượng không đúng');
-                        } elseif ($remainQuantity == $detail['quantity']) {
-                            $this->stepNoteDetailRepository
-                                ->where('contract_detail_id', $detail['contract_detail_id'])
-                                ->whereHas('stepNote', function (Builder $query) use ($request) {
-                                    $query->where('step_id', '=', $request->step_id - 1);
-                                })
-                                ->update(['status' => 9]);
-                        }
-                    }
-                }
-            ]
-        ]);
-        if ($request->step_id > 1) {
-            foreach ($request->details as $detail) {
+        if ($request->get('step_id') > 1) {
+            foreach ($request->get('details') as $key => $val) {
                 $quantity = $this->stepNoteDetailRepository
-                    ->where('contract_detail_id', $detail['contract_detail_id'])
+                    ->where('contract_detail_id', $val['contract_detail_id'])
                     ->whereHas('stepNote', function (Builder $query) use ($request) {
-                        $query->where('step_id', '=', $request->step_id);
+                        $query->where('step_id', '=', $request->get('step_id') - 1);
                     })
                     ->sum('quantity');
 
                 $doneQuantity = $this->stepNoteDetailRepository
-                    ->where('contract_detail_id', $detail['contract_detail_id'])
+                    ->where('contract_detail_id', $val['contract_detail_id'])
                     ->whereHas('stepNote', function (Builder $query) use ($request) {
-                        $query->where('step_id', '=', $request->step_id);
+                        $query->where('step_id', '=', $request->get('step_id'));
                     })
                     ->sum('quantity');
 
                 $remainQuantity = $quantity - $doneQuantity;
 
-                if ($remainQuantity < $detail['quantity'] && $remainQuantity > 0) {
-                    flash('Số lượng nhiều hơn', 'warning');
-                    return false;
-                } elseif ($remainQuantity == $detail['quantity']) {
-                    $this->stepNoteDetailRepository
-                        ->where('contract_detail_id', $detail['contract_detail_id'])
-                        ->whereHas('stepNote', function (Builder $query) use ($request) {
-                            $query->where('step_id', '=', $request->step_id - 1);
-                        })
-                        ->update(['status' => 9]);
-                }
+                $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+                $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
             }
         }
+
+        $request->validate($rules, $messages);
 
         $stepNote = $this->stepNoteRepository->create($request->all());
 //        $goodDelivery = $stepNote->delivery()->firstOrCreate(
@@ -192,10 +151,49 @@ class StepNoteService
         return $stepNote;
     }
 
-    public function update(Request $request, $id)
+    public function update(StepNoteRequest $request, $id)
     {
-        $this->stepNoteRepository->update($id, $request->all());
         $stepNote = $this->stepNoteRepository->find($id);
+
+    //Validate
+        $rules = [];
+        $messages = [];
+
+        if ($request->get('step_id') > 1) {
+            foreach ($request->get('details') as $key => $val) {
+                $oldQuantity = $stepNote->stepNoteDetails()->find($val['id'])->quantity;
+
+                $quantity = $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $val['contract_detail_id'])
+                    ->where('product_id', $val['product_id'])
+                    ->whereHas('stepNote', function (Builder $query) use ($request) {
+                        $query->where('step_id', '=', $request->get('step_id') - 1);
+                    })
+                    ->sum('quantity');
+
+                $doneQuantity = $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $val['contract_detail_id'])
+                    ->where('product_id', $val['product_id'])
+                    ->whereHas('stepNote', function (Builder $query) use ($request) {
+                        $query->where('step_id', '=', $request->get('step_id'));
+                    })
+                    ->sum('quantity');
+
+                $remainQuantity = $quantity + $oldQuantity - $doneQuantity;
+                if ($remainQuantity > 0) {
+                    $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+                    $messages['details.' . $key . '.quantity.max'] = 'Số lượng vượt quá thực tế';
+                }
+            }
+        }
+
+        $request->validate($rules, $messages);
+
+    //Validate
+
+        $stepNote->fill($request->all());
+        return $stepNote->getOriginal();
+        $this->stepNoteRepository->update($id, $request->all());
         $beforeStepNote = $this->stepNoteRepository
             ->where('step_id', $request->step_id - 1);
 
