@@ -7,6 +7,8 @@ use App\Step;
 use App\StepNote;
 use App\StepNoteDetail;
 use Illuminate\Http\Request;
+use App\Http\Requests\StepNoteRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StepNoteController extends Controller
 {

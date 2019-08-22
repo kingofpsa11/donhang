@@ -73,6 +73,44 @@ class StepNoteService
 
     public function create(Request $request)
     {
+        $request->validate([
+            'number' => 'required|integer',
+            'date' => 'required|date_format:d/m/Y',
+            'step_id' => 'required',
+            'details.*.quantity' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->step_id > 1) {
+                        $quantity = $this->stepNoteDetailRepository
+                            ->where('contract_detail_id', $detail['contract_detail_id'])
+                            ->whereHas('stepNote', function (Builder $query) use ($request) {
+                                $query->where('step_id', '=', $request->step_id);
+                            })
+                            ->sum('quantity');
+
+                        $doneQuantity = $this->stepNoteDetailRepository
+                            ->where('contract_detail_id', $detail['contract_detail_id'])
+                            ->whereHas('stepNote', function (Builder $query) use ($request) {
+                                $query->where('step_id', '=', $request->step_id);
+                            })
+                            ->sum('quantity');
+
+                        $remainQuantity = $quantity - $doneQuantity;
+
+                        if ($remainQuantity < $detail['quantity'] && $remainQuantity > 0) {
+                            $fail('Số lượng không đúng');
+                        } elseif ($remainQuantity == $detail['quantity']) {
+                            $this->stepNoteDetailRepository
+                                ->where('contract_detail_id', $detail['contract_detail_id'])
+                                ->whereHas('stepNote', function (Builder $query) use ($request) {
+                                    $query->where('step_id', '=', $request->step_id - 1);
+                                })
+                                ->update(['status' => 9]);
+                        }
+                    }
+                }
+            ]
+        ]);
         if ($request->step_id > 1) {
             foreach ($request->details as $detail) {
                 $quantity = $this->stepNoteDetailRepository
@@ -190,8 +228,7 @@ class StepNoteService
                 ->groupBy('contract_detail_id')
                 ->sum('quantity')
                 ->get();
-            var_dump($beforeStepNote);
-            die;
+
             $stepNoteDetail = $this->stepNoteDetailRepository->updateOrCreate(
                 [
                     'id' => $request->step_note_detail_id[$i]

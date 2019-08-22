@@ -7,13 +7,16 @@
     <form action=@yield('route') method="POST" id="form">
         @csrf
         @yield('method')
-        <div class="box box-default">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group @error('number') has-error @enderror">
                             <label>Số phiếu</label>
                             <input type="text" class="form-control" name="number" value="{{ old('number') ?? $stepNote->number ?? $newNumber }}" required>
+                            @error('number')
+                                <span id="helpBlock" class="help-block">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -31,7 +34,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Công đoạn</label>
-                            <select name="step_id" class="form-control" id="step_id">
+                            <select name="step_id" class="form-control" id="step_id" required>
                                 <option value="" hidden="">Chọn công đoạn</option>
                                 @foreach($steps as $step)
                                     @if (isset($stepNote) && $stepNote->step_id === $step->id)
