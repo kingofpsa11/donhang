@@ -60,6 +60,26 @@ class ManufacturerNoteController extends Controller
      */
     public function store(ManufacturerNoteRequest $request)
     {
+        $rules = [];
+        $messages = [];
+
+        foreach ($request->details as $key => $val) {
+            $quantity = ContractDetail::where('id', $val['contract_detail_id'])
+                ->first()->quantity;
+
+            $doneQuantity = ManufacturerNoteDetail::where('product_id', $val['product_id'])
+                ->where('contract_detail_id', $val['contract_detail_id'])
+                ->groupBy('product_id', 'contract_detail_id')
+                ->sum('quantity');
+
+            $remainQuantity = $quantity - $doneQuantity;
+
+            $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+            $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
+        }
+
+        $request->validate($rules, $messages);
+
         $manufacturerNote = $this->manufacturerNote->fill($request->all());
         $manufacturerNote->save();
 
@@ -104,6 +124,28 @@ class ManufacturerNoteController extends Controller
      */
     public function update(ManufacturerNoteRequest $request, ManufacturerNote $manufacturerNote)
     {
+        $rules = [];
+        $messages = [];
+
+        foreach ($request->details as $key => $val) {
+            $oldQuantity = $manufacturerNote->manufacturerNoteDetails()->find($val['id'])->quantity ?? 0;
+
+            $quantity = ContractDetail::where('id', $val['contract_detail_id'])
+                ->first()->quantity;
+
+            $doneQuantity = ManufacturerNoteDetail::where('product_id', $val['product_id'])
+                ->where('contract_detail_id', $val['contract_detail_id'])
+                ->groupBy('product_id', 'contract_detail_id')
+                ->sum('quantity');
+
+            $remainQuantity = $quantity + $oldQuantity - $doneQuantity;
+
+            $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+            $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
+        }
+
+        $request->validate($rules, $messages);
+
         $manufacturerNote->update($request->all());
 
         foreach ($request->details as $detail) {

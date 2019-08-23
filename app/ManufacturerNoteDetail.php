@@ -41,6 +41,7 @@ class ManufacturerNoteDetail extends Model
         'manufacturer_note_id',
         'contract_detail_id',
         'product_id',
+        'bom_detail_id',
         'length',
         'thickness',
         'top_perimeter',

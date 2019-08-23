@@ -22,6 +22,7 @@
                 </select>
                 <select class="form-control" name="details[{{ $i }}][product_id]" style="width: 100%" required>
                 </select>
+                <input type="hidden" class="bom-detail-id" name="details[{{ $i }}][bom_detail_id]">
             </td>
             <td data-col-seq="3">
                 <input type="text" class="form-control" name="details[{{ $i }}][length]" required>
@@ -36,7 +37,12 @@
                 <input type="text" class="form-control" name="details[{{ $i }}][bottom_perimeter]" required>
             </td>
             <td data-col-seq="3">
-                <input type="text" class="form-control" name="details[{{ $i }}][quantity]" required>
+                <div class="form-group @error('details.'.$i.'.quantity') has-error @enderror">
+                    <input type="text" class="form-control" name="details[{{ $i }}][quantity]" required>
+                    @error('details.'.$i.'.quantity')
+                        <span class="help-block text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
             </td>
             <td data-col-seq="4">
                 <input type="text" class="form-control" name="details[{{ $i }}][note]">

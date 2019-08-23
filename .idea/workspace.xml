@@ -7,14 +7,12 @@
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BomController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StepNoteRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StepNoteRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/StepNoteService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/StepNoteService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/ManufacturerNoteRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/ManufacturerNoteRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/step-note/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/step-note/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,8 +50,47 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1620">
-              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            <state relative-caret-position="943">
+              <caret line="161" column="75" selection-start-line="161" selection-start-column="75" selection-end-line="161" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/ManufacturerNoteDetail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="265">
+              <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="943">
+              <caret line="133" column="142" selection-start-line="133" selection-start-column="142" selection-end-line="133" selection-end-column="142" />
+              <folding>
+                <element signature="e#40#52#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,32 +98,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" column="61" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
+            <state relative-caret-position="391">
+              <caret line="24" column="97" selection-start-line="24" selection-start-column="97" selection-end-line="24" selection-end-column="97" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
-              <folding>
-                <element signature="e#40#58#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="130" column="71" lean-forward="true" selection-start-line="130" selection-start-column="71" selection-end-line="130" selection-end-column="71" />
-              <folding>
-                <element signature="e#40#52#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="-7">
+              <caret line="45" column="152" selection-start-line="45" selection-start-column="152" selection-end-line="45" selection-end-column="152" />
             </state>
           </provider>
         </entry>
@@ -144,7 +166,6 @@
         <option value="$PROJECT_DIR$/app/StepNote.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-order/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-order/index.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/index.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_08_15_033835_create_shape_notes_table.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
@@ -165,7 +186,6 @@
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/views/manufacturer-note/show.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" />
-        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/ManufacturerNote.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_08_15_041454_create_shape_note_details_table.php" />
         <option value="$PROJECT_DIR$/resources/views/shape-note/create.blade.php" />
@@ -173,7 +193,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/ShapeNoteController.php" />
         <option value="$PROJECT_DIR$/resources/views/shape-note/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/step-note/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" />
         <option value="$PROJECT_DIR$/app/ShapeNoteDetail.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_08_06_010934_create_step_note_details_table.php" />
         <option value="$PROJECT_DIR$/app/ContractDetail.php" />
@@ -185,12 +204,15 @@
         <option value="$PROJECT_DIR$/app/Services/StepNoteService.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/StepNoteRequest.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/step-note/create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/ManufacturerNoteRequest.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/BomController.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php" />
+        <option value="$PROJECT_DIR$/app/ManufacturerNoteDetail.php" />
+        <option value="$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
       </list>
     </option>
   </component>
@@ -321,7 +343,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -388,17 +409,11 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="manufacturer-note" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="donhang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="donhang" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="step-note" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -554,6 +569,7 @@
       <workItem from="1566342794751" duration="5478000" />
       <workItem from="1566353250294" duration="20976000" />
       <workItem from="1566436495916" duration="14719000" />
+      <workItem from="1566471894689" duration="9187000" />
     </task>
     <servers />
   </component>
@@ -566,7 +582,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1491114000" />
+    <option name="totallyTimeSpent" value="1500301000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -578,14 +594,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
       <window_info id="npm" order="1" sideWeight="0.5005574" side_tool="true" weight="0.16791044" />
-      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.49881518" visible="true" weight="0.14392324" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49881518" visible="true" weight="0.14507154" />
       <window_info id="Structure" order="3" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
-      <window_info anchor="bottom" auto_hide="true" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.4989339" weight="0.23076923" />
+      <window_info anchor="bottom" auto_hide="true" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.4989339" weight="0.23070803" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5010661" side_tool="true" weight="0.23522854" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.3277592" />
@@ -593,7 +609,7 @@
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.3277592" />
       <window_info anchor="bottom" id="Run" order="7" weight="0.32998884" />
-      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49920508" weight="0.44147158" />
+      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49920508" weight="0.4407319" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.3293556" />
@@ -661,27 +677,6 @@
     <select />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="142" selection-start-line="142" selection-end-line="142" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Router.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="122">
@@ -735,13 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
           <caret line="130" selection-start-line="130" selection-end-line="130" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="165" selection-start-line="165" selection-end-line="165" />
         </state>
       </provider>
     </entry>
@@ -865,13 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/ManufacturerNoteDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/ShapeNoteDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -935,23 +916,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2120">
-          <caret line="171" column="38" lean-forward="true" selection-start-line="171" selection-start-column="38" selection-end-line="171" selection-end-column="38" />
-          <folding>
-            <element signature="e#32#53#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StepNoteRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -976,20 +940,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="61" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/ManufacturerNoteRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/step-note/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -997,30 +947,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/ManufacturerNoteRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
+        <state relative-caret-position="630">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="557">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StepNoteRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-261">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="98" column="16" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="89" />
           <folding>
-            <element signature="e#40#58#0#PHP" expanded="true" />
+            <element signature="e#32#53#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1620">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state relative-caret-position="-7">
+          <caret line="45" column="152" selection-start-line="45" selection-start-column="152" selection-end-line="45" selection-end-column="152" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_20_041508_create_manufacturer_note_details_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="24" column="103" lean-forward="true" selection-start-line="24" selection-start-column="103" selection-end-line="24" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BomController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="130" column="71" lean-forward="true" selection-start-line="130" selection-start-column="71" selection-end-line="130" selection-end-column="71" />
+        <state relative-caret-position="943">
+          <caret line="133" column="142" selection-start-line="133" selection-start-column="142" selection-end-line="133" selection-end-column="142" />
           <folding>
             <element signature="e#40#52#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ManufacturerNoteDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/_form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="943">
+          <caret line="161" column="75" selection-start-line="161" selection-start-column="75" selection-end-line="161" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/manufacturer-note/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="24" column="97" selection-start-line="24" selection-start-column="97" selection-end-line="24" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
         </state>
       </provider>
     </entry>

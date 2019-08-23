@@ -143,6 +143,7 @@
                                             quantity: item.quantity,
                                             code: item.code,
                                             name: item.name,
+                                            bom_detail_id: item.bom_detail_id,
                                         }
                                     })
                                 };
@@ -155,6 +156,10 @@
                             }
                             return $(`<div class="container-fluid"><div class="row"><div class="col-md-4">${repo.name}</div><div class="col-md-8">${repo.text}</div></div></div> `);
                         },
+                    })
+                    .on('select2:select', function (e) {
+                        let data = e.params.data;
+                        row.find('.bom-detail-id').val(data.bom_detail_id);
                     });
 
 

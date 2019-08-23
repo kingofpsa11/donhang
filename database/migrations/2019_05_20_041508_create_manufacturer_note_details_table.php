@@ -19,8 +19,10 @@ class CreateManufacturerNoteDetailsTable extends Migration
             $table->foreign('manufacturer_note_id')->references('id')->on('manufacturer_notes')->onDelete('cascade');
             $table->unsignedBigInteger('contract_detail_id');
             $table->foreign('contract_detail_id')->references('id')->on('contract_details')->onDelete('cascade');
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('bom_detail_id');
+            $table->foreign('bom_detail_id')->references('id')->on('bom_details')->onDelete('cascade');
             $table->integer('length');
             $table->float('thickness', 8, 2);
             $table->integer('top_perimeter');

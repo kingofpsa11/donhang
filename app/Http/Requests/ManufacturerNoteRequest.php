@@ -25,7 +25,8 @@ class ManufacturerNoteRequest extends FormRequest
     {
         return [
             'number' => 'required|integer',
-            'date' => 'required|date_format:d/m/Y'
+            'date' => 'required|date_format:d/m/Y',
+            'details.*.quantity' => 'required|integer'
         ];
     }
 
@@ -34,7 +35,7 @@ class ManufacturerNoteRequest extends FormRequest
         return [
             'number.required' => 'Số phiếu phải là dạng số',
             'date.required' => 'Phải điền ngày',
-            'date.date_format' => 'Định dạng ngày không đúng'
+            'date.date_format' => 'Định dạng ngày không đúng',
         ];
     }
 }

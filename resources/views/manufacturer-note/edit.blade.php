@@ -42,7 +42,12 @@
                 <input type="text" class="form-control" name="details[{{ $i }}][bottom_perimeter]" value="{{ $manufacturerNoteDetail->bottom_perimeter }}" required>
             </td>
             <td data-col-seq="3">
-                <input type="text" class="form-control" name="details[{{ $i }}][quantity]" value="{{ $manufacturerNoteDetail->quantity }}" required>
+                <div class="form-group @error('details.'.$i.'.quantity') has-error @enderror">
+                    <input type="text" class="form-control" name="details[{{ $i }}][quantity]" value="{{ $manufacturerNoteDetail->quantity }}" required>
+                    @error('details.'.$i.'.quantity')
+                    <span class="help-block text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
             </td>
             <td data-col-seq="4">
                 <input type="text" class="form-control" name="details[{{ $i }}][note]" value="{{ $manufacturerNoteDetail->note }}">
