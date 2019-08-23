@@ -89,8 +89,7 @@ class StepNoteController extends Controller
      */
     public function update(StepNoteRequest $request, $id)
     {
-        $model = $this->stepNoteService->update($request, $id);
-        return $model;
+        $this->stepNoteService->update($request, $id);
         return redirect()->route('step-notes.show', $id);
     }
 

@@ -14,7 +14,6 @@ use App\Repositories\StepNoteRepository;
 use App\ShapeNoteDetail;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\StepNoteRequest;
-use Illuminate\Support\Facades\Validator;
 
 class StepNoteService
 {
@@ -77,7 +76,31 @@ class StepNoteService
         $rules = [];
         $messages = [];
 
-        if ($request->get('step_id') > 1) {
+        if ($request->step_id == 2 ) {
+            foreach ($request->details as $key => $val) {
+                $bomQuantity = ShapeNoteDetail::where('contract_detail_id', $val['contract_detail_id'])
+                    ->first()->bom_detail_quantity;
+
+                $quantity = $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $val['contract_detail_id'])
+                    ->whereHas('stepNote', function (Builder $query) use ($request) {
+                        $query->where('step_id', '=', $request->get('step_id') - 1);
+                    })
+                    ->sum('quantity');
+
+                $doneQuantity = $this->stepNoteDetailRepository
+                    ->where('contract_detail_id', $val['contract_detail_id'])
+                    ->whereHas('stepNote', function (Builder $query) use ($request) {
+                        $query->where('step_id', '=', $request->get('step_id'));
+                    })
+                    ->sum('quantity');
+
+                $remainQuantity = $quantity/$bomQuantity - $doneQuantity;
+
+                $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+                $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
+            }
+        } elseif ($request->get('step_id') > 1) {
             foreach ($request->get('details') as $key => $val) {
                 $quantity = $this->stepNoteDetailRepository
                     ->where('contract_detail_id', $val['contract_detail_id'])
@@ -191,8 +214,7 @@ class StepNoteService
 
     //Validate
 
-        $stepNote->fill($request->all());
-        return $stepNote->getOriginal();
+        $stepNote->update($request->all());
         $this->stepNoteRepository->update($id, $request->all());
         $beforeStepNote = $this->stepNoteRepository
             ->where('step_id', $request->step_id - 1);

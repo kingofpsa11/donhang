@@ -22,6 +22,7 @@
             <div class="col-md-10 no-padding">
                 <select type="text" class="form-control" name="details[0][bom_id]" style="width:100%" required>
                 </select>
+                <input type="hidden" name="details[0][bom_detail_quantity]">
             </div>
             <input type="hidden" name="details[0][product_id]">
         </td>

@@ -129,6 +129,7 @@
 
                     bomEl
                         .val(null)
+                        .trigger('change')
                         .select2({
                         placeholder: 'Chọn loại phôi',
                         minimumResultsForSearch: -1,
@@ -159,14 +160,18 @@
                             return $(`<div class="container-fluid"><div class="row"><div class="col-md-4">${repo.name}</div><div class="col-md-8">${repo.text}</div></div></div> `);
                         },
                     })
-                    .on('select2:select', function (e) {
-                        let data = e.params.data;
+                    .off('select2:select')
+                    .on('select2:select', function (ev) {
+                        let data = ev.params.data;
+                        let row = $(this).parents('tr');
+                        let quantityObj = row.find('[name*="quantity"]');
+                        let quantity = e.params.data.quantity;
                         row.find('.bom-detail-id').val(data.bom_detail_id);
+                        quantityObj.val(Math.ceil(quantity * data.quantity));
                     });
-
-
                 });
             }
+
             function updateNumberOfRow() {
                 let rows = $('tr[data-key]');
                 rows.each(function (i, row) {

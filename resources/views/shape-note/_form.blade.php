@@ -116,7 +116,6 @@
                     let row = $(this).parents('tr');
                     let bomEl = row.find('[name*="bom_id"]');
                     row.find('.manufacturer-order-number').text(data.number);
-                    row.find('input[name*="quantity"]').val(data.quantity);
                     row.find('input[name*="contract_detail_id"]').val(data.contract_detail_id);
 
                     bomEl
@@ -137,7 +136,7 @@
                                                 code: item.code,
                                                 quantity: item.quantity,
                                                 name: item.name,
-                                                product_id: item.product_id
+                                                product_id: item.product_id,
                                             }
                                         }),
                                     };
@@ -150,13 +149,17 @@
                                 return $(`<div class="container-fluid"><div class="row"><div class="col-md-2">${repo.name}</div><div class="col-md-2">${repo.code}</div><div class="col-md-8">${repo.text}</div></div></div> `);
                             },
                         })
-                        .one('select2:select', function (e) {
-                            let data = e.params.data;
+                        .off('select2:select')
+                        .on('select2:select', function (ev) {
+                            let data = ev.params.data;
+                            console.log(data.quantity);
                             let row = $(this).parents('tr');
-                            let quantityObj = row.find('[name*="quantity"]');
-                            let quantity = quantityObj.val();
+                            let quantityObj = row.find('[name*="[quantity]"]');
+                            let quantity = e.params.data.quantity;
                             row.find('[name*="code"]').val(data.code);
                             row.find('[name*="product_id"]').val(data.product_id);
+                            row.find('[name*="bom_detail_quantity"').val(+data.quantity);
+                            console.log(row.find('[name*="bom_detail_quantity"').val());
                             quantityObj.val(Math.ceil(quantity * data.quantity));
                         })
                 });
