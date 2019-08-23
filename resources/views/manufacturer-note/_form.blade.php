@@ -127,7 +127,9 @@
                     row.find('[name*="quantity"]').val(data.quantity);
                     row.find('.manufacturer-order-number').text(data.number);
 
-                    bomEl.select2({
+                    bomEl
+                        .val(null)
+                        .select2({
                         placeholder: 'Chọn loại phôi',
                         minimumResultsForSearch: -1,
                         ajax: {

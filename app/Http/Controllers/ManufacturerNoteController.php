@@ -13,6 +13,7 @@ use App\Step;
 use App\StepNoteDetail;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\ManufacturerNoteRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ManufacturerNoteController extends Controller
