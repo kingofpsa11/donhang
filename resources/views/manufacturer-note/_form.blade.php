@@ -146,7 +146,8 @@
                                             quantity: item.quantity,
                                             code: item.code,
                                             name: item.name,
-                                            bom_detail_id: item.bom_detail_id,
+                                            bom_id: item.bom_id,
+                                            bom_detail_quantity: item.quantity,
                                         }
                                     })
                                 };
@@ -162,11 +163,14 @@
                     })
                     .off('select2:select')
                     .on('select2:select', function (ev) {
+
                         let data = ev.params.data;
+                        console.log(data);
                         let row = $(this).parents('tr');
-                        let quantityObj = row.find('[name*="quantity"]');
+                        let quantityObj = row.find('[name*="[quantity]"]');
                         let quantity = e.params.data.quantity;
-                        row.find('.bom-detail-id').val(data.bom_detail_id);
+                        row.find('.bom-id').val(data.bom_id);
+                        row.find('.bom-detail-quantity').val(data.bom_detail_quantity);
                         quantityObj.val(Math.ceil(quantity * data.quantity));
                     });
                 });

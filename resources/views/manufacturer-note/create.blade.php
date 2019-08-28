@@ -22,7 +22,8 @@
                 </select>
                 <select class="form-control" name="details[{{ $i }}][product_id]" style="width: 100%" required>
                 </select>
-                <input type="hidden" class="bom-detail-id" name="details[{{ $i }}][bom_detail_id]">
+                <input type="hidden" class="bom-id" name="details[{{ $i }}][bom_id]">
+                <input type="hidden" class="bom-detail-quantity" name="details[{{ $i }}][bom_detail_quantity]">
             </td>
             <td data-col-seq="3">
                 <input type="text" class="form-control" name="details[{{ $i }}][length]" required>

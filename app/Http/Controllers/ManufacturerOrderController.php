@@ -132,7 +132,7 @@ class ManufacturerOrderController extends Controller
 
         $result = DB::table('manufacturer_orders AS m')
             ->where('m.number', 'LIKE', '%' . $search . '%')
-            ->where('md.status', 10)
+//            ->where('md.status', 10)
             ->orderBy('m.id','desc')
             ->join('manufacturer_order_details AS md', 'm.id', 'md.manufacturer_order_id')
             ->join('contract_details AS c', 'c.id', 'md.contract_detail_id')

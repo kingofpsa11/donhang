@@ -86,7 +86,7 @@ class ManufacturerNoteController extends Controller
 
         foreach ($request->details as $detail) {
             $manufacturerNoteDetail = $manufacturerNote->manufacturerNoteDetails()->create($detail);
-            $manufacturerNoteDetail->contractDetail->update(['status' => 9]);
+            $manufacturerNoteDetail->contractDetail->manufacturerOrderDetail->update(['status' => 9]);
         }
 
         return redirect()->route('manufacturer-notes.show', $this->manufacturerNote);
@@ -376,26 +376,27 @@ class ManufacturerNoteController extends Controller
                         ->with('product:id,name,code')
                         ->first();
 
-                    $bomQuantity = BomDetail::whereHas('bom', function (Builder $query) use ($manufacturerNote) {
-                            $query->where('product_id', $manufacturerNote->product_id);
+                    $product_id = $manufacturerNote->product_id;
+
+                    $bomQuantity = BomDetail::whereHas('bom', function (Builder $query) use ($product_id) {
+                            $query->where('product_id', '=', $product_id);
                         })
                         ->where('product_id', $result->product_id)
-                        ->first()
-                        ->quantity;
+                        ->first()->quantity;
 
-                        $singleResult = [
-                            'name' => $manufacturerNote->product->name,
-                            'code' => $manufacturerNote->product->code,
-                            'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
-                            'remain_quantity' => $result->total/$bomQuantity - ($after->where('contract_detail_id', $manufacturerNote->contract_detail_id)->where('product_id', $manufacturerNote->product_id)->first()->total ?? 0),
-                            'product_id' => $manufacturerNote->product_id,
-                            'contract_detail_id' => $result->contract_detail_id,
-                        ];
+                    $singleResult = [
+                        'name' => $manufacturerNote->product->name,
+                        'code' => $manufacturerNote->product->code,
+                        'number' => $result->contractDetail->manufacturerOrderDetail->manufacturerOrder->number,
+                        'remain_quantity' => $result->total/$bomQuantity - ($after->where('contract_detail_id', $manufacturerNote->contract_detail_id)->where('product_id', $manufacturerNote->product_id)->first()->total ?? 0),
+                        'product_id' => $manufacturerNote->product_id,
+                        'contract_detail_id' => $result->contract_detail_id,
+                    ];
 
-                        if ($singleResult['remain_quantity'] > 0) {
-                            $newResult[] = $singleResult;
-                        }
+                    if ($singleResult['remain_quantity'] > 0) {
+                        $newResult[] = $singleResult;
                     }
+                }
                 break;
             case 3:
                 $results = StepNoteDetail::where('status', 10)

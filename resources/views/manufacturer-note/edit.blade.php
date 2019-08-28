@@ -28,6 +28,8 @@
                 <select class="form-control" name="details[{{ $i }}][product_id]" style="width: 100%" required>
                     <option value="{{ $manufacturerNoteDetail->product_id }}">{{ $manufacturerNoteDetail->product->name }}</option>
                 </select>
+                <input type="hidden" class="bom-id" name="details[{{ $i }}][bom_id]" value="{{ $manufacturerNoteDetail->bom_id }}">
+                <input type="hidden" class="bom-detail-quantity" name="details[{{ $i }}][bom_detail_quantity]" value="{{ $manufacturerNoteDetail->bom_detail_quantity }}">
             </td>
             <td data-col-seq="3">
                 <input type="text" class="form-control" name="details[{{ $i }}][length]" value="{{ $manufacturerNoteDetail->length }}" required>
