@@ -52,20 +52,15 @@ class ShapeNoteController extends Controller
         foreach ($request->details as $detail) {
             $shapeNote->shapeNoteDetails()->create($detail);
 
-//            $manufacturerNoteDetail = ManufacturerNoteDetail::find($detail['manufacturer_note_detail_id']);
-//
-//            $bomProductId = $manufacturerNoteDetail->product_id;
-//            $quantity = $manufacturerNoteDetail->quantity;
-//
-//            $bomQuantity = BomDetail::where('product_id', $request->product_id[$i])
-//                ->whereHas('bom', function (Builder $query) use ($bomProductId) {
-//                    $query->where('product_id', '=', $bomProductId);
-//                })
-//                ->first()->quantity;
-//
-//            if (ceil($quantity * $bomQuantity) == $request->quantity[$i]) {
-//                $manufacturerNoteDetail->update(['status' => 9]);
-//            }
+            $manufacturerNoteDetail = ManufacturerNoteDetail::find($detail['manufacturer_note_detail_id']);
+
+            $quantity = $manufacturerNoteDetail->quantity;
+
+            $bomQuantity = $detail['bom_detail_quantity'];
+
+            if (ceil($quantity * $bomQuantity) == $detail['quantity']) {
+                $manufacturerNoteDetail->contractDetail()->update(['status' => 8]);
+            }
         }
 
         return redirect()->route('shape-notes.show', $shapeNote);

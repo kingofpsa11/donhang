@@ -335,7 +335,6 @@ class ManufacturerNoteController extends Controller
 
         switch ($request->stepId) {
             case 1:
-                //
                 $results = ShapeNoteDetail::where('status', 10)
                     ->selectRaw('contract_detail_id, product_id, sum(quantity) AS total')
                     ->groupBy('contract_detail_id', 'product_id')
