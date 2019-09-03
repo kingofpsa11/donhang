@@ -1,9 +1,11 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Phiếu tạo phôi')
+
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp Phiếu sản xuất</h3>
+            <h3 class="box-title">Tổng hợp Phiếu tạo phôi</h3>
             <a href="{{ route('manufacturer-notes.create') }}" class="btn btn-primary pull-right">Tạo mới</a>
         </div>
         <!-- /.box-header -->

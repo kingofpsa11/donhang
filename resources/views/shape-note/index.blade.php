@@ -1,9 +1,11 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Phiếu cắt tấm')
+
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Tổng hợp LXH</h3>
+            <h3 class="box-title">Tổng hợp phiếu cắt tấm</h3>
             <a href="{{ route('shape-notes.create') }}" class="btn btn-primary pull-right">Tạo mới</a>
         </div>
         <!-- /.box-header -->
@@ -12,8 +14,9 @@
                 <thead>
                 <tr>
                     <th>STT</th>
-                    <th>Tên sản phẩm</th>
+                    <th>LSX</th>
                     <th>Mã vật tư</th>
+                    <th>Tên sản phẩm</th>
                     <th>Tên vật tư</th>
                     <th>Số lượng</th>
                     <th>Xem</th>
@@ -26,8 +29,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $shapeNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
-                            <td>{{ $shapeNoteDetail->manufacturerNoteDetail->product->name }}</td>
                             <td>{{ $shapeNoteDetail->product->code }}</td>
+                            <td>{{ $shapeNoteDetail->manufacturerNoteDetail->product->name }}</td>
                             <td>{{ $shapeNoteDetail->product->name }}</td>
                             <td>{{ $shapeNoteDetail->quantity }}</td>
                             <td>

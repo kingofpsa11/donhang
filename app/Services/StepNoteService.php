@@ -100,9 +100,7 @@ class StepNoteService
                 $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
                 $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
             }
-        } elseif ($request->get('step_id') == 3
-
-        ) {
+        } elseif ($request->get('step_id') == 3) {
             foreach ($request->get('details') as $key => $val) {
                 $quantity = $this->stepNoteDetailRepository
                     ->where('contract_detail_id', $val['contract_detail_id'])

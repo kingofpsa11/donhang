@@ -56,7 +56,7 @@ class ManufacturerNoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ManufacturerNoteRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ManufacturerNoteRequest $request)
@@ -119,7 +119,7 @@ class ManufacturerNoteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ManufacturerNoteRequest $request
      * @param  \App\ManufacturerNote  $manufacturerNote
      * @return \Illuminate\Http\Response
      */
@@ -164,6 +164,7 @@ class ManufacturerNoteController extends Controller
      *
      * @param  \App\ManufacturerNote  $manufacturerNote
      * @return \Illuminate\Http\Response
+     * @throws
      */
     public function destroy(ManufacturerNote $manufacturerNote)
     {
@@ -180,9 +181,12 @@ class ManufacturerNoteController extends Controller
             ->join('products AS p', 'p.id', '=', 'mnd.product_id')
             ->join('manufacturer_order_details AS mod', 'mod.contract_detail_id', '=', 'mnd.contract_detail_id')
             ->join('manufacturer_orders AS mo', 'mo.id', '=', 'mod.manufacturer_order_id')
-            ->where('mo.number', 'LIKE', '%' . $search . '%')
-            ->orWhere('p.name', 'LIKE', '%' . $search . '%')
-            ->select('mo.number', 'p.name', 'mnd.contract_detail_id', 'mnd.product_id', 'mnd.id', 'mnd.quantity')
+            ->where('mnd.status', '=', 10)
+            ->where(function ($query) use ($search) {
+                $query->orWhere('mo.number', 'LIKE', '%' . $search . '%')
+                    ->orWhere('p.name', 'LIKE', '%' . $search . '%');
+            })
+            ->select('mo.number', 'p.name', 'mnd.contract_detail_id', 'mnd.product_id', 'mnd.id', 'mnd.quantity', 'mnd.status')
             ->get();
 
         return response()->json($result);

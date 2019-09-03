@@ -47,19 +47,53 @@ class ShapeNoteController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [];
+        $messages = [];
+
+        foreach ($request->details as $key => $val) {
+
+            $manufacturerNoteDetail = ManufacturerNoteDetail::find($val['manufacturer_note_detail_id']);
+
+            $quantity = $manufacturerNoteDetail->quantity;
+
+            $bomQuantity = $val['bom_detail_quantity'];
+
+            $doneQuantity = ShapeNoteDetail::where('contract_detail_id', $val['contract_detail_id'])
+                ->sum('quantity');
+
+            $remainQuantity = ceil($quantity*$bomQuantity) - $doneQuantity;
+
+            $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+            $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
+        }
+
+        $request->validate($rules, $messages);
+
         $shapeNote = ShapeNote::create($request->all());
 
+        $sumQuantityOfRequest = 0;
+
         foreach ($request->details as $detail) {
+            foreach ($request->details as $item) {
+                if ($detail['contract_detail_id'] == $item['contract_detail_id'] && $detail['product_id'] == $item['product_id']) {
+                    $sumQuantityOfRequest += $item['quantity'];
+                }
+            }
             $shapeNote->shapeNoteDetails()->create($detail);
 
             $manufacturerNoteDetail = ManufacturerNoteDetail::find($detail['manufacturer_note_detail_id']);
+            $manufacturerNoteDetail->manufacturerNote()->update(['status' => 9]);
 
             $quantity = $manufacturerNoteDetail->quantity;
 
             $bomQuantity = $detail['bom_detail_quantity'];
 
-            if (ceil($quantity * $bomQuantity) == $detail['quantity']) {
+            $doneQuantity = ShapeNoteDetail::where('contract_detail_id', $val['contract_detail_id'])
+                ->sum('quantity');
+
+            if (ceil($quantity * $bomQuantity) - $doneQuantity<= $sumQuantityOfRequest) {
                 $manufacturerNoteDetail->contractDetail()->update(['status' => 8]);
+                $manufacturerNoteDetail->update(['status' => 0]);
             }
         }
 
@@ -128,6 +162,7 @@ class ShapeNoteController extends Controller
      *
      * @param  \App\ShapeNote  $shapeNote
      * @return \Illuminate\Http\Response
+     * @throws
      */
     public function destroy(ShapeNote $shapeNote)
     {

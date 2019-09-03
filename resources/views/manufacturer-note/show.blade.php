@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Phiếu sản xuất')
-
+@section('title', 'Phiếu tạo phôi')
 
 @section('content')
     
@@ -72,15 +71,23 @@
                 <div class="text-right">
                     <a href="{{ route('manufacturer-notes.create') }}" class="btn btn-success">Tạo mới</a>
                     <button class="btn btn-default print">In</button>
+                    @if ($manufacturerNote->status == 10)
                     <a href="{{ route('manufacturer-notes.edit', $manufacturerNote) }}" class="btn btn-primary">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
                     </a>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#modal">Xoá</button>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <!-- /.box -->
+    @include('shared._modal', [
+        'model' => $manufacturerNote,
+        'modelName' => 'Phiếu tạo phôi',
+        'modelInformation' => $manufacturerNote->number,
+        'routeName' => 'manufacturer-notes'
+    ])
 @endsection
 
 @section('javascript')

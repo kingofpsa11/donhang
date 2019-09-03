@@ -186,7 +186,7 @@
                 let numberOfProduct = tableBody.children().length;
                 let lastRow = tableBody.find('tr:last');
                 let newRow = lastRow.clone();
-                let select2 = newRow.find('[name*=note_detail_id]');
+                let select2 = newRow.find('[name*=contract_product]');
 
                 newRow.attr('data-key', numberOfProduct);
                 newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
