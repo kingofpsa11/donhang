@@ -37,7 +37,16 @@ use Carbon\Carbon;
  */
 class Contract extends Model
 {
-    protected $fillable = ['id', 'number', 'customer_id', 'total_value', 'imprest', 'status', 'date'];
+    protected $fillable = [
+        'id',
+        'number',
+        'customer_id',
+        'total_value',
+        'imprest',
+        'status',
+        'date',
+        'user_id'
+    ];
 
     public $timestamps = true;
 

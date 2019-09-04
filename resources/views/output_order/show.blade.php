@@ -54,10 +54,10 @@
                     <tr>
                         <th>STT</th>
                         <th>Số đơn hàng</th>
-                        <th>Số LSX</th>
+                        <th class="">Số LSX</th>
                         <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
+                        <th class="col-md-6">Tên sản phẩm</th>
+                        <th class="col-md-1">Số lượng</th>
                         <th>Ghi chú</th>
                     </tr>
                     </thead>

@@ -134,7 +134,7 @@ function makeNotificationText(notification) {
     } else if (notification.type === NOTIFICATION_TYPES.outputOrder) {
         text = 'Phòng KHKD đã gửi LXH số ' + notification.data.output_order_number;
     } else if (notification.type === NOTIFICATION_TYPES.contract) {
-        if (notification.data.status === 5) {
+        if (notification.data.status === 8) {
             text = 'Lãnh đạo đã phê duyệt đơn hàng số ' + notification.data.number;
         } else {
             text = 'Phòng KHKD trình đơn hàng số ' + notification.data.number;

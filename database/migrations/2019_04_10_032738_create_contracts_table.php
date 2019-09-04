@@ -22,6 +22,8 @@ class CreateContractsTable extends Migration
             $table->unsignedInteger('imprest')->nullable();
             $table->integer('status');
             $table->date('date')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

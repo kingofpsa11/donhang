@@ -78,7 +78,7 @@
                             disabled
                         @endif
                     ">Thêm dòng</button>
-                    <input type="submit" value="Lưu" class="btn btn-success save disabled">
+                    <input type="submit" value="Lưu" class="btn btn-success save">
                     <a href="{{ route('contracts.index') }}" class="btn btn-danger cancel">Hủy</a>
                 </div>
             </div>
@@ -211,7 +211,12 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
-
+                    $(row).find('[name]').each(function (index, el) {
+                        let oldName = $(el).attr('name');
+                        let pos = oldName.indexOf('[');
+                        let newName = oldName.substr(0, pos + 1) + i + oldName.substr(pos + 2);
+                        $(el).attr('name', newName);
+                    });
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');

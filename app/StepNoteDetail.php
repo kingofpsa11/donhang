@@ -45,5 +45,4 @@ class StepNoteDetail extends Model
     {
         return $this->morphOne('App\GoodReceiveDetail', 'receivable');
     }
-
 }
