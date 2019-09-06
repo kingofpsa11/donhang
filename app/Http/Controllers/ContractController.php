@@ -128,7 +128,6 @@ class ContractController extends Controller
 
             if( ($number >= 0 && (int)$number < 0) || (int)$number < 0 - PHP_INT_MAX )
             {
-                // overflow
                 trigger_error( 'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX, E_USER_WARNING );
                 return false;
             }
@@ -195,7 +194,7 @@ class ContractController extends Controller
             return $string;
         }
 
-        $value = convert_number_to_words($contract->total_value * 1.1);
+        $value = ucfirst(strtolower(convert_number_to_words($contract->total_value * 1.1)) . ' đồng chẵn./.');
 
         return view('contract.show', compact('contract', 'value'));
     }
