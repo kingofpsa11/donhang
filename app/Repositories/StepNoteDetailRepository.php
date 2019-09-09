@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\StepNoteDetail;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class StepNoteDetailRepository
 {
@@ -40,6 +41,20 @@ class StepNoteDetailRepository
     public function where($column, $operator = null, $value = null, $boolean = 'and')
     {
         return $this->stepNoteDetail->where($column, $operator, $value, $boolean);
+    }
+
+    public function getTotal($contractDetailId, $productId, $stepId)
+    {
+        return $this->stepNoteDetail
+            ->whereHas('stepNote', function (Builder $query) use ($stepId) {
+                $query->where('step_id', '=', $stepId);
+            })
+            ->groupBy('contract_detail_id', 'product_id')
+            ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
+            ->where('product_id', $productId)
+            ->where('contract_detail_id', $contractDetailId)
+            ->first()
+            ->total ?? 0;
     }
 
     public function update($attributes, $id)

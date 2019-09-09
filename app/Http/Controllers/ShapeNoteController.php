@@ -166,8 +166,12 @@ class ShapeNoteController extends Controller
      */
     public function destroy(ShapeNote $shapeNote)
     {
+        foreach ($shapeNote->shapeNoteDetails as $shapeNoteDetails) {
+            $shapeNoteDetails->manufacturerNoteDetail()->update(['status' => 10]);
+            $shapeNoteDetails->manufacturerNoteDetail->manufacturerNote()->update(['status' => 10]);
+        }
         $shapeNote->delete();
-        flash('Đã xoá phiếu cắt tấm số' . $shapeNote->number, 'warning');
+        flash('Đã xoá phiếu cắt tấm số ' . $shapeNote->number, 'success');
 
         return redirect()->route('shape-notes.index');
     }

@@ -77,7 +77,23 @@ class StepNoteService
         $rules = [];
         $messages = [];
 
-        if ($request->step_id == 2 ) {
+        if ($request->step_id == 1 ) {
+            foreach ($request->details as $key => $val) {
+                $quantityOfStepNote = $this->stepNoteDetailRepository
+                    ->getTotal($val['contract_detail_id'], $val['product_id'], $request->step_id);
+
+                $quantityOfShapeNote = ShapeNoteDetail::selectRaw('contract_detail_id, product_id, sum(quantity) AS total')
+                    ->groupBy('contract_detail_id', 'product_id')
+                    ->where('contract_detail_id', $val['contract_detail_id'])
+                    ->where('product_id', $val['product_id'])
+                    ->first()->total;
+
+                $remainQuantity = $quantityOfShapeNote - $quantityOfStepNote;
+
+                $rules['details.' . $key . '.quantity'] = 'required|integer|max:' . $remainQuantity;
+                $messages['details.'.$key.'.quantity.max'] = 'Số lượng vượt quá thực tế';
+            }
+        } elseif ($request->step_id == 2 ) {
             foreach ($request->details as $key => $val) {
                 $bomQuantity = ShapeNoteDetail::where('contract_detail_id', $val['contract_detail_id'])
                     ->first()->bom_detail_quantity;
@@ -124,7 +140,7 @@ class StepNoteService
             }
         }
 
-        $request->validate($rules, $messages);
+//        $request->validate($rules, $messages);
 
         $stepNote = $this->stepNoteRepository->create($request->all());
 //        $goodDelivery = $stepNote->delivery()->firstOrCreate(
@@ -152,15 +168,8 @@ class StepNoteService
             $stepNoteDetail = $stepNote->stepNoteDetails()->create($detail);
 
             if ($request->step_id == 1) {
-                $quantityOfStepNote = $stepNote->stepNoteDetails()
-                    ->whereHas('stepNote', function (Builder $query) use ($request) {
-                        $query->where('step_id', '=', $request->step_id);
-                    })
-                    ->groupBy('contract_detail_id', 'product_id')
-                    ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
-                    ->where('product_id', $detail['product_id'])
-                    ->where('contract_detail_id', $detail['contract_detail_id'])
-                    ->first()->total ?? 0;
+                $quantityOfStepNote = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $detail['product_id'], $request->step_id);
 
                 $quantityOfShapeNote = ShapeNoteDetail::selectRaw('contract_detail_id, product_id, sum(quantity) AS total')
                     ->groupBy('contract_detail_id', 'product_id')
@@ -171,35 +180,28 @@ class StepNoteService
                 if ($quantityOfShapeNote == $quantityOfStepNote) {
                     ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
                         ->where('product_id', $detail['product_id'])
-                        ->update(['status' => 9]);
+                        ->update(['status' => 0]);
                 }
-            } else {
-                $quantityOfBeforeStepNote = $stepNote->stepNoteDetails()
-                    ->whereHas('stepNote', function (Builder $query) use ($request) {
-                        $query->where('step_id', '=', $request->step_id - 1);
-                    })
-                    ->groupBy('contract_detail_id', 'product_id')
-                    ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
-                    ->where('product_id', $detail['product_id'])
-                    ->where('contract_detail_id', $detail['contract_detail_id'])
-                    ->first()
-                    ->total;
+            } elseif ($request->step_id == 2) {
+                $bomQuantity = ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                    ->first()->bom_detail_quantity;
 
-                $quantityOfStepNote = $stepNote->stepNoteDetails()
-                    ->whereHas('stepNote', function (Builder $query) use ($request) {
-                        $query->where('step_id', '=', $request->step_id);
-                    })
-                    ->groupBy('contract_detail_id', 'product_id')
-                    ->selectRaw('contract_detail_id, product_id, sum(quantity) as total')
-                    ->where('product_id', $detail['product_id'])
-                    ->where('contract_detail_id', $detail['contract_detail_id'])
-                    ->first()
-                    ->total ?? 0;
+                $productId = ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                    ->first()->product_id;
 
-                if ($quantityOfBeforeStepNote->total == $quantityOfStepNote->total) {
-                    StepNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
-                        ->where('product_id', $detail['product_id'])
-                        ->get()->update(['status' => 9]);
+                $quantityOfBeforeStepNote = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $productId, $request->step_id - 1);
+
+                $quantityOfStepNote = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $detail['product_id'], $request->step_id);
+
+                if ($quantityOfBeforeStepNote/$bomQuantity == $quantityOfStepNote) {
+                    $stepNoteDetails = StepNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                        ->where('product_id', $productId)
+                        ->get();
+                    foreach ($stepNoteDetails as $value) {
+                        $value->update(['status' => 0]);
+                    }
                 }
             }
 

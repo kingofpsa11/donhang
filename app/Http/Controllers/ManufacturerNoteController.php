@@ -362,6 +362,7 @@ class ManufacturerNoteController extends Controller
                         $newResult[] = $singleResult;
                     }
                 }
+
                 break;
             case 2:
                 $results = StepNoteDetail::where('status', 10)
@@ -400,6 +401,7 @@ class ManufacturerNoteController extends Controller
                         $newResult[] = $singleResult;
                     }
                 }
+
                 break;
             case 3:
                 $results = StepNoteDetail::where('status', 10)
