@@ -50,8 +50,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $stepNoteDetail->contractDetail->manufacturerOrderDetail->manufacturerOrder->number }}</td>
-                        <td>{{ $stepNoteDetail->contractDetail->price->product->code }}</td>
-                        <td>{{ $stepNoteDetail->contractDetail->price->product->name }}</td>
+                        <td>{{ $stepNoteDetail->product->code }}</td>
+                        <td>{{ $stepNoteDetail->product->name }}</td>
                         <td>{{ $stepNoteDetail->quantity }}</td>
                     </tr>
                 @endforeach

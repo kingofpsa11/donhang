@@ -184,9 +184,15 @@ class StepNoteService
                 }
             } elseif ($request->step_id == 2) {
                 $bomQuantity = ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                    ->whereHas('manufacturerNoteDetail', function (Builder $query) use ($detail) {
+                        $query->where('product_id', $detail['product_id']);
+                    })
                     ->first()->bom_detail_quantity;
 
                 $productId = ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                    ->whereHas('manufacturerNoteDetail', function (Builder $query) use ($detail) {
+                        $query->where('product_id', $detail['product_id']);
+                    })
                     ->first()->product_id;
 
                 $quantityOfBeforeStepNote = $this->stepNoteDetailRepository
@@ -199,6 +205,7 @@ class StepNoteService
                     $stepNoteDetails = StepNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
                         ->where('product_id', $productId)
                         ->get();
+
                     foreach ($stepNoteDetails as $value) {
                         $value->update(['status' => 0]);
                     }

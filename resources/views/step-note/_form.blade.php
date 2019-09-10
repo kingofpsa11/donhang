@@ -201,11 +201,13 @@
                 updateNumberOfRow();
             });
 
-            $('#example1').on('click', '.removeRow', function (e) {
+            $('#example1 tbody').on('click', '.removeRow', function (e) {
                 e.preventDefault();
-                let currentRow = $(this).parents('tr');
-                currentRow.remove();
-                updateNumberOfRow();
+                if (e.keyCode !== 13 || e.keyCode !== 10) {
+                    let currentRow = $(this).parents('tr');
+                    currentRow.remove();
+                    updateNumberOfRow();
+                }
             });
 
             //Click cancel button

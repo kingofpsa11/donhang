@@ -32,11 +32,6 @@ class ManufacturerNote extends Model
 
     public $timestamps = true;
 
-    public function manufacturerNoteDetails()
-    {
-        return $this->hasMany('App\ManufacturerNoteDetail');
-    }
-
     protected $attributes = [
         'status' => 10,
     ];
@@ -53,6 +48,16 @@ class ManufacturerNote extends Model
         }
 
         return $value;
+    }
+
+    public function manufacturerNoteDetails()
+    {
+        return $this->hasMany('App\ManufacturerNoteDetail');
+    }
+
+    public function shapeNoteDetails()
+    {
+        return $this->hasMany('App\ShapeNoteDetail');
     }
 
     public static function getNewNumber()
