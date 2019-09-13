@@ -143,15 +143,15 @@ class StepNoteService
 //        $request->validate($rules, $messages);
 
         $stepNote = $this->stepNoteRepository->create($request->all());
-//        $goodDelivery = $stepNote->delivery()->firstOrCreate(
-//            [
-//                'deliverable_id' => $stepNote->id,
-//            ],
-//            [
-//                'number' => GoodDelivery::getNewNumber(),
-//                'customer_id' => 941,
-//                'date' => date('d/m/Y')
-//            ]);
+        $goodDelivery = $stepNote->delivery()->firstOrCreate(
+            [
+                'deliverable_id' => $stepNote->id,
+            ],
+            [
+                'number' => GoodDelivery::getNewNumber(),
+                'customer_id' => 941,
+                'date' => date('d/m/Y')
+            ]);
 
         $goodReceive = $stepNote->receive()->firstOrCreate(
             [
@@ -182,6 +182,15 @@ class StepNoteService
                         ->where('product_id', $detail['product_id'])
                         ->update(['status' => 0]);
                 }
+
+                $stepNoteDetail->deliveries()->create(
+                    [
+                        'good_delivery_id' => $goodDelivery->id,
+                        'product_id' => $detail['product_id'],
+                        'quantity' => $stepNoteDetail->quantity,
+                        'store_id' => 27,
+                    ]
+                );
             } elseif ($request->step_id == 2) {
                 $bomQuantity = ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
                     ->whereHas('manufacturerNoteDetail', function (Builder $query) use ($detail) {
@@ -212,16 +221,7 @@ class StepNoteService
                 }
             }
 
-//            $stepNoteDetail->deliveries()->firstOrCreate(
-//                [
-//                    'deliverable_id' => $stepNoteDetail->id,
-//                ],
-//                [
-//                    'good_delivery_id' => $goodDelivery->id,
-//                    'product_id' => $stepNoteDetail->contractDetail->price->product_id,
-//                    'quantity' => $stepNoteDetail->quantity,
-//                ]
-//            );
+
 
             $stepNoteDetail->receive()->create(
                 [

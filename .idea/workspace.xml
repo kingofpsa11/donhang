@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="27e70e26-52d0-497c-b876-49eaf40eeed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ManufacturerNote.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ManufacturerNote.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Services/StepNoteService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/StepNoteService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/step-note/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/step-note/show.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,19 +39,25 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/step-note/_form.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="203" selection-start-line="203" selection-end-line="203" />
+            <state relative-caret-position="680">
+              <caret line="40" column="50" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
+              <folding>
+                <element signature="e#40#73#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+        <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="89" column="25" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+            <state relative-caret-position="360">
+              <caret line="183" column="17" lean-forward="true" selection-start-line="183" selection-start-column="17" selection-end-line="183" selection-end-column="17" />
+              <folding>
+                <element signature="e#32#53#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -157,10 +158,10 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/ManufacturerNoteController.php" />
         <option value="$PROJECT_DIR$/app/Repositories/StepNoteDetailRepository.php" />
         <option value="$PROJECT_DIR$/app/ManufacturerNote.php" />
-        <option value="$PROJECT_DIR$/app/Services/StepNoteService.php" />
         <option value="$PROJECT_DIR$/resources/views/step-note/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/step-note/_form.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
+        <option value="$PROJECT_DIR$/app/Services/StepNoteService.php" />
       </list>
     </option>
   </component>
@@ -275,7 +276,7 @@
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-186" />
     <option name="y" value="317" />
     <option name="width" value="1934" />
@@ -291,6 +292,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -400,7 +402,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -567,6 +568,8 @@
       <workItem from="1567562335929" duration="20722000" />
       <workItem from="1567745255220" duration="3288000" />
       <workItem from="1568081378822" duration="8329000" />
+      <workItem from="1568165244236" duration="5347000" />
+      <workItem from="1568338394825" duration="3370000" />
     </task>
     <servers />
   </component>
@@ -579,7 +582,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1598142000" />
+    <option name="totallyTimeSpent" value="1606859000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -591,12 +594,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
       <window_info id="npm" order="1" sideWeight="0.5005574" side_tool="true" weight="0.16791044" />
-      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.49881518" visible="true" weight="0.18017058" />
+      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.49881518" visible="true" weight="0.18336888" />
       <window_info id="Structure" order="3" sideWeight="0.5011848" side_tool="true" weight="0.15421304" />
       <window_info anchor="bottom" auto_hide="true" x="22" y="562" width="2516" height="276" id="Terminal" order="0" sideWeight="0.4989339" weight="0.2296544" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -923,16 +926,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="53" column="49" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="49" />
-          <folding>
-            <element signature="e#40#73#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/StepNoteDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
@@ -985,13 +978,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
+    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1576">
-          <caret line="353" column="20" selection-start-line="353" selection-start-column="8" selection-end-line="353" selection-end-column="20" />
-          <folding>
-            <element signature="e#32#53#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="416">
+          <caret line="88" column="31" lean-forward="true" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -1002,10 +992,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StepNoteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="89" column="25" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+        <state relative-caret-position="680">
+          <caret line="40" column="50" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
+          <folding>
+            <element signature="e#40#73#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Services/StepNoteService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="183" column="17" lean-forward="true" selection-start-line="183" selection-start-column="17" selection-end-line="183" selection-end-column="17" />
+          <folding>
+            <element signature="e#32#53#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
