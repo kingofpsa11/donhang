@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Bom;
+use App\BomDetail;
 use App\GoodDelivery;
 use App\GoodReceive;
 use App\ManufacturerNoteDetail;
@@ -140,9 +142,10 @@ class StepNoteService
             }
         }
 
-//        $request->validate($rules, $messages);
+        $request->validate($rules, $messages);
 
         $stepNote = $this->stepNoteRepository->create($request->all());
+
         $goodDelivery = $stepNote->delivery()->firstOrCreate(
             [
                 'deliverable_id' => $stepNote->id,
@@ -171,11 +174,13 @@ class StepNoteService
                 $quantityOfStepNote = $this->stepNoteDetailRepository
                     ->getTotal($detail['contract_detail_id'], $detail['product_id'], $request->step_id);
 
-                $quantityOfShapeNote = ShapeNoteDetail::selectRaw('contract_detail_id, product_id, sum(quantity) AS total')
-                    ->groupBy('contract_detail_id', 'product_id')
+                $getShapeNoteDetail = ShapeNoteDetail::selectRaw('contract_detail_id, product_id, bom_id, sum(quantity) AS total')
+                    ->groupBy('contract_detail_id', 'bom_id', 'product_id')
                     ->where('contract_detail_id', $detail['contract_detail_id'])
                     ->where('product_id', $detail['product_id'])
-                    ->first()->total;
+                    ->first();
+
+                $quantityOfShapeNote = $getShapeNoteDetail->total;
 
                 if ($quantityOfShapeNote == $quantityOfStepNote) {
                     ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
@@ -183,14 +188,20 @@ class StepNoteService
                         ->update(['status' => 0]);
                 }
 
-                $stepNoteDetail->deliveries()->create(
-                    [
-                        'good_delivery_id' => $goodDelivery->id,
-                        'product_id' => $detail['product_id'],
-                        'quantity' => $stepNoteDetail->quantity,
-                        'store_id' => 27,
-                    ]
-                );
+                $bomDetails = BomDetail::whereHas('bom', function (Builder $query) use ($getShapeNoteDetail){
+                    $query->where('id', $getShapeNoteDetail->bom_id);
+                })->get();
+
+                foreach ($bomDetails as $bomDetail) {
+                    $stepNoteDetail->deliveries()->create(
+                        [
+                            'good_delivery_id' => $goodDelivery->id,
+                            'product_id' => $bomDetail->product_id,
+                            'actual_quantity' => $stepNoteDetail->quantity * $bomDetail->quantity,
+                            'store_id' => 27,
+                        ]
+                    );
+                }
             } elseif ($request->step_id == 2) {
                 $bomQuantity = ShapeNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
                     ->whereHas('manufacturerNoteDetail', function (Builder $query) use ($detail) {
@@ -213,15 +224,102 @@ class StepNoteService
                 if ($quantityOfBeforeStepNote/$bomQuantity == $quantityOfStepNote) {
                     $stepNoteDetails = StepNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
                         ->where('product_id', $productId)
+                        ->whereHas('step', function(Builder $query) use ($request) {
+                            $query->where('step_id', $request->step_id - 1);
+                        })
                         ->get();
 
                     foreach ($stepNoteDetails as $value) {
                         $value->update(['status' => 0]);
                     }
                 }
+
+                $bomDetails = BomDetail::whereHas('bom', function (Builder $query) use ($getShapeNoteDetail){
+                    $query->where('id', $getShapeNoteDetail->bom_id);
+                })->get();
+
+                foreach ($bomDetails as $bomDetail) {
+                    $stepNoteDetail->deliveries()->create(
+                        [
+                            'good_delivery_id' => $goodDelivery->id,
+                            'product_id' => $bomDetail->product_id,
+                            'actual_quantity' => $stepNoteDetail->quantity * $bomDetail->quantity,
+                            'store_id' => 27,
+                        ]
+                    );
+                }
+            } elseif ($request->step_id == 3) {
+                $quantity = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $detail['product_id'], $request->step_id);
+
+                $doneQuantity = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $detail['product_id'], $request->step_id - 1);
+
+                if ($quantity == $doneQuantity) {
+                    $stepNoteDetails = StepNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                        ->where('product_id', $detail['product_id'])
+                        ->whereHas('step', function(Builder $query) use ($request) {
+                            $query->where('step_id', $request->step_id - 1);
+                        })
+                        ->get();
+
+                    foreach ($stepNoteDetails as $value) {
+                        $value->update(['status' => 0]);
+                    }
+                }
+
+                $stepNoteDetail->deliveries()->create(
+                    [
+                        'good_delivery_id' => $goodDelivery->id,
+                        'product_id' => $detail['product_id'],
+                        'actual_quantity' => $stepNoteDetail->quantity,
+                        'store_id' => 27,
+                    ]
+                );
+            } elseif ($request->step_id == 4) {
+                $bomQuantity = ManufacturerNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                    ->whereHas('contractDetails', function (Builder $query) use ($detail) {
+                        $query->where('product_id', $detail['product_id']);
+                    })
+                    ->first()->bom_detail_quantity;
+
+                $productId = ManufacturerNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                    ->whereHas('contractDetails', function (Builder $query) use ($detail) {
+                        $query->where('product_id', $detail['product_id']);
+                    })
+                    ->first()->product_id;
+
+                $quantityOfBeforeStepNote = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $productId, $request->step_id - 1);
+
+                $quantityOfStepNote = $this->stepNoteDetailRepository
+                    ->getTotal($detail['contract_detail_id'], $detail['product_id'], $request->step_id);
+
+                if ($quantityOfBeforeStepNote/$bomQuantity == $quantityOfStepNote) {
+                    $stepNoteDetails = StepNoteDetail::where('contract_detail_id', $detail['contract_detail_id'])
+                        ->where('product_id', $productId)
+                        ->get();
+
+                    foreach ($stepNoteDetails as $value) {
+                        $value->update(['status' => 0]);
+                    }
+                }
+
+                $bomDetails = BomDetail::whereHas('bom', function (Builder $query) use ($getShapeNoteDetail){
+                    $query->where('id', $getShapeNoteDetail->bom_id);
+                })->get();
+
+                foreach ($bomDetails as $bomDetail) {
+                    $stepNoteDetail->deliveries()->create(
+                        [
+                            'good_delivery_id' => $goodDelivery->id,
+                            'product_id' => $bomDetail->product_id,
+                            'actual_quantity' => $stepNoteDetail->quantity * $bomDetail->quantity,
+                            'store_id' => 27,
+                        ]
+                    );
+                }
             }
-
-
 
             $stepNoteDetail->receive()->create(
                 [
@@ -360,7 +458,9 @@ class StepNoteService
     public function delete($id)
     {
         $goodReceive = $this->stepNoteRepository->find($id)->receive();
+        $goodDelivery = $this->stepNoteRepository->find($id)->delivery();
         $this->stepNoteRepository->delete($id);
         $goodReceive->delete();
+        $goodDelivery->delete();
     }
 }
