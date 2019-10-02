@@ -251,6 +251,7 @@
                 getPrice(select2);
                 maskCurrency(newRow.find('[name*="selling_price"]'));
                 maskDate(newRow.find('[name*="deadline"]'));
+                updateNumberOfRow();
             });
 
             $('#example1').on('click', '.removeRow', function () {
@@ -259,7 +260,9 @@
                 updateNumberOfRow();
             });
 
-            $('[name="number"]').on('focusout', function () {
+            let number = $('[name="number"]');
+
+            number.on('focusout', function () {
                 let numberObj = $('[name="number"]');
                 let number = numberObj.val();
                 let customer_id = customerSelect.val();
@@ -273,16 +276,20 @@
                         function (result) {
                             if (result > 0 && window.location.pathname.indexOf('create') >= 0) {
                                 numberObj.parent().find('span').html('Đã tồn tại số đơn hàng');
-                                submitButton.addClass('disabled');
+                                submitButton.attr('disabled', 'disabled');
                             } else {
                                 numberObj.parent().find('span').html('');
-                                submitButton.removeClass('disabled');
+                                submitButton.prop('disabled', false);
                             }
                         },
                         "text"
                     );
                 }
             });
+
+            number.on('keypress', function () {
+                $(this).parent().find('span').html('');
+            })
         })
     </script>
 @stop
