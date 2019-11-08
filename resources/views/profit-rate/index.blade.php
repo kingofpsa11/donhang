@@ -10,26 +10,24 @@
         <div class="box-body">
             <table id="profit-rate-table" class="table table-bordered table-striped compact hover row-border" style="width:100%">
                 <thead>
-                <tr>
-                    <th class="text-center">Đơn vị</th>
-                    <th class="text-center">Nhóm</th>
-                    <th class="text-center">Tỉ lệ</th>
-                    <th class="text-center">Action</th>
-                </tr>
-
+                    <tr>
+                        <th class="text-center">Đơn vị</th>
+                        <th class="text-center">Nhóm</th>
+                        <th class="text-center">Tỉ lệ</th>
+                        <th class="text-center">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($profitRates as $profitRate)
-                    <tr>
-                        <td>{{ $profitRate->customer->name }}</td>
-                        <td>{{ $profitRate->category->name }}</td>
-                        <td>{{ $profitRate->rate }}</td>
-                        <td>
-                            <a href="{{ route('profit-rate.edit', [$profitRate]) }}" class="btn btn-primary">Sửa</a>
-                        </td>
-                    </tr>
-                @endforeach
-
+                    @foreach ($profitRates as $profitRate)
+                        <tr>
+                            <td>{{ $profitRate->customer->name }}</td>
+                            <td>{{ $profitRate->category->name }}</td>
+                            <td>{{ $profitRate->rate }}</td>
+                            <td>
+                                <a href="{{ route('profit-rate.edit', $profitRate) }}" class="btn btn-primary">Sửa</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
 

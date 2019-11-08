@@ -265,7 +265,7 @@ desired effect
                 <li><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> <span>Người dùng</span></a></li>
                 <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
                 @endcan
-
+                <li><a href="{{ route('expense-of-pole.index') }}"><i class="fa fa-link"></i><span>Chi phí cột thép</span></a></li>
                 @role(3)
                 <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
                 <li class="treeview">

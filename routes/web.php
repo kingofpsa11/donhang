@@ -18,6 +18,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    //Price Quotation
+    Route::resource('price-quotation', 'PriceQuotationController');
+
+    //Expense Of Pole
+    Route::resource('expense-of-pole', 'ExpenseOfPoleController');
+
+    //Pole Weight
+    Route::resource('pole-weight', 'PoleWeightController');
+
     //Customer
     Route::get('customer/listCustomer', 'CustomerController@listCustomer')->name('customer.listCustomer');
 

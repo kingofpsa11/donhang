@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PriceQuotation;
+use App\PoleWeight;
 use Illuminate\Http\Request;
 
-class PriceQuotationController extends Controller
+class PoleWeightController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class PriceQuotationController extends Controller
      */
     public function index()
     {
-        return view('price-quotation.index');
+        return view('pole-weight.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class PriceQuotationController extends Controller
      */
     public function create()
     {
-        return view('price-quotation.create');
+        return view('pole-weight.create');
     }
 
     /**
@@ -41,10 +41,10 @@ class PriceQuotationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PriceQuotation  $priceQuotation
+     * @param  \App\PoleWeight  $poleWeight
      * @return \Illuminate\Http\Response
      */
-    public function show(PriceQuotation $priceQuotation)
+    public function show(PoleWeight $poleWeight)
     {
         //
     }
@@ -52,10 +52,10 @@ class PriceQuotationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PriceQuotation  $priceQuotation
+     * @param  \App\PoleWeight  $poleWeight
      * @return \Illuminate\Http\Response
      */
-    public function edit(PriceQuotation $priceQuotation)
+    public function edit(PoleWeight $poleWeight)
     {
         //
     }
@@ -64,10 +64,10 @@ class PriceQuotationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PriceQuotation  $priceQuotation
+     * @param  \App\PoleWeight  $poleWeight
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PriceQuotation $priceQuotation)
+    public function update(Request $request, PoleWeight $poleWeight)
     {
         //
     }
@@ -75,10 +75,10 @@ class PriceQuotationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PriceQuotation  $priceQuotation
+     * @param  \App\PoleWeight  $poleWeight
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PriceQuotation $priceQuotation)
+    public function destroy(PoleWeight $poleWeight)
     {
         //
     }
