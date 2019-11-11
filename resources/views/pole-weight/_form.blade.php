@@ -1,9 +1,5 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Định mức')
-
-@section('action', 'Tạo định mức')
-
 @section('content')
 
     <!-- Main content -->
@@ -19,22 +15,15 @@
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm</label>
                                 <select name="product_id" class="form-control">
-                                    @if (isset( $bom ))
-                                        <option value="{{ $bom->product_id }}">{{ $bom->product->name }}</option>
-                                    @endif
+                                    <option value="0">1</option>
+                                    <option value="1">2</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="" class="control-label">Tên định mức</label>
-                                <input type="text" name="name" class="form-control" value="{{ $bom->name ?? '' }}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="" class="control-label">Công đoạn</label>
-                                <input type="text" name="stage" class="form-control" value="{{ $bom->stage ?? '' }}">
+                                <label for="" class="control-label">Tên sản phẩm</label>
+                                <input type="text" name="tong_khoi_luong" id="tong_khoi_luong" class="form-control" readonly>
                             </div>
                         </div>
                     </div>
@@ -73,41 +62,6 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-            let product = $('[name*="product_id"]');
-
-            function getMaterial(el) {
-                el.select2({
-                    placeholder: 'Nhập tên sản phẩm',
-                    minimumInputLength: 2,
-                    ajax: {
-                        url: '{{ route('products.get_product') }}',
-                        delay: 200,
-                        dataType: 'json',
-                        
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data, function (item) {
-                                    return {
-                                        text: item.name,
-                                        id: item.id,
-                                        code: item.code,
-                                    }
-                                })
-                            };
-                        },
-                        cache: true
-                    },
-                });
-            }
-
-            function getProductCode(el) {
-                el.on('select2:select', function (e) {
-                    let data = e.params.data;
-                    let row = el.parents('tr');
-                    row.find('[name*=code]').val(data.code);
-                })
-            }
-
             function maskNumber(el) {
                 el.inputmask('numeric', {
                     groupSeparator  : ".",
@@ -118,61 +72,50 @@
                     unmaskAsNumber: true,
                 });
             }
-            maskNumber($('tr [name*="quantity"]'));
-            getMaterial(product);
-            getProductCode($('tr [name*=product_id]'));
 
-            function updateNumberOfRow() {
-                let rows = $('tr[data-key]');
-                rows.each(function (i, row) {
-                    $(row).attr('data-key', i);
-                    $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
-                    if (i === 0) {
-                        if (rows.length === 1) {
-                            $(row).find('button.removeRow').addClass('hidden');
-                        } else {
-                            $(row).find('button.removeRow').removeClass('hidden');
-                        }
-                    }
-                });
-            }
-
-            //Add or remove row to table
-            $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
-                e.preventDefault();
-                let tableBody = $('#form tbody');
-                let numberOfProduct = tableBody.children().length;
-                let lastRow = tableBody.find('tr:last');
-                let newRow = lastRow.clone();
-                let select2 = newRow.find('[name*=product_id]');
-
-                newRow.attr('data-key', numberOfProduct);
-                newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
-
-                lastRow.find('button.removeRow').removeClass('hidden');
-                newRow.find('button.removeRow').removeClass('hidden');
-                newRow.find('.select2-container').remove();
-                newRow.find('option').remove();
-                newRow.find('input').val('');
-                tableBody.append(newRow);
-
-                getMaterial(select2);
-                getProductCode(select2);
-                maskNumber(newRow.find('[name*="quantity"]'));
-            });
-
-            $('#table').on('click', '.removeRow', function (e) {
-                e.preventDefault();
-                let currentRow = $(this).parents('tr');
-                currentRow.remove();
-                updateNumberOfRow();
-            });
-
-            //Click cancel button
-            $('button.cancel').on('click', function (e) {
-                e.preventDefault();
-            });
-
+            // function updateNumberOfRow() {
+            //     let rows = $('tr[data-key]');
+            //     rows.each(function (i, row) {
+            //         $(row).attr('data-key', i);
+            //         $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
+            //         if (i === 0) {
+            //             if (rows.length === 1) {
+            //                 $(row).find('button.removeRow').addClass('hidden');
+            //             } else {
+            //                 $(row).find('button.removeRow').removeClass('hidden');
+            //             }
+            //         }
+            //     });
+            // }
+            //
+            // //Add or remove row to table
+            // $('.box-footer').on('click', '.addRow:not(".disabled")',function (e) {
+            //     e.preventDefault();
+            //     let tableBody = $('#form tbody');
+            //     let numberOfProduct = tableBody.children().length;
+            //     let lastRow = tableBody.find('tr:last');
+            //     let newRow = lastRow.clone();
+            //     let select2 = newRow.find('[name*=product_id]');
+            //
+            //     newRow.attr('data-key', numberOfProduct);
+            //     newRow.children('[data-col-seq="0"]').find('span').text(numberOfProduct + 1);
+            //
+            //     lastRow.find('button.removeRow').removeClass('hidden');
+            //     newRow.find('button.removeRow').removeClass('hidden');
+            //     newRow.find('.select2-container').remove();
+            //     newRow.find('option').remove();
+            //     newRow.find('input').val('');
+            //     tableBody.append(newRow);
+            //
+            //     maskNumber(newRow.find('[name*="quantity"]'));
+            // });
+            //
+            // $('#table').on('click', '.removeRow', function (e) {
+            //     e.preventDefault();
+            //     let currentRow = $(this).parents('tr');
+            //     currentRow.remove();
+            //     updateNumberOfRow();
+            // });
         })
     </script>
 @stop

@@ -25,6 +25,7 @@ class CreatePoleWeightDetailsTable extends Migration
             $table->integer('chieu_cao')->nullable();
             $table->float('chieu_dai', 8 ,2)->nullable();
             $table->float('chieu_rong', 8 ,2)->nullable();
+            $table->float('khoi_luong', 8,2)->nullable();
             $table->timestamps();
         });
     }

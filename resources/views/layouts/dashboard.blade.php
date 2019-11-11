@@ -266,6 +266,7 @@ desired effect
                 <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Phân quyền</span></a></li>
                 @endcan
                 <li><a href="{{ route('expense-of-pole.index') }}"><i class="fa fa-link"></i><span>Chi phí cột thép</span></a></li>
+                <li><a href="{{ route('pole-weight.create') }}"><i class="fa fa-link"></i><span>Tính khối lượng cột thép</span></a></li>
                 @role(3)
                 <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
                 <li class="treeview">
