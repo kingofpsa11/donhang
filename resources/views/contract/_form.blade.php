@@ -124,7 +124,6 @@
                 let total_value = 0;
                 rows.each(function (i, el) {
                     let selling_price = $(el).find('[name*="selling_price"]').val().replace(/(\d+).(?=\d{3}(\D|$))/g, "$1");
-                    // let selling_price = $(el).find('[name*="selling_price"]').val();
                     let quantity = $(el).find('[name*="quantity"]').val();
                     total_value += selling_price * quantity;
                 });
