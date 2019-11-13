@@ -13,20 +13,20 @@
         <td data-col-seq="0">
             <span>1</span>
         </td>
+        <td class="col-md-1" data-col-seq="2">
+            <input type="text" class="form-control" name="name[]" required >
+        </td>
         <td class="col-md-2">
             <select name="hinh_dang[]" id="" class="form-control">
-                <option value="" hidden="">--Chọn hình dạng--</option>
+                <option value="" hidden="">Chọn hình dạng</option>
                 <option value="0">Thép tấm vuông</option>
                 <option value="1">Thép tấm tròn</option>
                 <option value="2">Ống tròn</option>
                 <option value="3">Ống bát giác</option>
             </select>
         </td>
-        <td class="col-md-2" data-col-seq="1">
-            <select name="bom_product_id[]" required class="form-control" style="width: 100%;"></select>
-        </td>
         <td class="col-md-1" data-col-seq="2">
-            <input type="text" class="form-control decimal" name="quantity[]" required >
+            <input type="text" class="form-control quantity" name="quantity[]" required >
         </td>
         <td class="col-md-1" data-col-seq="2">
             <input type="text" class="form-control decimal" name="d_ngon[]" disabled="">
@@ -45,6 +45,9 @@
         </td>
         <td class="col-md-1" data-col-seq="2">
             <input type="text" class="form-control decimal" name="chieu_rong[]" disabled>
+        </td>
+        <td class="col-md-1" data-col-seq="2">
+            <input type="text" class="form-control" name="dien_tich[]" readonly>
         </td>
         <td class="col-md-1" data-col-seq="2">
             <input type="text" class="form-control" name="khoi_luong[]" readonly>

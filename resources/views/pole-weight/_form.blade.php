@@ -49,7 +49,7 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Chủng loại</th>
+                            <th>Tên chi tiết</th>
                             <th>Chủng loại</th>
                             <th>Số lượng</th>
                             <th>D ngọn</th>
@@ -58,6 +58,7 @@
                             <th>Chiều cao</th>
                             <th>Chiều dài</th>
                             <th>Chiều rộng</th>
+                            <th>Diện tích</th>
                             <th>Khối lượng</th>
                         </tr>
                         </thead>
@@ -84,41 +85,56 @@
     <script>
         $(document).ready(function () {
             const khoi_luong_rieng = 7850/1e9;
+            function mask() {
+                $('.number').inputmask('integer', {
+                    groupSeparator: ".",
+                    autoGroup: true,
+                    removeMaskOnSubmit: true,
+                    unmaskAsNumber: true,
+                });
 
-            $('.number').inputmask('integer', {
-                groupSeparator  : ".",
-                autoGroup       : true,
-                removeMaskOnSubmit: true,
-                unmaskAsNumber: true,
-            });
-
-            $('.decimal').inputmask('numeric', {
-                groupSeparator  : ".",
-                autoGroup       : true,
-                digits          : '2',
-                radixPoint      : ",",
-                removeMaskOnSubmit: true,
-                unmaskAsNumber: true,
-            });
+                $('.decimal').inputmask('numeric', {
+                    groupSeparator: ".",
+                    autoGroup: true,
+                    digits: '2',
+                    radixPoint: ",",
+                    removeMaskOnSubmit: true,
+                    unmaskAsNumber: true,
+                });
+            }
+            mask();
 
             $('tbody').on('change', 'select', function () {
+                let row = $(this).parents('tr');
+                row.find('input').val('');
+                row.find('input.decimal').prop('disabled', true);
+                row.find('input.number').prop('disabled', true);
+
                 if ($(this).val() === "0" ) {
-                    $(this).parents('tr').find('[name*="day"]').prop('disabled', false);
-                    $(this).parents('tr').find('[name*="chieu_dai"]').prop('disabled', false);
-                    $(this).parents('tr').find('[name*="chieu_rong"]').prop('disabled', false);
+                    row.find('[name*="day"]').prop('disabled', false);
+                    row.find('[name*="chieu_dai"]').prop('disabled', false);
+                    row.find('[name*="chieu_rong"]').prop('disabled', false);
                 } else if($(this).val() === "1" ) {
-                    $(this).parents('tr').find('[name*="d_ngon"]').prop('disabled', false);
-                    $(this).parents('tr').find('[name*="day"]').prop('disabled', false);
+                    row.find('[name*="d_ngon"]').prop('disabled', false);
+                    row.find('[name*="d_goc"]').prop('disabled', false);
+                    row.find('[name*="day"]').prop('disabled', false);
+                } else if($(this).val() === "2" || $(this).val() === "3" ) {
+                    row.find('[name*="d_ngon"]').prop('disabled', false);
+                    row.find('[name*="d_goc"]').prop('disabled', false);
+                    row.find('[name*="day"]').prop('disabled', false);
+                    row.find('[name*="chieu_cao"]').prop('disabled', false);
                 }
             });
 
-            $('tbody').on('keypress', 'input', function () {
+            $('tbody').on('keyup', 'input', function () {
                 let row = $(this).parents('tr');
                 let hinh_dang = row.find('[name*="hinh_dang"]').val();
                 let d_ngon = row.find('[name*="d_ngon"]').inputmask('unmaskedvalue');
+                let d_goc = row.find('[name*="d_goc"]').inputmask('unmaskedvalue');
                 let day = row.find('[name*="day"]').inputmask('unmaskedvalue');
                 let chieu_dai = row.find('[name*="chieu_dai"]').inputmask('unmaskedvalue');
                 let chieu_rong = row.find('[name*="chieu_rong"]').inputmask('unmaskedvalue');
+                let chieu_cao = row.find('[name*="chieu_cao"]').inputmask('unmaskedvalue');
                 let dien_tich;
                 
                 switch (hinh_dang) {
@@ -126,14 +142,18 @@
                         dien_tich = chieu_dai * chieu_rong;
                         break;
                     case "1":
-                        dien_tich = d_ngon * d_ngon * PI;
+                        dien_tich = (d_ngon * d_ngon - d_goc * d_goc) * Math.PI / 4;
+                        break;
+                    case  "2":
+                        dien_tich = (d_ngon + d_goc - 2 * day) / 2 * Math.PI * chieu_cao;
+                        break;
+                    case  "3":
+                        dien_tich = (d_ngon + d_goc - 2 * day) / 2 * 3.265 * chieu_cao;
+                        break;
                 }
-                if (hinh_dang === "0") {
-                    dien_tich = chieu_dai * chieu_rong;
-                }
+                row.find('[name*="dien_tich"]').val(Math.round(dien_tich / 1e4) / 100);
                 let khoi_luong = Math.round(dien_tich * day * khoi_luong_rieng * 100)/100;
                 let khoi_luong_obj = row.find('[name*="khoi_luong"]');
-
                 khoi_luong_obj.val(khoi_luong);
                 khoi_luong_obj.inputmask('numeric', {
                     groupSeparator  : ".",
@@ -149,15 +169,17 @@
             
             function calculate() {
                 let rows = $('tr[data-key]');
-                let total_value = 0;
+                let weight = 0;
+                let area = 0;
                 rows.each(function (i, el) {
-                    let selling_price = $(el).find('[name*="khoi_luong"]').inputmask('unmaskedvalue');
+                    let dien_tich = $(el).find('[name*="dien_tich"]').inputmask('unmaskedvalue');
+                    let khoi_luong = $(el).find('[name*="khoi_luong"]').inputmask('unmaskedvalue');
                     let quantity = $(el).find('[name*="quantity"]').val();
-                    total_value += selling_price * quantity;
+                    area += dien_tich * quantity;
+                    weight += khoi_luong * quantity;
                 });
-
-                console.log(total_value);
-                $('#weight').val(total_value);
+                $('#area').val(area);
+                $('#weight').val(weight);
             }
 
             function updateNumberOfRow() {
@@ -191,7 +213,10 @@
                 newRow.find('.select2-container').remove();
                 // newRow.find('option').remove();
                 newRow.find('input').val('');
+                newRow.find('input.decimal').prop('disabled', true);
+                newRow.find('input.number').prop('disabled', true);
                 tableBody.append(newRow);
+                mask();
             });
 
             $('#table').on('click', '.removeRow', function (e) {
