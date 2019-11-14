@@ -105,7 +105,7 @@
                             <div class="form-group">
                                 <label for="" class="control-label col-sm-3">Đơn giá</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control calculate price" name="don_gia" id="don_gia" value="" readonly>
+                                    <input type="text" class="form-control calculate price" name="gia_ban" id="gia_ban" value="" readonly>
                                 </div>
                             </div>
                         </div>
@@ -151,8 +151,8 @@
                 let chi_phi_van_chuyen = Number($('#chi_phi_van_chuyen').inputmask('unmaskedvalue'));
                 let lai = Number($('#lai').inputmask('unmaskedvalue'));
 
-                let don_gia = Math.round(((gia_thep * (1 + (du_phong_vat_tu + vat_tu_phu + hao_phi)/100) + nhan_cong_truc_tiep * 1.3) * (1 + chi_phi_chung/100) + chi_phi_ma_kem + chi_phi_van_chuyen) * (1 + lai/100)/100) * 100;
-                $('#don_gia').val(don_gia);
+                let gia_ban = Math.round(((gia_thep * (1 + (du_phong_vat_tu + vat_tu_phu + hao_phi)/100) + nhan_cong_truc_tiep * 1.3) * (1 + chi_phi_chung/100) + chi_phi_ma_kem + chi_phi_van_chuyen) * (1 + lai/100)/100) * 100;
+                $('#gia_ban').val(gia_ban);
             });
 
         });

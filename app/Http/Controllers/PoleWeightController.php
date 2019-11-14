@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ExpenseOfPole;
 use App\PoleWeight;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class PoleWeightController extends Controller
      */
     public function create()
     {
-        return view('pole-weight.create');
+        $categories = ExpenseOfPole::all('name', 'id');
+        return view('pole-weight.create', compact('categories'));
     }
 
     /**

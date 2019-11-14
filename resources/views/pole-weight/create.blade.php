@@ -13,10 +13,10 @@
         <td data-col-seq="0">
             <span>1</span>
         </td>
-        <td class="col-md-1" data-col-seq="2">
+        <td class="col-md-2" data-col-seq="2">
             <input type="text" class="form-control" name="name[]" required >
         </td>
-        <td class="col-md-2">
+        <td class="col-md-1">
             <select name="hinh_dang[]" id="" class="form-control">
                 <option value="" hidden="">Chọn hình dạng</option>
                 <option value="0">Thép tấm vuông</option>

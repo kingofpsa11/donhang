@@ -17,13 +17,30 @@
                                 <select name="product_id" class="form-control"></select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="" class="control-label">Nhóm sản phẩm</label>
+                                <select name="category" id="category" class="form-control">
+                                    <option hidden>--Chọn nhóm--</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="" class="control-label">Tỷ lệ nhân công</label>
+                                <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Diện tích</label>
                                 <input type="text" name="area" id="area" class="form-control decimal" readonly>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Khối lượng</label>
                                 <input type="text" name="weight" id="weight" class="form-control decimal" readonly>
@@ -31,14 +48,14 @@
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
-                                <label for="" class="control-label">Tỷ lệ nhân công</label>
-                                <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal">
+                                <label for="" class="control-label">Đơn giá</label>
+                                <input type="text" name="unit_price" id="unit_price" class="form-control number" readonly="">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
-                                <label for="" class="control-label">Đơn giá</label>
-                                <input type="text" name="price" id="price" class="form-control number">
+                                <label for="" class="control-label">Thành tiền</label>
+                                <input type="text" name="price" id="price" class="form-control number" readonly="">
                             </div>
                         </div>
                     </div>
@@ -103,6 +120,10 @@
                 });
             }
             mask();
+            
+            $('#category').on('change', function () {
+                $('#ty_le_nhan_cong').prop('readonly', false);
+            });
 
             $('tbody').on('change', 'select', function () {
                 let row = $(this).parents('tr');
