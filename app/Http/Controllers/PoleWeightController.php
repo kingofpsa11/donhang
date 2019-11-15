@@ -37,7 +37,12 @@ class PoleWeightController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        $poleWeight = new PoleWeight();
+        $poleWeight->fill($request->all())->save();
+        foreach ($request->details as $detail) {
+            $poleWeight->poleWeightDetails()->create($detail);
+        }
+        return redirect()->route('pole-weight.show', $poleWeight);
     }
 
     /**
@@ -48,7 +53,8 @@ class PoleWeightController extends Controller
      */
     public function show(PoleWeight $poleWeight)
     {
-        //
+        $poleWeight->load('poleWeightDetails', 'product', 'expenseOfPole');
+        return view('pole-weight.show', compact('poleWeight'));
     }
 
     /**
@@ -59,7 +65,9 @@ class PoleWeightController extends Controller
      */
     public function edit(PoleWeight $poleWeight)
     {
-        //
+        $poleWeight->load('poleWeightDetails', 'product', 'expenseOfPole');
+        $categories = ExpenseOfPole::all('name', 'id');
+        return view('pole-weight.edit', compact('poleWeight','categories'));
     }
 
     /**
@@ -71,7 +79,19 @@ class PoleWeightController extends Controller
      */
     public function update(Request $request, PoleWeight $poleWeight)
     {
-        //
+        $poleWeight->update($request->all());
+        $poleWeight->poleWeightDetails()->update(['status' => 9]);
+
+        foreach ($request->details as $detail) {
+            $id = $detail['id'];
+            unset($detail['id']);
+            $detail['status'] = 10;
+            $poleWeight->poleWeightDetails()->updateOrCreate(['id' => $id], $detail);
+        }
+
+        $poleWeight->poleWeightDetails()->where('status',9)->delete();
+
+        return redirect()->route('pole-weight.show', $poleWeight);
     }
 
     /**

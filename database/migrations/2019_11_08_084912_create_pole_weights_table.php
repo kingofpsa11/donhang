@@ -22,7 +22,8 @@ class CreatePoleWeightsTable extends Migration
             $table->float('ty_le_nhan_cong', 8 , 2);
             $table->unsignedBigInteger('expense_of_pole_id');
             $table->foreign('expense_of_pole_id')->references('id')->on('expense_of_poles')->onDelete('cascade');
-            $table->integer('don_gia');
+            $table->integer('unit_price');
+            $table->integer('price');
             $table->timestamps();
         });
     }

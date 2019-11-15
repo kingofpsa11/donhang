@@ -1,7 +1,7 @@
-@extends('bom._form')
+@extends('pole-weight._form')
 
 @section('route')
-    {{ route('boms.update', $bom) }}
+    {{ route('pole-weight.update', $poleWeight) }}
 @endsection
 
 @section('method')
@@ -10,27 +10,76 @@
 
 @section('table-body')
     @php ($i = 0)
-    @foreach ($bom->bomDetails as $bomDetail)
-        <tr data-key="{{ $loop->index }}">
+    @foreach ($poleWeight->poleWeightDetails as $detail)
+        <tr data-key="0">
             <td data-col-seq="0">
-                <span>{{ $loop->iteration }}</span>
-                <input type="hidden" name="bom_detail_id[]" value="{{ $bomDetail->id }}">
+                <span>1</span>
+                <input type="hidden" name="details[{{ $loop->index }}][id]" value="{{ $detail->id }}">
             </td>
-            <td class="col-md-1" data-col-seq="1">
-                <input type="text" name="code[]" class="form-control" value="{{ $bomDetail->product->code }}" readonly>
+            <td class="" data-col-seq="2">
+                <input type="text" class="form-control" name="details[{{ $loop->index }}][name]" >
             </td>
-            <td class="col-md-6" data-col-seq="2">
-                <select class="form-control select2 price" style="width: 100%;" name="bom_product_id[]">
-                    <option value="{{ $bomDetail->product_id }}">{{ $bomDetail->product->name }}</option>
+            <td class="">
+                <select name="details[{{ $loop->index }}][shape]" id="" class="form-control">
+                    <option value="{{ $detail->shape }}">Hinh dang</option>
+                    <option value="0">Thép tấm vuông</option>
+                    <option value="1">Thép tấm tròn</option>
+                    <option value="2">Ống tròn</option>
+                    <option value="3">Ống bát giác</option>
                 </select>
             </td>
-            <td class="col-md-2" data-col-seq="3">
-                <input type="text" class="form-control" name="quantity[]" value="{{ $bomDetail->quantity }}">
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control quantity" name="details[{{ $loop->index }}][quantity]" required value="{{ $detail->quantity }}">
             </td>
-            <td class="col-md-3" data-col-seq="4">
-                <input type="text" class="form-control" name="note[]">
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control decimal" name="details[{{ $loop->index }}][d_ngon]" @if (isset($detail->d_ngon))
+                    value="{{ $detail->d_ngon }}"
+                @else
+                    disabled
+                @endif>
             </td>
-            <td data-col-seq="5">
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control decimal" name="details[{{ $loop->index }}][d_goc]" @if (isset($detail->d_goc))
+                    value="{{ $detail->d_goc }}"
+                @else
+                    disabled
+                @endif>
+            </td>
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control decimal" name="details[{{ $loop->index }}][day]" @if (isset($detail->day))
+                    value="{{ $detail->day }}"
+                @else
+                    disabled
+                @endif>
+            </td>
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control decimal" name="details[{{ $loop->index }}][chieu_cao]" @if (isset($detail->chieu_cao))
+                    value="{{ $detail->chieu_cao }}"
+                @else
+                    disabled
+                @endif>
+            </td>
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control decimal" name="details[{{ $loop->index }}][chieu_dai]" @if (isset($detail->chieu_dai))
+                    value="{{ $detail->chieu_dai }}"
+                @else
+                    disabled
+                @endif>
+            </td>
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control decimal" name="details[{{ $loop->index }}][chieu_rong]" @if (isset($detail->chieu_rong))
+                    value="{{ $detail->chieu_rong }}"
+                @else
+                    disabled
+                @endif>
+            </td>
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control" name="details[{{ $loop->index }}][dien_tich]" readonly value="{{ $detail->dien_tich }}">
+            </td>
+            <td class="col-md-1" data-col-seq="2">
+                <input type="text" class="form-control" name="details[{{ $loop->index }}][khoi_luong]" readonly value="{{ $detail->khoi_luong }}">
+            </td>
+            <td data-col-seq="4">
                 <button class="btn btn-primary removeRow"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </td>
         </tr>

@@ -14,16 +14,24 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm</label>
-                                <select name="product_id" id="product_id" class="form-control"></select>
+                                <select name="product_id" id="product_id" class="form-control" required>
+                                    @if (isset($poleWeight))
+                                        <option value="{{ $poleWeight->product_id }}">{{ $poleWeight->product->name }}</option>
+                                    @endif
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Nhóm sản phẩm</label>
-                                <select name="category" id="category" class="form-control">
+                                <select name="expense_of_pole_id" id="expense_of_pole_id" class="form-control" required>
                                     <option hidden>--Chọn nhóm--</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @if (isset($poleWeight) && $category->id === $poleWeight->expense_of_pole_id))
+                                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                        @else
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -31,31 +39,31 @@
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Tỷ lệ nhân công</label>
-                                <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal" disabled>
+                                <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal" disabled required value="{{ $poleWeight->ty_le_nhan_cong ?? ''}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Diện tích</label>
-                                <input type="text" name="area" id="area" class="form-control decimal" readonly>
+                                <input type="text" name="area" id="area" class="form-control decimal" readonly value="{{ $poleWeight->area ?? ''}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Khối lượng</label>
-                                <input type="text" name="weight" id="weight" class="form-control decimal" readonly>
+                                <input type="text" name="weight" id="weight" class="form-control decimal" readonly value="{{ $poleWeight->weight ?? ''}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Đơn giá</label>
-                                <input type="text" name="unit_price" id="unit_price" class="form-control number" readonly="">
+                                <input type="text" name="unit_price" id="unit_price" class="form-control number" readonly value="{{ $poleWeight->unit_price ?? ''}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Thành tiền</label>
-                                <input type="text" name="price" id="price" class="form-control number" readonly="">
+                                <input type="text" name="price" id="price" class="form-control number" readonly value="{{ $poleWeight->price ?? ''}}">
                             </div>
                         </div>
                     </div>
@@ -69,8 +77,8 @@
                             <th>Tên chi tiết</th>
                             <th>Chủng loại</th>
                             <th>Số lượng</th>
-                            <th>D ngọn/D trong</th>
-                            <th>D gốc/D ngoai</th>
+                            <th>D ngọn/D ngoài</th>
+                            <th>D gốc/D trong</th>
                             <th>Chiều dày</th>
                             <th>Chiều cao</th>
                             <th>Chiều dài</th>
@@ -89,7 +97,7 @@
                     <div>
                         <button class="btn btn-primary addRow">Thêm dòng</button>
                         <input type="submit" value="Lưu" class="btn btn-success save">
-                        <a href="{{ route('boms.create') }}" class="btn btn-danger cancel">Hủy</a>
+                        <a href="{{ route('pole-weight.index') }}" class="btn btn-danger cancel">Hủy</a>
                     </div>
                 </div>
             </div>
@@ -102,7 +110,7 @@
     <script>
         $(document).ready(function () {
             const khoi_luong_rieng = 7850/1e9;
-            let categoryObj = $('#category');
+            let categoryObj = $('#expense_of_pole_id');
             let ty_le_nhan_cong_Obj = $('#ty_le_nhan_cong');
 
             $('#product_id').select2({
@@ -150,9 +158,9 @@
                 if (ty_le_nhan_cong_Obj.val() === '') {
                     ty_le_nhan_cong_Obj.prop('disabled', false);
                     ty_le_nhan_cong_Obj.val(1);
-                } else {
-                    getUnitPrice();
                 }
+
+                getUnitPrice();
             });
 
             function getUnitPrice() {
@@ -180,6 +188,7 @@
                     row.find('[name*="day"]').prop('disabled', false);
                     row.find('[name*="chieu_dai"]').prop('disabled', false);
                     row.find('[name*="chieu_rong"]').prop('disabled', false);
+                    row.find('[name*="d_goc"]').prop('disabled', false);
                 } else if($(this).val() === "1" ) {
                     row.find('[name*="d_ngon"]').prop('disabled', false);
                     row.find('[name*="d_goc"]').prop('disabled', false);
@@ -194,7 +203,7 @@
 
             $('tbody').on('keyup', 'input', function () {
                 let row = $(this).parents('tr');
-                let hinh_dang = row.find('[name*="hinh_dang"]').val();
+                let shape = row.find('[name*="shape"]').val();
                 let d_ngon = row.find('[name*="d_ngon"]').inputmask('unmaskedvalue');
                 let d_goc = row.find('[name*="d_goc"]').inputmask('unmaskedvalue');
                 let day = row.find('[name*="day"]').inputmask('unmaskedvalue');
@@ -202,10 +211,10 @@
                 let chieu_rong = row.find('[name*="chieu_rong"]').inputmask('unmaskedvalue');
                 let chieu_cao = row.find('[name*="chieu_cao"]').inputmask('unmaskedvalue');
                 let dien_tich;
-                
-                switch (hinh_dang) {
+
+                switch (shape) {
                     case "0":
-                        dien_tich = chieu_dai * chieu_rong;
+                        dien_tich = chieu_dai * chieu_rong - d_goc * d_goc * Math.PI / 4;
                         break;
                     case "1":
                         dien_tich = (d_ngon * d_ngon - d_goc * d_goc) * Math.PI / 4;
@@ -217,6 +226,7 @@
                         dien_tich = (d_ngon + d_goc - 2 * day) / 2 * 3.265 * chieu_cao;
                         break;
                 }
+
                 row.find('[name*="dien_tich"]').val(Math.round(dien_tich / 1e4) / 100);
                 let khoi_luong = Math.round(dien_tich * day * khoi_luong_rieng * 100)/100;
                 let khoi_luong_obj = row.find('[name*="khoi_luong"]');
@@ -237,7 +247,6 @@
                 let rows = $('tr[data-key]');
                 let weight = 0;
                 let area = 0;
-                let price = 0;
 
                 rows.each(function (i, el) {
                     let dien_tich = $(el).find('[name*="dien_tich"]').inputmask('unmaskedvalue');
@@ -247,7 +256,7 @@
                     weight += khoi_luong * quantity;
                 });
 
-                price = Math.round(weight * $('#unit_price').inputmask('unmaskedvalue') / 100) * 100;
+                let price = Math.round(weight * $('#unit_price').inputmask('unmaskedvalue') / 100) * 100;
 
                 $('#area').val(area);
                 $('#weight').val(weight);
@@ -259,6 +268,12 @@
                 rows.each(function (i, row) {
                     $(row).attr('data-key', i);
                     $(row).children('[data-col-seq="0"]').find('span').text(i + 1);
+                    $(row).find('[name]').each(function (index, el) {
+                        let oldName = $(el).attr('name');
+                        let pos = oldName.indexOf('[');
+                        let newName = oldName.substr(0, pos + 1) + i + oldName.substr(pos + 2);
+                        $(el).attr('name', newName);
+                    });
                     if (i === 0) {
                         if (rows.length === 1) {
                             $(row).find('button.removeRow').addClass('hidden');
@@ -288,6 +303,7 @@
                 newRow.find('input.decimal').prop('disabled', true);
                 newRow.find('input.number').prop('disabled', true);
                 tableBody.append(newRow);
+                updateNumberOfRow();
                 mask();
             });
 
@@ -296,6 +312,7 @@
                 let currentRow = $(this).parents('tr');
                 currentRow.remove();
                 updateNumberOfRow();
+                calculate();
             });
         })
     </script>

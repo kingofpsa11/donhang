@@ -53,8 +53,7 @@ class ContractController extends Controller
     {
         $value = $request->all();
         $value['user_id'] = auth()->user()->id;
-        $this->contract->fill($value);
-        $this->contract->save();
+        $this->contract->fill($value)->save();
 
         foreach ($request->details as $detail) {
             $this->contract->contractDetails()->create($detail);

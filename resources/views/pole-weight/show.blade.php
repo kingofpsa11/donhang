@@ -5,96 +5,109 @@
 @section('content')
 
     <!-- Main content -->
-    <section class="content container-fluid">
-        <div class="box">
-            <div class="box-header">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="" class="control-label">Tên sản phẩm</label>
-                            <input type="text" value="{{ $bom->product->name }}" class="form-control" readonly>
-                        </div>
+    <div class="box">
+        <div class="box-header">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="control-label">Tên sản phẩm</label>
+                        <input name="product_id" id="product_id" class="form-control" readonly value="{{ $poleWeight->product->name }}">
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="" class="control-label">Tên định mức</label>
-                            <input type="text" name="bom[name]" class="form-control" value="{{ $bom->name }}" readonly>
-                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="control-label">Nhóm sản phẩm</label>
+                        <input name="expense_of_pole_id" id="expense_of_pole_id" class="form-control" readonly value="{{ $poleWeight->expenseOfPole->name }}">
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="" class="control-label">Công đoạn</label>
-                            <input type="text" name="bom[stage]" class="form-control" value="{{ $bom->stage }}" readonly>
-                        </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="" class="control-label">Tỷ lệ nhân công</label>
+                        <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal" readonly value="{{ $poleWeight->ty_le_nhan_cong }}">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="" class="control-label">Diện tích</label>
+                        <input type="text" name="area" id="area" class="form-control decimal" readonly value="{{ $poleWeight->area }}">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="" class="control-label">Khối lượng</label>
+                        <input type="text" name="weight" id="weight" class="form-control decimal" readonly value="{{ $poleWeight->weight }}">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="" class="control-label">Đơn giá</label>
+                        <input type="text" name="unit_price" id="unit_price" class="form-control number" readonly value="{{ $poleWeight->unit_price }}">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="" class="control-label">Thành tiền</label>
+                        <input type="text" name="price" id="price" class="form-control number" readonly value="{{ $poleWeight->price }}">
                     </div>
                 </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-bordered table-striped hover" id="contract-show">
-                    <thead>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <table id="table" class="table table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên chi tiết</th>
+                    <th>Chủng loại</th>
+                    <th>Số lượng</th>
+                    <th>D ngọn/D ngoài</th>
+                    <th>D gốc/D trong</th>
+                    <th>Chiều dày</th>
+                    <th>Chiều cao</th>
+                    <th>Chiều dài</th>
+                    <th>Chiều rộng</th>
+                    <th>Diện tích</th>
+                    <th>Khối lượng</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($poleWeight->poleWeightDetails as $detail)
                         <tr>
-                            <th>STT</th>
-                            <th>Mã vật tư</th>
-                            <th>Tên vật tư</th>
-                            <th>Đvt</th>
-                            <th>Số lượng</th>
-                            <th>Ghi chú</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $detail->name }}</td>
+                            <td>{{ $detail->shape }}</td>
+                            <td>{{ $detail->quantity }}</td>
+                            <td>{{ $detail->d_ngon }}</td>
+                            <td>{{ $detail->d_goc }}</td>
+                            <td>{{ $detail->day }}</td>
+                            <td>{{ $detail->chieu_cao }}</td>
+                            <td>{{ $detail->chieu_dai }}</td>
+                            <td>{{ $detail->chieu_rong }}</td>
+                            <td>{{ $detail->dien_tich }}</td>
+                            <td>{{ $detail->khoi_luong }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @php($i=1)
-                        @foreach ($bom->bomDetails as $bomDetail)
-                            <tr>
-                                <td>{{ $i }}</td>
-                                <td>{{ $bomDetail->product->code }}</td>
-                                <td>{{ $bomDetail->product->name }}</td>
-                                <td></td>
-                                <td>{{ $bomDetail->quantity }}</td>
-                                <td></td>
-                            </tr>
-                            @php($i++)
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <div class="row text-right">
-                    <div class="col-md-3 pull-right">
-                        <button class="btn btn-primary" id="export">Xuất Excel</button>
-                        <a href="{{ route('boms.create') }}" class="btn btn-success">Tạo mới</a>
-                        <a href="{{ route('boms.edit', [$bom])}}" class="btn btn-info">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
-                        </a>
-                        <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
-                    </div>
-                </div>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer text-right">
+            <div>
+                <a href="{{ route('pole-weight.create') }}" class="btn btn-success">Tạo mới</a>
+                <a href="{{ route('pole-weight.edit', $poleWeight) }}" class="btn btn-primary">Sửa</a>
+                <button class="btn btn-danger" id="delete" data-toggle="modal" data-target="#modal">Xóa</button>
             </div>
         </div>
-        <!-- /.box -->
-    </section>
-    <form action="{{ route('boms.destroy', [$bom]) }}" method="POST">
-        @csrf()
-        @method('DELETE')
-        <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="custom-width-modalLabel">Xóa định mức</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h5>Chắc chắn xóa định mức của {{ $bom->product->name }}?</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Hủy</button>
-                        <input type="submit" class="btn btn-danger waves-effect waves-light" value="Xóa">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    </div>
+    <!-- /.box -->
+
+    @include('shared._modal', [
+       'model' => $poleWeight,
+       'modelName' => 'Bảng khối lượng',
+       'modelInformation' => $poleWeight->product->name,
+       'routeName' => 'pole-weight'
+   ])
 @endsection
 
 @section('javascript')
