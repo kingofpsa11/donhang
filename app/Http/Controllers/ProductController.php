@@ -116,7 +116,7 @@ class ProductController extends Controller
 
         $products = Product::where('name', 'LIKE', '%' . $term . '%')
             ->select('id', 'name', 'code')
-            ->orderBy('id')
+            ->orderBy('id', 'desc')
             ->get();
 
         return response()->json($products);

@@ -14,7 +14,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Tên sản phẩm</label>
-                                <select name="product_id" class="form-control"></select>
+                                <select name="product_id" id="product_id" class="form-control"></select>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -31,7 +31,7 @@
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Tỷ lệ nhân công</label>
-                                <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal" readonly>
+                                <input type="text" name="ty_le_nhan_cong" id="ty_le_nhan_cong" class="form-control decimal" disabled>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -69,8 +69,8 @@
                             <th>Tên chi tiết</th>
                             <th>Chủng loại</th>
                             <th>Số lượng</th>
-                            <th>D ngọn</th>
-                            <th>D gốc</th>
+                            <th>D ngọn/D trong</th>
+                            <th>D gốc/D ngoai</th>
                             <th>Chiều dày</th>
                             <th>Chiều cao</th>
                             <th>Chiều dài</th>
@@ -102,6 +102,30 @@
     <script>
         $(document).ready(function () {
             const khoi_luong_rieng = 7850/1e9;
+            let categoryObj = $('#category');
+            let ty_le_nhan_cong_Obj = $('#ty_le_nhan_cong');
+
+            $('#product_id').select2({
+                placeholder: 'Nhập sản phẩm',
+                minimumInputLength: 2,
+                ajax: {
+                    url         : '{{ route('products.get_product') }}',
+                    delay       : 200,
+                    dataType    : 'json',
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text    : item.name,
+                                    id      : item.id,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             function mask() {
                 $('.number').inputmask('integer', {
                     groupSeparator: ".",
@@ -119,11 +143,32 @@
                     unmaskAsNumber: true,
                 });
             }
+
             mask();
-            
-            $('#category').on('change', function () {
-                $('#ty_le_nhan_cong').prop('readonly', false);
+
+            categoryObj.on('change', function () {
+                if (ty_le_nhan_cong_Obj.val() === '') {
+                    ty_le_nhan_cong_Obj.prop('disabled', false);
+                    ty_le_nhan_cong_Obj.val(1);
+                } else {
+                    getUnitPrice();
+                }
             });
+
+            function getUnitPrice() {
+                let category = categoryObj.val();
+                let ty_le_nhan_cong = ty_le_nhan_cong_Obj.inputmask('unmaskedvalue');
+                $.get(
+                    '{{ route('expense-of-pole.getUnitPrice') }}',
+                    {category: category, ty_le_nhan_cong: ty_le_nhan_cong},
+                    function (result) {
+                        $('#unit_price').val(result);
+                    },
+                    'text'
+                );
+            }
+
+            ty_le_nhan_cong_Obj.on('focusout', getUnitPrice);
 
             $('tbody').on('change', 'select', function () {
                 let row = $(this).parents('tr');
@@ -192,6 +237,8 @@
                 let rows = $('tr[data-key]');
                 let weight = 0;
                 let area = 0;
+                let price = 0;
+
                 rows.each(function (i, el) {
                     let dien_tich = $(el).find('[name*="dien_tich"]').inputmask('unmaskedvalue');
                     let khoi_luong = $(el).find('[name*="khoi_luong"]').inputmask('unmaskedvalue');
@@ -199,8 +246,12 @@
                     area += dien_tich * quantity;
                     weight += khoi_luong * quantity;
                 });
+
+                price = Math.round(weight * $('#unit_price').inputmask('unmaskedvalue') / 100) * 100;
+
                 $('#area').val(area);
                 $('#weight').val(weight);
+                $('#price').val(price);
             }
 
             function updateNumberOfRow() {

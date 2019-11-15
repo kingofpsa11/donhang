@@ -86,4 +86,22 @@ class ExpenseOfPoleController extends Controller
     {
         //
     }
+
+    public function getUnitPrice(Request $request)
+    {
+        $id = $request->category;
+        $category = ExpenseOfPole::find($id);
+        $gia_thep = $category->gia_thep;
+        $du_phong_vat_tu = $category->du_phong_vat_tu;
+        $vat_tu_phu = $category->vat_tu_phu;
+        $hao_phi = $category->hao_phi;
+        $nhan_cong_truc_tiep = $category->nhan_cong_truc_tiep * $request->ty_le_nhan_cong;
+        $chi_phi_chung = $category->chi_phi_chung;
+        $chi_phi_ma_kem = $category->chi_phi_ma_kem;
+        $chi_phi_van_chuyen = $category->chi_phi_van_chuyen;
+        $lai = $category->lai;
+
+        $unit_price = round((($gia_thep * (1 + ($du_phong_vat_tu + $vat_tu_phu + $hao_phi)/100) + $nhan_cong_truc_tiep * 1.3) * (1 + $chi_phi_chung/100) + $chi_phi_ma_kem + $chi_phi_van_chuyen) * (1 + $lai/100), -2);
+        return $unit_price;
+    }
 }

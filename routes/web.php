@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('price-quotation', 'PriceQuotationController');
 
     //Expense Of Pole
+    Route::get('expense-of-pole/getUnitPrice', 'ExpenseOfPoleController@getUnitPrice')->name('expense-of-pole.getUnitPrice');
     Route::resource('expense-of-pole', 'ExpenseOfPoleController');
 
     //Pole Weight
