@@ -267,6 +267,7 @@ desired effect
                 @endcan
                 <li><a href="{{ route('expense-of-pole.index') }}"><i class="fa fa-link"></i><span>Chi phí cột thép</span></a></li>
                 <li><a href="{{ route('pole-weight.create') }}"><i class="fa fa-link"></i><span>Tính khối lượng cột thép</span></a></li>
+                <li><a href="{{ route('price-quotation.create') }}"><i class="fa fa-link"></i><span>Báo giá</span></a></li>
                 @role(3)
                 <li><a href="{{ route('customers.index') }}"><i class="fa fa-user"></i> <span>Khách hàng</span></a></li>
                 <li class="treeview">
@@ -440,7 +441,9 @@ desired effect
     immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/vue.js') }}"></script>
     <!-- jQuery 3 -->
     {{--<script src="bower_components/jquery/dist/jquery.min.js"></script>--}}
     <!-- Bootstrap 3.3.7 -->

@@ -15,7 +15,8 @@ class PoleWeightController extends Controller
      */
     public function index()
     {
-        return view('pole-weight.index');
+        $poleWeights = PoleWeight::with('poleWeightDetails')->get();
+        return view('pole-weight.index', compact('poleWeights'));
     }
 
     /**
@@ -102,6 +103,8 @@ class PoleWeightController extends Controller
      */
     public function destroy(PoleWeight $poleWeight)
     {
-        //
+        $poleWeight->delete();
+        flash('Đã xóa bảng tính khối lượng của ' . $poleWeight->name)->success();
+        return redirect()->route('pole-weight.index');
     }
 }

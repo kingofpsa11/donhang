@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="obj">
+        <p v-once>{{ message }}</p>
+        <p v-html="html"></p>
+        <input type="text" @input="changeValue">
+        <a :href="link">Facebook</a>
+        <p @mousemove="calculate">{{ x }}/{{ y }}</p>
+        <button @click="counter += 1">An</button>
+        <p>tang {{ counter }}</p>
+    </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/vue.js"></script>
+</body>
+</html>

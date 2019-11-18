@@ -14,7 +14,8 @@ class PriceQuotationController extends Controller
      */
     public function index()
     {
-        return view('price-quotation.index');
+//        return view('price-quotation.index');
+        return view('price-quotation.vue');
     }
 
     /**
@@ -24,7 +25,8 @@ class PriceQuotationController extends Controller
      */
     public function create()
     {
-        return view('price-quotation.create');
+        $newNumber = PriceQuotation::whereYear('date', date('Y'))->max('number') + 1 ?? 1;
+        return view('price-quotation.create', compact('newNumber'));
     }
 
     /**
