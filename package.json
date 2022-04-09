@@ -28,7 +28,7 @@
         "font-awesome": "^4.7.0",
         "jquery-validation": "^1.19.1",
         "laravel-echo": "^1.5.4",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "pusher-js": "^4.4.0"
     }
 }
